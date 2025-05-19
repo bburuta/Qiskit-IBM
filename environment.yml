@@ -1,0 +1,14 @@
+name: qiskit-ibm
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - qiskit=1.4.2
+  - matplotlib
+  - pylatexenc
+  - jupyter
+  - pip
+  - pip:
+      - qiskit-ibm-runtime
+
