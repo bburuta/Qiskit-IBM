@@ -50,7 +50,7 @@ if __name__ == "__main__":
 
     N_QUBITS = args.n_qubits
 
-    random_seed = args.seed
+    SEED = args.seed
     print_progress = args.print_progress
 
     max_epoch = args.n_epoch
@@ -59,7 +59,7 @@ if __name__ == "__main__":
 
 # Create real data sample circuit
 def generate_real_circuit():
-    # sv = random_statevector(2**N_QUBITS, seed=random_seed)
+    # sv = random_statevector(2**N_QUBITS, seed=SEED)
     # qc = QuantumCircuit(N_QUBITS)
     # qc.prepare_state(sv, qc.qubits, normalize=True)
 
@@ -190,7 +190,7 @@ def calculate_kl_div(model_distribution: dict, target_distribution: dict):
 
 
 def manage_files(data_folder_name="data", implementation_name="fullyq", training_data_file_name='training_data', parameter_data_file_name='parameters', optimizers_data_folder_name='optimizer'):
-    data_folder = data_folder_name + '/' + implementation_name + '/' + "sim" + '/' + 'q' + str(N_QUBITS) + '/' + 'seed' + str(random_seed) + '/' 
+    data_folder = data_folder_name + '/' + implementation_name + '/' + "sim" + '/' + 'q' + str(N_QUBITS) + '/' + 'seed' + str(SEED) + '/' 
     training_data_file = data_folder + training_data_file_name + '.txt'
     parameter_data_file = data_folder + parameter_data_file_name + '.txt'
     optimizers_data_folder = data_folder + optimizers_data_folder_name + '/'
@@ -207,14 +207,9 @@ def initialize_parameters(reset, training_data_file, parameter_data_file):
         current_epoch = 0
         gloss, dloss, kl_div = [], [], []
 
-        np.random.seed(random_seed)
-        init_gen_params = np.random.uniform(low=-np.pi,
-                                    high=np.pi,
-                                    size=(N_GPARAMS,))
-        np.random.seed(random_seed+1)
-        init_disc_params = np.random.uniform(low=-np.pi,
-                                    high=np.pi,
-                                    size=(N_DPARAMS,))
+        np.random.seed(SEED)
+        init_gen_params = np.random.uniform(low=-np.pi, high=np.pi, size=(N_GPARAMS,))
+        init_disc_params = np.random.uniform(low=-np.pi, high=np.pi, size=(N_DPARAMS,))
         gen_params = tf.Variable(init_gen_params)
         disc_params = tf.Variable(init_disc_params)
         best_gen_params = tf.Variable(init_gen_params)
@@ -280,6 +275,10 @@ gen_qnn, disc_fake_qnn, disc_real_qnn = generate_training_circuits(real_circuit,
 #--- Create and load optimizer states ---#
 generator_optimizer, discriminator_optimizer, optimizers_ckpt_manager = generate_optimizers(reset, optimizers_data_folder, gen_params, disc_params)
 
+
+D_STEPS = 1
+G_STEPS = 1
+C_STEPS = 1
 if print_progress: 
     TABLE_HEADERS = "Epoch | Generator cost | Discriminator cost | KL Div. | Best KL Div. | Time |"
     print(TABLE_HEADERS)
@@ -288,13 +287,12 @@ start_time = time.time()
 
 #--- Training loop ---#
 try: # In case of interruption
-    for epoch in range(current_epoch, max_epoch):
+    for epoch in range(current_epoch, max_epoch+1):
 
         #--- Quantum discriminator parameter updates ---#
-        D_STEPS = 1
         for disc_train_step in range(D_STEPS):
             # Calculate discriminator cost
-            if (disc_train_step+1) % D_STEPS == 0:
+            if (disc_train_step % D_STEPS == 0) and (epoch % C_STEPS == 0):
                 value_dcost_fake = disc_fake_qnn.forward(gen_params, disc_params)[0,0]
                 value_dcost_real = disc_real_qnn.forward([], disc_params)[0,0]
                 disc_loss = ((value_dcost_real - value_dcost_fake)-2)/4
@@ -310,10 +308,9 @@ try: # In case of interruption
             discriminator_optimizer.apply_gradients(zip([grad_dcost], [disc_params]))
 
         #--- Quantum generator parameter updates ---#
-        G_STEPS = 1
         for gen_train_step in range(G_STEPS):
             # Calculate generator cost
-            if (gen_train_step+1) % G_STEPS == 0:
+            if (gen_train_step % G_STEPS == 0) and (epoch % C_STEPS == 0):
                 value_gcost = gen_qnn.forward(disc_params, gen_params)[0,0]
                 gen_loss = (value_gcost-1)/2
                 gloss.append(gen_loss)
@@ -356,4 +353,4 @@ finally:
 
     optimizers_ckpt_manager.save()
     
-print("Training complete: ", training_data_file)
+print("Training complete:", training_data_file, "Results:", np.min(kl_div), "Improvement:", kl_div[0]-np.min(kl_div))
