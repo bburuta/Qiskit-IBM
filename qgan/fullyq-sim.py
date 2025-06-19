@@ -1,7 +1,7 @@
 #- Fully Quantum GAN for simulation -#
 
 # Execution example
-#python3 fullyq-sim.py --n_qubits 16 --seed 100 --print_progress 1
+#python3 fullyq-sim.py --n_qubits 16 --seed 100 --n_epoch 700 --print_progress 1
 
 # INSTALATION INSTRUCTIONS:
 # For linux 64-bit systems,
@@ -12,11 +12,14 @@
 #wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
 #bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
 #rm ~/miniconda3/miniconda.sh
+#~/miniconda3/bin/conda init
+#source ~/.bashrc
+
 
 # Create enviroment with conda
 #conda create -n myenv python=3.10
 #conda activate myenv
-#pip install qiskit==1.4.3 qiskit-machine-learning==0.8.2 'qiskit-machine-learning[sparse]' tensorflow
+#pip install qiskit==1.4.3 qiskit-machine-learning==0.8.2 'qiskit-machine-learning[sparse]' tensorflow[and-cuda]
 # IMPORTANT: Make sure you are on 3.10
 # May need to restart the kernel after instalation
 

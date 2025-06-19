@@ -16,7 +16,7 @@
 # Create enviroment with conda
 #conda create -n myenv python=3.10
 #conda activate myenv
-#pip install qiskit==1.4.3 qiskit-machine-learning==0.8.2 'qiskit-machine-learning[sparse]' qiskit-ibm-runtime==0.40.1 qiskit-aer==0.17.0 tensorflow
+#pip install qiskit==1.4.3 qiskit-machine-learning==0.8.2 'qiskit-machine-learning[sparse]' qiskit-ibm-runtime==0.40.1 qiskit-aer==0.17.0 tensorflow[and-cuda]
 # IMPORTANT: Make sure you are on 3.10
 # May need to restart the kernel after instalation
 
