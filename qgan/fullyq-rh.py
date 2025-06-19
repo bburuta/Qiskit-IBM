@@ -32,11 +32,12 @@ from qiskit_ibm_runtime.fake_provider import FakeSherbrooke
 from qiskit_machine_learning.neural_networks import EstimatorQNN # Downgrade to qiskit 1.x so is compatible with qiskit-machine-learning 0.8.2
 from qiskit_machine_learning.gradients import ParamShiftEstimatorGradient
 
-import numpy as np
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # 0 = all logs, 1 = filter INFO, 2 = filter WARNING, 3 = only ERROR
 import tensorflow as tf
+import numpy as np
 import copy
 import time
-import os
 import argparse
 
 # Parameter management for python scripts
@@ -90,7 +91,8 @@ else:
     if (gpu_index != -1):
         gpus = tf.config.list_physical_devices('GPU')
         tf.config.set_visible_devices(gpus[gpu_index], 'GPU') # Set only one GPU as visible
-        print("Device that is going to be used:", tf.config.list_logical_devices('GPU'))
+        print("Device that is going to be used:", gpus[gpu_index])
+        print("Virtual device list:", tf.config.list_logical_devices('GPU'))
 
 pm = generate_preset_pass_manager(optimization_level=3, backend=backend)
 

@@ -32,11 +32,12 @@ from qiskit.primitives import StatevectorEstimator
 from qiskit_machine_learning.neural_networks import EstimatorQNN # Downgrade to qiskit 1.x so is compatible with qiskit-machine-learning 0.8.2
 from qiskit_machine_learning.gradients import ParamShiftEstimatorGradient
 
-import numpy as np
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # 0 = all logs, 1 = filter INFO, 2 = filter WARNING, 3 = only ERROR
 import tensorflow as tf
+import numpy as np
 import copy
 import time
-import os
 import argparse
 
 # Parameter management for python scripts
