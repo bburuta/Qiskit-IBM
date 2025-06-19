@@ -50,6 +50,7 @@ if __name__ == "__main__":
     parser.add_argument("--print_progress", required=False, type=int, default=0)
     parser.add_argument("--n_epoch", required=False, type=int, default=300)
     parser.add_argument("--reset_data", required=False, type=int, default=0)
+    parser.add_argument("--gpu_index", required=False, type=int, default="-1")
     args = parser.parse_args()
 
     N_QUBITS = args.n_qubits
@@ -60,6 +61,8 @@ if __name__ == "__main__":
 
     max_epoch = args.n_epoch
     reset = args.reset_data
+
+    gpu_index = args.gpu_index
 
 
 # # Configure service
@@ -82,6 +85,12 @@ else:
     backend = FakeSherbrooke() # Execution in simulator with noise
     #backend.refresh(service)
     backend.set_options(seed_simulator=SEED)
+
+    # Select GPU for tensorflow
+    if (gpu_index != -1):
+        gpus = tf.config.list_physical_devices('GPU')
+        tf.config.set_visible_devices(gpus[gpu_index], 'GPU') # Set only one GPU as visible
+        print("Device that is going to be used:", tf.config.list_logical_devices('GPU'))
 
 pm = generate_preset_pass_manager(optimization_level=3, backend=backend)
 

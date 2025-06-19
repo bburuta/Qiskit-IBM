@@ -1,7 +1,7 @@
-#- Fully Quantum GAN for simulation -#
+#- Fully Quantum GAN for simulation for angle encoding -#
 
 # Execution example
-#python3 fullyq-sim.py --n_qubits 16 --seed 100 --n_epoch 700 --print_progress 1
+#python3 fullyq-sim-ang.py --n_qubits 4 --seed 5 --n_epoch 300 --print_progress 1
 
 # INSTALATION INSTRUCTIONS:
 # For linux 64-bit systems,
@@ -25,7 +25,7 @@
 
 from qiskit import QuantumCircuit
 from qiskit.circuit import ParameterVector
-from qiskit.quantum_info import random_statevector, Statevector, SparsePauliOp
+from qiskit.quantum_info import SparsePauliOp
 from qiskit.circuit.library import RealAmplitudes
 from qiskit.primitives import StatevectorEstimator
 
@@ -49,6 +49,7 @@ if __name__ == "__main__":
     parser.add_argument("--print_progress", required=False, type=int, default=0)
     parser.add_argument("--n_epoch", required=False, type=int, default=300)
     parser.add_argument("--reset_data", required=False, type=int, default=0)
+    parser.add_argument("--batch_size", required=False, type=int, default=1)
     parser.add_argument("--gpu_index", required=False, type=int, default="-1")
     args = parser.parse_args()
 
@@ -59,6 +60,7 @@ if __name__ == "__main__":
 
     max_epoch = args.n_epoch
     reset = args.reset_data
+    batch_size = args.batch_size
 
     gpu_index = args.gpu_index
 
@@ -70,15 +72,96 @@ if (gpu_index != -1):
     print("Device that is going to be used:", tf.config.list_logical_devices('GPU'))
 
 
+# Build my own dataset of images: gradient images
+def apply_curve(x, curve):
+    if curve == 'linear':
+        return x
+    elif curve == 'quadratic':
+        return x ** 2
+    elif curve == 'sqrt':
+        return np.sqrt(x)
+    elif curve == 'log':
+        return np.log1p(x * 9) / np.log(10)  # scale [0,1] into [0,1] log space
+    elif curve == 'exp':
+        return (np.exp(x * 3) - 1) / (np.exp(3) - 1)  # normalized exponential
+    elif curve == 'sigmoid':
+        return 1 / (1 + np.exp(-10 * (x - 0.5)))  # smooth S-curve
+    elif curve == 'sin':
+        return 0.5 * (1 - np.cos(np.pi * x))  # smooth start and end
+    else:
+        raise ValueError(f"Unknown curve type: {curve}")
+
+def create_gradients(total_pixels, directions=None, curves=None, width=None, height=None):
+    if directions is None:
+        directions = [
+            'top_left_to_bottom_right'
+        ]
+    if curves is None:
+        curves = ['linear', 'quadratic', 'sqrt', 'log', 'exp', 'sigmoid', 'sin']
+
+    if width is None or height is None:
+        for h in range(int(np.sqrt(total_pixels)), 0, -1):
+            if total_pixels % h == 0:
+                width, height = total_pixels // h, h
+                break
+    elif width * height != total_pixels:
+        raise ValueError("Provided width and height do not match total number of pixels.")
+
+    max_val = 255
+    gradients = []
+
+    i, j = np.meshgrid(np.arange(height), np.arange(width), indexing='ij')
+
+    # Precompute normalized coordinate matrices for all directions
+    norm_maps = {
+        'left_to_right': np.tile(np.linspace(0, 1, width), (height, 1)),
+        'right_to_left': np.tile(np.linspace(1, 0, width), (height, 1)),
+        'top_to_bottom': np.tile(np.linspace(0, 1, height)[:, np.newaxis], (1, width)),
+        'bottom_to_top': np.tile(np.linspace(1, 0, height)[:, np.newaxis], (1, width)),
+        'top_left_to_bottom_right': (i + j) / (width + height - 2),
+        'bottom_right_to_top_left': ((height - 1 - i) + (width - 1 - j)) / (width + height - 2),
+        'top_right_to_bottom_left': (i + (width - 1 - j)) / (width + height - 2),
+        'bottom_left_to_top_right': ((height - 1 - i) + j) / (width + height - 2)
+    }
+
+    for direction in directions:
+        if direction not in norm_maps:
+            raise ValueError(f"Unknown direction: {direction}")
+        base_map = norm_maps[direction]
+
+        for curve in curves:
+            # Apply curve to normalized map
+            curved_map = apply_curve(base_map, curve)
+            gradients.append(curved_map)
+
+    return gradients, (height, width)
+
+
+# Function to decode quantum data back to classical data
+def generate_sample(estimator, circuit):
+    estimator = StatevectorEstimator()
+
+    observables = []
+    for i in range(N_QUBITS):
+        text = "I" * i + "Z" + "I" * (N_QUBITS-i-1)
+        observables.append(SparsePauliOp.from_list([(text, 1.0)]))
+
+    pub = (circuit, observables)
+    job = estimator.run([pub])
+    result = job.result()[0]
+
+    return result.data.evs
+
+
 # Create real data sample circuit
 def generate_real_circuit():
-    # sv = random_statevector(2**N_QUBITS, seed=SEED)
-    # qc = QuantumCircuit(N_QUBITS)
-    # qc.prepare_state(sv, qc.qubits, normalize=True)
+    disc_weights = ParameterVector('θ_r', N_QUBITS)
+    qc = QuantumCircuit(N_QUBITS, name="Real data circuit")
+    param_index = 0
 
-    qc = QuantumCircuit(N_QUBITS)
-    qc.h(range(N_QUBITS-1))
-    qc.cx(N_QUBITS-2, N_QUBITS-1)
+    for q in range(N_QUBITS):
+        qc.ry(disc_weights[param_index], q); param_index += 1
+    
     return qc
 
 
@@ -156,15 +239,15 @@ def generate_training_circuits(real_circuit, generator, discriminator):
 
     # specify QNN to update discriminator parameters regarding to real data
     disc_real_qnn = EstimatorQNN(circuit=real_disc_circuit,
-                            input_params=[], # no input parameters
-                            weight_params=gen_disc_circuit.parameters[:N_DPARAMS], # parameters to update (discriminator parameters)
+                            input_params=real_disc_circuit.parameters[N_DPARAMS:], # fixed parameters (real data parameters)
+                            weight_params=real_disc_circuit.parameters[:N_DPARAMS], # parameters to update (discriminator parameters)
                             estimator=estimator,
                             observables=[H1],
                             gradient=gradient,
                             default_precision=0.0
                             )
     
-    return gen_qnn, disc_fake_qnn, disc_real_qnn
+    return estimator, gen_qnn, disc_fake_qnn, disc_real_qnn
 
 
 # Initialize Adam optimizer from Keras (TensorFlow)
@@ -188,22 +271,45 @@ def generate_optimizers(reset, optimizers_data_folder, gen_params, disc_params):
     return generator_optimizer, discriminator_optimizer, ckpt_manager
 
 
-# Performance measurement function: uses Kullback Leibler Divergence to measures the distance between two distributions
-def calculate_kl_div(model_distribution: dict, target_distribution: dict):
-    kl_div = 0
-    for bitstring, p_data in target_distribution.items():
-        if np.isclose(p_data, 0, atol=1e-8):
-            continue
-        if bitstring in model_distribution.keys():
-            kl_div += (p_data * np.log(p_data)
-                 - p_data * np.log(model_distribution[bitstring]))
-        else:
-            kl_div += p_data * np.log(p_data) - p_data * np.log(1e-6)
-    return kl_div
+# Performance measurement function:
+def calculate_performance(gen, real, shape, C1=0.05**2, C2=0.1**2):
+    """
+    Simplified SSIM using global mean and variance (no sliding window).
+    
+    Parameters:
+    - img1_list, img2_list: Flattened images as lists or 1D arrays
+    - shape: (height, width)
+    - C1, C2: stability constants
+    
+    Returns:
+    - scalar SSIM score
+    """
+
+    img1_list = (gen+1)/2
+    img2_list = real/np.pi
+
+    img1 = np.array(img1_list, dtype=np.float64).reshape(shape)
+    img2 = np.array(img2_list, dtype=np.float64).reshape(shape)
+
+    mu1 = img1.mean()
+    mu2 = img2.mean()
+
+    sigma1_sq = img1.var()
+    sigma2_sq = img2.var()
+    sigma12 = ((img1 - mu1) * (img2 - mu2)).mean()
+
+    numerator = (2 * mu1 * mu2 + C1) * (2 * sigma12 + C2)
+    denominator = (mu1**2 + mu2**2 + C1) * (sigma1_sq + sigma2_sq + C2)
+
+    ssim = numerator / denominator
+
+    distance = 1 - ssim # Convert similarity to distance (0 best)
+    
+    return distance
 
 
 def manage_files(data_folder_name="data", implementation_name="fullyq", training_data_file_name='training_data', parameter_data_file_name='parameters', optimizers_data_folder_name='optimizer'):
-    data_folder = data_folder_name + '/' + implementation_name + '/' + "sim" + '/' + 'q' + str(N_QUBITS) + '/' + 'seed' + str(SEED) + '/' 
+    data_folder = data_folder_name + '/' + implementation_name + '/' + "sim-ang" + '/' + 'q' + str(N_QUBITS) + '/' + 'seed' + str(SEED) + '/' 
     training_data_file = data_folder + training_data_file_name + '.txt'
     parameter_data_file = data_folder + parameter_data_file_name + '.txt'
     optimizers_data_folder = data_folder + optimizers_data_folder_name + '/'
@@ -218,7 +324,7 @@ def manage_files(data_folder_name="data", implementation_name="fullyq", training
 def initialize_parameters(reset, training_data_file, parameter_data_file):
     if reset == 1:
         current_epoch = 0
-        gloss, dloss, kl_div = [], [], []
+        gloss, dloss, perf = [], [], []
 
         np.random.seed(SEED)
         init_gen_params = np.random.uniform(low=-np.pi, high=np.pi, size=(N_GPARAMS,))
@@ -242,14 +348,14 @@ def initialize_parameters(reset, training_data_file, parameter_data_file):
             print("Training data file not found. Resetting parameters.")
             return initialize_parameters(1, training_data_file, parameter_data_file)
         current_epoch = len(lines)
-        gloss, dloss, kl_div = [], [], []
+        gloss, dloss, perf = [], [], []
         for line in lines:
             line_data = line.split(";")
             if len(line_data) != 4:
                 raise Exception("ERROR: Wrong data length in training_data.txt file in line:", line, ". Please, reset data.")
             gloss.append(np.float64(line_data[1]))
             dloss.append(np.float64(line_data[2]))
-            kl_div.append(np.float64(line_data[3]))
+            perf.append(np.float64(line_data[3]))
 
         # Load parameters
         with open(parameter_data_file) as f: # Load parameters
@@ -263,7 +369,7 @@ def initialize_parameters(reset, training_data_file, parameter_data_file):
         disc_params = tf.Variable(np.array(eval(line_data[3])).astype(float))
         best_gen_params = tf.Variable(np.array(eval(line_data[4])).astype(float))
 
-    return current_epoch, gloss, dloss, kl_div, init_gen_params, init_disc_params, gen_params, disc_params, best_gen_params
+    return current_epoch, gloss, dloss, perf, init_gen_params, init_disc_params, gen_params, disc_params, best_gen_params
 
 
 # Training
@@ -280,24 +386,27 @@ N_DPARAMS = discriminator.num_parameters
 N_GPARAMS = generator.num_parameters
 
 #--- Initialize parameters ---#
-current_epoch, gloss, dloss, kl_div, init_gen_params, init_disc_params, gen_params, disc_params, best_gen_params = initialize_parameters(reset, training_data_file, parameter_data_file)
+current_epoch, gloss, dloss, perf, init_gen_params, init_disc_params, gen_params, disc_params, best_gen_params = initialize_parameters(reset, training_data_file, parameter_data_file)
 
 #--- Create QNNs ---#
-gen_qnn, disc_fake_qnn, disc_real_qnn = generate_training_circuits(real_circuit, generator, discriminator)
+estimator, gen_qnn, disc_fake_qnn, disc_real_qnn = generate_training_circuits(real_circuit, generator, discriminator)
 
 #--- Create and load optimizer states ---#
 generator_optimizer, discriminator_optimizer, optimizers_ckpt_manager = generate_optimizers(reset, optimizers_data_folder, gen_params, disc_params)
+
+#--- Load dataset ---#
+X, dims = create_gradients(N_QUBITS)
+X = [np.pi * real_sample / np.max(real_sample) for real_sample in X] # Rescale to [0, pi]
 
 
 D_STEPS = 1
 G_STEPS = 1
 C_STEPS = 1
-if print_progress: 
-    TABLE_HEADERS = "Epoch | Generator cost | Discriminator cost | KL Div. | Best KL Div. | Time |"
+if print_progress:
+    TABLE_HEADERS = "Epoch | Generator cost | Discriminator cost | Perf. | Best Perf. | Time |"
     print(TABLE_HEADERS)
 file = open(training_data_file,'a')
 start_time = time.time()
-
 
 #--- Training loop ---#
 try: # In case of interruption
@@ -306,15 +415,23 @@ try: # In case of interruption
         #--- Quantum discriminator parameter updates ---#
         for disc_train_step in range(D_STEPS):
             # Calculate discriminator cost
+            real_params = [X[np.random.randint(0, len(X))].flatten() for i in range(batch_size)][0]
+
             if (disc_train_step % D_STEPS == 0) and (epoch % C_STEPS == 0):
                 value_dcost_fake = disc_fake_qnn.forward(gen_params, disc_params)[0,0]
-                value_dcost_real = disc_real_qnn.forward([], disc_params)[0,0]
+                values_dcost_real = disc_real_qnn.forward(real_params, disc_params)
+                value_dcost_real = values_dcost_real[0,0]
+                # for i in range(1,batch_size):
+                #     value_dcost_real += values_dcost_real[i,0]
                 disc_loss = ((value_dcost_real - value_dcost_fake)-2)/4
                 dloss.append(disc_loss)
 
             # Caltulate discriminator gradient
             grad_dcost_fake = disc_fake_qnn.backward(gen_params, disc_params)[1][0,0]
-            grad_dcost_real = disc_real_qnn.backward([], disc_params)[1][0,0]
+            grads_dcost_real = disc_real_qnn.backward(real_params, disc_params)[1]
+            grad_dcost_real = grads_dcost_real[0,0]
+            # for i in range(1,batch_size):
+            #     grad_dcost_real += grads_dcost_real[i,0]
             grad_dcost = grad_dcost_real - grad_dcost_fake
             grad_dcost = tf.convert_to_tensor(grad_dcost)
             
@@ -336,24 +453,23 @@ try: # In case of interruption
             # Update generator parameters
             generator_optimizer.apply_gradients(zip([grad_gcost], [gen_params]))
 
-        #--- Track KL and save best performing generator weights ---#
-        gen_checkpoint_circuit = generator.assign_parameters(gen_params.numpy())
-        gen_prob_dict = Statevector(gen_checkpoint_circuit).probabilities_dict() # Retrieve probability distribution of generator with current parameters
+        #--- Track performance and save best performing generator weights ---#
+        gen_sample = generate_sample(estimator, generator.assign_parameters(gen_params.numpy()))
         
-        real_prob_dict = Statevector(real_circuit).probabilities_dict() # Retrieve real data probability distribution
+        real_sample = real_params
         
-        current_kl = calculate_kl_div(gen_prob_dict, real_prob_dict)
-        kl_div.append(current_kl)
-        if np.min(kl_div) == current_kl:
+        current_perf = calculate_performance(gen_sample, real_sample, dims)
+        perf.append(current_perf)
+        if np.min(perf) == current_perf:
             best_gen_params = copy.deepcopy(gen_params) # New best
 
         #--- Save progress in file ---#
-        file.write(str(epoch) + ";" + str(gloss[-1]) + ";" + str(dloss[-1]) + ";" + str(kl_div[-1]) + "\n")
+        file.write(str(epoch) + ";" + str(gloss[-1]) + ";" + str(dloss[-1]) + ";" + str(perf[-1]) + "\n")
 
         #--- Print progress ---#
-        if print_progress and (epoch % 1 == 0):
+        if print_progress and (epoch % 10 == 0):
             for header, val in zip(TABLE_HEADERS.split('|'),
-                                (epoch, gloss[-1], dloss[-1], kl_div[-1], np.min(kl_div), (time.time() - start_time))):
+                                (epoch, gloss[-1], dloss[-1], perf[-1], np.min(perf), (time.time() - start_time))):
                 print(f"{val:.3g} ".rjust(len(header)), end="|")
             start_time = time.time()
             print()
@@ -367,4 +483,4 @@ finally:
 
     optimizers_ckpt_manager.save()
     
-print("Training complete:", training_data_file, "Results:", np.min(kl_div), "Improvement:", kl_div[0]-np.min(kl_div))
+print("Training complete:", training_data_file, "Results:", np.min(perf), "Improvement:", perf[0]-np.min(perf))

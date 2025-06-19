@@ -1,7 +1,7 @@
-#- Fully Quantum GAN for simulation -#
+#- Fully Quantum GAN for simulation for amplitude encoding -#
 
 # Execution example
-#python3 fullyq-sim.py --n_qubits 16 --seed 100 --n_epoch 700 --print_progress 1
+#python3 fullyq-sim-ang.py --n_qubits 4 --seed 5 --n_epoch 300 --print_progress 1
 
 # INSTALATION INSTRUCTIONS:
 # For linux 64-bit systems,
@@ -25,7 +25,7 @@
 
 from qiskit import QuantumCircuit
 from qiskit.circuit import ParameterVector
-from qiskit.quantum_info import random_statevector, Statevector, SparsePauliOp
+from qiskit.quantum_info import Statevector, SparsePauliOp
 from qiskit.circuit.library import RealAmplitudes
 from qiskit.primitives import StatevectorEstimator
 
@@ -70,16 +70,78 @@ if (gpu_index != -1):
     print("Device that is going to be used:", tf.config.list_logical_devices('GPU'))
 
 
-# Create real data sample circuit
-def generate_real_circuit():
-    # sv = random_statevector(2**N_QUBITS, seed=SEED)
-    # qc = QuantumCircuit(N_QUBITS)
-    # qc.prepare_state(sv, qc.qubits, normalize=True)
+# Build my own dataset of images: gradient images
+def apply_curve(x, curve):
+    if curve == 'linear':
+        return x
+    elif curve == 'quadratic':
+        return x ** 2
+    elif curve == 'sqrt':
+        return np.sqrt(x)
+    elif curve == 'log':
+        return np.log1p(x * 9) / np.log(10)  # scale [0,1] into [0,1] log space
+    elif curve == 'exp':
+        return (np.exp(x * 3) - 1) / (np.exp(3) - 1)  # normalized exponential
+    elif curve == 'sigmoid':
+        return 1 / (1 + np.exp(-10 * (x - 0.5)))  # smooth S-curve
+    elif curve == 'sin':
+        return 0.5 * (1 - np.cos(np.pi * x))  # smooth start and end
+    else:
+        raise ValueError(f"Unknown curve type: {curve}")
 
-    qc = QuantumCircuit(N_QUBITS)
-    qc.h(range(N_QUBITS-1))
-    qc.cx(N_QUBITS-2, N_QUBITS-1)
-    return qc
+def create_gradients(total_pixels, directions=None, curves=None, width=None, height=None):
+    if directions is None:
+        directions = [
+            'top_left_to_bottom_right'
+        ]
+    if curves is None:
+        curves = ['linear', 'quadratic', 'sqrt', 'log', 'exp', 'sigmoid', 'sin']
+
+    if width is None or height is None:
+        for h in range(int(np.sqrt(total_pixels)), 0, -1):
+            if total_pixels % h == 0:
+                width, height = total_pixels // h, h
+                break
+    elif width * height != total_pixels:
+        raise ValueError("Provided width and height do not match total number of pixels.")
+
+    max_val = 255
+    gradients = []
+
+    i, j = np.meshgrid(np.arange(height), np.arange(width), indexing='ij')
+
+    # Precompute normalized coordinate matrices for all directions
+    norm_maps = {
+        'left_to_right': np.tile(np.linspace(0, 1, width), (height, 1)),
+        'right_to_left': np.tile(np.linspace(1, 0, width), (height, 1)),
+        'top_to_bottom': np.tile(np.linspace(0, 1, height)[:, np.newaxis], (1, width)),
+        'bottom_to_top': np.tile(np.linspace(1, 0, height)[:, np.newaxis], (1, width)),
+        'top_left_to_bottom_right': (i + j) / (width + height - 2),
+        'bottom_right_to_top_left': ((height - 1 - i) + (width - 1 - j)) / (width + height - 2),
+        'top_right_to_bottom_left': (i + (width - 1 - j)) / (width + height - 2),
+        'bottom_left_to_top_right': ((height - 1 - i) + j) / (width + height - 2)
+    }
+
+    for direction in directions:
+        if direction not in norm_maps:
+            raise ValueError(f"Unknown direction: {direction}")
+        base_map = norm_maps[direction]
+
+        for curve in curves:
+            # Apply curve to normalized map
+            curved_map = apply_curve(base_map, curve)
+            gradients.append(curved_map)
+
+    return gradients, (height, width)
+
+
+# Create real data sample circuit
+def generate_real_circuit(matrix):
+        qc = QuantumCircuit(N_QUBITS)
+        qc.prepare_state(state=matrix.flatten(),
+                         qubits=qc.qubits,
+                         normalize=True)
+        return qc
 
 
 # Create generator
@@ -203,7 +265,7 @@ def calculate_kl_div(model_distribution: dict, target_distribution: dict):
 
 
 def manage_files(data_folder_name="data", implementation_name="fullyq", training_data_file_name='training_data', parameter_data_file_name='parameters', optimizers_data_folder_name='optimizer'):
-    data_folder = data_folder_name + '/' + implementation_name + '/' + "sim" + '/' + 'q' + str(N_QUBITS) + '/' + 'seed' + str(SEED) + '/' 
+    data_folder = data_folder_name + '/' + implementation_name + '/' + "sim-amp" + '/' + 'q' + str(N_QUBITS) + '/' + 'seed' + str(SEED) + '/' 
     training_data_file = data_folder + training_data_file_name + '.txt'
     parameter_data_file = data_folder + parameter_data_file_name + '.txt'
     optimizers_data_folder = data_folder + optimizers_data_folder_name + '/'
@@ -271,8 +333,12 @@ def initialize_parameters(reset, training_data_file, parameter_data_file):
 #--- File management ---#
 training_data_file, parameter_data_file, optimizers_data_folder = manage_files()
 
+#--- Load dataset ---#
+X, dims = create_gradients(2**N_QUBITS)
+real_sample = X[0] # Example sample. Number of features must be a positive power of 2
+
 #--- Create quantum circuits ---#
-real_circuit = generate_real_circuit()
+real_circuit = generate_real_circuit(real_sample)
 generator = generate_generator()
 discriminator = generate_discriminator()
 
@@ -292,12 +358,11 @@ generator_optimizer, discriminator_optimizer, optimizers_ckpt_manager = generate
 D_STEPS = 1
 G_STEPS = 1
 C_STEPS = 1
-if print_progress: 
+if print_progress:
     TABLE_HEADERS = "Epoch | Generator cost | Discriminator cost | KL Div. | Best KL Div. | Time |"
     print(TABLE_HEADERS)
 file = open(training_data_file,'a')
 start_time = time.time()
-
 
 #--- Training loop ---#
 try: # In case of interruption
@@ -351,7 +416,7 @@ try: # In case of interruption
         file.write(str(epoch) + ";" + str(gloss[-1]) + ";" + str(dloss[-1]) + ";" + str(kl_div[-1]) + "\n")
 
         #--- Print progress ---#
-        if print_progress and (epoch % 1 == 0):
+        if print_progress and (epoch % 10 == 0):
             for header, val in zip(TABLE_HEADERS.split('|'),
                                 (epoch, gloss[-1], dloss[-1], kl_div[-1], np.min(kl_div), (time.time() - start_time))):
                 print(f"{val:.3g} ".rjust(len(header)), end="|")
