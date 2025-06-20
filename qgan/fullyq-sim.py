@@ -68,7 +68,10 @@ if __name__ == "__main__":
 if (gpu_index != -1):
     gpus = tf.config.list_physical_devices('GPU')
     tf.config.set_visible_devices(gpus[gpu_index], 'GPU') # Set only one GPU as visible
+    cpus = tf.config.list_physical_devices('CPU')
+    tf.config.set_visible_devices(cpus[gpu_index], 'CPU')
     print("Device that is going to be used:", tf.config.list_logical_devices('GPU'))
+    print("Device that is going to be used:", tf.config.list_logical_devices('CPU'))
 
 
 # Create real data sample circuit
@@ -296,7 +299,6 @@ C_STEPS = 1
 if print_progress: 
     TABLE_HEADERS = "Epoch | Generator cost | Discriminator cost | KL Div. | Best KL Div. | Time |"
     print(TABLE_HEADERS)
-file = open(training_data_file,'a')
 start_time = time.time()
 
 
@@ -349,7 +351,13 @@ try: # In case of interruption
             best_gen_params = copy.deepcopy(gen_params) # New best
 
         #--- Save progress in file ---#
+        file = open(training_data_file,'a')
         file.write(str(epoch) + ";" + str(gloss[-1]) + ";" + str(dloss[-1]) + ";" + str(kl_div[-1]) + "\n")
+        file.close()
+        file = open(parameter_data_file,'w')
+        file.write(str(init_gen_params.tolist()) + ";" + str(init_disc_params.tolist()) + ";" + str(gen_params.numpy().tolist()) + ";" + str(disc_params.numpy().tolist()) + ";" + str(best_gen_params.numpy().tolist()) + "\n")
+        file.close()
+        optimizers_ckpt_manager.save()
 
         #--- Print progress ---#
         if print_progress and (epoch % 1 == 0):
@@ -359,13 +367,7 @@ try: # In case of interruption
             start_time = time.time()
             print()
             
-#--- Save parameters and optimizer states data ---#
-finally:
-    file.close()
-    file = open(parameter_data_file,'w')
-    file.write(str(init_gen_params.tolist()) + ";" + str(init_disc_params.tolist()) + ";" + str(gen_params.numpy().tolist()) + ";" + str(disc_params.numpy().tolist()) + ";" + str(best_gen_params.numpy().tolist()) + "\n")
-    file.close()
+except KeyboardInterrupt:
+    print("Training interrupted.")
 
-    optimizers_ckpt_manager.save()
-    
 print("Training complete:", training_data_file, "Results:", np.min(kl_div), "Improvement:", kl_div[0]-np.min(kl_div))

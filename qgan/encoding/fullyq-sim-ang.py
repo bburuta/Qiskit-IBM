@@ -407,7 +407,6 @@ C_STEPS = 1
 if print_progress:
     TABLE_HEADERS = "Epoch | Generator cost | Discriminator cost | Perf. | Best Perf. | Time |"
     print(TABLE_HEADERS)
-file = open(training_data_file,'a')
 start_time = time.time()
 
 #--- Training loop ---#
@@ -466,7 +465,13 @@ try: # In case of interruption
             best_gen_params = copy.deepcopy(gen_params) # New best
 
         #--- Save progress in file ---#
-        file.write(str(epoch) + ";" + str(gloss[-1]) + ";" + str(dloss[-1]) + ";" + str(perf[-1]) + "\n")
+        file = open(training_data_file,'a')
+        file.write(str(epoch) + ";" + str(gloss[-1]) + ";" + str(dloss[-1]) + ";" + str(kl_div[-1]) + "\n")
+        file.close()
+        file = open(parameter_data_file,'w')
+        file.write(str(init_gen_params.tolist()) + ";" + str(init_disc_params.tolist()) + ";" + str(gen_params.numpy().tolist()) + ";" + str(disc_params.numpy().tolist()) + ";" + str(best_gen_params.numpy().tolist()) + "\n")
+        file.close()
+        optimizers_ckpt_manager.save()
 
         #--- Print progress ---#
         if print_progress and (epoch % 10 == 0):
@@ -476,13 +481,7 @@ try: # In case of interruption
             start_time = time.time()
             print()
             
-#--- Save parameters and optimizer states data ---#
-finally:
-    file.close()
-    file = open(parameter_data_file,'w')
-    file.write(str(init_gen_params.tolist()) + ";" + str(init_disc_params.tolist()) + ";" + str(gen_params.numpy().tolist()) + ";" + str(disc_params.numpy().tolist()) + ";" + str(best_gen_params.numpy().tolist()) + "\n")
-    file.close()
+except KeyboardInterrupt:
+    print("Training interrupted.")
 
-    optimizers_ckpt_manager.save()
-    
-print("Training complete:", training_data_file, "Results:", np.min(perf), "Improvement:", perf[0]-np.min(perf))
+print("Training complete:", training_data_file, "Results:", np.min(kl_div), "Improvement:", kl_div[0]-np.min(kl_div))
