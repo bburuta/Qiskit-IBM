@@ -68,6 +68,7 @@ if __name__ == "__main__":
 
 if (gpu_index != -1):
     cpus = tf.config.list_physical_devices('CPU')
+    print("CPU list: ", cpus)
     tf.config.set_visible_devices(cpus[gpu_index], 'CPU')
     print("Device that is going to be used:", tf.config.list_logical_devices('CPU'))
     
