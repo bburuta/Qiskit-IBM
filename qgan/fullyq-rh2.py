@@ -33,7 +33,7 @@ from qiskit_machine_learning.neural_networks import EstimatorQNN # Downgrade to 
 from qiskit_machine_learning.gradients import ParamShiftEstimatorGradient
 
 import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # 0 = all logs, 1 = filter INFO, 2 = filter WARNING, 3 = only ERROR
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # 0 = all logs, 1 = filter INFO, 2 = filter WARNING, 3 = only ERROR
 import tensorflow as tf
 import numpy as np
 import copy
@@ -70,7 +70,7 @@ if (gpu_index != -1):
     cpus = tf.config.list_physical_devices('CPU')
     print("CPU list: ", cpus)
     tf.config.set_visible_devices(cpus[gpu_index], 'CPU')
-    print("Device that is going to be used:", tf.config.list_logical_devices('CPU'))
+    print("CPU selected:", cpus[gpu_index])
     
 
 # # Configure service

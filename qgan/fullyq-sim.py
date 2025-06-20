@@ -33,7 +33,7 @@ from qiskit_machine_learning.neural_networks import EstimatorQNN # Downgrade to 
 from qiskit_machine_learning.gradients import ParamShiftEstimatorGradient
 
 import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # 0 = all logs, 1 = filter INFO, 2 = filter WARNING, 3 = only ERROR
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # 0 = all logs, 1 = filter INFO, 2 = filter WARNING, 3 = only ERROR
 import tensorflow as tf
 import numpy as np
 import copy
