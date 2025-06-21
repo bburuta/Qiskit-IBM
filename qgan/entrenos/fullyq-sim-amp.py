@@ -420,7 +420,7 @@ try: # In case of interruption
         optimizers_ckpt_manager.save()
 
         #--- Print progress ---#
-        if print_progress and (epoch % 10 == 0):
+        if print_progress and (epoch % 1 == 0):
             for header, val in zip(TABLE_HEADERS.split('|'),
                                 (epoch, gloss[-1], dloss[-1], kl_div[-1], np.min(kl_div), (time.time() - start_time))):
                 print(f"{val:.3g} ".rjust(len(header)), end="|")
