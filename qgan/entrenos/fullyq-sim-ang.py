@@ -170,7 +170,7 @@ def generate_real_circuit():
 # Create generator
 def generate_generator():
     qc = RealAmplitudes(N_QUBITS,
-                        reps=4, # Number of layers
+                        reps=3, # Number of layers
                         parameter_prefix='θ_g',
                         name='Generator')
     return qc
@@ -180,7 +180,7 @@ def generate_generator():
 def generate_discriminator():
     qc = EfficientSU2(N_QUBITS,
                       entanglement="reverse_linear",
-                      reps=2, # Number of layers
+                      reps=1, # Number of layers
                       parameter_prefix='θ_d',
                       name='Discriminator')
 
