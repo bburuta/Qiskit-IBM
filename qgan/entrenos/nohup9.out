@@ -1,0 +1,11 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1750507091.264640  179915 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1750507091.272548  179915 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1750507091.291469  179915 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1750507091.291535  179915 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1750507091.291538  179915 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1750507091.291542  179915 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+I0000 00:00:1750507093.235967  179915 gpu_device.cc:2019] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 22402 MB memory:  -> device: 4, name: NVIDIA RTX A5000, pci bus id: 0000:b1:00.0, compute capability: 8.6
+Device that is going to be used: [LogicalDevice(name='/device:GPU:0', device_type='GPU')]
+Training data file not found. Resetting parameters.
+Training complete: data/fullyq/sim-ang/q9/seed1/training_data.txt Results: 0.14739570663740686 Improvement: 0.49500874538658424
