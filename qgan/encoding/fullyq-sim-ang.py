@@ -466,7 +466,7 @@ try: # In case of interruption
 
         #--- Save progress in file ---#
         file = open(training_data_file,'a')
-        file.write(str(epoch) + ";" + str(gloss[-1]) + ";" + str(dloss[-1]) + ";" + str(kl_div[-1]) + "\n")
+        file.write(str(epoch) + ";" + str(gloss[-1]) + ";" + str(dloss[-1]) + ";" + str(perf[-1]) + "\n")
         file.close()
         file = open(parameter_data_file,'w')
         file.write(str(init_gen_params.tolist()) + ";" + str(init_disc_params.tolist()) + ";" + str(gen_params.numpy().tolist()) + ";" + str(disc_params.numpy().tolist()) + ";" + str(best_gen_params.numpy().tolist()) + "\n")
@@ -484,4 +484,4 @@ try: # In case of interruption
 except KeyboardInterrupt:
     print("Training interrupted.")
 
-print("Training complete:", training_data_file, "Results:", np.min(kl_div), "Improvement:", kl_div[0]-np.min(kl_div))
+print("Training complete:", training_data_file, "Results:", np.min(perf), "Improvement:", perf[0]-np.min(perf))

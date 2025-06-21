@@ -340,6 +340,7 @@ real_sample = X[0] # Example sample. Number of features must be a positive power
 
 #--- Create quantum circuits ---#
 real_circuit = generate_real_circuit(real_sample)
+real_prob_dict = Statevector(real_circuit).probabilities_dict()
 generator = generate_generator()
 discriminator = generate_discriminator()
 
@@ -404,8 +405,6 @@ try: # In case of interruption
         #--- Track KL and save best performing generator weights ---#
         gen_checkpoint_circuit = generator.assign_parameters(gen_params.numpy())
         gen_prob_dict = Statevector(gen_checkpoint_circuit).probabilities_dict() # Retrieve probability distribution of generator with current parameters
-        
-        real_prob_dict = Statevector(real_circuit).probabilities_dict() # Retrieve real data probability distribution
         
         current_kl = calculate_kl_div(gen_prob_dict, real_prob_dict)
         kl_div.append(current_kl)

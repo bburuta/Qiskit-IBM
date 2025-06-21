@@ -321,6 +321,7 @@ training_data_file, parameter_data_file, optimizers_data_folder = manage_files()
 
 #--- Create quantum circuits ---#
 real_circuit = generate_real_circuit()
+real_prob_dict = Statevector(real_circuit).probabilities_dict()
 generator = generate_generator()
 discriminator = generate_discriminator()
 
