@@ -123,33 +123,32 @@ def generate_real_circuit():
 # Create generator
 def generate_generator():
     qc = RealAmplitudes(N_QUBITS,
-                        reps=1, # Number of layers
+                        reps=3, # Number of layers
                         parameter_prefix='θ_g',
                         name='Generator')
     return qc
 
 
+# Create discriminator
 def generate_discriminator():
-    disc_weights = ParameterVector('θ_d', 3*(N_QUBITS)+2)
-    qc = QuantumCircuit(N_QUBITS, 1, name="Discriminator")
-    param_index = 0
+    qc = EfficientSU2(N_QUBITS,
+                      entanglement="reverse_linear",
+                      reps=2, # Number of layers
+                      parameter_prefix='θ_d',
+                      name='Discriminator')
 
-    qc.barrier()
+    qc_n_p = qc.num_parameters
+    disc_weights = ParameterVector('θ_d', qc_n_p + 2)
 
-    for q in range(N_QUBITS):
-        qc.h(q)
-        qc.rx(disc_weights[param_index], q); param_index += 1
-        qc.ry(disc_weights[param_index], q); param_index += 1
-        qc.rz(disc_weights[param_index], q); param_index += 1
-    
-    for i in range(N_QUBITS - 1):
+    param_index = qc_n_p
+
+    for i in reversed(range(N_QUBITS - 1)):
         qc.cx(i, N_QUBITS - 1)
 
-    qc.rx(disc_weights[param_index], N_QUBITS-1); param_index += 1
+    #qc.rx(disc_weights[param_index], N_QUBITS-1); param_index += 1
     qc.ry(disc_weights[param_index], N_QUBITS-1); param_index += 1
-    #qc.rz(disc_weights[param_index], N_QUBITS-1); param_index += 1
-    
-    qc.measure(N_QUBITS-1, 0)
+    qc.rz(disc_weights[param_index], N_QUBITS-1); param_index += 1
+
     return qc
 
 

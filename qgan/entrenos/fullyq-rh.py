@@ -23,7 +23,7 @@
 from qiskit import QuantumCircuit
 from qiskit.circuit import ParameterVector
 from qiskit.quantum_info import Statevector, SparsePauliOp
-from qiskit.circuit.library import RealAmplitudes
+from qiskit.circuit.library import RealAmplitudes, EfficientSU2
 from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
 
 from qiskit_ibm_runtime import EstimatorV2 as Estimator, QiskitRuntimeService, Session
@@ -67,10 +67,14 @@ if __name__ == "__main__":
 
 
 if (gpu_index != -1):
+    gpus = tf.config.list_physical_devices('GPU')
     cpus = tf.config.list_physical_devices('CPU')
+    print("GPU list: ", gpus)
     print("CPU list: ", cpus)
-    tf.config.set_visible_devices(cpus[gpu_index], 'CPU')
-    print("CPU selected:", cpus[gpu_index])
+    tf.config.set_visible_devices(gpus[gpu_index], 'GPU') # Set only one GPU as visible
+    #tf.config.set_visible_devices(cpus[gpu_index], 'CPU')
+    print("GPU selected:", gpus[gpu_index])
+    print("CPU selected:", tf.config.list_logical_devices('CPU'), "?")
     
 
 # # Configure service
@@ -119,13 +123,12 @@ def generate_real_circuit():
 # Create generator
 def generate_generator():
     qc = RealAmplitudes(N_QUBITS,
-                        reps=2, # Number of layers
+                        reps=1, # Number of layers
                         parameter_prefix='θ_g',
                         name='Generator')
     return qc
 
 
-# Create discriminator
 def generate_discriminator():
     disc_weights = ParameterVector('θ_d', 3*(N_QUBITS)+2)
     qc = QuantumCircuit(N_QUBITS, 1, name="Discriminator")
@@ -317,6 +320,7 @@ training_data_file, parameter_data_file, optimizers_data_folder = manage_files()
 
 #--- Create quantum circuits ---#
 real_circuit = generate_real_circuit()
+real_prob_dict = Statevector(real_circuit).probabilities_dict()
 generator = generate_generator()
 discriminator = generate_discriminator()
 
