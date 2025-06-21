@@ -149,6 +149,8 @@ def generate_discriminator():
     qc.ry(disc_weights[param_index], N_QUBITS-1); param_index += 1
     qc.rz(disc_weights[param_index], N_QUBITS-1); param_index += 1
 
+    return qc
+
 
 # Set up training quantum circuits
 def generate_training_circuits(session, real_circuit, generator, discriminator):
