@@ -123,7 +123,7 @@ def generate_real_circuit():
 # Create generator
 def generate_generator():
     qc = RealAmplitudes(N_QUBITS,
-                        reps=1, # Number of layers
+                        reps=2, # Number of layers
                         parameter_prefix='θ_g',
                         name='Generator')
     return qc
