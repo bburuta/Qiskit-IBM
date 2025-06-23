@@ -1,8 +1,0 @@
-WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
-E0000 00:00:1750514416.027549  214441 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
-E0000 00:00:1750514416.035313  214441 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
-W0000 00:00:1750514416.053702  214441 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
-W0000 00:00:1750514416.053734  214441 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
-W0000 00:00:1750514416.053737  214441 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
-W0000 00:00:1750514416.053740  214441 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
-I0000 00:00:1750514418.736392  214441 gpu_device.cc:2019] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 22402 MB memory:  -> device: 5, name: NVIDIA RTX A5000, pci bus id: 0000:ca:00.0, compute capability: 8.6
