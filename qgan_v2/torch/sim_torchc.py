@@ -47,25 +47,52 @@ import numpy as np
 import torch
 import time
 import os
+import argparse
+
 
 
 # %% Configuration
 #- Configuration -#
 
+# Parameter management for python scripts
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="Fully Quantum GAN"
+    )
+    parser.add_argument("--execution", required=False, type=str, default="noiseless_simulation")
+    parser.add_argument("--n_qubits", required=True, type=int)
+    parser.add_argument("--seed", required=False, type=int, default=1)
+    parser.add_argument("--id", required=False, type=int, default=None)
+    parser.add_argument("--reset", required=False, type=bool, default=False)
+
+    parser.add_argument("--circuits", required=False, type=bool, default=False)
+    parser.add_argument("--gradient", required=False, type=str, default="PSR")
+    parser.add_argument("--max_its", required=False, type=int, default=1000)
+    parser.add_argument("--gen_its", required=False, type=int, default=1)
+    parser.add_argument("--disc_its", required=False, type=int, default=1)
+    parser.add_argument("--prints", required=False, type=int, default=10)
+
+    #parser.add_argument("--gpu_index", required=False, type=int, default="-1")
+
+    args = parser.parse_args()
+
+
+
 # Training configuration dict
 train_config = {
-    'execution_type': "simulation",
-    'n_qubits': 4,
-    'seed': 1,
-    'id': None, # For different circuits or training parameters
-    'reset_data': 0,
+    'execution_type': args.execution,
+    'n_qubits': args.n_qubits,
+    'seed': args.seed,
+    'id': args.id, # For different circuits or training parameters
+    'reset_data': args.reset,
 
-    'create_circuits': False, # Create circuits manually or load from file
-    'gradient_method': "PSR", # PSR or SPSA
-    'max_iterations': 1000,
-    'gen_iterations': 1, # !!!!!!!!!!!!!!!! PRUEBA DISTINTOS
-    'disc_iterations': 1,
-    'print_progress_iterations': 10,
+    'create_circuits': args.circuits, # Create circuits manually or load from file
+    'gradient_method': args.gradient, # PSR or SPSA
+    'max_iterations': args.max_its,
+    'gen_iterations': args.gen_its, # !!!!!!!!!!!!!!!! To do: PRUEBA DISTINTOS, añade args management para terminal, prepara para paralelizacion en cluster
+    'disc_iterations': args.disc_its,
+    'print_progress_iterations': args.prints,
+
     'training_data_file': None, # Automatically created with manage_files function
     'circuits_file': None # Automatically created with manage_files function
 }
@@ -317,6 +344,7 @@ dloss = params['metrics']['dloss']
 disc_loss = list(dloss)[-1] if (dloss) else None
 kl_div = params['metrics']['kl_div']
 min_kl_div = np.min(list(kl_div.values())) if (kl_div) else float('inf')
+best_gen_params = params['best_gen_params']
 
 
 
@@ -378,7 +406,8 @@ try: # In case of interruption
             disc_loss = optimizer_d.step(closure_d)
 
             # Calculate discriminator cost
-            dloss[epoch] = disc_loss
+            if (disc_train_step == D_STEPS-1):
+                dloss[epoch] = disc_loss.detach().numpy()
 
         #--- Quantum generator parameter updates ---#
         for gen_train_step in range(G_STEPS):
@@ -386,7 +415,8 @@ try: # In case of interruption
             gen_loss = optimizer_g.step(closure_g)
 
             # Save generator cost
-            gloss[epoch] = gen_loss
+            if (gen_train_step == G_STEPS-1):
+                gloss[epoch] = gen_loss.detach().numpy()
 
         #--- Track KL and save best performing generator weights ---#
         gen_params_np = torch.nn.utils.parameters_to_vector(model_g.parameters()).detach().numpy()

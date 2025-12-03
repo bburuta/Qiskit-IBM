@@ -47,26 +47,53 @@ import numpy as np
 import torch
 import time
 import os
+import argparse
 
 
 # %% Configuration
 #- Configuration -#
 
+# Parameter management for python scripts
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="Fully Quantum GAN"
+    )
+    parser.add_argument("--execution", required=False, type=str, default="noiseless_simulation")
+    parser.add_argument("--n_qubits", required=True, type=int)
+    parser.add_argument("--seed", required=False, type=int, default=1)
+    parser.add_argument("--id", required=False, type=int, default=None)
+    parser.add_argument("--reset", required=False, type=bool, default=False)
+
+    parser.add_argument("--circuits", required=False, type=bool, default=False)
+    parser.add_argument("--gradient", required=False, type=str, default="PSR")
+    parser.add_argument("--max_its", required=False, type=int, default=1000)
+    parser.add_argument("--gen_its", required=False, type=int, default=1)
+    parser.add_argument("--disc_its", required=False, type=int, default=1)
+    parser.add_argument("--prints", required=False, type=int, default=10)
+    parser.add_argument("--loss", required=False, type=int, default=10)
+
+    #parser.add_argument("--gpu_index", required=False, type=int, default="-1")
+
+    args = parser.parse_args()
+
+
+
 # Training configuration dict
 train_config = {
-    'execution_type': "simulation",
-    'n_qubits': 4,
-    'seed': 1,
-    'id': None, # For different circuits or training parameters
-    'reset_data': 0,
+    'execution_type': args.execution,
+    'n_qubits': args.n_qubits,
+    'seed': args.seed,
+    'id': args.id, # For different circuits or training parameters
+    'reset_data': args.reset,
 
-    'create_circuits': False, # Create circuits manually or load from file
-    'gradient_method': "PSR", # PSR or SPSA
-    'max_iterations': 1000,
-    'gen_iterations': 1,
-    'disc_iterations': 1,
-    'save_loss_iterations': 10, # Calculate extra forward pass to save loss
-    'print_progress_iterations': 10,
+    'create_circuits': args.circuits, # Create circuits manually or load from file
+    'gradient_method': args.gradient, # PSR or SPSA
+    'max_iterations': args.max_its,
+    'gen_iterations': args.gen_its, # !!!!!!!!!!!!!!!! To do: prepara para paralelizacion en cluster
+    'disc_iterations': args.disc_its,
+    'save_loss_iterations': args.loss, # Calculate extra forward pass to save loss
+    'print_progress_iterations': args.prints,
+
     'training_data_file': None, # Automatically created with manage_files function
     'circuits_file': None # Automatically created with manage_files function
 }
@@ -295,6 +322,7 @@ dloss = params['metrics']['dloss']
 disc_loss = list(dloss)[-1] if (dloss) else None
 kl_div = params['metrics']['kl_div']
 min_kl_div = np.min(list(kl_div.values())) if (kl_div) else float('inf')
+best_gen_params = params['best_gen_params']
 
 
 # %% Interrupter
