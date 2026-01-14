@@ -48,6 +48,7 @@ import torch
 import time
 import os
 import argparse
+import signal
 
 
 # %% Configuration
@@ -89,7 +90,7 @@ train_config = {
     'create_circuits': args.circuits, # Create circuits manually or load from file
     'gradient_method': args.gradient, # PSR or SPSA
     'max_iterations': args.max_its,
-    'gen_iterations': args.gen_its, # !!!!!!!!!!!!!!!! To do: prepara para paralelizacion en cluster
+    'gen_iterations': args.gen_its, # !!!!!!!!!!!!!!!! TODO: prepara para paralelizacion en cluster
     'disc_iterations': args.disc_its,
     'save_loss_iterations': args.loss, # Calculate extra forward pass to save loss
     'print_progress_iterations': args.prints,
@@ -216,11 +217,13 @@ def generate_training_circuits(real_circuit, generator_circuit, discriminator_ci
     # Use EstimatorQNN to compile the circuit and handle gradient calculation
     estimator = StatevectorEstimator()
 
+    # Gradient computation method
     if train_config['gradient_method'] == 'SPSA':
         gradient = SPSAEstimatorGradient(estimator=estimator)
     else:
         gradient = ParamShiftEstimatorGradient(estimator=estimator)
 
+    # Observables
     H1 = SparsePauliOp.from_list([("Z" + "I"*(n_qubits-1), 1.0)])
     n_disc_params = discriminator_circuit.num_parameters
 
@@ -418,11 +421,6 @@ try: # In case of interruption
         #--- Track KL and save best performing generator weights ---#
         gen_params_np = gen_params.detach().numpy()
         gen_distribution_tensor = torch.from_numpy(Statevector(generator_circuit.assign_parameters(gen_params_np)).probabilities()) # Retrieve probability distribution of generator with current parameters.
-
-        # 3. Move to GPU (The speedup for large vectors is massive)
-        # if torch.cuda.is_available():
-        #     p = p.cuda()
-        #     q = q.cuda()
 
         # Performance measurement function: uses Kullback Leibler Divergence to measures the distance between two distributions
         current_kl = torch.nn.functional.kl_div(input=gen_distribution_tensor.log(), target=real_distribution_tensor, reduction='sum').numpy() # reduction="batchnoseque" pa batches

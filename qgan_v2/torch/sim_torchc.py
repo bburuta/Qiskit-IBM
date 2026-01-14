@@ -48,6 +48,7 @@ import torch
 import time
 import os
 import argparse
+import signal
 
 
 
@@ -217,6 +218,7 @@ def generate_training_circuits(real_circuit, generator, discriminator):
     # Use EstimatorQNN to compile the circuit and handle gradient calculation
     estimator = StatevectorEstimator()
 
+    # Gradient computation method
     if train_config['gradient_method'] == 'SPSA':
         gradient = SPSAEstimatorGradient(estimator=estimator)
     else:
@@ -255,6 +257,26 @@ def generate_training_circuits(real_circuit, generator, discriminator):
 
 gen_qnn, disc_qnn = generate_training_circuits(real_circuit, generator_circuit, discriminator_circuit)
     
+
+#f_loss = torch.nn.MSELoss(reduction="sum")
+class FLoss(torch.nn.Module):
+    def __init__(self, reduction='sum'):
+        super(FLoss, self).__init__()
+        self.reduction = reduction
+
+    def forward(self, x, label):
+        target_sign = label.to(x.dtype) * 2 - 1
+        
+        loss = x * target_sign
+        
+        if self.reduction == 'mean': # Para batches
+            return loss.mean()
+        elif self.reduction == 'sum':
+            return loss.sum()
+        return loss
+    
+f_loss = FLoss()
+
 
 
 # %% Restore states
@@ -320,22 +342,6 @@ model_d.load_state_dict(params['model_d_state'])
 optimizer_g.load_state_dict(params['optimizer_g_state'])
 optimizer_d.load_state_dict(params['optimizer_d_state'])
 
-f_loss = torch.nn.MSELoss(reduction="sum")
-
-def closure_g():
-    optimizer_g.zero_grad()  # Initialize/clear gradients
-    disc_params = torch.nn.utils.parameters_to_vector(model_d.parameters()).detach() #disc_params = optimizer_d.param_groups[0]['params'][0].detach()
-    loss = f_loss(model_g(disc_params), torch.ones(1)) # 1-> Good guess
-    loss.backward()  # Backward pass
-    return loss
-
-def closure_d():
-    optimizer_d.zero_grad()
-    gen_params = torch.nn.utils.parameters_to_vector(model_g.parameters()).detach() #gen_params = optimizer_g.param_groups[0]['params'][0].detach()
-    loss = f_loss(model_d(gen_params), torch.tensor([1.0, 0.0]))
-    loss.backward()
-    return loss
-
 
 current_epoch = params['current_epoch']
 gloss = params['metrics']['gloss']
@@ -350,7 +356,6 @@ best_gen_params = params['best_gen_params']
 
 # %% Interrupter
 #- Manage training interruption -#
-import signal
 
 # Class to manage training interruption
 class Interrupter:
@@ -403,30 +408,40 @@ try: # In case of interruption
         #--- Quantum discriminator parameter updates ---#
         for disc_train_step in range(D_STEPS):
             # Calculate discriminator gradients and update parameters
-            disc_loss = optimizer_d.step(closure_d)
+            optimizer_d.zero_grad()
+
+            # Calculate discriminator gradient with real data
+            gen_params = torch.nn.utils.parameters_to_vector(model_g.parameters()).detach() #gen_params = optimizer_g.param_groups[0]['params'][0].detach()
+            disc_output = model_d(gen_params)
+            real_loss = f_loss(disc_output[0], torch.ones([1])) # 1-> Real guess (correct)
+            fake_loss = f_loss(disc_output[1], torch.zeros([1])) # 1-> Real guess (correct)
+            disc_loss = real_loss + fake_loss
+            disc_loss.backward()
+            optimizer_d.step()
 
             # Calculate discriminator cost
+            disc_loss = (real_loss + fake_loss -2)/4
             if (disc_train_step == D_STEPS-1):
                 dloss[epoch] = disc_loss.detach().numpy()
 
         #--- Quantum generator parameter updates ---#
         for gen_train_step in range(G_STEPS):
             # Calculate generator gradient and update parameters
-            gen_loss = optimizer_g.step(closure_g)
+            optimizer_g.zero_grad()
+            disc_params = torch.nn.utils.parameters_to_vector(model_d.parameters()).detach() #disc_params = optimizer_d.param_groups[0]['params'][0].detach()
+            gen_output = model_g(disc_params)
+            gen_loss = f_loss(gen_output, torch.ones(1)) # 1-> Real guess (decieved)
+            gen_loss.backward() # Backward pass
+            optimizer_g.step()
 
             # Save generator cost
+            gen_loss = (gen_loss.detach().numpy() -1)/2
             if (gen_train_step == G_STEPS-1):
-                gloss[epoch] = gen_loss.detach().numpy()
+                gloss[epoch] = gen_loss
 
         #--- Track KL and save best performing generator weights ---#
         gen_params_np = torch.nn.utils.parameters_to_vector(model_g.parameters()).detach().numpy()
         gen_distribution_tensor = torch.from_numpy(Statevector(generator_circuit.assign_parameters(gen_params_np)).probabilities()) # Retrieve probability distribution of generator with current parameters.
-
-
-        # 3. Move to GPU (The speedup for large vectors is massive)
-        # if torch.cuda.is_available():
-        #     p = p.cuda()
-        #     q = q.cuda()
 
         # Performance measurement function: uses Kullback Leibler Divergence to measures the distance between two distributions
         current_kl = torch.nn.functional.kl_div(input=gen_distribution_tensor.log(), target=real_distribution_tensor, reduction='sum').numpy() # reduction="batchnoseque" pa batches
