@@ -8,7 +8,7 @@
     - Noisless batch evaluation con statevector se puede paralelizar como pubs? si DONE
 - Cambiar el metodo de evaluacion: uno mejor para gradientes DONE *3
 - Mejora batch evaluation a SamplerV2 con pubs para statevector ideales DONE *4
-- Angle embedding
+- Angle embedding DONE
     - Conseguir batch de vector de parametros DONE
 - Hacer las implementaciones posibles en EstimatorQNN o TorchConnector (crear funcion que generalize y tu eliges)
     - Crear funciones para cada backward/forward y get/set de parametros
@@ -17,6 +17,7 @@
         - paralelizacion: con executor = Thread no se q
     - evaluacion: interesante para simulaciones statevector (noiseless) muy grandes (aparte de poder ejecutar en real)
 - Consultar con alguien que sabe de paralelizar si lo estoy haciendo bien: cuidado con CPU <-> GPU, es eficiente?
+- Subespacios de ruido en randomness input para multilabel (o para samples).
 - Añade parameteros:
     - Poner todos los dtype = torch.float32
     - Paralelicacion: max_no_se_q para aer, num_proceses para parallel_map
