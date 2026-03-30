@@ -4,17 +4,15 @@
     - Partial randomness DONE
         - batch de vector de parametros DONE *1
             - Opcion de loop y q aer se encarge de paralelizar para no quedarse sin memoria DONE
-            - Opcion de pubs sin EtimatorQNN DONE (requiere float64)
-    - Noisless batch evaluation con statevector se puede paralelizar como pubs?
-- Cambiar el metodo de evaluacion: uno mejor para gradientes
+            - Opcion de pubs sin EtimatorQNN DONE *2
+    - Noisless batch evaluation con statevector se puede paralelizar como pubs? si DONE
+- Cambiar el metodo de evaluacion: uno mejor para gradientes DONE *3
+- Mejora batch evaluation a SamplerV2 con pubs para statevector ideales DONE *4
 - Angle embedding
     - Conseguir batch de vector de parametros DONE
 - Hacer las implementaciones posibles en EstimatorQNN o TorchConnector (crear funcion que generalize y tu eliges)
     - Crear funciones para cada backward/forward y get/set de parametros
-- Execution con circuito grande
-    - Prueba aer_simulator method = matrix para circuitos grandes con pocos entanglements (varios circuitos en uno)
-    - Real: yo controlo el mapeo
-- Real/Noisy versions de:
+- Real/Noisy versions con pubs de:
     - entrenamiento
         - paralelizacion: con executor = Thread no se q
     - evaluacion: interesante para simulaciones statevector (noiseless) muy grandes (aparte de poder ejecutar en real)
@@ -22,12 +20,17 @@
 - Añade parameteros:
     - Poner todos los dtype = torch.float32
     - Paralelicacion: max_no_se_q para aer, num_proceses para parallel_map
+    - Randomness (aparte de circuito): hacerle *0.1 a los random params para no ser tan random
+- Ordena parametros antes de training loop de todas las implementaciones, que las diferencias vayan en sus apartados (transpilacion de circuito(s) real(es), batch_size calculation, no usar el global dentro del loop...)
 - No usar EstimatorQNN?
     - transpilacion antes
     - calculo de gradiente aparte para poder ejecutar en pubs
     - forward aparte
     No me ofrece nada, solo limita. Quizas es mas rapido?
     Solo para TorchConnector
+- Execution con circuito grande
+    - Prueba aer_simulator method = matrix para circuitos grandes con pocos entanglements (varios circuitos en uno) !No es paralelizable
+    - Real: yo controlo el mapeo
 
 Extra:
 - QNNs de mas qubits para samples de menos qubits
@@ -38,3 +41,6 @@ Extra:
 
 Observaciones:
     *1. Se queda sin memoria en forwards y en backwards si se usa Parameter-Shift Rule, por culpa de parallel_map
+    *2. requiere float64
+    *3. No hay funciones ya hechas para imagenes tan pequeñas, he creado una propia para numpy, con torch habria que crear la ecuacion a mano y no se que tan eficiente seria
+    *4. Los batch se pueden aplicar para full-randomness, pero pereza
