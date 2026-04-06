@@ -308,8 +308,8 @@ def reset_data(gen_qnn, disc_real_qnn, disc_fake_qnn):
     model_dr.train()
     model_df.train()
 
-    optimizer_g = torch.optim.Adam(model_g.parameters(), lr=0.01)
-    optimizer_d = torch.optim.Adam(model_dr.parameters(), lr=0.01)
+    optimizer_g = torch.optim.Adam(model_g.parameters(), lr=0.005)
+    optimizer_d = torch.optim.Adam(model_dr.parameters(), lr=0.005)
 
 
     torch.save({
