@@ -1,0 +1,33 @@
+train_config:
+  execution_type: noiseless
+  n_qubits: 4
+  seed: 0
+  run_id: null
+  reset_config: true
+  reset_training_data: true
+  create_circuits: true
+  reset_backend: true
+  max_iterations: 1000
+  gen_iterations: 1
+  disc_iterations: 3
+  print_progress_iterations: 1
+  device: CPU
+  gradient_method: PSR
+  data_path: data/torchc/q4_noiseless_CPU_PSR_seed0_idNone/
+backend_config:
+  name: ibm_basquecountry
+  channel: ibm_quantum_platform
+  reset_backend: false
+  timestamp: 2026-05-12 21:12:10.993366
+  sim_options:
+    method: statevector
+    precision: double
+    seed_simulator: 0
+    shots: null
+  train_precision: 0.0
+  eval_precision: 0.0
+  eval_options:
+    method: statevector
+    precision: double
+    seed_simulator: 0
+    shots: null

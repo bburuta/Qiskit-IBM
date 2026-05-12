@@ -1,0 +1,45 @@
+train_config:
+  execution_type: noiseless # 'noiseless', 'noisy' or 'real'
+  n_qubits: 4
+  seed: 0
+  id: null # For different circuits or training parameters
+
+  # Data
+  reset_config: true # Reset configuration dicts
+  reset_data: true # Reset training data
+  create_circuits: true # Create circuits or load from file
+
+  # Training parameters
+  max_iterations: 1000
+  gen_iterations: 1
+  disc_iterations: 3
+  print_progress_iterations: 1
+
+  # Compute methods
+  device: CPU # 'GPU' or 'CPU'
+  gradient_method: PSR # qiskit_algorithms.gradients For now: 'PSR', 'SPSA' and 'REG'
+
+  # File names
+  training_data_file: data/torchc/noiseless/q4/seed0/training_data.pth
+  circuits_file: data/torchc/noiseless/q4/seed0/circuits.qpy
+  backend_file: data/torchc/noiseless/q4/seed0/backend.pkl
+  config_file: data/torchc/noiseless/q4/seed0/config.yaml
+
+
+backend_config:
+  # Real backend
+  name: ibm_basquecountry
+  channel: ibm_quantum_platform
+
+  # Noisy backend
+  reset_backend: false
+  timestamp: 2026-05-11 22:08:13.904887
+
+  # Noiseless/Noiseless backend TODO haz varios files de config, borra codigo del .ipynb
+  sim_options:
+    method: statevector
+    precision: double
+    seed_simulator: 0
+    shots: null
+  train_precision: 0.0
+  eval_precision: 0.0

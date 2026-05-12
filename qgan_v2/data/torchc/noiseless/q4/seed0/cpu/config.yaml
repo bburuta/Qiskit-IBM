@@ -1,0 +1,31 @@
+train_config:
+  execution_type: noiseless
+  n_qubits: 4
+  seed: 0
+  id: cpu
+  reset_config: true
+  reset_data: true
+  create_circuits: true
+  max_iterations: 1000
+  gen_iterations: 1
+  disc_iterations: 3
+  print_progress_iterations: 1
+  device: CPU
+  gradient_method: REG
+  data_path: ./data
+  training_data_file: data/torchc/noiseless/q4/seed0//cpu/training_data.pth
+  circuits_file: data/torchc/noiseless/q4/seed0//cpu/circuits.qpy
+  backend_file: data/torchc/noiseless/q4/seed0//cpu/backend.pkl
+  config_file: data/torchc/noiseless/q4/seed0//cpu/config.yaml
+backend_config:
+  name: ibm_basquecountry
+  channel: ibm_quantum_platform
+  reset_backend: false
+  timestamp: 2026-05-12 18:36:52.685307
+  sim_options:
+    method: statevector
+    precision: double
+    seed_simulator: 0
+    shots: null
+  train_precision: 0.0
+  eval_precision: 0.0
