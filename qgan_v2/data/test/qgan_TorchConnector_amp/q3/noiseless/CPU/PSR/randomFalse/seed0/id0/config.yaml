@@ -1,0 +1,37 @@
+train_config:
+  n_qubits: 3
+  seed: 0
+  run_id: 0
+  data_path: data/test/
+  reset_training_data: true
+  create_circuits: true
+  reset_backend: true
+  max_iterations: 2
+  gen_iterations: 1
+  disc_iterations: 2
+  print_progress_iterations: 0
+  reset_dataset: true
+  batch_size: 2
+  randomness: 1
+  implementation: qgan_TorchConnector_amp
+  execution_type: noiseless
+  device: CPU
+  gradient_method: PSR
+  random_input: false
+backend_config:
+  name: ibm_basquecountry
+  channel: ibm_quantum_platform
+  reset_backend: false
+  timestamp: 2026-05-15 03:00:29.512195
+  sim_options:
+    method: statevector
+    precision: double
+    seed_simulator: 0
+    shots: null
+  train_precision: 0.0
+  eval_precision: 0.0
+  eval_options:
+    method: statevector
+    precision: double
+    seed_simulator: 0
+    shots: null
