@@ -66,7 +66,7 @@ import datetime as dt
 import pickle
 import yaml
 import argparse
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor # TODO no TorchConenctor, solo pubs
 
 # %%
 #- Parameter management for python scripts -#
@@ -83,7 +83,7 @@ if __name__ == "__main__":
 # %%
 #- Load configuration file -#
 
-#configuration_file_path = "data/torchc_amp/q4_noiseless_CPU_PSR_seed0_id0/config.yaml"
+#configuration_file_path = "../data/test/qgan_TorchConnector_amp/q4/noiseless/CPU/PSR/randomFalse/seed0/id0/config.yaml"
 config_path = os.path.dirname(configuration_file_path) + "/"
 
 # Load config file
@@ -589,17 +589,63 @@ class RealDiscriminatorEnsemble(torch.nn.Module):
     def forward(self, indexes):
         selected_models = [self.models[int(index)] for index in indexes]
 
-        with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
+        with ThreadPoolExecutor(max_workers=self.max_workers) as executor: # TODO check si funciona
             outputs = list(executor.map(lambda model: model(), selected_models))
 
         return torch.cat([output.reshape(-1) for output in outputs], dim=0)
 
 
-def build_real_discriminator(model_drs):
-    return RealDiscriminatorEnsemble(
-        model_drs,
-        max_workers=train_config['batch_size'],
-    )
+class JoinedDiscriminator(torch.nn.Module):
+    def __init__(self, disc_real_qnns, disc_fake_qnn, initial_weights=None, max_workers=1):
+        super().__init__()
+        model_drs = [TorchConnector(disc_real_qnn) for disc_real_qnn in disc_real_qnns]
+        self.model_dr = RealDiscriminatorEnsemble(model_drs, max_workers=max_workers)
+        self.model_df = TorchConnector(disc_fake_qnn, initial_weights=initial_weights)
+        self.tie_weights()
+
+    @property
+    def num_real_models(self):
+        return len(self.model_dr.models)
+
+    def tie_weights(self):
+        for model_dr in self.model_dr.models:
+            if 'weight' in model_dr._parameters:
+                model_dr._parameters.pop('weight')
+            if '_weights' in model_dr._parameters:
+                model_dr._parameters.pop('_weights')
+            model_dr._parameters['weight'] = self.model_df.weight
+            model_dr._parameters['_weights'] = self.model_df.weight
+
+    def parameters(self, recurse=True):
+        return self.model_df.parameters(recurse=recurse)
+
+    def named_parameters(self, prefix='', recurse=True, remove_duplicate=True):
+        return self.model_df.named_parameters(
+            prefix=prefix,
+            recurse=recurse,
+            remove_duplicate=remove_duplicate,
+        )
+
+    def state_dict(self, *args, **kwargs):
+        return {
+            'model_df_state': self.model_df.state_dict(*args, **kwargs),
+        }
+
+    def load_state_dict(self, state_dict, strict=True):
+        result = self.model_df.load_state_dict(state_dict['model_df_state'], strict=strict)
+        self.tie_weights()
+        return result
+
+    def _apply(self, fn):
+        super()._apply(fn)
+        self.tie_weights()
+        return self
+
+    def forward(self, real_indexes, fake_input):
+        real_output = self.model_dr(real_indexes)
+        fake_output = self.model_df(fake_input)
+        return real_output, fake_output
+
 
 # %%
 #- Restore parameters and model states -#
@@ -633,18 +679,13 @@ def create_training_data_file(n_gen_params, n_disc_params, filename):
     }
 
     model_g = TorchConnector(gen_qnn, initial_weights=init_gen_params)
-    model_drs = [TorchConnector(disc_real_qnn) for disc_real_qnn in disc_real_qnns]
-    model_df = TorchConnector(disc_fake_qnn, initial_weights=init_disc_params)
+    model_d = JoinedDiscriminator(
+        disc_real_qnns,
+        disc_fake_qnn,
+        initial_weights=init_disc_params,
+        max_workers=train_config['batch_size'],
+    )
     eval_g = TorchConnector(gen_eval_transpiled)
-
-    # Force model2 to look at model1's weights
-    for model_dr in model_drs:
-        if 'weight' in model_dr._parameters:
-            model_dr._parameters.pop('weight')
-        if '_weights' in model_dr._parameters:
-            model_dr._parameters.pop('_weights')
-        model_dr._parameters['weight'] = model_df.weight
-        model_dr._parameters['_weights'] = model_df.weight
 
     if 'weight' in eval_g._parameters:
         eval_g._parameters.pop('weight')
@@ -654,16 +695,14 @@ def create_training_data_file(n_gen_params, n_disc_params, filename):
     eval_g._parameters['_weights'] = model_g.weight
 
     model_g.train() 
-    for model_dr in model_drs: model_dr.train()
-    model_df.train()
+    model_d.train()
     eval_g.eval()
 
     optimizer_g = torch.optim.Adam(model_g.parameters(), lr=0.005)
-    optimizer_d = torch.optim.Adam(model_df.parameters(), lr=0.005)
+    optimizer_d = torch.optim.Adam(model_d.parameters(), lr=0.005)
 
     params['model_g_state'] = model_g.state_dict()
-    params['model_dr_states'] = [model_dr.state_dict() for model_dr in model_drs]
-    params['model_df_state'] = model_df.state_dict()
+    params['model_d_state'] = model_d.state_dict()
     params['eval_g_state'] = eval_g.state_dict()
     
 
@@ -706,28 +745,20 @@ times = params['metrics']['times']
 
 
 model_g = TorchConnector(gen_qnn)    
-model_drs = [TorchConnector(disc_real_qnn) for disc_real_qnn in disc_real_qnns]
-model_df = TorchConnector(disc_fake_qnn)
+model_d = JoinedDiscriminator(
+    disc_real_qnns,
+    disc_fake_qnn,
+    max_workers=train_config['batch_size'],
+)
 eval_g = TorchConnector(gen_eval_transpiled)
 
 model_g.load_state_dict(params['model_g_state'])
-for i in range(len(model_drs)): model_drs[i].load_state_dict(params['model_dr_states'][i])
-model_df.load_state_dict(params['model_df_state'])
+model_d.load_state_dict(params['model_d_state'])
 eval_g.load_state_dict(params['eval_g_state'])
 
 model_g.to(device)
-for model_dr in model_drs: model_dr.to(device)
-model_df.to(device)
+model_d.to(device)
 eval_g.to(device)
-
-# Force model2 to look at model1's weights
-for model_dr in model_drs:
-    if 'weight' in model_dr._parameters:
-        model_dr._parameters.pop('weight')
-    if '_weights' in model_dr._parameters:
-        model_dr._parameters.pop('_weights')
-    model_dr._parameters['weight'] = model_df.weight
-    model_dr._parameters['_weights'] = model_df.weight
 
 if 'weight' in eval_g._parameters:
     eval_g._parameters.pop('weight')
@@ -736,10 +767,8 @@ if '_weights' in eval_g._parameters:
 eval_g._parameters['weight'] = model_g.weight
 eval_g._parameters['_weights'] = model_g.weight
 
-model_dr = build_real_discriminator(model_drs)
-
 optimizer_g = torch.optim.Adam(model_g.parameters())
-optimizer_d = torch.optim.Adam(model_df.parameters())
+optimizer_d = torch.optim.Adam(model_d.parameters())
 
 
 optimizer_g.load_state_dict(params['optimizer_g_state'])
@@ -810,26 +839,26 @@ def generate_random_input(batch_size, num_params):
 
 # Get real data input
 def generate_real_input_index(batch_size):
-    if batch_size > len(model_drs):
-        raise ValueError(f"real_batch_size={batch_size} is larger than the number of real discriminator models ({len(model_drs)}). This is not accepted for safe parallelization. Reduce train_config['batch_size'] or create more real discriminator models.")
+    if batch_size > model_d.num_real_models:
+        raise ValueError(f"batch_size={batch_size} is larger than the number of real discriminator models ({model_d.num_real_models}). This is not accepted for safe parallelization. Reduce train_config['batch_size'] or create more real discriminator models.")
 
-    data_indexes = torch.randperm(len(model_drs), device=device)[:batch_size]
+    data_indexes = torch.randperm(model_d.num_real_models, device=device)[:batch_size]
     return data_indexes
 
 
 
 # Generate fake input for discriminator
-def generate_fake_disc_input(fake_batch_size):
+def generate_fake_disc_input(batch_size):
     gen_params = torch.nn.utils.parameters_to_vector(model_g.parameters()).detach() #gen_params = optimizer_g.param_groups[0]['params'][0].detach()
 
-    gen_batch = gen_params.reshape(1, -1).expand(fake_batch_size, -1)
-    random_batch = generate_random_input(fake_batch_size, N_RPARAMS)
+    gen_batch = gen_params.reshape(1, -1).expand(batch_size, -1)
+    random_batch = generate_random_input(batch_size, N_RPARAMS)
 
     return torch.cat([gen_batch, random_batch], dim=1)
 
 # Generate input for generator
 def generate_gen_input(batch_size):
-    disc_params = torch.nn.utils.parameters_to_vector(model_df.parameters()).detach() #disc_params = optimizer_d.param_groups[0]['params'][0].detach()
+    disc_params = torch.nn.utils.parameters_to_vector(model_d.parameters()).detach() #disc_params = optimizer_d.param_groups[0]['params'][0].detach()
 
     disc_batch = disc_params.reshape(1, -1).expand(batch_size, -1)
     random_batch = generate_random_input(batch_size, N_RPARAMS)
@@ -837,7 +866,7 @@ def generate_gen_input(batch_size):
     return torch.cat([disc_batch, random_batch], dim=1)
 
 
-# Real circuit execution is handled by model_dr. It can parallelize forwards,
+# Real circuit execution is handled by model_d. It can parallelize forwards,
 # but backward is intentionally kept as one call in disc_pass().
 
 
@@ -885,22 +914,17 @@ else:
 #- Forward and backward pass -#
 
 batch_size = train_config['batch_size']
-fake_batch_size = max(batch_size // 2, 1) # This is for when batch_size is odd
-real_batch_size = batch_size - (batch_size // 2) # This is for when batch_size is odd
 
 
 # Discriminator pass
 def disc_pass():
     optimizer_d.zero_grad()
 
-    # Calculate discriminator gradient with real data
-    real_indexes = generate_real_input_index(real_batch_size)
-    real_output = model_dr(real_indexes)
+    # Calculate discriminator gradient with real and generated data
+    real_indexes = generate_real_input_index(batch_size)
+    fake_inputs = generate_fake_disc_input(batch_size)
+    real_output, fake_output = model_d(real_indexes, fake_inputs)
     real_loss = f_loss(real_output, torch.ones_like(real_output)) # 1-> Real guess (correct)
-
-    # Calculate discriminator gradient with generated data
-    fake_inputs = generate_fake_disc_input(fake_batch_size)
-    fake_output = model_df(fake_inputs)
     fake_loss = f_loss(fake_output, -torch.ones_like(fake_output)) # -1-> Fake guess (correct)
 
     disc_total_loss = real_loss + fake_loss
@@ -1002,7 +1026,7 @@ finally:
         'init_disc_params': params['init_disc_params'],
         'best_gen_params': best_gen_params,
         'gen_params': torch.nn.utils.parameters_to_vector(model_g.parameters()).detach().cpu(),
-        'disc_params': torch.nn.utils.parameters_to_vector(model_df.parameters()).detach().cpu(),
+        'disc_params': torch.nn.utils.parameters_to_vector(model_d.parameters()).detach().cpu(),
         'current_epoch': epoch+1,
         "metrics": {
             "gloss": gloss,
@@ -1017,8 +1041,7 @@ finally:
     }
 
     params['model_g_state'] = model_g.state_dict()
-    params['model_dr_states'] = [model_dr_i.state_dict() for model_dr_i in model_drs]
-    params['model_df_state'] = model_df.state_dict()
+    params['model_d_state'] = model_d.state_dict()
     params['eval_g_state'] = eval_g.state_dict()
     
     torch.save(params, config_path + "training_data.pth")
