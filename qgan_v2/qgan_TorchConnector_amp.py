@@ -52,7 +52,7 @@ from qiskit_aer.quantum_info import AerStatevector
 from qiskit_aer.library import SaveProbabilities
 
 from qiskit_ibm_runtime import EstimatorV2 as EstimatorV2_rh, QiskitRuntimeService, Session
-from qiskit_ibm_runtime.options import EstimatorOptions # TODO
+from qiskit_ibm_runtime.fake_provider import FakeSherbrooke
 
 from qiskit_algorithms.gradients import ReverseEstimatorGradient
 
@@ -66,7 +66,7 @@ import datetime as dt
 import pickle
 import yaml
 import argparse
-from concurrent.futures import ThreadPoolExecutor # TODO no TorchConenctor, solo pubs
+from concurrent.futures import ThreadPoolExecutor
 
 # %%
 #- Parameter management for python scripts -#
@@ -83,24 +83,70 @@ if __name__ == "__main__":
 # %%
 #- Load configuration file -#
 
-#configuration_file_path = "../data/test/qgan_TorchConnector_amp/q4/noiseless/CPU/PSR/randomFalse/seed0/id0/config.yaml"
+#configuration_file_path = "../data/test/qgan_TorchConnector_amp-q3-noiseless-CPU-SPSA-randomTrue-seed0/config.yaml"
 config_path = os.path.dirname(configuration_file_path) + "/"
 
 # Load config file
 def load_config_file(filename):
     with open(filename, "r") as file:
-        data = yaml.safe_load(file)
+        config = yaml.safe_load(file)
 
-    train_c = data['train_config']
-    backend_c = data['backend_config']
-
-    return train_c, backend_c
+    return config
 
 
-train_config, backend_config = load_config_file(configuration_file_path)
+config = load_config_file(configuration_file_path)
+
 
 # %%
 #- Create backend -#
+
+# Get shots from precision
+def get_shots(precision):
+    if np.isclose(precision, 0, atol=1e-8):
+        return None
+    else:
+        return int(1/(precision**2))
+
+# Get simulation options
+def get_sim_options(config, execution_type, precision):
+    sim_backend_options = config['backend_options']['sim_backend_options']
+    method_key = 'noisy_sim_method' if execution_type in ["noisy", "real"] else 'noiseless_sim_method'
+
+    sim_options = {
+        'method': sim_backend_options[method_key],
+        'precision': config['backend_options']['data_type'],
+        'seed_simulator': config['implementation_options']['seed'],
+        'shots': get_shots(precision),
+    }
+
+    if config['implementation_options']['device'] == "GPU":
+        sim_options['device'] = 'GPU'
+        sim_options.update(config['gpu_device_options'])
+
+    return sim_options
+
+
+# Load backend options
+real_backend_options = config['backend_options']['real_backend_options']
+estimator_options = real_backend_options.get('real_estimator_options', {})
+training_precision = config['backend_options']['training_precision']
+if config['implementation_options']['execution_type'] == "real" and 'default_precision' in estimator_options:
+    training_precision = estimator_options['default_precision']
+
+eval_precision = config['eval_options']['eval_precision']
+sim_options = get_sim_options(
+    config,
+    config['implementation_options']['execution_type'],
+    training_precision,
+)
+eval_options = get_sim_options(
+    config,
+    config['eval_options']['eval_execution_type'],
+    eval_precision,
+)
+
+
+
 
 # # Save account
 # QiskitRuntimeService.save_account(
@@ -119,7 +165,7 @@ def create_backend_file(backend, filename):
         'properties': backend.properties(),
         'target': backend.target,
         'options': backend.options,
-        'noise_model': None if train_config["execution_type"] == "noiseless" else backend.options.noise_model
+        'noise_model': None if config['implementation_options']['execution_type'] == "noiseless" else backend.options.noise_model
     }
 
     with open(filename, "wb") as f:
@@ -130,14 +176,15 @@ def create_backend_file(backend, filename):
 
 # Load backend file (just for simulation)
 def load_backend_file(filename):
-    if train_config['reset_backend'] or not os.path.exists(filename):
+    if config['data_management']['reset_backend'] or not os.path.exists(filename):
         # Get real backend info
-        if train_config['execution_type'] == "noisy" and backend_config['reset_backend']:
-            service = QiskitRuntimeService(channel=backend_config['channel'])
-            real_backend = service.backend(backend_config['name']) #backend = service.least_busy(min_num_qubits=30)
-            backend = AerSimulator.from_backend(real_backend, **backend_config['sim_options']) # Get current backend state
+        if config['implementation_options']['execution_type'] == "noisy" and config['data_management']['reset_backend']:
+            #service = QiskitRuntimeService(channel=real_backend_options['channel'])
+            #real_backend = service.backend(real_backend_options['name']) #backend = service.least_busy(min_num_qubits=30)
+            real_backend = FakeSherbrooke()
+            backend = AerSimulator.from_backend(real_backend, **sim_options) # Get current backend state
         else:
-            backend = AerSimulator(**backend_config['sim_options'])
+            backend = AerSimulator(**sim_options)
 
         create_backend_file(backend, filename)
 
@@ -148,10 +195,10 @@ def load_backend_file(filename):
 
 
 # Create backend
-if train_config['execution_type'] == "real":
+if config['implementation_options']['execution_type'] == "real":
     # Get real backend
-    service = QiskitRuntimeService(channel=backend_config['channel'])
-    backend = service.backend(backend_config['name']) #backend = service.least_busy(min_num_qubits=30)
+    service = QiskitRuntimeService(channel=real_backend_options['channel'])
+    backend = service.backend(real_backend_options['name']) #backend = service.least_busy(min_num_qubits=30)
 
     # Save backend info
     create_backend_file(backend, config_path + "backend.pkl")
@@ -160,7 +207,7 @@ if train_config['execution_type'] == "real":
     session = Session(backend=backend)
 
     # Create estimator
-    estimator = EstimatorV2_rh(session=session) # ? TODO qiskit-ibm-runtime
+    estimator = EstimatorV2_rh(mode=session, options=estimator_options)
 
 else:
     # Load backend configuration
@@ -177,7 +224,7 @@ else:
     # Create Estimator for simulation
     estimator = EstimatorV2_sim(
         options = {
-            "default_precision": backend_config["train_precision"],
+            "default_precision": training_precision,
             "backend_options": backend.options,
         })
 
@@ -186,28 +233,28 @@ else:
 pm = generate_preset_pass_manager(
     optimization_level=3,
     backend=backend,
-    seed_transpiler=train_config['seed']
+    seed_transpiler=config['implementation_options']['seed']
 )
 
 
 
 # Backend, estimator and pm for noiseless evaluation (do not need to execute evaluation in a nosiy environment)
-eval_backend = AerSimulator(**backend_config['sim_options'])
-eval_estimator = EstimatorV2_sim(options = {"default_precision": backend_config["eval_precision"], "backend_options": eval_backend.options,})
-eval_pm = generate_preset_pass_manager(optimization_level=3, backend=eval_backend, seed_transpiler=train_config['seed'])
+eval_backend = AerSimulator(**eval_options)
+eval_estimator = EstimatorV2_sim(options = {"default_precision": eval_precision, "backend_options": eval_backend.options,})
+eval_pm = generate_preset_pass_manager(optimization_level=3, backend=eval_backend, seed_transpiler=config['implementation_options']['seed'])
 
 
 
 # Select device torch
 #os.environ["CUDA_VISIBLE_DEVICES"] = "1,2" # before torch import to select specific devices
 #import torch
-if train_config['device'] == "GPU" and torch.cuda.is_available():
+if config['implementation_options']['device'] == "GPU" and torch.cuda.is_available():
     print(f"GPUs available to PyTorch: {torch.cuda.device_count()}")
     device = torch.device("cuda")
 else:
     device = torch.device("cpu")
 
-if backend_config["sim_options"]["precision"] == "double":
+if sim_options["precision"] == "double":
     dtype = torch.float64
 else:
     dtype = torch.float32
@@ -215,6 +262,7 @@ else:
 
 # Print backend properties
 print(backend)
+
 
 # %%
 #- Load dataset -#
@@ -296,8 +344,8 @@ def create_dataset_file(n_qubits, filename):
 
 # Load circuits from file
 def load_dataset_file(filename):
-    if train_config['reset_dataset'] or not os.path.exists(filename):
-        create_dataset_file(2**train_config['n_qubits'], filename)
+    if config['embedding_options']['reset_dataset'] or not os.path.exists(filename):
+        create_dataset_file(2**config['implementation_options']['n_qubits'], filename)
 
     X = np.load(filename)
 
@@ -320,12 +368,12 @@ print("dataset shape:", X.shape, "\ndata type:", X.dtype)
 
 # Create real data sample circuit
 def generate_real_circuits(matrices = None):
-    n_qubits = train_config['n_qubits']
+    n_qubits = config['implementation_options']['n_qubits']
 
     if (matrices is None) or (matrices is []):
         ''' 
         # Random statevector
-        sv = random_statevector(2**n_qubits, seed=train_config['seed'])
+        sv = random_statevector(2**n_qubits, seed=config['implementation_options']['seed'])
         qc = QuantumCircuit(n_qubits)
         qc.prepare_state(sv, qc.qubits, normalize=True) 
         '''
@@ -352,7 +400,7 @@ def generate_real_circuits(matrices = None):
 
 # Create generator
 def generate_generator():
-    n_qubits = train_config['n_qubits']
+    n_qubits = config['implementation_options']['n_qubits']
 
     qc = real_amplitudes(n_qubits,
                         reps=3, # Number of layers
@@ -364,9 +412,9 @@ def generate_generator():
 
 # Create random input generator
 def generate_randomizer():
-    n_qubits = train_config['n_qubits']
+    n_qubits = config['implementation_options']['n_qubits']
 
-    if train_config['random_input']:
+    if config['implementation_options']['random_input']:
         # # Almost fully random circuit, but expensive TODO
         # qc = efficient_su2(n_qubits,
         #                   entanglement="reverse_linear",
@@ -389,7 +437,7 @@ def generate_randomizer():
 
 # Create discriminator
 def generate_discriminator():
-    n_qubits = train_config['n_qubits']
+    n_qubits = config['implementation_options']['n_qubits']
 
     qc = efficient_su2(n_qubits,
                       entanglement="reverse_linear",
@@ -426,7 +474,7 @@ def create_circuits_file(matrices, filename):
 
 # Load circuits from file
 def load_circuits_file(filename):
-    if train_config['create_circuits'] or not os.path.exists(filename):
+    if config['data_management']['create_circuits'] or not os.path.exists(filename):
         create_circuits_file(X.detach().cpu(), filename)
 
     with open(filename, 'rb') as fd:
@@ -446,7 +494,7 @@ real_circuits, randomizer_circuit, generator_circuit, discriminator_circuit = lo
 # %%
 #- Set up training quantum circuits -#
 def generate_training_circuits(real_circuits, generator_circuit, discriminator_circuit):
-    n_qubits = train_config['n_qubits']
+    n_qubits = config['implementation_options']['n_qubits']
 
     # Connect real data and discriminator
     real_disc_circuits = []
@@ -468,9 +516,9 @@ def generate_training_circuits(real_circuits, generator_circuit, discriminator_c
 
 
     # Gradient computation method
-    if train_config['gradient_method'] == 'SPSA':
-        gradient = SPSAEstimatorGradient(estimator=estimator, seed=train_config['seed'])
-    elif train_config['gradient_method'] == 'REG':
+    if config['implementation_options']['gradient_method'] == 'SPSA':
+        gradient = SPSAEstimatorGradient(estimator=estimator, seed=config['implementation_options']['seed'])
+    elif config['implementation_options']['gradient_method'] == 'REG':
         gradient = ReverseEstimatorGradient()
     else:
         gradient = ParamShiftEstimatorGradient(estimator=estimator)
@@ -497,9 +545,9 @@ def generate_training_circuits(real_circuits, generator_circuit, discriminator_c
                         estimator=estimator,
                         observables=obs_gen_disc,
                         gradient=gradient,
-                        default_precision=backend_config["train_precision"],
+                        default_precision=training_precision,
                         #pass_manager=pm, # Not needed, already tranpsiled
-                        input_gradients=True
+                        #input_gradients=True # not needed even if i am using TorchConnector
                         )
 
     # specify QNN to update discriminator parameters regarding to fake data
@@ -509,9 +557,9 @@ def generate_training_circuits(real_circuits, generator_circuit, discriminator_c
                             estimator=estimator,
                             observables=obs_gen_disc,
                             gradient=gradient,
-                            default_precision=backend_config["train_precision"],
+                            default_precision=training_precision,
                             #pass_manager=pm, # Not needed, already tranpsiled
-                            input_gradients=True
+                            #input_gradients=True # not needed even if i am using TorchConnector
                             )
 
     # specify QNN to update discriminator parameters regarding to real data
@@ -524,9 +572,9 @@ def generate_training_circuits(real_circuits, generator_circuit, discriminator_c
                             estimator=estimator,
                             observables=obs_real_disc[i],
                             gradient=gradient,
-                            default_precision=backend_config["train_precision"],
+                            default_precision=training_precision,
                             #pass_manager=pm, # Not needed, already tranpsiled
-                            input_gradients=True
+                            #input_gradients=True # not needed even if i am using TorchConnector
                             )
         disc_real_qnns.append(disc_real_qnn)
     
@@ -534,7 +582,7 @@ def generate_training_circuits(real_circuits, generator_circuit, discriminator_c
 
     # Create Sampler for evaluation, to use with TorchConnector
     sampler = SamplerV2_sim(
-        default_shots = backend_config['eval_options']['shots'],
+        default_shots = eval_options['shots'],
         options = {"backend_options": eval_backend.options}
     )
     # # Noiseless sampler (not BaseV2, cannot be used for TorchConnector)
@@ -554,7 +602,7 @@ def generate_training_circuits(real_circuits, generator_circuit, discriminator_c
                             sampler=sampler,
                             gradient=gradient,
                             pass_manager=eval_pm,
-                            input_gradients=False # For evaluation
+                            #input_gradients=False # For evaluation
                             )
 
     # Noiseless pubs version
@@ -652,8 +700,8 @@ class JoinedDiscriminator(torch.nn.Module):
 
 # Reset all data training
 def create_training_data_file(n_gen_params, n_disc_params, filename):
-    np.random.seed(train_config['seed'])
-    torch.manual_seed(train_config['seed'])
+    np.random.seed(config['implementation_options']['seed'])
+    torch.manual_seed(config['implementation_options']['seed'])
 
     init_gen_params = np.random.uniform(low=-np.pi, high=np.pi, size=(n_gen_params,)) * 0.1 # Start from near 0 parameters to mitigate drastic changes at the start
     init_disc_params = np.random.uniform(low=-np.pi, high=np.pi, size=(n_disc_params,)) * 0.1
@@ -683,7 +731,7 @@ def create_training_data_file(n_gen_params, n_disc_params, filename):
         disc_real_qnns,
         disc_fake_qnn,
         initial_weights=init_disc_params,
-        max_workers=train_config['batch_size'],
+        max_workers=config['embedding_options']['batch_size'],
     )
     eval_g = TorchConnector(gen_eval_transpiled)
 
@@ -716,7 +764,7 @@ def create_training_data_file(n_gen_params, n_disc_params, filename):
 
 # Load parameters and training states from file
 def load_training_data_file(filename):
-    if train_config['reset_training_data'] or not os.path.exists(filename):
+    if config['data_management']['reset_training_data'] or not os.path.exists(filename):
         create_training_data_file(generator_circuit.num_parameters, discriminator_circuit.num_parameters, filename)
 
     params = torch.load(filename, weights_only=False, map_location=device)
@@ -748,7 +796,7 @@ model_g = TorchConnector(gen_qnn)
 model_d = JoinedDiscriminator(
     disc_real_qnns,
     disc_fake_qnn,
-    max_workers=train_config['batch_size'],
+    max_workers=config['embedding_options']['batch_size'],
 )
 eval_g = TorchConnector(gen_eval_transpiled)
 
@@ -805,7 +853,7 @@ class Interrupter:
             raise KeyboardInterrupt
 
 # %%
-#- Evualuation method -# TODO generic evaluation method
+#- Evualuation method -#
 
 # Evaluate specific gradient (top-left to bottom-right) for small images
 img_h, img_w = X.shape[1:3]
@@ -834,13 +882,13 @@ def generate_random_input(batch_size, num_params):
         num_params,
         device=device,
         dtype=dtype,
-    ) * train_config['randomness']
+    ) * config['embedding_options']['randomness']
 
 
 # Get real data input
 def generate_real_input_index(batch_size):
     if batch_size > model_d.num_real_models:
-        raise ValueError(f"batch_size={batch_size} is larger than the number of real discriminator models ({model_d.num_real_models}). This is not accepted for safe parallelization. Reduce train_config['batch_size'] or create more real discriminator models.")
+        raise ValueError(f"batch_size={batch_size} is larger than the number of real discriminator models ({model_d.num_real_models}). This is not accepted for safe parallelization. Reduce config['embedding_options']['batch_size'] or create more real discriminator models.")
 
     data_indexes = torch.randperm(model_d.num_real_models, device=device)[:batch_size]
     return data_indexes
@@ -871,7 +919,7 @@ def generate_gen_input(batch_size):
 
 
 # Evaluate batch of generated samples with real samples
-if backend_config['eval_precision'] != 0.0:
+if eval_precision != 0.0:
     # TorchConnector version
     def batch_evaluation(batch_size):
         with torch.no_grad():
@@ -913,7 +961,7 @@ else:
 # %%
 #- Forward and backward pass -#
 
-batch_size = train_config['batch_size']
+batch_size = config['embedding_options']['batch_size']
 
 
 # Discriminator pass
@@ -961,12 +1009,12 @@ def copy_params():
 # %%
 #- Training -#
 
-D_STEPS = train_config['disc_iterations']
-G_STEPS = train_config['gen_iterations']
+D_STEPS = config['training_parameters']['disc_iterations']
+G_STEPS = config['training_parameters']['gen_iterations']
 
 interrupter = Interrupter()
 
-if train_config['print_progress_iterations']:
+if config['training_parameters']['print_progress_iterations']:
     TABLE_HEADERS = "Epoch | Generator cost | Discriminator cost | Eval | Best eval | Time |"
     print(TABLE_HEADERS)
 
@@ -975,7 +1023,7 @@ start_time = time.time()
 
 #--- Training loop ---#
 try: # In case of interruption
-    for epoch in range(current_epoch, train_config['max_iterations']+1):
+    for epoch in range(current_epoch, config['training_parameters']['max_iterations']+1):
 
         #--- Quantum discriminator parameter updates ---#
         for disc_train_step in range(D_STEPS):
@@ -1004,7 +1052,7 @@ try: # In case of interruption
 
 
         #--- Print progress ---#
-        if train_config['print_progress_iterations'] and (epoch % train_config['print_progress_iterations'] == 0):
+        if config['training_parameters']['print_progress_iterations'] and (epoch % config['training_parameters']['print_progress_iterations'] == 0):
             now_times = sum(times.values())
             for header, val in zip(TABLE_HEADERS.split('|'),
                                 (epoch, gen_loss, disc_loss, current_eval, min_eval, now_times - prev_times)):
@@ -1046,7 +1094,7 @@ finally:
     
     torch.save(params, config_path + "training_data.pth")
     
-    if train_config['execution_type'] == "real":
+    if config['implementation_options']['execution_type'] == "real":
         session.close()
 
     eval_data = list(eval.values()) if eval else [0]

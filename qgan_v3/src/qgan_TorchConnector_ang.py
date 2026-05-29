@@ -5,9 +5,13 @@
 #     - Evaluation: noiseless y noisy
 # - Simulación via qiskit_aer (en GPUs)
 # - Optimicación pytorch para evaluacion en multiples GPUs
+# 
+# Embedding:
+# - Angle embedding
+# - Batch parallelization via qiskit_aer pubs. Fake pubs in EstimatorQNN, Real pubs without EstimatorQNN.
 
 # %% [markdown]
-# ## Implementation: Probability Distributions with Torch Connector
+# ## Implementation (statevector simulation)
 
 # %%
 #--- INSTALATION INSTRUCTIONS ---#
@@ -24,13 +28,13 @@
 # Create enviroment with conda
 #conda create -n myenv python=3.10
 #conda activate myenv
-#pip install qiskit qiskit-machine-learning 'qiskit-machine-learning[sparse]' qiskit_aer qiskit-aer-gpu qiskit_algorithms torch matplotlib pylatexenc ipykernelc pyyaml
+#pip install qiskit qiskit-machine-learning 'qiskit-machine-learning[sparse]' qiskit_aer qiskit-aer-gpu qiskit_algorithms torch matplotlib pylatexenc ipykernelc
 # IMPORTANT: Make sure you are on 3.10
 # May need to restart the kernel after instalation
 
 #--- Imports ---#
 from qiskit import QuantumCircuit
-from qiskit.circuit import Parameter
+from qiskit.circuit import Parameter, ParameterVector
 from qiskit.quantum_info import random_statevector, Statevector, SparsePauliOp
 from qiskit.circuit.library import real_amplitudes, efficient_su2
 from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
@@ -47,7 +51,6 @@ from qiskit_aer.quantum_info import AerStatevector
 from qiskit_aer.library import SaveProbabilities
 
 from qiskit_ibm_runtime import EstimatorV2 as EstimatorV2_rh, QiskitRuntimeService, Session
-from qiskit_ibm_runtime.fake_provider import FakeSherbrooke
 
 from qiskit_algorithms.gradients import ReverseEstimatorGradient
 
@@ -77,7 +80,7 @@ if __name__ == "__main__":
 # %%
 #- Load configuration file -#
 
-#configuration_file_path = "../data/test/qgan_TorchConnector-q3-noiseless-CPU-SPSA-seed0/config.yaml"
+#configuration_file_path = "../data/test/qgan_TorchConnector_ang-q3-noiseless-CPU-SPSA-randomTrue-seed0/config.yaml"
 config_path = os.path.dirname(configuration_file_path) + "/"
 
 # Load config file
@@ -89,6 +92,7 @@ def load_config_file(filename):
 
 
 config = load_config_file(configuration_file_path)
+
 
 # %%
 #- Create backend -#
@@ -149,6 +153,7 @@ eval_options = get_sim_options(
 #     overwrite=True
 # )
 
+
 # Save backend file
 def create_backend_file(backend, filename):
     backend_dict = {
@@ -171,10 +176,9 @@ def load_backend_file(filename):
     if config['data_management']['reset_backend'] or not os.path.exists(filename):
         # Get real backend info
         if config['implementation_options']['execution_type'] == "noisy" and config['data_management']['reset_backend']:
-            #service = QiskitRuntimeService(channel=real_backend_options['channel'])
-            #real_backend = service.backend(real_backend_options['name']) #backend = service.least_busy(min_num_qubits=30)
-            real_backend = FakeSherbrooke()
-            backend = AerSimulator.from_backend(real_backend, **sim_options)
+            service = QiskitRuntimeService(channel=real_backend_options['channel'])
+            real_backend = service.backend(real_backend_options['name']) #backend = service.least_busy(min_num_qubits=30)
+            backend = AerSimulator.from_backend(real_backend, **sim_options) # Get current backend state
         else:
             backend = AerSimulator(**sim_options)
 
@@ -200,6 +204,7 @@ if config['implementation_options']['execution_type'] == "real":
 
     # Create estimator
     estimator = EstimatorV2_rh(mode=session, options=estimator_options)
+
 else:
     # Load backend configuration
     backend_dict = load_backend_file(config_path + "backend.pkl")
@@ -228,8 +233,10 @@ pm = generate_preset_pass_manager(
 )
 
 
-# Backend and pass manager for noiseless evaluation (do not need to execute evaluation in a nosiy environment)
+
+# Backend, estimator and pm for noiseless evaluation (do not need to execute evaluation in a nosiy environment)
 eval_backend = AerSimulator(**eval_options)
+eval_estimator = EstimatorV2_sim(options = {"default_precision": eval_precision, "backend_options": eval_backend.options,})
 eval_pm = generate_preset_pass_manager(optimization_level=3, backend=eval_backend, seed_transpiler=config['implementation_options']['seed'])
 
 
@@ -254,21 +261,122 @@ print(backend)
 
 
 # %%
-#- Create quantum circuits -#
+#- Load dataset -#
+
+# Build my own dataset of images: gradient images
+def apply_curve(x, curve):
+    if curve == 'linear':
+        return x
+    elif curve == 'quadratic':
+        return x ** 2
+    elif curve == 'sqrt':
+        return np.sqrt(x)
+    elif curve == 'log':
+        return np.log1p(x * 9) / np.log(10)  # scale [0,1] into [0,1] log space
+    elif curve == 'exp':
+        return (np.exp(x * 3) - 1) / (np.exp(3) - 1)  # normalized exponential
+    elif curve == 'sigmoid':
+        return 1 / (1 + np.exp(-10 * (x - 0.5)))  # smooth S-curve
+    elif curve == 'sin':
+        return 0.5 * (1 - np.cos(np.pi * x))  # smooth start and end
+    else:
+        raise ValueError(f"Unknown curve type: {curve}")
+
+def create_gradients(total_pixels, directions=None, curves=None, width=None, height=None):
+    if directions is None:
+        directions = [
+            'top_left_to_bottom_right'
+        ]
+    if curves is None:
+        curves = ['linear', 'quadratic', 'sqrt', 'log', 'exp', 'sigmoid', 'sin']
+
+    if width is None or height is None:
+        for h in range(int(np.sqrt(total_pixels)), 0, -1):
+            if total_pixels % h == 0:
+                width, height = total_pixels // h, h
+                break
+    elif width * height != total_pixels:
+        raise ValueError("Provided width and height do not match total number of pixels.")
+
+    max_val = 255
+    gradients = []
+
+    i, j = np.meshgrid(np.arange(height), np.arange(width), indexing='ij')
+
+    # Precompute normalized coordinate matrices for all directions
+    norm_maps = {
+        'left_to_right': np.tile(np.linspace(0, 1, width), (height, 1)),
+        'right_to_left': np.tile(np.linspace(1, 0, width), (height, 1)),
+        'top_to_bottom': np.tile(np.linspace(0, 1, height)[:, np.newaxis], (1, width)),
+        'bottom_to_top': np.tile(np.linspace(1, 0, height)[:, np.newaxis], (1, width)),
+        'top_left_to_bottom_right': (i + j) / (width + height - 2),
+        'bottom_right_to_top_left': ((height - 1 - i) + (width - 1 - j)) / (width + height - 2),
+        'top_right_to_bottom_left': (i + (width - 1 - j)) / (width + height - 2),
+        'bottom_left_to_top_right': ((height - 1 - i) + j) / (width + height - 2)
+    }
+
+    for direction in directions:
+        if direction not in norm_maps:
+            raise ValueError(f"Unknown direction: {direction}")
+        base_map = norm_maps[direction]
+
+        for curve in curves:
+            # Apply curve to normalized map
+            curved_map = apply_curve(base_map, curve)
+            gradients.append(curved_map)
+
+    image_array = np.array(gradients).reshape(-1, height, width)
+    return image_array
+
+
+
+# Create circuits file
+def create_dataset_file(n_qubits, filename):
+    image_array = create_gradients(n_qubits)
+    np.save(filename, image_array)
+
+    print("Dataset file created.")
+
+
+# Load circuits from file
+def load_dataset_file(filename):
+    if config['embedding_options']['reset_dataset'] or not os.path.exists(filename):
+        create_dataset_file(config['implementation_options']['n_qubits'], filename)
+
+    X = np.load(filename)
+
+    return X
+
+X = load_dataset_file(config_path + "dataset.npy")
+X = torch.as_tensor(X, device=device, dtype=dtype)
+
+
+# Show dataset
+for i in range(len(X)):
+    plt.subplot(1,len(X)+1,i+1)
+    plt.imshow(X[i].detach().cpu(), cmap="gray")
+    plt.axis("off")
+plt.show()
+print("dataset shape:", X.shape, "\ndata type:", X.dtype)
+
+# %%
+#- Angle embedding -#
 
 # Create real data sample circuit
 def generate_real_circuit():
     n_qubits = config['implementation_options']['n_qubits']
 
-    # sv = random_statevector(2**n_qubits, seed=config['implementation_options']['seed'])
-    # qc = QuantumCircuit(n_qubits)
-    # qc.prepare_state(sv, qc.qubits, normalize=True)
+    real_weights = ParameterVector('θ_r', n_qubits)
+    qc = QuantumCircuit(n_qubits, name="Real circuit")
+    param_index = 0
 
-    qc = QuantumCircuit(n_qubits)
-    qc.h(range(n_qubits-1))
-    qc.cx(n_qubits-2, n_qubits-1)
+    for q in range(n_qubits):
+        qc.ry(real_weights[param_index], q); param_index += 1
+
     return qc
 
+# %%
+#- Create quantum circuits -#
 
 # Create generator
 def generate_generator():
@@ -340,9 +448,14 @@ def generate_training_circuits(real_circuit, generator_circuit, discriminator_ci
     real_disc_circuit.compose(real_circuit, inplace=True)
     real_disc_circuit.compose(discriminator_circuit, inplace=True)
 
+    # Connect real circuit to generator and discriminator for random input
+    ran_gen_circuit = QuantumCircuit(n_qubits)
+    if config['implementation_options']['random_input']: ran_gen_circuit.compose(real_circuit, inplace=True)
+    ran_gen_circuit.compose(generator_circuit, inplace=True)
+
     # Connect generator and discriminator
     gen_disc_circuit = QuantumCircuit(n_qubits)
-    gen_disc_circuit.compose(generator_circuit, inplace=True)
+    gen_disc_circuit.compose(ran_gen_circuit, inplace=True)
     gen_disc_circuit.compose(discriminator_circuit, inplace=True)
 
 
@@ -358,19 +471,25 @@ def generate_training_circuits(real_circuit, generator_circuit, discriminator_ci
     # Observables
     H1 = SparsePauliOp.from_list([("Z" + "I"*(n_qubits-1), 1.0)])
 
+    obs_gen_eval_og = [SparsePauliOp.from_list([("I" * i + "Z" + "I" * (n_qubits - 1 - i), 1)]) for i in range(n_qubits)]
+
 
     # Transpilation
     real_disc_circuit_transpiled, gen_disc_circuit_transpiled = pm.run([real_disc_circuit, gen_disc_circuit])
     obs_real_disc = [H1.apply_layout(real_disc_circuit_transpiled.layout)]
     obs_gen_disc = [H1.apply_layout(gen_disc_circuit_transpiled.layout)]
 
+    gen_eval_circuit_transpiled = eval_pm.run(ran_gen_circuit)
+    obs_gen_eval = [ob.apply_layout(gen_eval_circuit_transpiled.layout) for ob in obs_gen_eval_og]
+
 
     N_DPARAMS = discriminator_circuit.num_parameters
+    N_GPARAMS = generator_circuit.num_parameters
 
     # specify QNN to update generator parameters
     gen_qnn = EstimatorQNN(circuit=gen_disc_circuit_transpiled,
-                        input_params=gen_disc_circuit_transpiled.parameters[:N_DPARAMS], # fixed parameters (discriminator parameters)
-                        weight_params=gen_disc_circuit_transpiled.parameters[N_DPARAMS:], # parameters to update (generator parameters)
+                        input_params=gen_disc_circuit_transpiled.parameters[:N_DPARAMS] + gen_disc_circuit_transpiled.parameters[(N_DPARAMS+N_GPARAMS):], # fixed parameters (discriminator + random parameters)
+                        weight_params=gen_disc_circuit_transpiled.parameters[N_DPARAMS:(N_DPARAMS+N_GPARAMS)], # parameters to update (generator parameters)
                         estimator=estimator,
                         observables=obs_gen_disc,
                         gradient=gradient,
@@ -381,7 +500,7 @@ def generate_training_circuits(real_circuit, generator_circuit, discriminator_ci
 
     # specify QNN to update discriminator parameters regarding to fake data
     disc_fake_qnn = EstimatorQNN(circuit=gen_disc_circuit_transpiled,
-                            input_params=gen_disc_circuit_transpiled.parameters[N_DPARAMS:], # fixed parameters (generator parameters)
+                            input_params=gen_disc_circuit_transpiled.parameters[N_DPARAMS:], # fixed parameters (generator + random parameters)
                             weight_params=gen_disc_circuit_transpiled.parameters[:N_DPARAMS], # parameters to update (discriminator parameters)
                             estimator=estimator,
                             observables=obs_gen_disc,
@@ -393,7 +512,7 @@ def generate_training_circuits(real_circuit, generator_circuit, discriminator_ci
 
     # specify QNN to update discriminator parameters regarding to real data
     disc_real_qnn = EstimatorQNN(circuit=real_disc_circuit_transpiled,
-                            input_params=[], # no input parameters
+                            input_params=real_disc_circuit_transpiled.parameters[N_DPARAMS:], # fixed parameters (real data parameters)
                             weight_params=real_disc_circuit_transpiled.parameters[:N_DPARAMS], # parameters to update (discriminator parameters)
                             estimator=estimator,
                             observables=obs_real_disc,
@@ -404,42 +523,21 @@ def generate_training_circuits(real_circuit, generator_circuit, discriminator_ci
                             )
     
     # specify Generator evaluator
-
-    # Create Sampler for evaluation, to use with TorchConnector
-    sampler = SamplerV2_sim(
-        default_shots = eval_options['shots'],
-        options = {"backend_options": eval_backend.options}
-    )
-    # # Noiseless sampler (not BaseV2, cannot be used for TorchConnector)
-    # sampler = Sampler_sim(
-    #     backend_options = backend.options,
-    #     run_options = {
-    #         'shots': None,
-    #     },
-    #     skip_transpilation=True
-    # )
-
-    # specify QNN to evaluate generator
-    gen_eval_circuit = generator_circuit.copy()
-    gen_eval_circuit.measure_all()
-    gen_eval_transpiled = SamplerQNN(circuit=gen_eval_circuit,
-                            input_params=[], # no input parameters
-                            weight_params=gen_eval_circuit.parameters,
-                            sampler=sampler,
-                            gradient=gradient,
-                            pass_manager=eval_pm,
-                            #input_gradients=False # For evaluation
-                            )
-
-    # Noiseless pubs version
-    gen_noiseless_eval_circuit = generator_circuit.copy()
-    gen_noiseless_eval_circuit.append(SaveProbabilities(gen_noiseless_eval_circuit.num_qubits), gen_noiseless_eval_circuit.qubits)
-    gen_noiseless_eval_transpiled = eval_pm.run(gen_noiseless_eval_circuit)
+    gen_eval_qnn = EstimatorQNN(circuit=gen_eval_circuit_transpiled,
+                                input_params=gen_eval_circuit_transpiled.parameters[N_GPARAMS:], # fixed parameters (random parameters)
+                                weight_params=gen_eval_circuit_transpiled.parameters[:N_GPARAMS], # parameters to update (generator parameters)
+                                estimator=eval_estimator,
+                                observables=obs_gen_eval,
+                                gradient=gradient,
+                                default_precision=eval_precision,
+                                #pass_manager=pm, # Not needed, already tranpsiled
+                                #input_gradients=False, # For evaluation
+                                )
     
 
-    return gen_qnn, disc_fake_qnn, disc_real_qnn, gen_eval_transpiled, gen_noiseless_eval_transpiled
+    return gen_qnn, disc_fake_qnn, disc_real_qnn, gen_eval_qnn
 
-gen_qnn, disc_fake_qnn, disc_real_qnn, gen_eval_transpiled, gen_noiseless_eval_transpiled = generate_training_circuits(real_circuit, generator_circuit, discriminator_circuit)
+gen_qnn, disc_fake_qnn, disc_real_qnn, gen_eval_qnn = generate_training_circuits(real_circuit, generator_circuit, discriminator_circuit)
 
 # %%
 #f_loss = torch.nn.MSELoss(reduction="sum")
@@ -449,7 +547,7 @@ class FLoss(torch.nn.Module):
 
     def forward(self, x, label):
         loss = -x * label
-        return loss.mean()
+        return loss.mean() # 'mean' for batches
     
 f_loss = FLoss()
 
@@ -494,8 +592,8 @@ class JoinedDiscriminator(torch.nn.Module):
         self.tie_weights()
         return self
 
-    def forward(self, fake_input):
-        real_output = self.model_dr()
+    def forward(self, real_input, fake_input):
+        real_output = self.model_dr(real_input)
         fake_output = self.model_df(fake_input)
         return real_output, fake_output
 
@@ -503,7 +601,7 @@ class JoinedDiscriminator(torch.nn.Module):
 # %%
 #- Restore parameters and model states -#
 
-# Create training data file
+# Reset all data training
 def create_training_data_file(n_gen_params, n_disc_params, filename):
     np.random.seed(config['implementation_options']['seed'])
     torch.manual_seed(config['implementation_options']['seed'])
@@ -533,7 +631,7 @@ def create_training_data_file(n_gen_params, n_disc_params, filename):
 
     model_g = TorchConnector(gen_qnn, initial_weights=init_gen_params)
     model_d = JoinedDiscriminator(disc_real_qnn, disc_fake_qnn, initial_weights=init_disc_params)
-    eval_g = TorchConnector(gen_eval_transpiled)
+    eval_g = TorchConnector(gen_eval_qnn)
 
     if 'weight' in eval_g._parameters:
         eval_g._parameters.pop('weight')
@@ -594,7 +692,7 @@ times = params['metrics']['times']
 
 model_g = TorchConnector(gen_qnn)    
 model_d = JoinedDiscriminator(disc_real_qnn, disc_fake_qnn)
-eval_g = TorchConnector(gen_eval_transpiled)
+eval_g = TorchConnector(gen_eval_qnn)
 
 model_g.load_state_dict(params['model_g_state'])
 model_d.load_state_dict(params['model_d_state'])
@@ -617,7 +715,6 @@ optimizer_d = torch.optim.Adam(model_d.parameters())
 
 optimizer_g.load_state_dict(params['optimizer_g_state'])
 optimizer_d.load_state_dict(params['optimizer_d_state'])
-
 
 # %%
 #- Manage training interruption -#
@@ -652,29 +749,100 @@ class Interrupter:
 # %%
 #- Evualuation method -#
 
-# Evaluation method: KL-Div of generated (ger_dist) and real (target) sample
-def evaluate(gen_dist, target):
-    return torch.nn.functional.kl_div(
-        input = gen_dist.clamp_min(1e-10).log(), #torch.nn.functional.log_softmax(gen_dist, dim=-1),
-        target = target, 
-        reduction = 'sum' 
-    ).item()
+# Evaluate specific gradient (top-left to bottom-right) for small images
+img_h, img_w = X.shape[1:3]
+def evaluate(gen_dists, targets=None):
+    batch = gen_dists.reshape(-1, img_h, img_w)
+
+    h_diff = batch[:, :, 1:] - batch[:, :, :-1]
+    v_diff = batch[:, 1:, :] - batch[:, :-1, :]
+
+    h_penalty = (-h_diff.clamp(max=0)).mean()
+    v_penalty = (-v_diff.clamp(max=0)).mean()
+
+    penalty = 0.5 * (h_penalty + v_penalty)
+    return penalty.item()
+
+
+# %%
+#- Batch parallelization -#
+
+N_RPARAMS = gen_eval_qnn.num_inputs
+
+# Create random input
+def generate_random_input(batch_size, num_params):
+    return 2 * torch.pi * torch.rand(
+        batch_size,
+        num_params,
+        device=device,
+        dtype=dtype,
+    ) * config['embedding_options']['randomness']
+
+
+# Get real data input
+def generate_real_input(batch_size):
+    data_indexes = torch.randint(
+        low=0,
+        high=X.shape[0],
+        size=(batch_size,),
+        device=device,
+    )
+
+    return X[data_indexes].reshape(batch_size, -1)
+
+# Generate fake input for discriminator
+def generate_fake_disc_input(batch_size):
+    gen_params = torch.nn.utils.parameters_to_vector(model_g.parameters()).detach() #gen_params = optimizer_g.param_groups[0]['params'][0].detach()
+
+    gen_batch = gen_params.reshape(1, -1).expand(batch_size, -1)
+    random_batch = generate_random_input(batch_size, N_RPARAMS)
+
+    return torch.cat([gen_batch, random_batch], dim=1)
+
+# Generate input for generator
+def generate_gen_input(batch_size):
+    disc_params = torch.nn.utils.parameters_to_vector(model_d.parameters()).detach() #disc_params = optimizer_d.param_groups[0]['params'][0].detach()
+
+    disc_batch = disc_params.reshape(1, -1).expand(batch_size, -1)
+    random_batch = generate_random_input(batch_size, N_RPARAMS)
+
+    return torch.cat([disc_batch, random_batch], dim=1)
+
+
+# Evaluate batch of generated samples with real samples
+def batch_evaluation(batch_size):
+    with torch.no_grad():
+
+        # Get fake samples
+        random_input = generate_random_input(batch_size, N_RPARAMS)
+        fake_outputs = eval_g(random_input)
+
+        # Get real samples
+        #targets = generate_real_input(batch_size)
+
+        current_eval = evaluate(fake_outputs)
+
+    return current_eval
+
 
 # %%
 #- Forward and backward pass -#
+
+batch_size = config['embedding_options']['batch_size']
+
 
 # Discriminator pass
 def disc_pass():
     optimizer_d.zero_grad()
 
-    # Calculate discriminator loss with real and generated data
-    gen_params = torch.nn.utils.parameters_to_vector(model_g.parameters()).detach() #gen_params = optimizer_g.param_groups[0]['params'][0].detach()
-    real_output, fake_output = model_d(gen_params)
+    # Calculate discriminator gradient with real and generated data
+    real_inputs = generate_real_input(batch_size)
+    fake_inputs = generate_fake_disc_input(batch_size)
+    real_output, fake_output = model_d(real_inputs, fake_inputs)
     real_loss = f_loss(real_output, torch.ones_like(real_output)) # 1-> Real guess (correct)
     fake_loss = f_loss(fake_output, -torch.ones_like(fake_output)) # -1-> Fake guess (correct)
-
-    disc_total_loss = real_loss + fake_loss
-    disc_total_loss.backward()
+    loss = real_loss + fake_loss
+    loss.backward()
 
     optimizer_d.step()
 
@@ -688,8 +856,8 @@ def gen_pass():
     optimizer_g.zero_grad()
 
     # Calculate generator gradient
-    disc_params = torch.nn.utils.parameters_to_vector(model_d.parameters()).detach() #disc_params = optimizer_d.param_groups[0]['params'][0].detach()
-    gen_output = model_g(disc_params)
+    gen_inputs = generate_gen_input(batch_size)
+    gen_output = model_g(gen_inputs)
     gen_loss = f_loss(gen_output, torch.ones_like(gen_output)) # 1-> Real guess (decieved)
     gen_loss.backward()  # Backward pass
 
@@ -704,50 +872,15 @@ def gen_pass():
 def copy_params():
     return torch.nn.utils.parameters_to_vector(model_g.parameters()).detach().cpu().numpy().copy()
 
-
-#Evaluate performance
-if eval_precision != 0.0:
-    # TorchConnector version
-    def evaluation(real_distribution_tensor):
-        gen_dist = eval_g()
-
-        # Performance measurement function: uses Kullback Leibler Divergence to measures the distance between two distributions
-        current_eval = evaluate(gen_dist, real_distribution_tensor)
-
-        return current_eval
-    
-else:
-    # Noiseless pubs version
-    def evaluation(real_distribution_tensor):
-        # Get generator parameters as numpy
-        gen_params = torch.nn.utils.parameters_to_vector(model_g.parameters()).detach() #gen_params = optimizer_g.param_groups[0]['params'][0].detach()
-
-        # Get fake samples
-        parameter_binds = {gen_noiseless_eval_transpiled.parameters[i]: [gen_params[i]] for i in range(len(gen_noiseless_eval_transpiled.parameters))}
-        job = eval_backend.run([gen_noiseless_eval_transpiled], parameter_binds=[parameter_binds])
-        result = job.result()
-        all_counts = result.data(0)['probabilities']
-        gen_dist = torch.tensor(all_counts, dtype=dtype, device=device)
-
-        # Performance measurement function: uses Kullback Leibler Divergence to measures the distance between two distributions
-        current_eval = evaluate(gen_dist, real_distribution_tensor)
-
-        return current_eval
-
-
 # %%
 #- Training -#
 
 D_STEPS = config['training_parameters']['disc_iterations']
 G_STEPS = config['training_parameters']['gen_iterations']
-PRINT_PROGRESS_ITER = config['training_parameters']['print_progress_iterations']
-MAX_ITER = config['training_parameters']['max_iterations']
-
-real_distribution_tensor = torch.tensor(Statevector(real_circuit).probabilities(), dtype=dtype, device=device) # Retrieve real data probability distribution 
 
 interrupter = Interrupter()
 
-if PRINT_PROGRESS_ITER:
+if config['training_parameters']['print_progress_iterations']:
     TABLE_HEADERS = "Epoch | Generator cost | Discriminator cost | Eval | Best eval | Time |"
     print(TABLE_HEADERS)
 
@@ -756,7 +889,7 @@ start_time = time.time()
 
 #--- Training loop ---#
 try: # In case of interruption
-    for epoch in range(current_epoch, MAX_ITER+1):
+    for epoch in range(current_epoch, config['training_parameters']['max_iterations']+1):
 
         #--- Quantum discriminator parameter updates ---#
         for disc_train_step in range(D_STEPS):
@@ -770,13 +903,13 @@ try: # In case of interruption
             gloss[epoch] = gen_loss
 
 
-        #--- Track KL and save best performing generator weights ---#
-        current_eval = evaluation(real_distribution_tensor)
+        #--- Track Eval and save best performing generator weights ---#
+        current_eval = batch_evaluation(batch_size*2)
         eval[epoch] = current_eval
         if min_eval > current_eval:
             min_eval = current_eval
             best_gen_params = copy_params() # New best
-
+        
 
         # Calculate time
         cur_time = (time.time() - start_time)
@@ -785,7 +918,7 @@ try: # In case of interruption
 
 
         #--- Print progress ---#
-        if PRINT_PROGRESS_ITER and (epoch % PRINT_PROGRESS_ITER == 0):
+        if config['training_parameters']['print_progress_iterations'] and (epoch % config['training_parameters']['print_progress_iterations'] == 0):
             now_times = sum(times.values())
             for header, val in zip(TABLE_HEADERS.split('|'),
                                 (epoch, gen_loss, disc_loss, current_eval, min_eval, now_times - prev_times)):
@@ -832,6 +965,5 @@ finally:
 
     eval_data = list(eval.values()) if eval else [0]
     print("Training complete:", "\n   Data path:", config_path, "\n   Best eval:", np.min(eval_data), "in epoch", np.argmin(eval_data), "\n   Improvement:", eval_data[0]-np.min(eval_data), "\n   Total time:", sum(times.values()))
-
 
 

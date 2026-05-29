@@ -47,7 +47,6 @@ from qiskit_aer.quantum_info import AerStatevector
 from qiskit_aer.library import SaveProbabilities
 
 from qiskit_ibm_runtime import EstimatorV2 as EstimatorV2_rh, QiskitRuntimeService, Session
-from qiskit_ibm_runtime.fake_provider import FakeSherbrooke
 
 from qiskit_algorithms.gradients import ReverseEstimatorGradient
 
@@ -171,9 +170,8 @@ def load_backend_file(filename):
     if config['data_management']['reset_backend'] or not os.path.exists(filename):
         # Get real backend info
         if config['implementation_options']['execution_type'] == "noisy" and config['data_management']['reset_backend']:
-            #service = QiskitRuntimeService(channel=real_backend_options['channel'])
-            #real_backend = service.backend(real_backend_options['name']) #backend = service.least_busy(min_num_qubits=30)
-            real_backend = FakeSherbrooke()
+            service = QiskitRuntimeService(channel=real_backend_options['channel'])
+            real_backend = service.backend(real_backend_options['name']) #backend = service.least_busy(min_num_qubits=30)
             backend = AerSimulator.from_backend(real_backend, **sim_options)
         else:
             backend = AerSimulator(**sim_options)

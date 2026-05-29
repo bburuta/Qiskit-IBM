@@ -1,0 +1,153 @@
+#- Train config creation dict -#
+
+# Default config values
+default_config_values:
+
+  # Implementation options
+  implementation_options:
+    implementation: qgan_TorchConnector # 'qgan_TorchConnector', 'qgan_TorchConnector_ang' or 'qgan_TorchConnector_amp'
+    execution_type: noiseless # 'noiseless', 'noisy' or 'real'
+    n_qubits: 4
+    # gen_circuit: TODO 1, 2, 3, maybe join gen-disc so they are leveled
+    # disc_circuit:
+    device: CPU # 'GPU' or 'CPU'
+    gradient_method: SPSA # qiskit_algorithms.gradients For now: 'PSR', 'SPSA' and 'REG'
+    randomness: 1 # Add randomness in the input when generating a sample TODO move it here, remove probs for amp single case?
+    seed: 0
+
+  # Training parameters
+  training_parameters:
+    max_iterations: 1000
+    gen_iterations: 1
+    disc_iterations: 1
+    print_progress_iterations: 10
+
+  # Data management
+  data_management:
+    data_path: data/ # Path where all files are stored
+    run_id: null # Execution id, folder name. If none (or null), automatically assigned: TODO
+    reset_training_data: false # Reset training data
+    create_circuits: false # Create circuits or load from file
+
+  # Backend options
+  backend_options:
+    reset_backend: false # Get current backend state or load from file
+
+    # Training options
+    train_backend_options:
+      train_precision: 0.03125 # Training precision. 0.03125 ~ 1024 shots
+
+    # Simulation backend options
+    sim_backend_options:
+      data_type: double # 'single' or 'double'
+      noiseless_sim_method: statevector
+      noisy_sim_method: density_matrix # TODO when training maybe too slow
+      gpu_device_options:
+        cuStateVec_enable: true # NVIDIA library optimization
+        batched_shots_gpu: true # Parallelize batch on GPU
+        blocking_enable: false # Disable chunking; simulation fits in VRAM
+        # target_gpus: [0, 1] # TODO import torch after? In .py read how many after printing aviables?
+        runtime_parameter_bind_enable: true # tells Aer to keep the circuit parameterized and bind the numeric values at execution time TODO prueba pa saber las mejores options
+
+    # Evaluation options
+    eval_backend_options:
+      eval_execution_type: noiseless # 'noiseless' or 'noisy'.
+      eval_precision: 0.0
+
+    # Real backend options
+    real_backend_options:
+      name: ibm_basquecountry # Real backend name
+      channel: ibm_quantum_platform # Real backend channel
+      real_estimator_options:
+        resilience_level: 1 # Mitigacion basica de errores.
+        dynamical_decoupling:
+          enable: true # Inserta pulsos/secuencias entre puertas para reducir decoherencia mientras los qubits están inactivos.
+
+  # Embedding options
+  embedding_options:
+    reset_dataset: false
+    dataset: 'base' # If 'base', specific probability distribution will be used, else images
+    contrast: 1 # 1: probabilities proportional to brightness. 2: equivalent to raw-amplitude probabilities.
+    batch_size: 4 # How many samples' gradients are going to be calculated in a step
+    eval_batch_size: 8 # How many samples are going to be evaluated in a iteration
+    eval_method: gradient # 'gradient' or 'kl'
+
+
+# Variable config options
+variable_config_values_list:
+
+  # Noiseless options: with REG
+  noiseless_options:
+    implementation:
+      - qgan_TorchConnector
+      - qgan_TorchConnector_ang
+      - qgan_TorchConnector_amp
+    execution_type:
+      - noiseless
+    device:
+      - CPU
+      - GPU
+    gradient_method:
+      - PSR
+      - SPSA
+      - REG
+    n_qubits:
+      - 4
+      - 8
+      - 16
+    random_input:
+      - true
+      - false
+    seed:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+
+  # Noisy options: without REG, not compatible with noise model
+  noisy_options:
+    implementation:
+      - qgan_TorchConnector
+      - qgan_TorchConnector_ang
+      - qgan_TorchConnector_amp
+    execution_type:
+      - noisy
+    device:
+      - CPU
+      - GPU
+    gradient_method:
+      - SPSA
+      - PSR
+    n_qubits:
+      - 4
+      - 8
+      - 16
+    random_input:
+      - true
+      - false
+    seed:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+
+  # # Real options: TODO
+  # real_options:
+  #   implementation:
+  #     - qgan_rh?
+  #   execution_type:
+  #     - test
+  #     - real
+  #   device:
+  #     - CPU
+  #   gradient_method:
+  #     - SPSA
+  #   n_qubits:
+  #     - 4
+  #   random_input:
+  #     - true
+  #     - false
+  #   seed:
+  #     - 0
