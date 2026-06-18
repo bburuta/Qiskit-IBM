@@ -1,0 +1,113 @@
+#- Allowed config values -#
+
+run:
+  id: []
+  data_path: []
+  seed: []
+  device:
+    - CPU
+    - GPU
+
+experiment:
+  implementation:
+    - base
+    - ang
+    - amp
+  execution_type:
+    - noiseless
+    - noisy
+    - real
+  n_qubits: []
+  gradient_method:
+    - PSR
+    - SPSA
+    - REG
+
+training:
+  max_iterations: []
+  gen_iterations: []
+  disc_iterations: []
+  print_every: []
+
+dataset:
+  id: []
+  reset:
+    - true
+    - false
+  type:
+    - quantum
+    - classical
+  source:
+    - specific_distribution
+    - generated_gradients
+  parameters: {}
+
+circuits:
+  reset:
+    - true
+    - false
+  generator:
+    - real_amplitudes
+    - efficient_su2
+  discriminator:
+    - real_amplitudes
+    - efficient_su2
+
+backend:
+  reset:
+    - true
+    - false
+  precision: []
+
+  simulator:
+    data_type:
+      - single
+      - double
+    noiseless_method:
+      - statevector
+    noisy_method:
+      - density_matrix
+    gpu:
+      cuStateVec_enable:
+        - true
+        - false
+      batched_shots_gpu:
+        - true
+        - false
+      blocking_enable:
+        - true
+        - false
+      runtime_parameter_bind_enable:
+        - true
+        - false
+
+  real:
+    id: []
+    name: []
+    channel:
+      - ibm_quantum_platform
+    reset_info:
+      - true
+      - false
+    estimator:
+      resilience_level:
+        - 0
+        - 1
+        - 2
+      dynamical_decoupling:
+        enable:
+          - true
+          - false
+
+encoding:
+  type:
+    - direct_circuit
+    - angle
+    - amplitude
+  contrast: []
+  randomness: []
+  batch_size: []
+  eval_batch_size: []
+  eval_method:
+    - gradient
+    - kl

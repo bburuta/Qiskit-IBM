@@ -1,0 +1,107 @@
+#- Test config creation dict -#
+
+# Default config values
+default_config_values:
+
+  run:
+    id: null
+    data_path: qgan_v3/data/test
+    seed: 0
+    device: CPU
+
+  experiment:
+    implementation: base
+    execution_type: noiseless
+    n_qubits: 3
+    gradient_method: PSR
+
+  training:
+    max_iterations: 2
+    gen_iterations: 1
+    disc_iterations: 1
+    print_every: 1
+
+  dataset:
+    id: null
+    reset: false
+    type: quantum
+    source: specific_distribution
+    parameters: {}
+
+  circuits:
+    reset: false
+    generator: real_amplitudes
+    discriminator: efficient_su2
+
+  backend:
+    reset: true
+    precision: 0.5
+
+    simulator:
+      data_type: double
+      noiseless_method: statevector
+      noisy_method: density_matrix
+      gpu:
+        cuStateVec_enable: true
+        batched_shots_gpu: true
+        blocking_enable: false
+        runtime_parameter_bind_enable: true
+
+    real:
+      id: null
+      name: ibm_basquecountry
+      channel: ibm_quantum_platform
+      reset_info: false
+      estimator:
+        resilience_level: 1
+        dynamical_decoupling:
+          enable: true
+
+  encoding:
+    type: direct_circuit
+    contrast: 1
+    randomness: 0
+    batch_size: 4
+    eval_batch_size: 8
+    eval_method: gradient
+
+
+# Variable config options
+variable_config_values_list:
+
+  noiseless_options:
+    implementation:
+      - base
+      - ang
+      - amp
+    execution_type:
+      - noiseless
+    device:
+      - CPU
+      - GPU
+    gradient_method:
+      - PSR
+      - SPSA
+      - REG
+    n_qubits:
+      - 3
+    seed:
+      - 0
+
+  noisy_options:
+    implementation:
+      - base
+      - ang
+      - amp
+    execution_type:
+      - noisy
+    device:
+      - CPU
+      - GPU
+    gradient_method:
+      - SPSA
+      - PSR
+    n_qubits:
+      - 3
+    seed:
+      - 0

@@ -1,0 +1,167 @@
+# qGAN v4 battery config.
+#
+# Batteries follow the qgan_v3 pattern:
+# - default_config_values: base config used for every generated run.
+# - variable_config_values_list: named Cartesian-product sweeps.
+#
+# Variable keys can be dotted paths, e.g. experiment.n_qubits. Dotted paths
+# are preferred because they are explicit and avoid ambiguous keys.
+
+#- Test config creation dict -#
+
+# Default config values
+default_config_values:
+
+  implementation:
+    # Training implementation to use. Values: qml_torch, manual_estimator, angle_runtime_packed.
+    name: qml_torch
+
+  run:
+    # Run id. Values: null, [string].
+    id: null
+    # Base directory where run data is stored. Values: [path].
+    data_path: qgan_v4/data/test
+    # Random seed for Python, NumPy, Torch, and simulator options. Values: [int].
+    seed: 0
+    # Torch/simulator device. Values: CPU, GPU.
+    device: CPU
+
+  experiment:
+    # Experiment preset. Values: base, ang, amp.
+    implementation: ang
+    # Execution target. Values: noiseless, noisy, fake_real, real.
+    execution_type: noiseless
+    # Number of qubits. Values: [int >= 1].
+    n_qubits: 3
+    # Estimator gradient method. Values: PSR, SPSA, REG.
+    gradient_method: PSR
+
+  training:
+    # Number of training epochs. Values: [int >= 0].
+    max_iterations: 2
+    # Generator updates per epoch. Values: [int >= 0].
+    gen_iterations: 1
+    # Discriminator updates per epoch. Values: [int >= 0].
+    disc_iterations: 1
+    # Epoch interval for progress prints. Values: [int >= 0], 0 disables printing.
+    print_every: 1
+
+  dataset:
+    # Dataset id. Values: null, [string].
+    id: null
+    # Recreate cached dataset file. Values: true, false.
+    reset: false
+    # Dataset type. Values: quantum, classical.
+    type: classical
+    # Dataset source. Values: specific_distribution, generated_gradients.
+    source: generated_gradients
+    # Dataset source parameters. Values: [dict]. For generated_gradients, total_pixels is set by the preset.
+    parameters: {}
+
+  circuits:
+    # Recreate cached circuit file. Values: true, false.
+    reset: false
+    # Generator ansatz. Values: real_amplitudes, efficient_su2.
+    generator: real_amplitudes
+    # Discriminator ansatz. Values: real_amplitudes, efficient_su2.
+    discriminator: efficient_su2
+
+  backend:
+    # Recreate cached backend data. Values: true, false.
+    reset: false
+    # Estimator precision. Values: [number >= 0]. 0 means exact/no shots.
+    precision: 0.5
+
+    simulator:
+      # Floating point precision for simulator/Torch tensors. Values: double, float.
+      data_type: double
+      # Aer method for noiseless simulation. Values: statevector, density_matrix.
+      noiseless_method: statevector
+      # Aer method for noisy simulation. Values: density_matrix, statevector.
+      noisy_method: statevector
+      gpu:
+        # Enable cuStateVec acceleration when using GPU. Values: true, false.
+        cuStateVec_enable: true
+        # Enable batched shots on GPU. Values: true, false.
+        batched_shots_gpu: true
+        # Enable GPU blocking. Values: true, false.
+        blocking_enable: false
+        # Enable runtime parameter binding in Aer. Values: true, false.
+        runtime_parameter_bind_enable: true
+
+    real:
+      # Real backend cache id. Values: null, [string].
+      id: null
+      # IBM Quantum backend name. Values: [backend name]. Example: ibm_basquecountry.
+      name: ibm_basquecountry
+      # IBM Runtime channel. Values: [channel]. Example: ibm_quantum_platform.
+      channel: ibm_quantum_platform
+      # Recreate cached real backend info. Values: true, false.
+      reset_info: false
+      estimator:
+        # IBM Runtime estimator resilience level. Values: 0, 1, 2.
+        resilience_level: 1
+        dynamical_decoupling:
+          # Enable estimator dynamical decoupling. Values: true, false.
+          enable: true
+
+  encoding:
+    # Data encoding. Values: direct_circuit, angle, amplitude. Presets: base -> direct_circuit, ang -> angle, amp -> amplitude.
+    type: angle
+    # Image intensity contrast exponent. Values: [number >= 0].
+    contrast: 1
+    # Random input scale. Values: [number >= 0].
+    randomness: 0
+    # Training batch size. Values: [int >= 1].
+    batch_size: 4
+    # Evaluation batch size. Values: [int >= 1].
+    eval_batch_size: 8
+    # Maximum parallel threads for model execution. Values: [int >= 1].
+    max_parallel_threads: 1
+    # Evaluation metric. Values: gradient, kl.
+    eval_method: gradient
+
+
+# Variable config options
+variable_config_values_list:
+
+  noiseless_options:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noiseless
+    experiment.gradient_method:
+      - PSR
+      - SPSA
+      - REG
+    experiment.n_qubits:
+      - 3
+    # run.device:
+    #   - CPU
+    #   - GPU
+    run.seed:
+      - 0
+
+  noisy_options:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+      - PSR
+    experiment.n_qubits:
+      - 3
+    # run.device:
+    #   - CPU
+    #   - GPU
+    run.seed:
+      - 0
