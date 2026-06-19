@@ -79,6 +79,8 @@ default_config_values:
       noiseless_method: statevector
       # Aer method for noisy simulation. Values: density_matrix, statevector.
       noisy_method: density_matrix
+      # Noisy simulator mapping. Values: hardware, noise_model. hardware uses the full backend coupling map/target; noise_model uses backend-derived noise only.
+      noisy_backend_mapping: hardware
       gpu:
         # Enable cuStateVec acceleration when using GPU. Values: true, false.
         cuStateVec_enable: true

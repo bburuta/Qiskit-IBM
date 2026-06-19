@@ -19,15 +19,64 @@ Scaffolded only:
 
 These scaffolded implementations are registered so configs can be shaped now, but training them raises `NotImplementedError`.
 
-## Install
+## Installation
 
-From the repository root:
+### Environment Installation
+
+#### Python `venv`
+
+From the repository root, create and activate a Python 3.10 virtual environment:
 
 ```bash
+python3.10 -m venv .venv
+source .venv/bin/activate
+```
+
+Remove the local `venv` environment when it is no longer needed:
+
+```bash
+deactivate
+rm -rf .venv
+```
+
+#### Conda
+
+From the repository root, create and activate a Python 3.10 Conda environment:
+
+```bash
+conda create -n qgan_v4 python=3.10
+conda activate qgan_v4
+```
+
+Remove the Conda environment when it is no longer needed:
+
+```bash
+conda deactivate
+conda env remove -n qgan_v4
+```
+
+### Requirement Installation
+
+Install the qGAN v4 Python requirements inside the active environment:
+
+```bash
+python -m pip install --upgrade pip
 pip install -r qgan_v4/requirements.txt
 ```
 
-Run commands with `qgan_v4/src` on `PYTHONPATH`:
+For notebooks:
+
+```bash
+python -m ipykernel install --user --name qgan_v4
+```
+
+Optional GPU simulator support depends on your Linux/CUDA setup:
+
+```bash
+pip install qiskit-aer-gpu
+```
+
+Run commands from the repository root with `qgan_v4/src` on `PYTHONPATH`:
 
 ```bash
 PYTHONPATH=qgan_v4/src python3 -m qgan_v4.main --help
@@ -116,6 +165,17 @@ Execution modes:
 - `noisy`: local Aer simulation from cached real-backend calibration data.
 - `fake_real`: local Aer simulation using `qiskit_ibm_runtime.fake_provider.FakeSherbrooke`; this checks hardware-style transpilation and noisy execution without submitting IBM Runtime jobs.
 - `real`: IBM Runtime execution on `backend.real.name`.
+
+Noisy local simulation supports two mapping modes:
+
+```yaml
+backend:
+  simulator:
+    noisy_backend_mapping: hardware     # full backend coupling map/target, closest to hardware transpilation
+    # noisy_backend_mapping: noise_model # faster; use backend-derived NoiseModel without full coupling map/target
+```
+
+Use `noise_model` when you want calibrated local noise without mapping small circuits onto the full real-backend topology.
 
 For a hardware-shaped dry run, set:
 

@@ -7,6 +7,7 @@ VALID_EXECUTION_TYPES = {"noiseless", "noisy", "fake_real", "real"}
 VALID_GRADIENT_METHODS = {"PSR", "SPSA", "REG"}
 VALID_DEVICES = {"CPU", "GPU"}
 VALID_ENCODINGS = {"direct_circuit", "angle", "amplitude"}
+VALID_SIMULATOR_MAPPINGS = {"hardware", "noise_model"}
 
 CHOICE_RULES = [
     ("implementation.name", VALID_IMPLEMENTATIONS),
@@ -15,6 +16,7 @@ CHOICE_RULES = [
     ("experiment.gradient_method", VALID_GRADIENT_METHODS),
     ("run.device", VALID_DEVICES),
     ("encoding.type", VALID_ENCODINGS),
+    ("backend.simulator.noisy_backend_mapping", VALID_SIMULATOR_MAPPINGS),
 ]
 
 

@@ -79,6 +79,8 @@ default_config_values:
       noiseless_method: statevector
       # Aer method for noisy simulation. Values: density_matrix, statevector.
       noisy_method: statevector
+      # Noisy simulator mapping. Values: hardware, noise_model. hardware uses the full backend coupling map/target; noise_model uses backend-derived noise only.
+      noisy_backend_mapping: noise_model
       gpu:
         # Enable cuStateVec acceleration when using GPU. Values: true, false.
         cuStateVec_enable: true
@@ -111,11 +113,11 @@ default_config_values:
     # Image intensity contrast exponent. Values: [number >= 0].
     contrast: 1
     # Random input scale. Values: [number >= 0].
-    randomness: 0
+    randomness: 0.1
     # Training batch size. Values: [int >= 1].
-    batch_size: 4
+    batch_size: 2
     # Evaluation batch size. Values: [int >= 1].
-    eval_batch_size: 8
+    eval_batch_size: 2
     # Maximum parallel threads for model execution. Values: [int >= 1].
     max_parallel_threads: 1
     # Evaluation metric. Values: gradient, kl.
@@ -165,3 +167,23 @@ variable_config_values_list:
     #   - GPU
     run.seed:
       - 0
+
+  # real_options:
+  #   implementation.name:
+  #     - qml_torch
+  #   experiment.implementation:
+  #     - base
+  #     - ang
+  #     - amp
+  #   experiment.execution_type:
+  #     - fake_real
+  #   experiment.gradient_method:
+  #     - SPSA
+  #     - PSR
+  #   experiment.n_qubits:
+  #     - 3
+  #   # run.device:
+  #   #   - CPU
+  #   #   - GPU
+  #   run.seed:
+  #     - 0

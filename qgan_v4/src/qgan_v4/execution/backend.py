@@ -86,11 +86,9 @@ def create_real_backend(real_backend_options):
     return service, backend
 
 
+# User confirmation of real hardware execution
 def confirm_real_hardware_execution(backend):
-    answer = input(
-        f"You are about to execute on REAL IBM Quantum hardware: {backend.name}. "
-        "Type 'yes' to continue: "
-    )
+    answer = input(f"You are about to execute on REAL IBM Quantum hardware: {backend.name}. Type 'yes' to continue: ")
 
     if answer.strip().lower() != "yes":
         raise RuntimeError("Real hardware execution cancelled by user.")
@@ -108,14 +106,27 @@ def create_noiseless_backend(sim_options):
 
 
 # Create noisy backend
-def create_noisy_backend(sim_options, real_backend_info):
-    backend = AerSimulator(
-        noise_model=real_backend_info["noise_model"],
-        coupling_map=real_backend_info["coupling_map"],
-        basis_gates=real_backend_info["basis_gates"],
-        **sim_options
-    )
-    backend._target = real_backend_info["target"]
+def create_noisy_backend(sim_options, real_backend_info, noisy_backend_mapping):
+    noise_model = real_backend_info["noise_model"]
+
+    if noisy_backend_mapping == "hardware":
+        backend = AerSimulator(
+            noise_model=noise_model,
+            coupling_map=real_backend_info["coupling_map"],
+            basis_gates=real_backend_info["basis_gates"],
+            **sim_options
+        )
+        backend._target = real_backend_info["target"]
+
+    elif noisy_backend_mapping == "noise_model":
+        backend = AerSimulator(
+            noise_model=noise_model,
+            basis_gates=noise_model.basis_gates,
+            **sim_options
+        )
+
+    else:
+        raise ValueError(f"Unsupported noisy backend mapping: {noisy_backend_mapping}")
 
     return backend
 
@@ -249,6 +260,7 @@ def create_backends(config, save_real_backend_info=True, save_backend_file=False
 
     # Create train backend
     execution_type = config['experiment']['execution_type']
+    noisy_backend_mapping = config['backend']['simulator']['noisy_backend_mapping']
     real_backend_options = config['backend']['real']
     real_estimator_options = real_backend_options['estimator']
 
@@ -262,13 +274,9 @@ def create_backends(config, save_real_backend_info=True, save_backend_file=False
             real_backend_info = load_or_create_real_backend_info(config, train_backend)
 
     elif execution_type == "fake_real":
-        sherbrooke_backend = create_fake_real_backend()
-        real_backend_info = load_or_create_fake_real_backend_info(config, sherbrooke_backend)
-        sim_options = backend_dict['train_backend_dict']
-
-        train_backend = create_noisy_backend(sim_options, real_backend_info)
-        session = None
-        train_estimator = create_sim_estimator(train_backend)
+        train_backend = create_fake_real_backend()
+        confirm_real_hardware_execution(train_backend)
+        session, train_estimator = create_real_estimator(train_backend, real_estimator_options)
 
     elif execution_type == "noisy":
         # Save real backend info
@@ -280,7 +288,7 @@ def create_backends(config, save_real_backend_info=True, save_backend_file=False
 
         sim_options = backend_dict['train_backend_dict']
 
-        train_backend = create_noisy_backend(sim_options, real_backend_info)
+        train_backend = create_noisy_backend(sim_options, real_backend_info, noisy_backend_mapping)
         session = None
         train_estimator = create_sim_estimator(train_backend)
 

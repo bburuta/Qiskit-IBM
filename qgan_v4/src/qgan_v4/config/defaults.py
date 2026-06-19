@@ -13,6 +13,10 @@ IMPLEMENTATION_PRESETS = {
         },
         "encoding": {
             "type": "direct_circuit",
+            "randomness": 0,
+            "batch_size": 1,
+            "eval_batch_size": 1,
+            "eval_method": "kl",
         },
     },
     "ang": {

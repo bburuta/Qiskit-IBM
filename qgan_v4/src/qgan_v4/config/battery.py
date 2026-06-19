@@ -122,7 +122,7 @@ def create_config_file(config, overwrite=False):
             return filename
 
     save_config_file(config, filename)
-    if existed_before and not overwrite:
+    if existed_before and overwrite:
         print("Configuration file rewritten. Path:", filename)
     else:
         print("Configuration file written. Path:", filename)
