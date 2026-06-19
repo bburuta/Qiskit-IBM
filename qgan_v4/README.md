@@ -73,7 +73,7 @@ python -m ipykernel install --user --name qgan_v4
 Optional GPU simulator support depends on your Linux/CUDA setup:
 
 ```bash
-pip install qiskit-aer-gpu
+pip install qiskit-aer-gpu-cu11
 ```
 
 Run commands from the repository root with `qgan_v4/src` on `PYTHONPATH`:

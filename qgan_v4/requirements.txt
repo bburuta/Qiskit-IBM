@@ -13,4 +13,4 @@ pyyaml
 # ipykernel
 
 # Optional GPU simulator package, install only on compatible CUDA/Linux systems:
-# qiskit-aer-gpu
+# qiskit-aer-gpu-cu11
