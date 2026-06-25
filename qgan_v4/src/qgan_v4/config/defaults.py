@@ -82,15 +82,22 @@ def normalize_config(config):
 def generate_run_id(config):
     experiment = config["experiment"]
     run = config["run"]
+    simulator = config["backend"]["simulator"]
     impl_name = config["implementation"]["name"]
+    packing_id = ""
+
+    # Separate checkpoints produced by each runtime_packed circuit strategy
+    if impl_name == "runtime_packed":
+        packing_id = f"{config['implementation']['discriminator_packing']}-"
 
     return (
         f"{experiment['implementation']}-"
         f"{impl_name}-"
+        f"{packing_id}"
         f"q{experiment['n_qubits']}-"
         f"{experiment['execution_type']}-"
         f"{experiment['gradient_method']}-"
-        f"{run['device']}-"
+        f"aer{simulator['device']}-"
         f"seed{run['seed']}"
     )
 

@@ -44,8 +44,8 @@ def get_train_sim_options(config):
         'seed_simulator': config['run']['seed'],
     }
 
-    if config['run']['device'] == "GPU":
-        sim_options['device'] = 'GPU'
+    if sim_backend_options['device'] == "GPU":
+        sim_options['device'] = "GPU"
         sim_options.update(sim_backend_options['gpu'])
 
     return sim_options
@@ -62,8 +62,8 @@ def get_eval_sim_options(config):
         'seed_simulator': config['run']['seed'],
     }
 
-    if config['run']['device'] == "GPU":
-        sim_options['device'] = 'GPU'
+    if sim_backend_options['device'] == "GPU":
+        sim_options['device'] = "GPU"
         sim_options.update(sim_backend_options['gpu'])
 
     return sim_options
@@ -167,11 +167,15 @@ def create_sim_estimator(backend):
 
 
 # Create preset pass manager
-def create_pm(backend, seed):
+def create_pm(backend, config):
+    # Use the same configured transpilation options for every backend
+    transpilation = config['backend']['transpilation']
     pm = generate_preset_pass_manager(
-        optimization_level=3, 
-        backend=backend, 
-        seed_transpiler=seed
+        optimization_level=transpilation['optimization_level'],
+        backend=backend,
+        layout_method=transpilation['layout_method'],
+        routing_method=transpilation['routing_method'],
+        seed_transpiler=config['run']['seed'],
     )
 
     return pm
@@ -262,7 +266,11 @@ def create_backends(config, save_real_backend_info=True, save_backend_file=False
     execution_type = config['experiment']['execution_type']
     noisy_backend_mapping = config['backend']['simulator']['noisy_backend_mapping']
     real_backend_options = config['backend']['real']
-    real_estimator_options = real_backend_options['estimator']
+    real_estimator_options = dict(real_backend_options['estimator'])
+
+    # Runtime estimators own their default precision
+    if config['backend']['precision'] > 0:
+        real_estimator_options['default_precision'] = config['backend']['precision']
 
     # Create backend
     if execution_type == "real":
@@ -276,6 +284,8 @@ def create_backends(config, save_real_backend_info=True, save_backend_file=False
     elif execution_type == "fake_real":
         train_backend = create_fake_real_backend()
         confirm_real_hardware_execution(train_backend)
+
+        # Use the Runtime estimator against the local fake backend
         session, train_estimator = create_real_estimator(train_backend, real_estimator_options)
 
     elif execution_type == "noisy":
@@ -302,14 +312,14 @@ def create_backends(config, save_real_backend_info=True, save_backend_file=False
         raise ValueError(f"Unsupported execution_type: {execution_type}")
 
     # Transpilation method
-    train_pm = create_pm(train_backend, config['run']['seed'])
+    train_pm = create_pm(train_backend, config)
 
 
     # Create eval backend
     sim_options = backend_dict['eval_backend_dict']
     eval_backend = create_noiseless_backend(sim_options)
     eval_estimator = create_sim_estimator(eval_backend) # TODO eval backend only noiseless, amp with torch module without SamplerQNN
-    eval_pm = create_pm(eval_backend, config['run']['seed'])
+    eval_pm = create_pm(eval_backend, config)
 
 
     return session, train_backend, train_estimator, train_pm, eval_backend, eval_estimator, eval_pm

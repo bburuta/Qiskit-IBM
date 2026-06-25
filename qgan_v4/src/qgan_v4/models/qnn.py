@@ -55,7 +55,12 @@ def prepare_eval_circuit_amp(ran_gen_circuit):
 # Gradient computation method
 def get_gradient_method(gradient_method, estimator, seed):
     if gradient_method == 'SPSA':
-        return SPSAEstimatorGradient(estimator=estimator, seed=seed)
+        # Match the perturbation used by the real-hardware packed implementation
+        return SPSAEstimatorGradient(
+            estimator=estimator,
+            epsilon=0.01,
+            seed=seed,
+        )
     elif gradient_method == 'PSR':
         return ParamShiftEstimatorGradient(estimator=estimator)
     elif gradient_method == 'REG':
@@ -70,11 +75,12 @@ def get_observables(n_qubits):
     last_qubit = [("Z" + "I" * (n_qubits - 1), 1.0)]
     obs_train = SparsePauliOp.from_list(last_qubit)
 
-    all_qubits = [
-        ("I" * i + "Z" + "I" * (n_qubits - 1 - i), 1.0)
+    obs_eval = [
+        SparsePauliOp.from_list([
+            ("I" * i + "Z" + "I" * (n_qubits - 1 - i), 1.0)
+        ])
         for i in range(n_qubits)
     ]
-    obs_eval = SparsePauliOp.from_list(all_qubits)
 
     return obs_train, obs_eval
 
@@ -100,7 +106,10 @@ def transpile_train_circuits(gen_disc_circuit, real_disc_circuits, obs, pm):
 # Evaluation circuits and observables transpilation
 def transpile_eval_circuits(ran_gen_circuit, obs, eval_pm):
     gen_eval_circuit_transpiled = eval_pm.run(ran_gen_circuit)
-    obs_gen_eval = obs.apply_layout(gen_eval_circuit_transpiled.layout)
+    obs_gen_eval = [
+        observable.apply_layout(gen_eval_circuit_transpiled.layout)
+        for observable in obs
+    ]
 
     return gen_eval_circuit_transpiled, obs_gen_eval
 
@@ -167,7 +176,7 @@ def generate_train_qnns(real_disc_circuits_transpiled, gen_disc_circuit_transpil
 
 
 # Create evaluation QNN for angle encoding
-def generate_eval_qnn_ang(gen_eval_circuit_transpiled, obs_gen_eval, gradient, eval_estimator):
+def generate_eval_qnn_ang(gen_eval_circuit_transpiled, obs_gen_eval, eval_estimator):
     gen_eval_params = list(gen_eval_circuit_transpiled.parameters)
     _, gen_params, random_params = split_params_by_prefix(gen_eval_params)
     eval_precision = eval_estimator.options.default_precision
@@ -178,7 +187,7 @@ def generate_eval_qnn_ang(gen_eval_circuit_transpiled, obs_gen_eval, gradient, e
         weight_params=gen_params, # parameters to update (generator parameters)
         estimator=eval_estimator,
         observables=obs_gen_eval,
-        gradient=gradient,
+        gradient=ParamShiftEstimatorGradient(estimator=eval_estimator),
         default_precision=eval_precision,
     )
 

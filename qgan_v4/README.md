@@ -7,6 +7,7 @@
 Working:
 
 - `qml_torch`: Qiskit Machine Learning + Torch implementation owned by `qgan_v4`.
+- `runtime_packed`: primitive-backed implementation that packs same-template training batches into one circuit and can run against local Aer, fake-runtime, or real IBM Runtime execution.
 - Battery config generation.
 - Smoke-test training from generated configs.
 - Checkpoint and metric persistence in `training_data.pth`.
@@ -14,10 +15,7 @@ Working:
 
 Scaffolded only:
 
-- `angle_runtime_packed`: target for packed IBM Runtime angle experiments.
 - `manual_estimator`: target for Qiskit primitive or gradient implementations without `qiskit-machine-learning`.
-
-These scaffolded implementations are registered so configs can be shaped now, but training them raises `NotImplementedError`.
 
 ## Installation
 
@@ -114,10 +112,10 @@ Training writes or updates:
 
 The default smoke-test battery writes under `qgan_v4/data/test/`.
 
-Run IDs are generated from the qGAN preset, implementation adapter, qubits, execution type, gradient method, device, and seed, for example:
+Run IDs are generated from the qGAN preset, implementation adapter, runtime-packed discriminator packing, qubits, execution type, gradient method, Aer device, and seed, for example:
 
 ```text
-ang-qml_torch-q3-noiseless-PSR-CPU-seed0
+ang-qml_torch-q3-noiseless-PSR-aerGPU-seed0
 ```
 
 ## Configs
@@ -139,6 +137,7 @@ Battery files use the v3-style structure:
 default_config_values:
   implementation:
     name: qml_torch
+    discriminator_packing: separate
   run:
     data_path: qgan_v4/data/test
 
@@ -153,17 +152,36 @@ Dotted keys such as `experiment.n_qubits` are preferred because simple keys can 
 
 Important config fields:
 
-- `implementation.name`: execution adapter. Use `qml_torch` for runnable training.
+- `implementation.name`: execution adapter. Use `qml_torch` for Qiskit Machine Learning training or `runtime_packed` for packed primitive execution.
+- `implementation.discriminator_packing`: `separate` executes real and fake discriminator circuits independently; `joined` combines them into one packed circuit.
 - `experiment.implementation`: qGAN preset: `base`, `ang`, or `amp`.
 - `experiment.execution_type`: `noiseless`, `noisy`, `fake_real`, or `real`.
 - `experiment.gradient_method`: `PSR`, `SPSA`, or `REG`.
-- `run.device`: `CPU` or `GPU`.
+- `run.device`: PyTorch device, `CPU` or `GPU`.
+- `backend.simulator.device`: Aer simulator device, `CPU` or `GPU`.
+- `backend.transpilation`: compiler optimization, layout, and routing settings.
+
+Recommended hardware transpilation settings:
+
+```yaml
+backend:
+  transpilation:
+    optimization_level: 3
+    layout_method: sabre
+    routing_method: sabre
+```
+
+`runtime_packed` supports the `base`, `ang`, and `amp` presets with `noisy`, `fake_real`, or `real` execution and `PSR` or `SPSA` gradients. Use `qml_torch` for `noiseless` or `REG`.
+
+Joined discriminator packing supports `base` with `batch_size: 1` and `ang` with an even batch size. The generator still uses the full configured batch size. Use separate packing for `amp`.
+
+`runtime_packed` requires `run.device: CPU` because its trainable parameters share memory with NumPy. Set `backend.simulator.device: GPU` to run supported Aer simulation on GPU independently.
 
 Execution modes:
 
 - `noiseless`: local ideal Aer simulation.
 - `noisy`: local Aer simulation from cached real-backend calibration data.
-- `fake_real`: local Aer simulation using `qiskit_ibm_runtime.fake_provider.FakeSherbrooke`; this checks hardware-style transpilation and noisy execution without submitting IBM Runtime jobs.
+- `fake_real`: local Runtime execution using `qiskit_ibm_runtime.fake_provider.FakeSherbrooke`; this checks hardware-style transpilation and execution without submitting IBM Quantum jobs.
 - `real`: IBM Runtime execution on `backend.real.name`.
 
 Noisy local simulation supports two mapping modes:
@@ -218,15 +236,20 @@ After training a run, visualize it from Python:
 from qgan_v4.visualization import run_visualization
 
 run_visualization(
-    "qgan_v4/data/test/ang-qml_torch-q3-noiseless-PSR-CPU-seed0/config.yaml",
+    "qgan_v4/data/test/ang-qml_torch-q3-noiseless-PSR-aerCPU-seed0/config.yaml",
     {
         "draw_circuits": False,
+        "draw_hardware_layout": False,
         "draw_probs": True,
         "draw_images": True,
         "draw_results": True,
     },
 )
 ```
+
+Set `draw_hardware_layout` to `True` for a `runtime_packed` run to show the
+physical qubits selected for every packed circuit copy on the configured real
+hardware coupling map. This transpiles the circuits but does not execute them.
 
 Visualization reads configs and checkpoints. It does not train missing runs.
 

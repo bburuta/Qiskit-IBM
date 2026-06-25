@@ -8,6 +8,17 @@ from qiskit.visualization import plot_histogram
 from qgan_v4.circuits.factory import get_circuits
 from qgan_v4.config.loader import load_run_config
 from qgan_v4.datasets.images import get_images_dataset, show_images_dataset
+from qgan_v4.execution.backend import (
+    create_fake_real_backend,
+    load_or_create_real_backend_info,
+)
+from qgan_v4.models.packed_circuits import (
+    prepare_angle_disc_job,
+    prepare_angle_real_job,
+    prepare_direct_disc_job,
+    prepare_fixed_real_job,
+    prepare_gen_job,
+)
 from qgan_v4.models.qnn import compose_circuits, get_observables
 from qgan_v4.storage.paths import get_run_path, get_training_data_filename
 from qgan_v4.training.batch_torch import generate_random_input
@@ -19,6 +30,7 @@ from qgan_v4.training.data import load_training_data_file
 # Default visual config values
 DEFAULT_VISUAL_CONFIG = {
     'draw_circuits': False,
+    'draw_hardware_layout': False,
     'draw_probs': True,
     'draw_images': True,
     'draw_results': True,
@@ -35,7 +47,7 @@ def load_visualization_run(config_file):
     config = load_run_config(config_file)
     run_path = get_run_path(config)
     training_data_file = get_training_data_filename(config)
-    generator_circuit, discriminator_circuit, randomizer_circuit, real_circuits = get_circuits(config, save_file=True)
+    generator_circuit, discriminator_circuit, randomizer_circuit, real_circuits = get_circuits(config, save_file=config['circuits']['reset'])
 
     params = load_training_data_file(training_data_file) if training_data_file.exists() else None
     X = get_images_dataset(config) if config['dataset']['type'] == 'classical' else None
@@ -131,6 +143,245 @@ def show_circuits(run, visual_config):
 
         plt.tight_layout()
         plt.show()
+
+
+#- Hardware layout visualization -#
+
+# Load the configured real target or the local fake target
+def get_hardware_info(config):
+    if config['experiment']['execution_type'] == 'fake_real':
+        backend = create_fake_real_backend()
+        return {
+            'target': backend.target,
+            'configuration': backend.configuration(),
+        }
+    return load_or_create_real_backend_info(config)
+
+
+# Create the pass manager used to reproduce the training layout
+def get_hardware_pass_manager(config, hardware_info):
+    from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
+
+    transpilation = config['backend']['transpilation']
+    return generate_preset_pass_manager(
+        optimization_level=transpilation['optimization_level'],
+        target=hardware_info['target'],
+        layout_method=transpilation['layout_method'],
+        routing_method=transpilation['routing_method'],
+        seed_transpiler=config['run']['seed'],
+    )
+
+
+# Prepare the packed jobs displayed for the selected packing mode
+def get_hardware_layout_jobs(run, pass_manager):
+    config = run['config']
+    encoding = config['encoding']['type']
+    packing = config['implementation']['discriminator_packing']
+    batch_size = config['encoding']['batch_size']
+    generator = run['generator_circuit']
+    discriminator = run['discriminator_circuit']
+    randomizer = run['randomizer_circuit']
+    real_circuits = run['real_circuits']
+
+    gen_job = prepare_gen_job(
+        randomizer,
+        generator,
+        discriminator,
+        batch_size,
+        pass_manager,
+    )
+    gen_job['layout_labels'] = [
+        f'fake {copy_index}'
+        for copy_index in range(batch_size)
+    ]
+    if packing == 'joined' and encoding == 'direct_circuit':
+        jobs = {'Generator circuit': gen_job}
+        joined_job = prepare_direct_disc_job(
+            randomizer,
+            generator,
+            discriminator,
+            real_circuits[0],
+            pass_manager,
+        )
+        joined_job['layout_labels'] = ['real 0', 'fake 0']
+        jobs['Discriminator circuit'] = joined_job
+    elif packing == 'joined' and encoding == 'angle':
+        jobs = {'Generator circuit': gen_job}
+        joined_job = prepare_angle_disc_job(
+            randomizer,
+            generator,
+            discriminator,
+            real_circuits[0],
+            batch_size,
+            pass_manager,
+        )
+        half_batch = batch_size // 2
+        joined_job['layout_labels'] = [
+            *[
+                f'real {copy_index}'
+                for copy_index in range(half_batch)
+            ],
+            *[
+                f'fake {copy_index}'
+                for copy_index in range(half_batch)
+            ],
+        ]
+        jobs['Discriminator circuit'] = joined_job
+    else:
+        jobs = {'Fake discriminator / generator circuit': gen_job}
+        if encoding == 'angle':
+            real_job = prepare_angle_real_job(
+                real_circuits[0],
+                discriminator,
+                batch_size,
+                pass_manager,
+            )
+        else:
+            real_indexes = np.arange(batch_size) % len(real_circuits)
+            real_job = prepare_fixed_real_job(
+                real_circuits,
+                real_indexes,
+                discriminator,
+                pass_manager,
+            )
+        real_job['layout_labels'] = [
+            f'real {copy_index}'
+            for copy_index in range(batch_size)
+        ]
+        jobs['Real discriminator circuit'] = real_job
+
+    return jobs
+
+
+# Get backend qubit coordinates or create a fallback grid
+def get_hardware_positions(hardware_info):
+    configuration = hardware_info['configuration']
+    coords = getattr(configuration, 'coords', None)
+    if coords:
+        return {
+            index: (float(x), -float(y))
+            for index, (x, y) in enumerate(coords)
+        }
+
+    n_qubits = hardware_info['target'].num_qubits
+    width = int(np.ceil(np.sqrt(n_qubits)))
+    return {
+        index: (index % width, -(index // width))
+        for index in range(n_qubits)
+    }
+
+
+# Get the undirected hardware coupling edges
+def get_hardware_edges(hardware_info):
+    coupling_map = hardware_info['target'].build_coupling_map()
+    return sorted({
+        tuple(sorted((int(a), int(b))))
+        for a, b in coupling_map.get_edges()
+        if a != b
+    })
+
+
+# Get the physical two-qubit edges used by a transpiled circuit
+def get_circuit_edges(circuit):
+    return sorted({
+        tuple(sorted(qubit._index for qubit in instruction.qubits))
+        for instruction in circuit.data
+        if len(instruction.qubits) == 2
+    })
+
+
+# Draw packed circuit copies on the physical hardware layout
+def draw_hardware_layout(job, hardware_info, title):
+    positions = get_hardware_positions(hardware_info)
+    hardware_edges = get_hardware_edges(hardware_info)
+    circuit_edges = get_circuit_edges(job['circuit'])
+    layout_groups = job['layout_groups']
+    layout_labels = job.get(
+        'layout_labels',
+        [f'copy {copy_index}' for copy_index in range(len(layout_groups))],
+    )
+    selected_qubits = set().union(*(set(group) for group in layout_groups))
+    colors = plt.get_cmap('tab20')(
+        np.linspace(0, 1, max(len(layout_groups), 1))
+    )
+
+    fig, ax = plt.subplots(figsize=(14, 7))
+
+    for a, b in hardware_edges:
+        ax.plot(
+            [positions[a][0], positions[b][0]],
+            [positions[a][1], positions[b][1]],
+            color='0.86',
+            linewidth=0.7,
+            zorder=1,
+        )
+
+    idle_qubits = [qubit for qubit in positions if qubit not in selected_qubits]
+    ax.scatter(
+        [positions[qubit][0] for qubit in idle_qubits],
+        [positions[qubit][1] for qubit in idle_qubits],
+        s=28,
+        color='0.78',
+        edgecolors='white',
+        linewidths=0.4,
+        zorder=2,
+        label='idle',
+    )
+
+    for a, b in circuit_edges:
+        ax.plot(
+            [positions[a][0], positions[b][0]],
+            [positions[a][1], positions[b][1]],
+            color='black',
+            linewidth=2,
+            alpha=0.45,
+            zorder=3,
+        )
+
+    for copy_index, group in enumerate(layout_groups):
+        ax.scatter(
+            [positions[qubit][0] for qubit in group],
+            [positions[qubit][1] for qubit in group],
+            s=120,
+            color=[colors[copy_index]],
+            edgecolors='black',
+            linewidths=0.8,
+            zorder=4,
+            label=layout_labels[copy_index],
+        )
+        for local_index, qubit in enumerate(group):
+            ax.text(
+                positions[qubit][0],
+                positions[qubit][1],
+                f'{qubit}\nq{local_index}',
+                ha='center',
+                va='center',
+                fontsize=7,
+                zorder=5,
+            )
+
+    ax.set_title(title)
+    ax.set_aspect('equal')
+    ax.axis('off')
+    ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), frameon=False)
+    fig.tight_layout()
+    plt.show()
+
+
+# Show the generator and discriminator hardware layouts
+def show_hardware_layout(run, visual_config):
+    if not visual_config['draw_hardware_layout']:
+        return
+    if run['config']['implementation']['name'] != 'runtime_packed':
+        print('Hardware layout visualization is only available for runtime_packed.')
+        return
+
+    hardware_info = get_hardware_info(run['config'])
+    pass_manager = get_hardware_pass_manager(run['config'], hardware_info)
+    jobs = get_hardware_layout_jobs(run, pass_manager)
+
+    for name, job in jobs.items():
+        draw_hardware_layout(job, hardware_info, f'{name} hardware layout')
 
 
 #- Training visualization -#
@@ -324,6 +575,7 @@ def show_visualization_run(run, visual_config=None):
         print('Training data not found:', run['training_data_file'])
 
     show_circuits(run, visual_config)
+    show_hardware_layout(run, visual_config)
     show_training_progress(run, visual_config)
     show_generated_probabilities(run, visual_config)
 

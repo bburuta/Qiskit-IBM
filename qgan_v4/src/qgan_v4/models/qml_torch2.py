@@ -227,11 +227,11 @@ def generate_eval_g(encoding, gen_eval_model, eval_backend):
 
 
 # Create evaluation generator model depending on encoding
-def generate_eval_model(encoding, ran_gen_circuit, obs_eval, gradient, eval_estimator, eval_pm):
+def generate_eval_model(encoding, ran_gen_circuit, obs_eval, eval_estimator, eval_pm):
     if encoding == 'angle':
         gen_eval_circuit = prepare_eval_circuit_ang(ran_gen_circuit.copy())
         gen_eval_transpiled, obs_gen_eval = transpile_eval_circuits(gen_eval_circuit, obs_eval, eval_pm)
-        return generate_eval_qnn_ang(gen_eval_transpiled, obs_gen_eval, gradient, eval_estimator)
+        return generate_eval_qnn_ang(gen_eval_transpiled, obs_gen_eval, eval_estimator)
 
     elif encoding in ['direct_circuit', 'amplitude']:
         gen_eval_circuit = prepare_eval_circuit_amp(ran_gen_circuit.copy())
@@ -255,12 +255,16 @@ def generate_models(config, circuit_bundle):
     ran_gen_circuit, gen_disc_circuit, real_disc_circuits = get_composed_circuits(generator_circuit, discriminator_circuit, randomizer_circuit, real_circuits)
 
     obs_train, obs_eval = get_observables(n_qubits)
-    gradient = get_gradient_method(config['experiment']['gradient_method'], train_estimator, seed)
+    gradient = get_gradient_method(
+        config['experiment']['gradient_method'],
+        train_estimator,
+        seed,
+    )
 
     # Convert the circuits into train/eval QNNs and torch modules
     real_disc_transpiled, gen_disc_transpiled, obs_real_disc, obs_gen_disc = transpile_train_circuits(gen_disc_circuit, real_disc_circuits, obs_train, train_pm)
     gen_qnn, disc_fake_qnn, disc_real_qnns = generate_train_qnns(real_disc_transpiled, gen_disc_transpiled, obs_real_disc, obs_gen_disc, gradient, train_estimator)
-    gen_eval_model = generate_eval_model(encoding, ran_gen_circuit, obs_eval, gradient, eval_estimator, eval_pm)
+    gen_eval_model = generate_eval_model(encoding, ran_gen_circuit, obs_eval, eval_estimator, eval_pm)
 
     model_g = TorchConnector(gen_qnn)
     model_g.train()

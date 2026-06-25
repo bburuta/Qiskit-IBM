@@ -13,8 +13,10 @@
 default_config_values:
 
   implementation:
-    # Training implementation to use. Values: qml_torch, manual_estimator, angle_runtime_packed.
+    # Training implementation to use. Values: qml_torch, runtime_packed, manual_estimator.
     name: qml_torch
+    # Discriminator circuit packing for runtime_packed. Values: separate, joined.
+    discriminator_packing: separate
 
   run:
     # Run id. Values: null, [string].
@@ -23,7 +25,7 @@ default_config_values:
     data_path: qgan_v4/data/train
     # Random seed for Python, NumPy, Torch, and simulator options. Values: [int].
     seed: 0
-    # Torch/simulator device. Values: CPU, GPU.
+    # Torch device. Values: CPU, GPU. runtime_packed requires CPU.
     device: CPU
 
   experiment:
@@ -72,7 +74,17 @@ default_config_values:
     # Estimator precision. Values: [number >= 0]. 0 means exact/no shots.
     precision: 0.03125
 
+    transpilation:
+      # Preset pass manager optimization level. Values: 0, 1, 2, 3.
+      optimization_level: 3
+      # Initial physical-qubit placement method. Values: trivial, dense, sabre.
+      layout_method: sabre
+      # SWAP routing method. Values: basic, lookahead, sabre, none.
+      routing_method: sabre
+
     simulator:
+      # Aer simulator device. Values: CPU, GPU.
+      device: CPU
       # Floating point precision for simulator/Torch tensors. Values: double, float.
       data_type: double
       # Aer method for noiseless simulation. Values: statevector, density_matrix.
@@ -89,7 +101,7 @@ default_config_values:
         # Enable GPU blocking. Values: true, false.
         blocking_enable: false
         # Enable runtime parameter binding in Aer. Values: true, false.
-        runtime_parameter_bind_enable: true
+        runtime_parameter_bind_enable: false
 
     real:
       # Real backend cache id. Values: null, [string].
@@ -137,7 +149,6 @@ variable_config_values_list:
     experiment.execution_type:
       - noiseless
       - noisy
-      - fake_real
     experiment.gradient_method:
       - PSR
       - SPSA

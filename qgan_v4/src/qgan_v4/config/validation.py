@@ -1,20 +1,23 @@
 #- Check config values -#
 
 # Valid values
-VALID_IMPLEMENTATIONS = {"qml_torch", "manual_estimator", "angle_runtime_packed"}
+VALID_IMPLEMENTATIONS = {"qml_torch", "runtime_packed", "manual_estimator"}
 VALID_PRESETS = {"base", "ang", "amp"}
 VALID_EXECUTION_TYPES = {"noiseless", "noisy", "fake_real", "real"}
 VALID_GRADIENT_METHODS = {"PSR", "SPSA", "REG"}
 VALID_DEVICES = {"CPU", "GPU"}
 VALID_ENCODINGS = {"direct_circuit", "angle", "amplitude"}
 VALID_SIMULATOR_MAPPINGS = {"hardware", "noise_model"}
+VALID_DISCRIMINATOR_PACKING = {"separate", "joined"}
 
 CHOICE_RULES = [
     ("implementation.name", VALID_IMPLEMENTATIONS),
+    ("implementation.discriminator_packing", VALID_DISCRIMINATOR_PACKING),
     ("experiment.implementation", VALID_PRESETS),
     ("experiment.execution_type", VALID_EXECUTION_TYPES),
     ("experiment.gradient_method", VALID_GRADIENT_METHODS),
     ("run.device", VALID_DEVICES),
+    ("backend.simulator.device", VALID_DEVICES),
     ("encoding.type", VALID_ENCODINGS),
     ("backend.simulator.noisy_backend_mapping", VALID_SIMULATOR_MAPPINGS),
 ]
@@ -47,6 +50,7 @@ PRESET_ENCODINGS = {
 # Required values
 RAW_REQUIRED_PATHS = [
     "implementation.name",
+    "implementation.discriminator_packing",
     "run.id",
     "run.data_path",
     "run.seed",
@@ -67,7 +71,10 @@ RAW_REQUIRED_PATHS = [
     "circuits.discriminator",
     "backend.reset",
     "backend.precision",
-    "backend.simulator",
+    "backend.simulator.device",
+    "backend.transpilation.optimization_level",
+    "backend.transpilation.layout_method",
+    "backend.transpilation.routing_method",
     "backend.real.id",
     "backend.real.name",
     "encoding.type",
@@ -157,6 +164,54 @@ def validate_preset_encoding(config):
         )
 
 
+# Validate implementation-specific support
+def validate_implementation_compatibility(config):
+    if config["implementation"]["name"] != "runtime_packed":
+        return
+
+    execution_type = config["experiment"]["execution_type"]
+    if execution_type not in {"noisy", "fake_real", "real"}:
+        raise ConfigValidationError(
+            "runtime_packed supports execution_type: noisy, fake_real, real."
+        )
+
+    gradient_method = config["experiment"]["gradient_method"]
+    if gradient_method not in {"PSR", "SPSA"}:
+        raise ConfigValidationError(
+            "runtime_packed supports gradient_method: PSR, SPSA."
+        )
+
+    encoding = config["encoding"]["type"]
+    if encoding not in {"direct_circuit", "angle", "amplitude"}:
+        raise ConfigValidationError(
+            "runtime_packed supports encoding.type: direct_circuit, angle, amplitude."
+        )
+
+    discriminator_packing = config["implementation"]["discriminator_packing"]
+    batch_size = config["encoding"]["batch_size"]
+
+    # Joined packing has encoding-specific circuit constraints
+    if discriminator_packing == "joined":
+        if encoding == "amplitude":
+            raise ConfigValidationError(
+                "runtime_packed joined discriminator packing does not support amplitude encoding."
+            )
+        if encoding == "direct_circuit" and batch_size != 1:
+            raise ConfigValidationError(
+                "runtime_packed joined direct_circuit requires encoding.batch_size=1."
+            )
+        if encoding == "angle" and batch_size % 2:
+            raise ConfigValidationError(
+                "runtime_packed joined angle requires an even encoding.batch_size."
+            )
+
+    if config["run"]["device"] != "CPU":
+        raise ConfigValidationError(
+            "runtime_packed requires run.device=CPU for NumPy-backed parameters. "
+            "Use backend.simulator.device=GPU for Aer GPU execution."
+        )
+
+
 # Validate normalized config values
 def validate_config(config):
     for path, choices in CHOICE_RULES:
@@ -170,4 +225,5 @@ def validate_config(config):
             raise ConfigValidationError(f"{path} must not be empty.")
 
     validate_preset_encoding(config)
+    validate_implementation_compatibility(config)
     return config
