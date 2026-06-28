@@ -161,7 +161,7 @@ variable_config_values_list:
     experiment.n_qubits:
       - 3
     backend.simulator.device:
-      - CPU
+      # - CPU
       - GPU
     run.seed:
       - 0
@@ -181,7 +181,7 @@ variable_config_values_list:
     experiment.n_qubits:
       - 3
     backend.simulator.device:
-      - CPU
+      # - CPU
       - GPU
     run.seed:
       - 0
@@ -204,7 +204,7 @@ variable_config_values_list:
     experiment.n_qubits:
       - 3
     backend.simulator.device:
-      - CPU
+      # - CPU
       - GPU
     run.seed:
       - 0
@@ -228,7 +228,7 @@ variable_config_values_list:
     experiment.n_qubits:
       - 3
     backend.simulator.device:
-      - CPU
+      # - CPU
       - GPU
     run.seed:
       - 0
@@ -253,7 +253,7 @@ variable_config_values_list:
     experiment.n_qubits:
       - 3
     backend.simulator.device:
-      - CPU
+      # - CPU
       - GPU
     run.seed:
       - 0
@@ -279,7 +279,7 @@ variable_config_values_list:
     experiment.n_qubits:
       - 3
     backend.simulator.device:
-      - CPU
+      # - CPU
       - GPU
     run.seed:
       - 0

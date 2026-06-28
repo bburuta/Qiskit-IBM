@@ -162,7 +162,7 @@ variable_config_values_list:
       - 3
     backend.simulator.device:
       - CPU
-      - GPU
+      # - GPU
     run.seed:
       - 0
 
@@ -182,7 +182,7 @@ variable_config_values_list:
       - 3
     backend.simulator.device:
       - CPU
-      - GPU
+      # - GPU
     run.seed:
       - 0
 
@@ -205,7 +205,7 @@ variable_config_values_list:
       - 3
     backend.simulator.device:
       - CPU
-      - GPU
+      # - GPU
     run.seed:
       - 0
     backend.simulator.gpu.runtime_parameter_bind_enable: 
@@ -229,7 +229,7 @@ variable_config_values_list:
       - 3
     backend.simulator.device:
       - CPU
-      - GPU
+      # - GPU
     run.seed:
       - 0
     backend.simulator.gpu.runtime_parameter_bind_enable: 
@@ -254,7 +254,7 @@ variable_config_values_list:
       - 3
     backend.simulator.device:
       - CPU
-      - GPU
+      # - GPU
     run.seed:
       - 0
     backend.simulator.noisy_method: 
@@ -280,7 +280,7 @@ variable_config_values_list:
       - 3
     backend.simulator.device:
       - CPU
-      - GPU
+      # - GPU
     run.seed:
       - 0
     backend.simulator.noisy_method: 
