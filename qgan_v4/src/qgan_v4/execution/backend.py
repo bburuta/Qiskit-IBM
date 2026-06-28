@@ -42,6 +42,9 @@ def get_train_sim_options(config):
         'precision': sim_backend_options['data_type'],
         'shots': get_shots(precision),
         'seed_simulator': config['run']['seed'],
+        'max_parallel_threads': sim_backend_options['max_parallel_threads'],
+        'max_parallel_experiments': sim_backend_options['max_parallel_experiments'],
+        'max_parallel_shots': sim_backend_options['max_parallel_shots'],
     }
 
     if sim_backend_options['device'] == "GPU":
@@ -60,6 +63,9 @@ def get_eval_sim_options(config):
         'precision': sim_backend_options['data_type'],
         'shots': None,
         'seed_simulator': config['run']['seed'],
+        'max_parallel_threads': sim_backend_options['max_parallel_threads'],
+        'max_parallel_experiments': sim_backend_options['max_parallel_experiments'],
+        'max_parallel_shots': sim_backend_options['max_parallel_shots'],
     }
 
     if sim_backend_options['device'] == "GPU":

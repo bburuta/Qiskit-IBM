@@ -93,6 +93,12 @@ default_config_values:
       noisy_method: density_matrix
       # Noisy simulator mapping. Values: hardware, noise_model. hardware uses the full backend coupling map/target; noise_model uses backend-derived noise only.
       noisy_backend_mapping: hardware
+      # Maximum CPU threads used by Aer. Values: [int >= 0]. 0 lets Aer choose.
+      max_parallel_threads: 0
+      # Maximum experiments/circuits Aer runs in parallel. Values: [int >= 0].
+      max_parallel_experiments: 1
+      # Maximum shot batches Aer runs in parallel. Values: [int >= 0].
+      max_parallel_shots: 0
       gpu:
         # Enable cuStateVec acceleration when using GPU. Values: true, false.
         cuStateVec_enable: true
