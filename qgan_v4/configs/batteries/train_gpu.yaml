@@ -7,7 +7,7 @@
 # Variable keys can be dotted paths, e.g. experiment.n_qubits. Dotted paths
 # are preferred because they are explicit and avoid ambiguous keys.
 
-#- Test config creation dict -#
+#- Train config creation dict -#
 
 # Default config values
 default_config_values:
@@ -22,7 +22,7 @@ default_config_values:
     # Run id. Values: null, [string].
     id: null
     # Base directory where run data is stored. Values: [path].
-    data_path: qgan_v4/data/test
+    data_path: qgan_v4/data/train
     # Random seed for Python, NumPy, Torch, and simulator options. Values: [int].
     seed: 0
     # Torch device. Values: CPU, GPU. runtime_packed requires CPU.
@@ -34,19 +34,19 @@ default_config_values:
     # Execution target. Values: noiseless, noisy, fake_real, real.
     execution_type: noiseless
     # Number of qubits. Values: [int >= 1].
-    n_qubits: 3
+    n_qubits: 4
     # Estimator gradient method. Values: PSR, SPSA, REG.
     gradient_method: PSR
 
   training:
     # Number of training epochs. Values: [int >= 0].
-    max_iterations: 2
+    max_iterations: 1000
     # Generator updates per epoch. Values: [int >= 0].
     gen_iterations: 1
     # Discriminator updates per epoch. Values: [int >= 0].
     disc_iterations: 1
     # Epoch interval for progress prints. Values: [int >= 0], 0 disables printing.
-    print_every: 1
+    print_every: 10
 
   dataset:
     # Dataset id. Values: null, [string].
@@ -72,15 +72,15 @@ default_config_values:
     # Recreate cached backend data. Values: true, false.
     reset: false
     # Estimator precision. Values: [number >= 0]. 0 means exact/no shots.
-    precision: 0.5
+    precision: 0.03125
 
     transpilation:
       # Preset pass manager optimization level. Values: 0, 1, 2, 3.
-      optimization_level: 1
+      optimization_level: 3
       # Initial physical-qubit placement method. Values: trivial, dense, sabre.
-      layout_method: trivial
+      layout_method: sabre
       # SWAP routing method. Values: basic, lookahead, sabre, none.
-      routing_method: basic
+      routing_method: sabre
 
     simulator:
       # Aer simulator device. Values: CPU, GPU.
@@ -131,11 +131,11 @@ default_config_values:
     # Image intensity contrast exponent. Values: [number >= 0].
     contrast: 1
     # Random input scale. Values: [number >= 0].
-    randomness: 0.1
+    randomness: 0
     # Training batch size. Values: [int >= 1].
-    batch_size: 2
+    batch_size: 4
     # Evaluation batch size. Values: [int >= 1].
-    eval_batch_size: 2
+    eval_batch_size: 8
     # Maximum parallel threads for model execution. Values: [int >= 1].
     max_parallel_threads: 1
     # Evaluation metric. Values: gradient, kl.
@@ -159,12 +159,16 @@ variable_config_values_list:
       - SPSA
       - REG
     experiment.n_qubits:
-      - 3
+      - 4
+      # - 8
+      # - 16
     backend.simulator.device:
-      - CPU
+      # - CPU
       - GPU
     run.seed:
       - 0
+      - 1
+      - 2
 
   qml_torch_noisy:
     implementation.name:
@@ -176,165 +180,16 @@ variable_config_values_list:
     experiment.execution_type:
       - noisy
     experiment.gradient_method:
-      - SPSA
       - PSR
+      - SPSA
     experiment.n_qubits:
-      - 3
+      - 4
+      # - 8
+      # - 16
     backend.simulator.device:
-      - CPU
+      # - CPU
       - GPU
     run.seed:
       - 0
-      
-  qml_torch_noiseless_simplegpu:
-    run.data_path: qgan_v4/data/test/simplegpu
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - base
-      - ang
-      - amp
-    experiment.execution_type:
-      - noiseless
-    experiment.gradient_method:
-      - PSR
-      - SPSA
-      - REG
-    experiment.n_qubits:
-      - 3
-    backend.simulator.device:
-      - CPU
-      - GPU
-    run.seed:
-      - 0
-    backend.simulator.gpu.runtime_parameter_bind_enable: false
-
-  qml_torch_noisy_simplegpu:
-    run.data_path: qgan_v4/data/test/simplegpu
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - base
-      - ang
-      - amp
-    experiment.execution_type:
-      - noisy
-    experiment.gradient_method:
-      - SPSA
-      - PSR
-    experiment.n_qubits:
-      - 3
-    backend.simulator.device:
-      - CPU
-      - GPU
-    run.seed:
-      - 0
-    backend.simulator.gpu.runtime_parameter_bind_enable: false
-
-  qml_torch_noiseless_simplenoise:
-    run.data_path: qgan_v4/data/test/simplenoise
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - base
-      - ang
-      - amp
-    experiment.execution_type:
-      - noiseless
-    experiment.gradient_method:
-      - PSR
-      - SPSA
-      - REG
-    experiment.n_qubits:
-      - 3
-    backend.simulator.device:
-      - CPU
-      - GPU
-    run.seed:
-      - 0
-    backend.simulator.noisy_method: statevector
-    backend.simulator.noisy_backend_mapping: noise_model
-
-  qml_torch_noisy_simplenoise:
-    run.data_path: qgan_v4/data/test/simplenoise
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - base
-      - ang
-      - amp
-    experiment.execution_type:
-      - noisy
-    experiment.gradient_method:
-      - SPSA
-      - PSR
-    experiment.n_qubits:
-      - 3
-    backend.simulator.device:
-      - CPU
-      - GPU
-    run.seed:
-      - 0
-    backend.simulator.noisy_method: statevector
-    backend.simulator.noisy_backend_mapping: noise_model
-
-  # runtime_packed_separate:
-  #   implementation.name:
-  #     - runtime_packed
-  #   implementation.discriminator_packing:
-  #     - separate
-  #   experiment.implementation:
-  #     - base
-  #     - ang
-  #     - amp
-  #   experiment.execution_type:
-  #     - noisy
-  #   experiment.gradient_method:
-  #     - SPSA
-  #   experiment.n_qubits:
-  #     - 3
-  #   backend.simulator.device:
-  #     - CPU
-  #     - GPU
-  #   run.seed:
-  #     - 0
-
-  # runtime_packed_joined:
-  #   implementation.name:
-  #     - runtime_packed
-  #   implementation.discriminator_packing:
-  #     - joined
-  #   experiment.implementation:
-  #     - base
-  #     - ang
-  #   experiment.execution_type:
-  #     - noisy
-  #   experiment.gradient_method:
-  #     - SPSA
-  #   experiment.n_qubits:
-  #     - 3
-  #   backend.simulator.device:
-  #     - CPU
-  #     - GPU
-  #   run.seed:
-  #     - 0
-
-  # real_options:
-  #   implementation.name:
-  #     - qml_torch
-  #   experiment.implementation:
-  #     - base
-  #     - ang
-  #     - amp
-  #   experiment.execution_type:
-  #     - fake_real
-  #   experiment.gradient_method:
-  #     - SPSA
-  #     - PSR
-  #   experiment.n_qubits:
-  #     - 3
-  #   # backend.simulator.device:
-  #   #   - CPU
-  #   #   - GPU
-  #   run.seed:
-  #     - 0
+      - 1
+      - 2

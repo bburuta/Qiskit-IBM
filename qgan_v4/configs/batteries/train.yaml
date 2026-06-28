@@ -102,12 +102,12 @@ default_config_values:
       gpu:
         # Enable cuStateVec acceleration when using GPU. Values: true, false.
         cuStateVec_enable: true
-        # Enable batched shots on GPU. Values: true, false.
-        batched_shots_gpu: true
-        # Enable GPU blocking. Values: true, false.
+        # Enable batched shots on GPU (not compatible with cuStateVec). Values: true, false. # True with execution_type='noiseless' does not work
+        batched_shots_gpu: false
+        # Enable GPU blocking (true for multiple GPUs). Values: true, false.
         blocking_enable: false
-        # Enable runtime parameter binding in Aer. Values: true, false.
-        runtime_parameter_bind_enable: false
+        # Enable runtime parameter binding in Aer. Values: true, false. # True with execution_type='noiseless' does not work
+        runtime_parameter_bind_enable: true
 
     real:
       # Real backend cache id. Values: null, [string].
@@ -161,6 +161,10 @@ variable_config_values_list:
     experiment.n_qubits:
       - 4
       - 8
+      - 16
+    backend.simulator.device:
+      - CPU
+      - GPU
     run.seed:
       - 0
       - 1
