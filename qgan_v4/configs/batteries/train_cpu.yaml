@@ -45,6 +45,10 @@ default_config_values:
     gen_iterations: 1
     # Discriminator updates per epoch. Values: [int >= 0].
     disc_iterations: 1
+    # Initial trainable parameter scale relative to [-pi, pi]. Values: [number >= 0].
+    init_scale: 0.1
+    # Adam optimizer learning rate for generator and discriminator. Values: [number >= 0].
+    learning_rate: 0.005
     # Epoch interval for progress prints. Values: [int >= 0], 0 disables printing.
     print_every: 10
 
@@ -72,7 +76,7 @@ default_config_values:
     # Recreate cached backend data. Values: true, false.
     reset: false
     # Estimator precision. Values: [number >= 0]. 0 means exact/no shots.
-    precision: 0.03125
+    precision: 0.015625
 
     transpilation:
       # Preset pass manager optimization level. Values: 0, 1, 2, 3.
@@ -169,6 +173,9 @@ variable_config_values_list:
       - 0
       - 1
       - 2
+    encoding.randomness:
+      - 0
+      - 0.1
 
   qml_torch_noisy:
     implementation.name:
@@ -193,3 +200,6 @@ variable_config_values_list:
       - 0
       - 1
       - 2
+    encoding.randomness:
+      - 0
+      - 0.1

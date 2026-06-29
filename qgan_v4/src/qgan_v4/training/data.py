@@ -88,9 +88,9 @@ def copy_random_state(source, target):
 #- Model initialization -#
 
 # Initialize model parameters
-def initialize_model_params(model):
+def initialize_model_params(model, init_scale):
     params = get_params(model)
-    init_params = np.random.uniform(low=-np.pi, high=np.pi, size=(params.numel(),)) * 0.1 # Near 0 params for smooth gradients at start
+    init_params = np.random.uniform(low=-np.pi, high=np.pi, size=(params.numel(),)) * init_scale
     init_tensor = torch.as_tensor(init_params, device=params.device, dtype=params.dtype)
     torch.nn.utils.vector_to_parameters(init_tensor, model.parameters())
     return init_params
@@ -103,9 +103,9 @@ def save_best_gen_params(state):
 
 
 # Create generator and discriminator optimizers
-def create_optimizers(model_g, model_d):
-    optimizer_g = torch.optim.Adam(model_g.parameters(), lr=0.005)
-    optimizer_d = torch.optim.Adam(model_d.parameters(), lr=0.005)
+def create_optimizers(model_g, model_d, learning_rate):
+    optimizer_g = torch.optim.Adam(model_g.parameters(), lr=learning_rate)
+    optimizer_d = torch.optim.Adam(model_d.parameters(), lr=learning_rate)
     return optimizer_g, optimizer_d
 
 
@@ -164,10 +164,10 @@ def warn_config_changes(previous_config, current_config):
 def create_training_data(seed, config, model_g, model_d):
     set_random_seed(seed)
 
-    init_gen_params = initialize_model_params(model_g)
-    initialize_model_params(model_d)
+    init_gen_params = initialize_model_params(model_g, config["training"]["init_scale"])
+    initialize_model_params(model_d, config["training"]["init_scale"])
 
-    optimizer_g, optimizer_d = create_optimizers(model_g, model_d)
+    optimizer_g, optimizer_d = create_optimizers(model_g, model_d, config["training"]["learning_rate"])
     training_state = TrainingState(
         config=config,
         current_epoch=0,
@@ -195,7 +195,7 @@ def load_training_data(filename, config, model_g, model_d):
 
     set_random_state(training_state)
 
-    optimizer_g, optimizer_d = create_optimizers(model_g, model_d)
+    optimizer_g, optimizer_d = create_optimizers(model_g, model_d, config["training"]["learning_rate"])
     optimizer_g.load_state_dict(training_state.optimizer_g_state)
     optimizer_d.load_state_dict(training_state.optimizer_d_state)
 

@@ -35,7 +35,7 @@ def get_precision(shots):
 def get_train_sim_options(config):
     sim_backend_options = config['backend']['simulator']
     execution_type = config['experiment']['execution_type']
-    precision = config['backend']['precision']
+    precision = 0 if execution_type == 'noiseless' else config['backend']['precision']
     
     sim_options = {
         'method': sim_backend_options['noisy_method'] if execution_type in ['noisy', 'fake_real', 'real'] else sim_backend_options['noiseless_method'],

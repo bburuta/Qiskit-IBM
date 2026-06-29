@@ -13,7 +13,6 @@ IMPLEMENTATION_PRESETS = {
         },
         "encoding": {
             "type": "direct_circuit",
-            "randomness": 0,
             "batch_size": 1,
             "eval_batch_size": 1,
             "eval_method": "kl",
@@ -98,6 +97,7 @@ def generate_run_id(config):
         f"{experiment['execution_type']}-"
         f"{experiment['gradient_method']}-"
         f"aer{simulator['device']}-"
+        f"rand{config['encoding']['randomness']}-"
         f"seed{run['seed']}"
     )
 

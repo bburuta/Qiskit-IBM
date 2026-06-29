@@ -45,6 +45,10 @@ default_config_values:
     gen_iterations: 1
     # Discriminator updates per epoch. Values: [int >= 0].
     disc_iterations: 1
+    # Initial trainable parameter scale relative to [-pi, pi]. Values: [number >= 0].
+    init_scale: 0.1
+    # Adam optimizer learning rate for generator and discriminator. Values: [number >= 0].
+    learning_rate: 0.005
     # Epoch interval for progress prints. Values: [int >= 0], 0 disables printing.
     print_every: 1
 
@@ -185,55 +189,6 @@ variable_config_values_list:
       # - GPU
     run.seed:
       - 0
-
-  qml_torch_noiseless_simplegpu:
-    run.data_path: 
-      - qgan_v4/data/test/simplegpu
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - base
-      - ang
-      - amp
-    experiment.execution_type:
-      - noiseless
-    experiment.gradient_method:
-      - PSR
-      - SPSA
-      - REG
-    experiment.n_qubits:
-      - 3
-    backend.simulator.device:
-      - CPU
-      # - GPU
-    run.seed:
-      - 0
-    backend.simulator.gpu.runtime_parameter_bind_enable: 
-      - false
-
-  qml_torch_noisy_simplegpu:
-    run.data_path: 
-      - qgan_v4/data/test/simplegpu
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - base
-      - ang
-      - amp
-    experiment.execution_type:
-      - noisy
-    experiment.gradient_method:
-      - SPSA
-      - PSR
-    experiment.n_qubits:
-      - 3
-    backend.simulator.device:
-      - CPU
-      # - GPU
-    run.seed:
-      - 0
-    backend.simulator.gpu.runtime_parameter_bind_enable: 
-      - false
 
   qml_torch_noiseless_simplenoise:
     run.data_path: 

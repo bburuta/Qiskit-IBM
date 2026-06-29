@@ -157,6 +157,8 @@ Important config fields:
 - `experiment.implementation`: qGAN preset: `base`, `ang`, or `amp`.
 - `experiment.execution_type`: `noiseless`, `noisy`, `fake_real`, or `real`.
 - `experiment.gradient_method`: `PSR`, `SPSA`, or `REG`.
+- `training.init_scale`: initial trainable parameter scale applied to samples from `[-pi, pi]`.
+- `training.learning_rate`: shared Adam learning rate for the generator and discriminator optimizers.
 - `run.device`: PyTorch device, `CPU` or `GPU`.
 - `backend.simulator.device`: Aer simulator device, `CPU` or `GPU`.
 - `backend.transpilation`: compiler optimization, layout, and routing settings.
