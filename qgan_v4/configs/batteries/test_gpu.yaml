@@ -169,6 +169,9 @@ variable_config_values_list:
       - GPU
     run.seed:
       - 0
+    encoding.randomness:
+      - 0
+      - 0.1
 
   qml_torch_noisy:
     implementation.name:
@@ -189,6 +192,9 @@ variable_config_values_list:
       - GPU
     run.seed:
       - 0
+    encoding.randomness:
+      - 0
+      - 0.1
 
   qml_torch_noiseless_simplegpu:
     run.data_path: 
@@ -212,6 +218,9 @@ variable_config_values_list:
       - GPU
     run.seed:
       - 0
+    encoding.randomness:
+      - 0
+      - 0.1
     backend.simulator.gpu.runtime_parameter_bind_enable: 
       - false
 
@@ -236,6 +245,9 @@ variable_config_values_list:
       - GPU
     run.seed:
       - 0
+    encoding.randomness:
+      - 0
+      - 0.1
     backend.simulator.gpu.runtime_parameter_bind_enable: 
       - false
 
@@ -261,6 +273,9 @@ variable_config_values_list:
       - GPU
     run.seed:
       - 0
+    encoding.randomness:
+      - 0
+      - 0.1
     backend.simulator.noisy_method: 
       - statevector
     backend.simulator.noisy_backend_mapping: 
@@ -287,6 +302,9 @@ variable_config_values_list:
       - GPU
     run.seed:
       - 0
+    encoding.randomness:
+      - 0
+      - 0.1
     backend.simulator.noisy_method: 
       - statevector
     backend.simulator.noisy_backend_mapping: 
@@ -312,6 +330,9 @@ variable_config_values_list:
   #     - GPU
   #   run.seed:
   #     - 0
+  #   encoding.randomness:
+  #     - 0
+  #     - 0.1
 
   # runtime_packed_joined:
   #   implementation.name:
@@ -332,6 +353,9 @@ variable_config_values_list:
   #     - GPU
   #   run.seed:
   #     - 0
+  #   encoding.randomness:
+  #     - 0
+  #     - 0.1
 
   # real_options:
   #   implementation.name:
@@ -352,3 +376,6 @@ variable_config_values_list:
   #   #   - GPU
   #   run.seed:
   #     - 0
+  #   encoding.randomness:
+  #     - 0
+  #     - 0.1
