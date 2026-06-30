@@ -22,7 +22,7 @@ default_config_values:
     # Run id. Values: null, [string].
     id: null
     # Base directory where run data is stored. Values: [path].
-    data_path: qgan_v4/data/train
+    data_path: qgan_v4/data/test/noisy
     # Random seed for Python, NumPy, Torch, and simulator options. Values: [int].
     seed: 0
     # Torch device. Values: CPU, GPU. runtime_packed requires CPU.
@@ -40,7 +40,7 @@ default_config_values:
 
   training:
     # Number of training epochs. Values: [int >= 0].
-    max_iterations: 1000
+    max_iterations: 2
     # Generator updates per epoch. Values: [int >= 0].
     gen_iterations: 1
     # Discriminator updates per epoch. Values: [int >= 0].
@@ -50,7 +50,7 @@ default_config_values:
     # Adam optimizer learning rate for generator and discriminator. Values: [number >= 0].
     learning_rate: 0.005
     # Epoch interval for progress prints. Values: [int >= 0], 0 disables printing.
-    print_every: 100
+    print_every: 1
 
   dataset:
     # Dataset id. Values: null, [string].
@@ -149,35 +149,7 @@ default_config_values:
 # Variable config options
 variable_config_values_list:
 
-  qml_torch_noiseless:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - base
-      - ang
-      - amp
-    experiment.execution_type:
-      - noiseless
-    experiment.gradient_method:
-      - PSR
-      - SPSA
-      - REG
-    experiment.n_qubits:
-      - 4
-      # - 8
-      # - 16
-    backend.simulator.device:
-      - CPU
-      # - GPU
-    run.seed:
-      - 0
-      - 1
-      - 2
-    encoding.randomness:
-      - 0
-      - 0.1
-
-  qml_torch_noisy:
+  noisy_dm_hw:
     implementation.name:
       - qml_torch
     experiment.implementation:
@@ -198,8 +170,89 @@ variable_config_values_list:
       # - GPU
     run.seed:
       - 0
-      - 1
-      - 2
     encoding.randomness:
       - 0
       - 0.1
+
+  noisy_dm_nm:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - PSR
+      - SPSA
+    experiment.n_qubits:
+      - 4
+      # - 8
+      # - 16
+    backend.simulator.device:
+      - CPU
+      # - GPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+      - 0.1
+    backend.simulator.noisy_backend_mapping:
+      - noise_model
+
+  noisy_sv_hw:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - PSR
+      - SPSA
+    experiment.n_qubits:
+      - 4
+      # - 8
+      # - 16
+    backend.simulator.device:
+      - CPU
+      # - GPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+      - 0.1
+    backend.simulator.noisy_method:
+      - statevector
+
+  noisy_sv_nm:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - PSR
+      - SPSA
+    experiment.n_qubits:
+      - 4
+      # - 8
+      # - 16
+    backend.simulator.device:
+      - CPU
+      # - GPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+      - 0.1
+    backend.simulator.noisy_method:
+      - statevector
+    backend.simulator.noisy_backend_mapping:
+      - noise_model

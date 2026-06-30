@@ -50,7 +50,7 @@ default_config_values:
     # Adam optimizer learning rate for generator and discriminator. Values: [number >= 0].
     learning_rate: 0.005
     # Epoch interval for progress prints. Values: [int >= 0], 0 disables printing.
-    print_every: 10
+    print_every: 100
 
   dataset:
     # Dataset id. Values: null, [string].
