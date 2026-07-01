@@ -21,6 +21,8 @@ default_config_values:
   run:
     # Run id. Values: null, [string].
     id: null
+    # Optional label appended to the run id as :label. Values: null, [string].
+    label: null
     # Base directory where run data is stored. Values: [path].
     data_path: qgan_v4/data/train
     # Random seed for Python, NumPy, Torch, and simulator options. Values: [int].

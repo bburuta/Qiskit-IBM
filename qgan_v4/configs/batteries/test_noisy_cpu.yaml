@@ -21,8 +21,10 @@ default_config_values:
   run:
     # Run id. Values: null, [string].
     id: null
+    # Optional label appended to the run id as :label. Values: null, [string].
+    label: null
     # Base directory where run data is stored. Values: [path].
-    data_path: qgan_v4/data/test/noisy
+    data_path: qgan_v4/data/test
     # Random seed for Python, NumPy, Torch, and simulator options. Values: [int].
     seed: 0
     # Torch device. Values: CPU, GPU. runtime_packed requires CPU.
@@ -150,6 +152,8 @@ default_config_values:
 variable_config_values_list:
 
   noisy_dm_hw:
+    run.label:
+      - noisy_dm_hw
     implementation.name:
       - qml_torch
     experiment.implementation:
@@ -175,6 +179,8 @@ variable_config_values_list:
       - 0.1
 
   noisy_dm_nm:
+    run.label:
+      - noisy_dm_nm
     implementation.name:
       - qml_torch
     experiment.implementation:
@@ -202,6 +208,8 @@ variable_config_values_list:
       - noise_model
 
   noisy_sv_hw:
+    run.label:
+      - noisy_sv_hw
     implementation.name:
       - qml_torch
     experiment.implementation:
@@ -229,6 +237,8 @@ variable_config_values_list:
       - statevector
 
   noisy_sv_nm:
+    run.label:
+      - noisy_sv_nm
     implementation.name:
       - qml_torch
     experiment.implementation:

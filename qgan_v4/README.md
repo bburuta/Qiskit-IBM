@@ -112,10 +112,22 @@ Training writes or updates:
 
 The default smoke-test battery writes under `qgan_v4/data/test/`.
 
-Run IDs are generated from the qGAN preset, implementation adapter, runtime-packed discriminator packing, qubits, execution type, gradient method, Aer device, and seed, for example:
+Run IDs are generated from the qGAN preset, implementation adapter, runtime-packed discriminator packing, qubits, execution type, gradient method, Aer device, randomness, and seed, for example:
 
 ```text
-ang-qml_torch-q3-noiseless-PSR-aerGPU-seed0
+ang-qml_torch-q3-noiseless-PSR-aerGPU-rand0-seed0
+```
+
+Set `run.label` to append a short group label to the final run id. The label is appended as `:<label>` whether `run.id` was generated from `null` or written manually:
+
+```yaml
+run:
+  id: null
+  label: noisy_dm_hw
+```
+
+```text
+ang-qml_torch-q3-noisy-PSR-aerCPU-rand0-seed0:noisy_dm_hw
 ```
 
 ## Configs
@@ -139,12 +151,15 @@ default_config_values:
     name: qml_torch
     discriminator_packing: separate
   run:
+    id: null
+    label: null
     data_path: qgan_v4/data/test
 
 variable_config_values_list:
   qml_torch_test:
     experiment.implementation: [base, ang, amp]
     experiment.gradient_method: [PSR, SPSA]
+    run.label: [qml_torch_test]
     run.seed: [0]
 ```
 
@@ -159,6 +174,7 @@ Important config fields:
 - `experiment.gradient_method`: `PSR`, `SPSA`, or `REG`.
 - `training.init_scale`: initial trainable parameter scale applied to samples from `[-pi, pi]`.
 - `training.learning_rate`: shared Adam learning rate for the generator and discriminator optimizers.
+- `run.label`: optional group label appended to the final `run.id` as `:<label>`.
 - `run.device`: PyTorch device, `CPU` or `GPU`.
 - `backend.simulator.device`: Aer simulator device, `CPU` or `GPU`.
 - `backend.transpilation`: compiler optimization, layout, and routing settings.

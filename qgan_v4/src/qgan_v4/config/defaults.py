@@ -102,6 +102,19 @@ def generate_run_id(config):
     )
 
 
+# Add an optional run label to the storage id
+def apply_run_label(run_id, config):
+    label = config["run"].get("label")
+    if not label:
+        return run_id
+
+    labeled_suffix = f":{label}"
+    if run_id.endswith(labeled_suffix):
+        return run_id
+
+    return f"{run_id}{labeled_suffix}"
+
+
 # Generate dataset id from dataset source and parameters
 def generate_dataset_id(config):
     dataset = config["dataset"]
@@ -121,7 +134,8 @@ def generate_dataset_id(config):
 
 # Create missing run, dataset, and real backend ids
 def create_config_ids(config):
-    config["run"]["id"] = config["run"]["id"] or generate_run_id(config)
+    run_id = config["run"]["id"] or generate_run_id(config)
+    config["run"]["id"] = apply_run_label(run_id, config)
     config["dataset"]["id"] = config["dataset"]["id"] or generate_dataset_id(config)
 
     real_backend = config["backend"]["real"]
