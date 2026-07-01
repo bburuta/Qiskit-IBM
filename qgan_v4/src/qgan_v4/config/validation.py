@@ -23,7 +23,7 @@ CHOICE_RULES = [
 ]
 
 
-# Check numeric values
+# Numeric values
 NUMBER_RULES = [
     ("experiment.n_qubits", 1, True),
     ("training.max_iterations", 0, True),
@@ -44,6 +44,21 @@ NUMBER_RULES = [
 ]
 
 
+# Boolean values
+BOOLEAN_RULES = [
+    "backend.reset",
+    "backend.real.reset_info",
+    "backend.real.confirm_execution",
+    "backend.real.estimator.dynamical_decoupling.enable",
+    "backend.simulator.gpu.cuStateVec_enable",
+    "backend.simulator.gpu.batched_shots_gpu",
+    "backend.simulator.gpu.blocking_enable",
+    "backend.simulator.gpu.runtime_parameter_bind_enable",
+    "circuits.reset",
+    "dataset.reset",
+]
+
+
 # Preset constraints
 PRESET_ENCODINGS = {
     "base": "direct_circuit",
@@ -52,53 +67,28 @@ PRESET_ENCODINGS = {
 }
 
 
-# Required values
-RAW_REQUIRED_PATHS = [
+# Options required before config normalization can run
+PRE_NORMALIZATION_REQUIRED_OPTIONS = [
     "implementation.name",
     "implementation.discriminator_packing",
     "run.id",
-    "run.data_path",
     "run.seed",
-    "run.device",
     "experiment.implementation",
     "experiment.execution_type",
     "experiment.n_qubits",
     "experiment.gradient_method",
-    "training.max_iterations",
-    "training.gen_iterations",
-    "training.disc_iterations",
-    "training.init_scale",
-    "training.learning_rate",
-    "training.print_every",
+    "dataset",
     "dataset.id",
-    "dataset.source",
-    "dataset.parameters",
-    "circuits.reset",
-    "circuits.generator",
-    "circuits.discriminator",
-    "backend.reset",
-    "backend.precision",
     "backend.simulator.device",
-    "backend.simulator.max_parallel_threads",
-    "backend.simulator.max_parallel_experiments",
-    "backend.simulator.max_parallel_shots",
-    "backend.transpilation.optimization_level",
-    "backend.transpilation.layout_method",
-    "backend.transpilation.routing_method",
     "backend.real.id",
     "backend.real.name",
-    "encoding.type",
-    "encoding.contrast",
+    "encoding",
     "encoding.randomness",
-    "encoding.batch_size",
-    "encoding.eval_batch_size",
-    "encoding.max_parallel_threads",
-    "encoding.eval_method",
 ]
 
 
-# Required ids
-NON_EMPTY_PATHS = [
+# Options that must be non-empty
+NON_EMPTY_OPTIONS = [
     "run.data_path",
     "run.id",
     "dataset.id",
@@ -151,11 +141,19 @@ def require_number(config, path, minimum=None, integer=False):
     return value
 
 
+# Require a boolean config path value
+def require_boolean(config, path):
+    value = require_path(config, path)
+    if not isinstance(value, bool):
+        raise ConfigValidationError(f"{path} must be a boolean. Got: {value!r}")
+    return value
+
+
 #- Config validation -#
 
 # Validate fields required before normalization can run
 def validate_raw_config(config):
-    for path in RAW_REQUIRED_PATHS:
+    for path in PRE_NORMALIZATION_REQUIRED_OPTIONS:
         require_path(config, path)
 
     require_choice(config, "experiment.implementation", VALID_PRESETS)
@@ -230,7 +228,10 @@ def validate_config(config):
     for path, minimum, integer in NUMBER_RULES:
         require_number(config, path, minimum=minimum, integer=integer)
 
-    for path in NON_EMPTY_PATHS:
+    for path in BOOLEAN_RULES:
+        require_boolean(config, path)
+
+    for path in NON_EMPTY_OPTIONS:
         if not require_path(config, path):
             raise ConfigValidationError(f"{path} must not be empty.")
 

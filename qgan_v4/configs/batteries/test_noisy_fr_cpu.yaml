@@ -122,6 +122,8 @@ default_config_values:
       channel: ibm_quantum_platform
       # Recreate cached real backend info. Values: true, false.
       reset_info: false
+      # Ask for input confirmation before real/fake-real hardware execution. Values: true, false.
+      confirm_execution: false
       estimator:
         # IBM Runtime estimator resilience level. Values: 0, 1, 2.
         resilience_level: 1

@@ -281,7 +281,10 @@ def create_backends(config, save_real_backend_info=True, save_backend_file=False
     # Create backend
     if execution_type == "real":
         _, train_backend = create_real_backend(real_backend_options)
-        confirm_real_hardware_execution(train_backend)
+
+        if real_backend_options['confirm_execution']:
+            confirm_real_hardware_execution(train_backend)
+
         session, train_estimator = create_real_estimator(train_backend, real_estimator_options)
 
         if save_real_backend_info:
@@ -289,7 +292,9 @@ def create_backends(config, save_real_backend_info=True, save_backend_file=False
 
     elif execution_type == "fake_real":
         train_backend = create_fake_real_backend()
-        confirm_real_hardware_execution(train_backend)
+
+        if real_backend_options['confirm_execution']:
+            confirm_real_hardware_execution(train_backend)
 
         # Use the Runtime estimator against the local fake backend
         session, train_estimator = create_real_estimator(train_backend, real_estimator_options)
@@ -360,6 +365,7 @@ if __name__ == "__main__":
         'name': "ibm_basquecountry",
         'channel': "ibm_quantum_platform",
         'reset_info': False,
+        'confirm_execution': True,
         'estimator': {
             'resilience_level': 1,
             'dynamical_decoupling': {
