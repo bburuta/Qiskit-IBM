@@ -1,0 +1,684 @@
+# qGAN v4 battery config.
+#
+# Batteries follow the qgan_v3 pattern:
+# - default_config_values: base config used for every generated run.
+# - variable_config_values_list: named Cartesian-product sweeps.
+#
+# Variable keys can be dotted paths, e.g. experiment.n_qubits. Dotted paths
+# are preferred because they are explicit and avoid ambiguous keys.
+
+#- Train config creation dict -#
+
+# Default config values
+default_config_values:
+
+  implementation:
+    # Training implementation to use. Values: qml_torch, runtime_packed, manual_estimator.
+    name: qml_torch
+    # Discriminator circuit packing for runtime_packed. Values: separate, joined.
+    discriminator_packing: separate
+
+  run:
+    # Run id. Values: null, [string].
+    id: null
+    # Optional label appended to the run id as :label. Values: null, [string].
+    label: null
+    # Base directory where run data is stored. Values: [path].
+    data_path: qgan_v4/data/test/aer_cpu
+    # Random seed for Python, NumPy, Torch, and simulator options. Values: [int].
+    seed: 0
+    # Torch device. Values: CPU, GPU. runtime_packed requires CPU.
+    device: CPU
+
+  experiment:
+    # Experiment preset. Values: base, ang, amp.
+    implementation: ang
+    # Execution target. Values: noiseless, noisy, fake_real, real.
+    execution_type: noiseless
+    # Number of qubits. Values: [int >= 1].
+    n_qubits: 4
+    # Estimator gradient method. Values: PSR, SPSA, REG.
+    gradient_method: PSR
+
+  training:
+    # Number of training epochs. Values: [int >= 0].
+    max_iterations: 2
+    # Generator updates per epoch. Values: [int >= 0].
+    gen_iterations: 1
+    # Discriminator updates per epoch. Values: [int >= 0].
+    disc_iterations: 1
+    # Initial trainable parameter scale relative to [-pi, pi]. Values: [number >= 0].
+    init_scale: 0.1
+    # Adam optimizer learning rate for generator and discriminator. Values: [number >= 0].
+    learning_rate: 0.005
+    # Epoch interval for progress prints. Values: [int >= 0], 0 disables printing.
+    print_every: 1
+
+  dataset:
+    # Dataset id. Values: null, [string].
+    id: null
+    # Recreate cached dataset file. Values: true, false.
+    reset: false
+    # Dataset type. Values: quantum, classical.
+    type: classical
+    # Dataset source. Values: specific_distribution, generated_gradients.
+    source: generated_gradients
+    # Dataset source parameters. Values: [dict]. For generated_gradients, total_pixels is set by the preset.
+    parameters: {}
+
+  circuits:
+    # Recreate cached circuit file. Values: true, false.
+    reset: false
+    # Generator ansatz. Values: real_amplitudes, efficient_su2.
+    generator: real_amplitudes
+    # Discriminator ansatz. Values: real_amplitudes, efficient_su2.
+    discriminator: efficient_su2
+
+  backend:
+    # Recreate cached backend data. Values: true, false.
+    reset: false
+    # Estimator precision. Values: [number >= 0]. 0 means exact/no shots.
+    precision: 0.015625
+
+    transpilation:
+      # Preset pass manager optimization level. Values: 0, 1, 2, 3.
+      optimization_level: 3
+      # Initial physical-qubit placement method. Values: trivial, dense, sabre.
+      layout_method: sabre
+      # SWAP routing method. Values: basic, lookahead, sabre, none.
+      routing_method: sabre
+
+    simulator:
+      # Aer simulator device. Values: CPU, GPU.
+      device: CPU
+      # Floating point precision for simulator/Torch tensors. Values: double, single.
+      data_type: double
+      # Aer method for noiseless simulation. Values: statevector, density_matrix.
+      noiseless_method: statevector
+      # Aer method for noisy simulation. Values: density_matrix, statevector.
+      noisy_method: density_matrix
+      # Noisy simulator mapping. Values: hardware, noise_model. hardware uses the full backend coupling map/target; noise_model uses backend-derived noise only.
+      noisy_backend_mapping: hardware
+      # Maximum CPU threads used by Aer. Values: [int >= 0]. 0 lets Aer choose.
+      max_parallel_threads: 0
+      # Maximum experiments/circuits Aer runs in parallel. Values: [int >= 0].
+      max_parallel_experiments: 1
+      # Maximum shot batches Aer runs in parallel. Values: [int >= 0].
+      max_parallel_shots: 0
+      gpu:
+        # Enable cuStateVec acceleration when using GPU. Values: true, false.
+        cuStateVec_enable: true
+        # Enable batched shots on GPU (not compatible with cuStateVec). Values: true, false. # True with execution_type='noiseless' does not work
+        batched_shots_gpu: false
+        # Enable GPU blocking (true for multiple GPUs). Values: true, false.
+        blocking_enable: false
+        # Enable runtime parameter binding in Aer. Values: true, false. # True with execution_type='noiseless' does not work
+        runtime_parameter_bind_enable: true
+
+    real:
+      # Real backend cache id. Values: null, [string].
+      id: null
+      # IBM Quantum backend name. Values: [backend name]. Example: ibm_basquecountry.
+      name: ibm_basquecountry
+      # IBM Runtime channel. Values: [channel]. Example: ibm_quantum_platform.
+      channel: ibm_quantum_platform
+      # Recreate cached real backend info. Values: true, false.
+      reset_info: false
+      # Ask for input confirmation before real/fake-real hardware execution. Values: true, false.
+      confirm_execution: true
+      estimator:
+        # IBM Runtime estimator resilience level. Values: 0, 1, 2.
+        resilience_level: 1
+        dynamical_decoupling:
+          # Enable estimator dynamical decoupling. Values: true, false.
+          enable: true
+
+  encoding:
+    # Data encoding. Values: direct_circuit, angle, amplitude. Presets: base -> direct_circuit, ang -> angle, amp -> amplitude.
+    type: angle
+    # Image intensity contrast exponent. Values: [number >= 0].
+    contrast: 1
+    # Random input scale. Values: [number >= 0].
+    randomness: 0
+    # Training batch size. Values: [int >= 1].
+    batch_size: 4
+    # Evaluation batch size. Values: [int >= 1].
+    eval_batch_size: 8
+    # Maximum parallel threads for model execution. Values: [int >= 1].
+    max_parallel_threads: 1
+    # Evaluation metric. Values: gradient, kl.
+    eval_method: gradient
+
+
+# Variable config options
+#
+# This file generates 45 runs: base, ang, and amp for each Aer CPU case.
+#
+# - aer_baseline: density matrix, hardware mapping, precision: 0.015625
+# - aer_fast_precision: same, precision: 0.0625
+# - aer_medium_precision: same, precision: 0.03125
+# - aer_all_serial: max_parallel_threads: 1, max_parallel_experiments: 1, max_parallel_shots: 1
+# - aer_parallel_experiments: max_parallel_experiments: 0
+# - aer_experiments_2: max_parallel_experiments: 2
+# - aer_experiments_4: max_parallel_experiments: 4
+# - aer_shots_1: max_parallel_shots: 1
+# - aer_shots_4: max_parallel_shots: 4
+# - aer_shots_8: max_parallel_shots: 8
+# - aer_threads_1: max_parallel_threads: 1
+# - aer_threads_4: max_parallel_threads: 4
+# - aer_threads_8: max_parallel_threads: 8
+# - aer_single: simulator data_type: single
+# - aer_nm_mapping: noise_model mapping comparison
+variable_config_values_list:
+
+  aer_baseline:
+    run.label:
+      - aer_baseline
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+    backend.precision:
+      - 0.015625
+    backend.simulator.noisy_method:
+      - density_matrix
+    backend.simulator.noisy_backend_mapping:
+      - hardware
+    backend.simulator.max_parallel_threads:
+      - 0
+    backend.simulator.max_parallel_experiments:
+      - 1
+    backend.simulator.max_parallel_shots:
+      - 0
+
+  aer_fast_precision:
+    run.label:
+      - aer_fast_precision
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+    backend.precision:
+      - 0.0625
+    backend.simulator.noisy_method:
+      - density_matrix
+    backend.simulator.noisy_backend_mapping:
+      - hardware
+    backend.simulator.max_parallel_threads:
+      - 0
+    backend.simulator.max_parallel_experiments:
+      - 1
+    backend.simulator.max_parallel_shots:
+      - 0
+
+  aer_medium_precision:
+    run.label:
+      - aer_medium_precision
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+    backend.precision:
+      - 0.03125
+    backend.simulator.noisy_method:
+      - density_matrix
+    backend.simulator.noisy_backend_mapping:
+      - hardware
+    backend.simulator.max_parallel_threads:
+      - 0
+    backend.simulator.max_parallel_experiments:
+      - 1
+    backend.simulator.max_parallel_shots:
+      - 0
+
+  aer_parallel_experiments:
+    run.label:
+      - aer_parallel_experiments
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+    backend.precision:
+      - 0.03125
+    backend.simulator.noisy_method:
+      - density_matrix
+    backend.simulator.noisy_backend_mapping:
+      - hardware
+    backend.simulator.max_parallel_threads:
+      - 0
+    backend.simulator.max_parallel_experiments:
+      - 0
+    backend.simulator.max_parallel_shots:
+      - 0
+
+  aer_all_serial:
+    run.label:
+      - aer_all_serial
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+    backend.precision:
+      - 0.03125
+    backend.simulator.noisy_method:
+      - density_matrix
+    backend.simulator.noisy_backend_mapping:
+      - hardware
+    backend.simulator.max_parallel_threads:
+      - 1
+    backend.simulator.max_parallel_experiments:
+      - 1
+    backend.simulator.max_parallel_shots:
+      - 1
+
+  aer_experiments_2:
+    run.label:
+      - aer_experiments_2
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+    backend.precision:
+      - 0.03125
+    backend.simulator.noisy_method:
+      - density_matrix
+    backend.simulator.noisy_backend_mapping:
+      - hardware
+    backend.simulator.max_parallel_threads:
+      - 0
+    backend.simulator.max_parallel_experiments:
+      - 2
+    backend.simulator.max_parallel_shots:
+      - 1
+
+  aer_experiments_4:
+    run.label:
+      - aer_experiments_4
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+    backend.precision:
+      - 0.03125
+    backend.simulator.noisy_method:
+      - density_matrix
+    backend.simulator.noisy_backend_mapping:
+      - hardware
+    backend.simulator.max_parallel_threads:
+      - 0
+    backend.simulator.max_parallel_experiments:
+      - 4
+    backend.simulator.max_parallel_shots:
+      - 1
+
+  aer_shots_1:
+    run.label:
+      - aer_shots_1
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+    backend.precision:
+      - 0.03125
+    backend.simulator.noisy_method:
+      - density_matrix
+    backend.simulator.noisy_backend_mapping:
+      - hardware
+    backend.simulator.max_parallel_threads:
+      - 0
+    backend.simulator.max_parallel_experiments:
+      - 1
+    backend.simulator.max_parallel_shots:
+      - 1
+
+  aer_shots_4:
+    run.label:
+      - aer_shots_4
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+    backend.precision:
+      - 0.03125
+    backend.simulator.noisy_method:
+      - density_matrix
+    backend.simulator.noisy_backend_mapping:
+      - hardware
+    backend.simulator.max_parallel_threads:
+      - 0
+    backend.simulator.max_parallel_experiments:
+      - 1
+    backend.simulator.max_parallel_shots:
+      - 4
+
+  aer_shots_8:
+    run.label:
+      - aer_shots_8
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+    backend.precision:
+      - 0.03125
+    backend.simulator.noisy_method:
+      - density_matrix
+    backend.simulator.noisy_backend_mapping:
+      - hardware
+    backend.simulator.max_parallel_threads:
+      - 0
+    backend.simulator.max_parallel_experiments:
+      - 1
+    backend.simulator.max_parallel_shots:
+      - 8
+
+  aer_threads_1:
+    run.label:
+      - aer_threads_1
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+    backend.precision:
+      - 0.03125
+    backend.simulator.noisy_method:
+      - density_matrix
+    backend.simulator.noisy_backend_mapping:
+      - hardware
+    backend.simulator.max_parallel_threads:
+      - 1
+    backend.simulator.max_parallel_experiments:
+      - 1
+    backend.simulator.max_parallel_shots:
+      - 0
+
+  aer_threads_8:
+    run.label:
+      - aer_threads_8
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+    backend.precision:
+      - 0.03125
+    backend.simulator.noisy_method:
+      - density_matrix
+    backend.simulator.noisy_backend_mapping:
+      - hardware
+    backend.simulator.max_parallel_threads:
+      - 8
+    backend.simulator.max_parallel_experiments:
+      - 1
+    backend.simulator.max_parallel_shots:
+      - 0
+
+  aer_threads_4:
+    run.label:
+      - aer_threads_4
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+    backend.precision:
+      - 0.03125
+    backend.simulator.noisy_method:
+      - density_matrix
+    backend.simulator.noisy_backend_mapping:
+      - hardware
+    backend.simulator.max_parallel_threads:
+      - 4
+    backend.simulator.max_parallel_experiments:
+      - 1
+    backend.simulator.max_parallel_shots:
+      - 0
+
+  aer_single:
+    run.label:
+      - aer_single
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+    backend.precision:
+      - 0.03125
+    backend.simulator.data_type:
+      - single
+    backend.simulator.noisy_method:
+      - density_matrix
+    backend.simulator.noisy_backend_mapping:
+      - hardware
+    backend.simulator.max_parallel_threads:
+      - 0
+    backend.simulator.max_parallel_experiments:
+      - 1
+    backend.simulator.max_parallel_shots:
+      - 0
+
+  aer_nm_mapping:
+    run.label:
+      - aer_nm_mapping
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+    backend.precision:
+      - 0.03125
+    backend.simulator.noisy_method:
+      - density_matrix
+    backend.simulator.noisy_backend_mapping:
+      - noise_model
+    backend.simulator.max_parallel_threads:
+      - 0
+    backend.simulator.max_parallel_experiments:
+      - 1
+    backend.simulator.max_parallel_shots:
+      - 0
