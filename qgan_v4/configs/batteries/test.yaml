@@ -112,7 +112,8 @@ default_config_values:
         batched_shots_gpu: false
         # Enable GPU blocking (true for multiple GPUs). Values: true, false.
         blocking_enable: false
-        # Enable runtime parameter binding in Aer. Values: true, false. # True with execution_type='noiseless' does not work
+        # Enable Aer runtime parameter binding on GPU. Values: true, false.
+        # Some parameterized GPU circuits can fail; set false to use standard binding.
         runtime_parameter_bind_enable: true
 
     real:
