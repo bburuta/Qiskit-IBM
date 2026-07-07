@@ -112,9 +112,8 @@ default_config_values:
         batched_shots_gpu: false
         # Enable GPU blocking (true for multiple GPUs). Values: true, false.
         blocking_enable: false
-        # Enable Aer runtime parameter binding on GPU. Values: true, false.
-        # Some parameterized GPU circuits can fail; set false to use standard binding.
-        runtime_parameter_bind_enable: true
+        # Enable Aer runtime parameter binding on GPU. Values: true, false. # Ang and Amp parameterized GPU circuits fail, set false to use standard binding
+        runtime_parameter_bind_enable: false
 
     real:
       # Real backend cache id. Values: null, [string].

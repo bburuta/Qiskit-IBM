@@ -1,15 +1,8 @@
 # qGAN v4 battery config.
 #
-# Batteries follow the qgan_v3 pattern:
-# - default_config_values: base config used for every generated run.
-# - variable_config_values_list: named Cartesian-product sweeps.
-#
-# Variable keys can be dotted paths, e.g. experiment.n_qubits. Dotted paths
-# are preferred because they are explicit and avoid ambiguous keys.
+# Focused Aer GPU runtime-binding probes. The default keeps runtime binding off;
+# each runtime-bind test group explicitly enables it.
 
-#- Train config creation dict -#
-
-# Default config values
 default_config_values:
 
   implementation:
@@ -24,7 +17,7 @@ default_config_values:
     # Optional label appended to the run id as :label. Values: null, [string].
     label: null
     # Base directory where run data is stored. Values: [path].
-    data_path: qgan_v4/data/train
+    data_path: qgan_v4/data/test/aer_gpu_runtime_bind
     # Random seed for Python, NumPy, Torch, and simulator options. Values: [int].
     seed: 0
     # Torch device. Values: CPU, GPU. runtime_packed requires CPU.
@@ -34,7 +27,7 @@ default_config_values:
     # Experiment preset. Values: base, ang, amp.
     implementation: ang
     # Execution target. Values: noiseless, noisy, fake_real, real.
-    execution_type: noiseless
+    execution_type: noisy
     # Number of qubits. Values: [int >= 1].
     n_qubits: 4
     # Estimator gradient method. Values: PSR, SPSA, REG.
@@ -42,7 +35,7 @@ default_config_values:
 
   training:
     # Number of training epochs. Values: [int >= 0].
-    max_iterations: 1000
+    max_iterations: 1
     # Generator updates per epoch. Values: [int >= 0].
     gen_iterations: 1
     # Discriminator updates per epoch. Values: [int >= 0].
@@ -52,7 +45,7 @@ default_config_values:
     # Adam optimizer learning rate for generator and discriminator. Values: [number >= 0].
     learning_rate: 0.005
     # Epoch interval for progress prints. Values: [int >= 0], 0 disables printing.
-    print_every: 100
+    print_every: 1
 
   dataset:
     # Dataset id. Values: null, [string].
@@ -78,7 +71,7 @@ default_config_values:
     # Recreate cached backend data. Values: true, false.
     reset: false
     # Estimator precision. Values: [number >= 0]. 0 means exact/no shots.
-    precision: 0.015625
+    precision: 0.03125
 
     transpilation:
       # Preset pass manager optimization level. Values: 0, 1, 2, 3.
@@ -90,8 +83,8 @@ default_config_values:
 
     simulator:
       # Aer simulator device. Values: CPU, GPU.
-      device: CPU
-      # Floating point precision for simulator/Torch tensors. Values: double, float.
+      device: GPU
+      # Floating point precision for simulator/Torch tensors. Values: double, single.
       data_type: double
       # Aer method for noiseless simulation. Values: statevector, density_matrix.
       noiseless_method: statevector
@@ -108,7 +101,7 @@ default_config_values:
       gpu:
         # Enable cuStateVec acceleration when using GPU. Values: true, false.
         cuStateVec_enable: true
-        # Enable batched shots on GPU (not compatible with cuStateVec). Values: true, false. # True with execution_type='noiseless' does not work
+        # Enable batched shots on GPU (not compatible with cuStateVec). Values: true, false.
         batched_shots_gpu: false
         # Enable GPU blocking (true for multiple GPUs). Values: true, false.
         blocking_enable: false
@@ -139,7 +132,7 @@ default_config_values:
     # Image intensity contrast exponent. Values: [number >= 0].
     contrast: 1
     # Random input scale. Values: [number >= 0].
-    randomness: 0
+    randomness: 0.1
     # Training batch size. Values: [int >= 1].
     batch_size: 4
     # Evaluation batch size. Values: [int >= 1].
@@ -151,37 +144,22 @@ default_config_values:
 
 
 # Variable config options
+#
+# This file generates 24 runs: base, ang, and amp for each runtime-bind probe.
+#
+# - rb_psr_rand_hardware: original stress case with runtime binding enabled
+# - rb_off_psr_rand_hardware: same stress case with runtime binding disabled
+# - rb_spsa_rand_hardware: switch PSR to SPSA
+# - rb_psr_norand_hardware: remove randomizer parameters
+# - rb_psr_rand_noise_model: avoid hardware coupling-map/target mapping
+# - rb_psr_rand_simple_transpile: simplify transpilation
+# - rb_psr_rand_noise_model_simple_transpile: combine noise_model and simple transpilation
+# - rb_spsa_norand_noise_model_simple_transpile: lowest-stress runtime-bind variant
 variable_config_values_list:
 
-  qml_torch_noiseless:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - base
-      - ang
-      - amp
-    experiment.execution_type:
-      - noiseless
-    experiment.gradient_method:
-      - PSR
-      - SPSA
-      - REG
-    experiment.n_qubits:
-      - 4
-      # - 8
-      # - 16
-    backend.simulator.device:
-      # - CPU
-      - GPU
-    run.seed:
-      - 0
-      - 1
-      - 2
-    encoding.randomness:
-      - 0
-      - 0.1
-
-  qml_torch_noisy:
+  rb_psr_rand_hardware:
+    run.label:
+      - rb_psr_rand_hardware
     implementation.name:
       - qml_torch
     experiment.implementation:
@@ -192,18 +170,231 @@ variable_config_values_list:
       - noisy
     experiment.gradient_method:
       - PSR
-      - SPSA
     experiment.n_qubits:
       - 4
-      # - 8
-      # - 16
     backend.simulator.device:
-      # - CPU
       - GPU
     run.seed:
       - 0
-      - 1
-      - 2
+    encoding.randomness:
+      - 0.1
+    backend.simulator.noisy_method:
+      - density_matrix
+    backend.simulator.noisy_backend_mapping:
+      - hardware
+    backend.simulator.gpu.runtime_parameter_bind_enable:
+      - true
+
+  rb_off_psr_rand_hardware:
+    run.label:
+      - rb_off_psr_rand_hardware
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - PSR
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - GPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0.1
+    backend.simulator.noisy_method:
+      - density_matrix
+    backend.simulator.noisy_backend_mapping:
+      - hardware
+    backend.simulator.gpu.runtime_parameter_bind_enable:
+      - false
+
+  rb_spsa_rand_hardware:
+    run.label:
+      - rb_spsa_rand_hardware
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - GPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0.1
+    backend.simulator.noisy_method:
+      - density_matrix
+    backend.simulator.noisy_backend_mapping:
+      - hardware
+    backend.simulator.gpu.runtime_parameter_bind_enable:
+      - true
+
+  rb_psr_norand_hardware:
+    run.label:
+      - rb_psr_norand_hardware
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - PSR
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - GPU
+    run.seed:
+      - 0
     encoding.randomness:
       - 0
+    backend.simulator.noisy_method:
+      - density_matrix
+    backend.simulator.noisy_backend_mapping:
+      - hardware
+    backend.simulator.gpu.runtime_parameter_bind_enable:
+      - true
+
+  rb_psr_rand_noise_model:
+    run.label:
+      - rb_psr_rand_noise_model
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - PSR
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - GPU
+    run.seed:
+      - 0
+    encoding.randomness:
       - 0.1
+    backend.simulator.noisy_method:
+      - density_matrix
+    backend.simulator.noisy_backend_mapping:
+      - noise_model
+    backend.simulator.gpu.runtime_parameter_bind_enable:
+      - true
+
+  rb_psr_rand_simple_transpile:
+    run.label:
+      - rb_psr_rand_simple_transpile
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - PSR
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - GPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0.1
+    backend.transpilation.optimization_level:
+      - 0
+    backend.transpilation.layout_method:
+      - trivial
+    backend.transpilation.routing_method:
+      - basic
+    backend.simulator.noisy_method:
+      - density_matrix
+    backend.simulator.noisy_backend_mapping:
+      - hardware
+    backend.simulator.gpu.runtime_parameter_bind_enable:
+      - true
+
+  rb_psr_rand_noise_model_simple_transpile:
+    run.label:
+      - rb_psr_rand_noise_model_simple_transpile
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - PSR
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - GPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0.1
+    backend.transpilation.optimization_level:
+      - 0
+    backend.transpilation.layout_method:
+      - trivial
+    backend.transpilation.routing_method:
+      - basic
+    backend.simulator.noisy_method:
+      - density_matrix
+    backend.simulator.noisy_backend_mapping:
+      - noise_model
+    backend.simulator.gpu.runtime_parameter_bind_enable:
+      - true
+
+  rb_spsa_norand_noise_model_simple_transpile:
+    run.label:
+      - rb_spsa_norand_noise_model_simple_transpile
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - GPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+    backend.transpilation.optimization_level:
+      - 0
+    backend.transpilation.layout_method:
+      - trivial
+    backend.transpilation.routing_method:
+      - basic
+    backend.simulator.noisy_method:
+      - density_matrix
+    backend.simulator.noisy_backend_mapping:
+      - noise_model
+    backend.simulator.gpu.runtime_parameter_bind_enable:
+      - true
