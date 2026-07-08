@@ -153,7 +153,7 @@ default_config_values:
 # Variable config options
 variable_config_values_list:
 
-  qml_torch_train:
+  qml_torch_noiseless:
     implementation.name:
       - qml_torch
     experiment.implementation:
@@ -162,14 +162,14 @@ variable_config_values_list:
       - amp
     experiment.execution_type:
       - noiseless
-      - noisy
     experiment.gradient_method:
       - PSR
       - SPSA
+      - REG
     experiment.n_qubits:
       - 4
-      - 8
-      - 16
+      # - 8
+      # - 16
     backend.simulator.device:
       - CPU
       - GPU
@@ -180,3 +180,31 @@ variable_config_values_list:
     encoding.randomness:
       - 0
       - 0.1
+
+  qml_torch_noisy:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      # - PSR
+      - SPSA
+    experiment.n_qubits:
+      - 4
+      # - 8
+      # - 16
+    backend.simulator.device:
+      - CPU
+      - GPU
+    run.seed:
+      - 0
+      - 1
+      - 2
+    encoding.randomness:
+      - 0
+      - 0.1
+      

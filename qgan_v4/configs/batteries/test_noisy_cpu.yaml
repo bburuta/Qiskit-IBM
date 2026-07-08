@@ -42,7 +42,7 @@ default_config_values:
 
   training:
     # Number of training epochs. Values: [int >= 0].
-    max_iterations: 2
+    max_iterations: 3
     # Generator updates per epoch. Values: [int >= 0].
     gen_iterations: 1
     # Discriminator updates per epoch. Values: [int >= 0].
@@ -165,7 +165,7 @@ variable_config_values_list:
     experiment.execution_type:
       - noisy
     experiment.gradient_method:
-      - PSR
+      # - PSR
       - SPSA
     experiment.n_qubits:
       - 4
@@ -192,7 +192,7 @@ variable_config_values_list:
     experiment.execution_type:
       - noisy
     experiment.gradient_method:
-      - PSR
+      # - PSR
       - SPSA
     experiment.n_qubits:
       - 4
@@ -221,7 +221,7 @@ variable_config_values_list:
     experiment.execution_type:
       - noisy
     experiment.gradient_method:
-      - PSR
+      # - PSR
       - SPSA
     experiment.n_qubits:
       - 4
@@ -250,7 +250,7 @@ variable_config_values_list:
     experiment.execution_type:
       - noisy
     experiment.gradient_method:
-      - PSR
+      # - PSR
       - SPSA
     experiment.n_qubits:
       - 4

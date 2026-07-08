@@ -42,7 +42,7 @@ default_config_values:
 
   training:
     # Number of training epochs. Values: [int >= 0].
-    max_iterations: 2
+    max_iterations: 3
     # Generator updates per epoch. Values: [int >= 0].
     gen_iterations: 1
     # Discriminator updates per epoch. Values: [int >= 0].
@@ -152,7 +152,7 @@ default_config_values:
 
 # Variable config options
 #
-# This file generates 63 runs: base, ang, and amp for each Aer GPU case.
+# This file generates 66 runs: base, ang, and amp for each Aer GPU case.
 #
 # - aer_baseline: density matrix, hardware mapping, precision: 0.015625
 # - aer_fast_precision: same, precision: 0.0625
@@ -169,12 +169,10 @@ default_config_values:
 # - aer_threads_8: max_parallel_threads: 8
 # - aer_single: simulator data_type: single
 # - aer_nm_mapping: noise_model mapping comparison
-# - aer_gpu_runtime_bind_off: runtime parameter binding disabled
 # - aer_gpu_custatevec_off: cuStateVec disabled
 # - aer_gpu_batched_shots: GPU batched shots enabled without cuStateVec
 # - aer_gpu_blocking: GPU blocking enabled
-# - aer_gpu_runtime_bind_psr_rand: PSR/random-input runtime-binding stress case
-# - aer_gpu_runtime_bind_off_psr_rand: same stress case with runtime binding disabled
+# - aer_gpu_rpbegpu: runtime parameter binding enabled for PSR/SPSA and randomness 0/0.1
 variable_config_values_list:
 
   aer_baseline:
@@ -197,18 +195,6 @@ variable_config_values_list:
     run.seed:
       - 0
     encoding.randomness:
-      - 0
-    backend.precision:
-      - 0.015625
-    backend.simulator.noisy_method:
-      - density_matrix
-    backend.simulator.noisy_backend_mapping:
-      - hardware
-    backend.simulator.max_parallel_threads:
-      - 0
-    backend.simulator.max_parallel_experiments:
-      - 1
-    backend.simulator.max_parallel_shots:
       - 0
 
   aer_fast_precision:
@@ -234,16 +220,6 @@ variable_config_values_list:
       - 0
     backend.precision:
       - 0.0625
-    backend.simulator.noisy_method:
-      - density_matrix
-    backend.simulator.noisy_backend_mapping:
-      - hardware
-    backend.simulator.max_parallel_threads:
-      - 0
-    backend.simulator.max_parallel_experiments:
-      - 1
-    backend.simulator.max_parallel_shots:
-      - 0
 
   aer_medium_precision:
     run.label:
@@ -268,16 +244,6 @@ variable_config_values_list:
       - 0
     backend.precision:
       - 0.03125
-    backend.simulator.noisy_method:
-      - density_matrix
-    backend.simulator.noisy_backend_mapping:
-      - hardware
-    backend.simulator.max_parallel_threads:
-      - 0
-    backend.simulator.max_parallel_experiments:
-      - 1
-    backend.simulator.max_parallel_shots:
-      - 0
 
   aer_parallel_experiments:
     run.label:
@@ -300,17 +266,7 @@ variable_config_values_list:
       - 0
     encoding.randomness:
       - 0
-    backend.precision:
-      - 0.03125
-    backend.simulator.noisy_method:
-      - density_matrix
-    backend.simulator.noisy_backend_mapping:
-      - hardware
-    backend.simulator.max_parallel_threads:
-      - 0
     backend.simulator.max_parallel_experiments:
-      - 0
-    backend.simulator.max_parallel_shots:
       - 0
 
   aer_all_serial:
@@ -334,15 +290,7 @@ variable_config_values_list:
       - 0
     encoding.randomness:
       - 0
-    backend.precision:
-      - 0.03125
-    backend.simulator.noisy_method:
-      - density_matrix
-    backend.simulator.noisy_backend_mapping:
-      - hardware
     backend.simulator.max_parallel_threads:
-      - 1
-    backend.simulator.max_parallel_experiments:
       - 1
     backend.simulator.max_parallel_shots:
       - 1
@@ -368,18 +316,8 @@ variable_config_values_list:
       - 0
     encoding.randomness:
       - 0
-    backend.precision:
-      - 0.03125
-    backend.simulator.noisy_method:
-      - density_matrix
-    backend.simulator.noisy_backend_mapping:
-      - hardware
-    backend.simulator.max_parallel_threads:
-      - 0
     backend.simulator.max_parallel_experiments:
       - 2
-    backend.simulator.max_parallel_shots:
-      - 1
 
   aer_experiments_4:
     run.label:
@@ -402,18 +340,8 @@ variable_config_values_list:
       - 0
     encoding.randomness:
       - 0
-    backend.precision:
-      - 0.03125
-    backend.simulator.noisy_method:
-      - density_matrix
-    backend.simulator.noisy_backend_mapping:
-      - hardware
-    backend.simulator.max_parallel_threads:
-      - 0
     backend.simulator.max_parallel_experiments:
       - 4
-    backend.simulator.max_parallel_shots:
-      - 1
 
   aer_shots_1:
     run.label:
@@ -436,16 +364,6 @@ variable_config_values_list:
       - 0
     encoding.randomness:
       - 0
-    backend.precision:
-      - 0.03125
-    backend.simulator.noisy_method:
-      - density_matrix
-    backend.simulator.noisy_backend_mapping:
-      - hardware
-    backend.simulator.max_parallel_threads:
-      - 0
-    backend.simulator.max_parallel_experiments:
-      - 1
     backend.simulator.max_parallel_shots:
       - 1
 
@@ -470,16 +388,6 @@ variable_config_values_list:
       - 0
     encoding.randomness:
       - 0
-    backend.precision:
-      - 0.03125
-    backend.simulator.noisy_method:
-      - density_matrix
-    backend.simulator.noisy_backend_mapping:
-      - hardware
-    backend.simulator.max_parallel_threads:
-      - 0
-    backend.simulator.max_parallel_experiments:
-      - 1
     backend.simulator.max_parallel_shots:
       - 4
 
@@ -504,16 +412,6 @@ variable_config_values_list:
       - 0
     encoding.randomness:
       - 0
-    backend.precision:
-      - 0.03125
-    backend.simulator.noisy_method:
-      - density_matrix
-    backend.simulator.noisy_backend_mapping:
-      - hardware
-    backend.simulator.max_parallel_threads:
-      - 0
-    backend.simulator.max_parallel_experiments:
-      - 1
     backend.simulator.max_parallel_shots:
       - 8
 
@@ -538,18 +436,8 @@ variable_config_values_list:
       - 0
     encoding.randomness:
       - 0
-    backend.precision:
-      - 0.03125
-    backend.simulator.noisy_method:
-      - density_matrix
-    backend.simulator.noisy_backend_mapping:
-      - hardware
     backend.simulator.max_parallel_threads:
       - 1
-    backend.simulator.max_parallel_experiments:
-      - 1
-    backend.simulator.max_parallel_shots:
-      - 0
 
   aer_threads_8:
     run.label:
@@ -572,18 +460,8 @@ variable_config_values_list:
       - 0
     encoding.randomness:
       - 0
-    backend.precision:
-      - 0.03125
-    backend.simulator.noisy_method:
-      - density_matrix
-    backend.simulator.noisy_backend_mapping:
-      - hardware
     backend.simulator.max_parallel_threads:
       - 8
-    backend.simulator.max_parallel_experiments:
-      - 1
-    backend.simulator.max_parallel_shots:
-      - 0
 
   aer_threads_4:
     run.label:
@@ -606,18 +484,8 @@ variable_config_values_list:
       - 0
     encoding.randomness:
       - 0
-    backend.precision:
-      - 0.03125
-    backend.simulator.noisy_method:
-      - density_matrix
-    backend.simulator.noisy_backend_mapping:
-      - hardware
     backend.simulator.max_parallel_threads:
       - 4
-    backend.simulator.max_parallel_experiments:
-      - 1
-    backend.simulator.max_parallel_shots:
-      - 0
 
   aer_single:
     run.label:
@@ -640,20 +508,8 @@ variable_config_values_list:
       - 0
     encoding.randomness:
       - 0
-    backend.precision:
-      - 0.03125
     backend.simulator.data_type:
       - single
-    backend.simulator.noisy_method:
-      - density_matrix
-    backend.simulator.noisy_backend_mapping:
-      - hardware
-    backend.simulator.max_parallel_threads:
-      - 0
-    backend.simulator.max_parallel_experiments:
-      - 1
-    backend.simulator.max_parallel_shots:
-      - 0
 
   aer_nm_mapping:
     run.label:
@@ -676,54 +532,8 @@ variable_config_values_list:
       - 0
     encoding.randomness:
       - 0
-    backend.precision:
-      - 0.03125
-    backend.simulator.noisy_method:
-      - density_matrix
     backend.simulator.noisy_backend_mapping:
       - noise_model
-    backend.simulator.max_parallel_threads:
-      - 0
-    backend.simulator.max_parallel_experiments:
-      - 1
-    backend.simulator.max_parallel_shots:
-      - 0
-
-  aer_gpu_runtime_bind_off:
-    run.label:
-      - aer_gpu_runtime_bind_off
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - base
-      - ang
-      - amp
-    experiment.execution_type:
-      - noisy
-    experiment.gradient_method:
-      - SPSA
-    experiment.n_qubits:
-      - 4
-    backend.simulator.device:
-      - GPU
-    run.seed:
-      - 0
-    encoding.randomness:
-      - 0
-    backend.precision:
-      - 0.03125
-    backend.simulator.noisy_method:
-      - density_matrix
-    backend.simulator.noisy_backend_mapping:
-      - hardware
-    backend.simulator.max_parallel_threads:
-      - 0
-    backend.simulator.max_parallel_experiments:
-      - 1
-    backend.simulator.max_parallel_shots:
-      - 0
-    backend.simulator.gpu.runtime_parameter_bind_enable:
-      - false
 
   aer_gpu_custatevec_off:
     run.label:
@@ -745,18 +555,6 @@ variable_config_values_list:
     run.seed:
       - 0
     encoding.randomness:
-      - 0
-    backend.precision:
-      - 0.03125
-    backend.simulator.noisy_method:
-      - density_matrix
-    backend.simulator.noisy_backend_mapping:
-      - hardware
-    backend.simulator.max_parallel_threads:
-      - 0
-    backend.simulator.max_parallel_experiments:
-      - 1
-    backend.simulator.max_parallel_shots:
       - 0
     backend.simulator.gpu.cuStateVec_enable:
       - false
@@ -781,18 +579,6 @@ variable_config_values_list:
     run.seed:
       - 0
     encoding.randomness:
-      - 0
-    backend.precision:
-      - 0.03125
-    backend.simulator.noisy_method:
-      - density_matrix
-    backend.simulator.noisy_backend_mapping:
-      - hardware
-    backend.simulator.max_parallel_threads:
-      - 0
-    backend.simulator.max_parallel_experiments:
-      - 1
-    backend.simulator.max_parallel_shots:
       - 0
     backend.simulator.gpu.cuStateVec_enable:
       - false
@@ -820,24 +606,12 @@ variable_config_values_list:
       - 0
     encoding.randomness:
       - 0
-    backend.precision:
-      - 0.03125
-    backend.simulator.noisy_method:
-      - density_matrix
-    backend.simulator.noisy_backend_mapping:
-      - hardware
-    backend.simulator.max_parallel_threads:
-      - 0
-    backend.simulator.max_parallel_experiments:
-      - 1
-    backend.simulator.max_parallel_shots:
-      - 0
     backend.simulator.gpu.blocking_enable:
       - true
 
-  aer_gpu_runtime_bind_psr_rand:
+  aer_gpu_rpbegpu:
     run.label:
-      - aer_gpu_runtime_bind_psr_rand
+      - aer_gpu_rpbegpu
     implementation.name:
       - qml_torch
     experiment.implementation:
@@ -848,6 +622,7 @@ variable_config_values_list:
       - noisy
     experiment.gradient_method:
       - PSR
+      - SPSA
     experiment.n_qubits:
       - 4
     backend.simulator.device:
@@ -855,54 +630,7 @@ variable_config_values_list:
     run.seed:
       - 0
     encoding.randomness:
+      - 0
       - 0.1
-    backend.precision:
-      - 0.03125
-    backend.simulator.noisy_method:
-      - density_matrix
-    backend.simulator.noisy_backend_mapping:
-      - hardware
-    backend.simulator.max_parallel_threads:
-      - 0
-    backend.simulator.max_parallel_experiments:
-      - 1
-    backend.simulator.max_parallel_shots:
-      - 0
     backend.simulator.gpu.runtime_parameter_bind_enable:
       - true
-
-  aer_gpu_runtime_bind_off_psr_rand:
-    run.label:
-      - aer_gpu_runtime_bind_off_psr_rand
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - base
-      - ang
-      - amp
-    experiment.execution_type:
-      - noisy
-    experiment.gradient_method:
-      - PSR
-    experiment.n_qubits:
-      - 4
-    backend.simulator.device:
-      - GPU
-    run.seed:
-      - 0
-    encoding.randomness:
-      - 0.1
-    backend.precision:
-      - 0.03125
-    backend.simulator.noisy_method:
-      - density_matrix
-    backend.simulator.noisy_backend_mapping:
-      - hardware
-    backend.simulator.max_parallel_threads:
-      - 0
-    backend.simulator.max_parallel_experiments:
-      - 1
-    backend.simulator.max_parallel_shots:
-      - 0
-    backend.simulator.gpu.runtime_parameter_bind_enable:
-      - false

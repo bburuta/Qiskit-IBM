@@ -191,7 +191,7 @@ variable_config_values_list:
     experiment.execution_type:
       - noisy
     experiment.gradient_method:
-      - PSR
+      # - PSR
       - SPSA
     experiment.n_qubits:
       - 4
