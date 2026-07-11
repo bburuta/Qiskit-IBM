@@ -140,10 +140,11 @@ class JoinedDiscriminator(torch.nn.Module):
 # Amplitude evaluation with backend.run and SaveProbabilities
 class AmpEvalBackend(torch.nn.Module):
     # Store the transpiled evaluation circuit and its parameter order
-    def __init__(self, gen_eval_circuit, eval_backend):
+    def __init__(self, gen_eval_circuit, eval_backend, bind_before_run=False):
         super().__init__()
         self.gen_eval_circuit = gen_eval_circuit
         self.eval_backend = eval_backend
+        self.bind_before_run = bind_before_run
         _, gen_params, input_params = split_params_by_prefix(list(gen_eval_circuit.parameters))
         self.circuit_params = gen_params + input_params
         self.n_weights = len(gen_params)
@@ -171,18 +172,40 @@ class AmpEvalBackend(torch.nn.Module):
         gen_batch = self.weight.reshape(1, -1).expand(batch_size, -1)
         input_batch = torch.cat([gen_batch, random_input], dim=1).detach().cpu()
 
-        parameter_binds = {
-            self.circuit_params[i]: [input_batch[j][i].item() for j in range(batch_size)]
-            for i in range(len(self.circuit_params))
-        }
+        if self.bind_before_run:
+            bound_circuits = [
+                self.gen_eval_circuit.assign_parameters(
+                    {
+                        self.circuit_params[i]: input_batch[j][i].item()
+                        for i in range(len(self.circuit_params))
+                    },
+                    inplace=False,
+                )
+                for j in range(batch_size)
+            ]
+            result = self.eval_backend.run(bound_circuits).result()
+            probs = torch.stack([
+                torch.as_tensor(
+                    result.data(j)['probabilities'],
+                    dtype=self.weight.dtype,
+                    device=self.weight.device,
+                )
+                for j in range(batch_size)
+            ])
+        
+        else:
+            parameter_binds = {
+                self.circuit_params[i]: [input_batch[j][i].item() for j in range(batch_size)]
+                for i in range(len(self.circuit_params))
+            }
 
-        job = self.eval_backend.run([self.gen_eval_circuit], parameter_binds=[parameter_binds])
-        result = job.result()
-        probs = result.data(0)['probabilities']
-        probs = torch.as_tensor(probs, dtype=self.weight.dtype, device=self.weight.device)
+            job = self.eval_backend.run([self.gen_eval_circuit], parameter_binds=[parameter_binds])
+            result = job.result()
+            probs = result.data(0)['probabilities']
+            probs = torch.as_tensor(probs, dtype=self.weight.dtype, device=self.weight.device)
 
-        if probs.dim() == 1:
-            probs = probs.reshape(1, -1)
+            if probs.dim() == 1:
+                probs = probs.reshape(1, -1)
 
         return probs
 
@@ -190,11 +213,12 @@ class AmpEvalBackend(torch.nn.Module):
 #- Torch model creation -#
 
 # Create evaluation generator torch model for the selected encoding
-def generate_eval_g(encoding, gen_eval_model, model_g, eval_backend):
+def generate_eval_g(encoding, gen_eval_model, model_g, eval_backend, config):
     if encoding == 'angle':
         eval_g = EvalTorchConnector(gen_eval_model)
     elif encoding in ['direct_circuit', 'amplitude']:
-        eval_g = AmpEvalBackend(gen_eval_model, eval_backend)
+        bind_before_run = (config["experiment"]["execution_type"] == "noiseless" and config["backend"]["simulator"]["device"] == "GPU")
+        eval_g = AmpEvalBackend(gen_eval_model, eval_backend, bind_before_run=bind_before_run)
     else:
         raise ValueError(f"Unknown encoding method: {encoding}")
 
@@ -255,6 +279,6 @@ def generate_models(config, circuit_bundle):
     )
     model_d.train()
 
-    eval_g = generate_eval_g(encoding, gen_eval_model, model_g, eval_backend)
+    eval_g = generate_eval_g(encoding, gen_eval_model, model_g, eval_backend, config)
 
     return model_g, model_d, eval_g

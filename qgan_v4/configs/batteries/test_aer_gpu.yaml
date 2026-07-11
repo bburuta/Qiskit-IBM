@@ -188,6 +188,7 @@ variable_config_values_list:
       - noisy
     experiment.gradient_method:
       - SPSA
+      - PSR
     experiment.n_qubits:
       - 4
     backend.simulator.device:
