@@ -189,8 +189,10 @@ variable_config_values_list:
     experiment.gradient_method:
       - SPSA
       - PSR
-    experiment.n_qubits:
-      - 4
+    # experiment.n_qubits:
+    #   - 4
+    #   - 8
+    #   - 16
     backend.simulator.device:
       - GPU
     run.seed:
@@ -211,8 +213,10 @@ variable_config_values_list:
       - noisy
     experiment.gradient_method:
       - SPSA
-    experiment.n_qubits:
-      - 4
+    # experiment.n_qubits:
+    #   - 4
+    #   - 8
+    #   - 16
     backend.simulator.device:
       - GPU
     run.seed:
@@ -235,8 +239,10 @@ variable_config_values_list:
       - noisy
     experiment.gradient_method:
       - SPSA
-    experiment.n_qubits:
-      - 4
+    # experiment.n_qubits:
+    #   - 4
+    #   - 8
+    #   - 16
     backend.simulator.device:
       - GPU
     run.seed:
@@ -259,8 +265,10 @@ variable_config_values_list:
       - noisy
     experiment.gradient_method:
       - SPSA
-    experiment.n_qubits:
-      - 4
+    # experiment.n_qubits:
+    #   - 4
+    #   - 8
+    #   - 16
     backend.simulator.device:
       - GPU
     run.seed:
@@ -283,8 +291,10 @@ variable_config_values_list:
       - noisy
     experiment.gradient_method:
       - SPSA
-    experiment.n_qubits:
-      - 4
+    # experiment.n_qubits:
+    #   - 4
+    #   - 8
+    #   - 16
     backend.simulator.device:
       - GPU
     run.seed:
@@ -309,8 +319,10 @@ variable_config_values_list:
       - noisy
     experiment.gradient_method:
       - SPSA
-    experiment.n_qubits:
-      - 4
+    # experiment.n_qubits:
+    #   - 4
+    #   - 8
+    #   - 16
     backend.simulator.device:
       - GPU
     run.seed:
@@ -333,8 +345,10 @@ variable_config_values_list:
       - noisy
     experiment.gradient_method:
       - SPSA
-    experiment.n_qubits:
-      - 4
+    # experiment.n_qubits:
+    #   - 4
+    #   - 8
+    #   - 16
     backend.simulator.device:
       - GPU
     run.seed:
@@ -357,8 +371,10 @@ variable_config_values_list:
       - noisy
     experiment.gradient_method:
       - SPSA
-    experiment.n_qubits:
-      - 4
+    # experiment.n_qubits:
+    #   - 4
+    #   - 8
+    #   - 16
     backend.simulator.device:
       - GPU
     run.seed:
@@ -381,8 +397,10 @@ variable_config_values_list:
       - noisy
     experiment.gradient_method:
       - SPSA
-    experiment.n_qubits:
-      - 4
+    # experiment.n_qubits:
+    #   - 4
+    #   - 8
+    #   - 16
     backend.simulator.device:
       - GPU
     run.seed:
@@ -405,8 +423,10 @@ variable_config_values_list:
       - noisy
     experiment.gradient_method:
       - SPSA
-    experiment.n_qubits:
-      - 4
+    # experiment.n_qubits:
+    #   - 4
+    #   - 8
+    #   - 16
     backend.simulator.device:
       - GPU
     run.seed:
@@ -429,8 +449,10 @@ variable_config_values_list:
       - noisy
     experiment.gradient_method:
       - SPSA
-    experiment.n_qubits:
-      - 4
+    # experiment.n_qubits:
+    #   - 4
+    #   - 8
+    #   - 16
     backend.simulator.device:
       - GPU
     run.seed:
@@ -453,8 +475,10 @@ variable_config_values_list:
       - noisy
     experiment.gradient_method:
       - SPSA
-    experiment.n_qubits:
-      - 4
+    # experiment.n_qubits:
+    #   - 4
+    #   - 8
+    #   - 16
     backend.simulator.device:
       - GPU
     run.seed:
@@ -477,8 +501,10 @@ variable_config_values_list:
       - noisy
     experiment.gradient_method:
       - SPSA
-    experiment.n_qubits:
-      - 4
+    # experiment.n_qubits:
+    #   - 4
+    #   - 8
+    #   - 16
     backend.simulator.device:
       - GPU
     run.seed:
@@ -501,8 +527,10 @@ variable_config_values_list:
       - noisy
     experiment.gradient_method:
       - SPSA
-    experiment.n_qubits:
-      - 4
+    # experiment.n_qubits:
+    #   - 4
+    #   - 8
+    #   - 16
     backend.simulator.device:
       - GPU
     run.seed:
@@ -525,8 +553,10 @@ variable_config_values_list:
       - noisy
     experiment.gradient_method:
       - SPSA
-    experiment.n_qubits:
-      - 4
+    # experiment.n_qubits:
+    #   - 4
+    #   - 8
+    #   - 16
     backend.simulator.device:
       - GPU
     run.seed:
@@ -549,8 +579,10 @@ variable_config_values_list:
       - noisy
     experiment.gradient_method:
       - SPSA
-    experiment.n_qubits:
-      - 4
+    # experiment.n_qubits:
+    #   - 4
+    #   - 8
+    #   - 16
     backend.simulator.device:
       - GPU
     run.seed:
@@ -573,8 +605,10 @@ variable_config_values_list:
       - noisy
     experiment.gradient_method:
       - SPSA
-    experiment.n_qubits:
-      - 4
+    # experiment.n_qubits:
+    #   - 4
+    #   - 8
+    #   - 16
     backend.simulator.device:
       - GPU
     run.seed:
@@ -599,8 +633,10 @@ variable_config_values_list:
       - noisy
     experiment.gradient_method:
       - SPSA
-    experiment.n_qubits:
-      - 4
+    # experiment.n_qubits:
+    #   - 4
+    #   - 8
+    #   - 16
     backend.simulator.device:
       - GPU
     run.seed:
@@ -624,8 +660,10 @@ variable_config_values_list:
     experiment.gradient_method:
       - PSR
       - SPSA
-    experiment.n_qubits:
-      - 4
+    # experiment.n_qubits:
+    #   - 4
+    #   - 8
+    #   - 16
     backend.simulator.device:
       - GPU
     run.seed:
