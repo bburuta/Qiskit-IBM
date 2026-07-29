@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qgan-v2"
+version = "0.1.0"
+description = "Quantum generative adversarial network experiments built with Qiskit and PyTorch."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name = "bburuta", email = "bburutaran001@gmail.com" },
+]
+dependencies = [
+    "numpy==2.2.6",
+    "pyyaml==6.0.3",
+    "qiskit==2.4.2",
+    "qiskit-aer==0.17.2",
+    "qiskit-algorithms==0.4.0",
+    "qiskit-ibm-runtime==0.47.0",
+    "qiskit-machine-learning[sparse]==0.9.0",
+    "torch==2.12.1",
+]
+
+[project.optional-dependencies]
+notebooks = ["ipykernel==7.3.0"]
+visualization = ["matplotlib==3.10.9", "pylatexenc==2.10"]
+gpu = ["qiskit-aer-gpu-cu11"]
+dev = ["pytest"]
+
+[project.urls]
+Repository = "https://github.com/bburuta/Qiskit-IBM"
+
+[project.scripts]
+qgan-v2 = "qgan_v2.main:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
