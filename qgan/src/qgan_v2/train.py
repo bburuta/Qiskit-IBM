@@ -73,6 +73,9 @@ def train(config, interrupter=None):
             state.metrics.times[epoch] = time.time() - start_time
             start_time = time.time()
 
+            # Save checkpoint after the epoch is complete
+            save_checkpoint(state, epoch)
+
             # Print epoch progress
             print_every = config["training"]["print_every"]
             if print_every and epoch % print_every == 0:
@@ -86,11 +89,8 @@ def train(config, interrupter=None):
                 break
 
     finally:
-        # Save checkpoint and close implementation
-        try:
-            save_checkpoint(state, epoch)
-        finally:
-            impl.close(state)
+        # Close implementation without marking a partial epoch as complete
+        impl.close(state)
         print_summary(state)
 
     return state

@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use this project, please cite the thesis in preferred-citation and the software metadata below."
+title: "QGAN-IBM"
+type: software
+authors:
+  - family-names: "Burutaran Maiz"
+    given-names: "Beñat"
+    alias: "bburuta"
+    email: "bburutaran001@gmail.com"
+repository-code: "https://github.com/bburuta/Qiskit-IBM"
+url: "https://github.com/bburuta/Qiskit-IBM"
+abstract: "Research software and artifacts for developing and evaluating quantum generative adversarial networks with Qiskit, PyTorch, and IBM Quantum hardware."
+license: "MIT"
+version: "0.1.0"
+keywords:
+  - "quantum computing"
+  - "quantum generative adversarial networks"
+  - "qGAN"
+  - "Qiskit"
+  - "PyTorch"
+preferred-citation:
+  type: thesis
+  title: "Development and Evaluation of Fully Quantum Generative Adversarial Networks on IBM Quantum Hardware"
+  authors:
+    - family-names: "Burutaran Maiz"
+      given-names: "Beñat"
+      alias: "bburuta"
+  institution:
+    name: "University of the Basque Country (UPV/EHU)"
+  department: "Degree in Informatics Engineering, Computing"
+  thesis-type: "Bachelor thesis"
+  filename: "QGAN_Thesis.pdf"
+  url: "https://github.com/bburuta/Qiskit-IBM"
+  date-released: "2025-06-23"
+  year: 2025
+  month: 6

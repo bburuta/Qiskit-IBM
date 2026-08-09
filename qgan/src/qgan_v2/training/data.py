@@ -1,4 +1,6 @@
+import os
 import random
+import tempfile
 import warnings
 from dataclasses import dataclass, field
 from typing import Any
@@ -114,7 +116,31 @@ def create_optimizers(model_g, model_d, learning_rate):
 # Save training data file
 def save_training_data_file(filename, state):
     filename.parent.mkdir(parents=True, exist_ok=True)
-    torch.save(state, filename)
+    fd, temp_filename = tempfile.mkstemp(
+        prefix=f".{filename.name}.",
+        suffix=".tmp",
+        dir=filename.parent,
+    )
+
+    try:
+        with os.fdopen(fd, "wb") as file:
+            torch.save(state, file)
+            file.flush()
+            os.fsync(file.fileno())
+
+        os.replace(temp_filename, filename)
+
+        dir_fd = os.open(filename.parent, os.O_DIRECTORY)
+        try:
+            os.fsync(dir_fd)
+        finally:
+            os.close(dir_fd)
+    except Exception:
+        try:
+            os.unlink(temp_filename)
+        except FileNotFoundError:
+            pass
+        raise
 
 
 # Load training data file
