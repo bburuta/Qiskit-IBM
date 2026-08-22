@@ -1,0 +1,61 @@
+Creating config files for noisy_dm_hw:
+Configuration file written. Path: /work/qgan_v4/data/test/noisy/base-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/noisy/base-qml_torch-q4-noisy-PSR-aerCPU-rand0.1-seed0/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/noisy/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/noisy/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed0/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/noisy/ang-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/noisy/ang-qml_torch-q4-noisy-PSR-aerCPU-rand0.1-seed0/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/noisy/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/noisy/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed0/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/noisy/amp-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/noisy/amp-qml_torch-q4-noisy-PSR-aerCPU-rand0.1-seed0/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/noisy/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/noisy/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed0/config.yaml
+
+Creating config files for noisy_dm_nm:
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/base-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/base-qml_torch-q4-noisy-PSR-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/ang-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/ang-qml_torch-q4-noisy-PSR-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/amp-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/amp-qml_torch-q4-noisy-PSR-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed0/config.yaml
+
+Creating config files for noisy_sv_hw:
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/base-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/base-qml_torch-q4-noisy-PSR-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/ang-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/ang-qml_torch-q4-noisy-PSR-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/amp-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/amp-qml_torch-q4-noisy-PSR-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed0/config.yaml
+
+Creating config files for noisy_sv_nm:
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/base-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/base-qml_torch-q4-noisy-PSR-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/ang-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/ang-qml_torch-q4-noisy-PSR-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/amp-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/amp-qml_torch-q4-noisy-PSR-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed0/config.yaml
+
+48 battery configuration files ready.
+
+Running: /work/qgan_v4/data/test/noisy/base-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed0/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |

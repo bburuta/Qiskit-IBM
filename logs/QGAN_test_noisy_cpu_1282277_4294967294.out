@@ -1,0 +1,8 @@
+Creating config files for noisy_sv_fr:
+Configuration file written. Path: /work/qgan_v4/data/test/noisy_sv_fr/base-qml_torch-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+
+1 battery configuration files ready.
+
+Running: /work/qgan_v4/data/test/noisy_sv_fr/base-qml_torch-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+You are about to execute on REAL IBM Quantum hardware: fake_sherbrooke. Type 'yes' to continue: Run failed: /work/qgan_v4/data/test/noisy_sv_fr/base-qml_torch-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+1 battery run(s) failed.

@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/work/main.py", line 14, in <module>
+    main()
+  File "/work/qgan/src/qgan_v2/main.py", line 131, in main
+    run_battery(
+  File "/work/qgan/src/qgan_v2/main.py", line 76, in run_battery
+    config_files = create_battery(battery_path, overwrite=overwrite)
+  File "/work/qgan/src/qgan_v2/main.py", line 47, in create_battery
+    return create_battery_configs(battery_path, overwrite=overwrite)
+  File "/work/qgan/src/qgan_v2/config/battery.py", line 134, in create_battery_configs
+    default_config, variable_groups = load_battery_file(battery_filename)
+  File "/work/qgan/src/qgan_v2/config/battery.py", line 103, in load_battery_file
+    values = load_config_file(filename)
+  File "/work/qgan/src/qgan_v2/config/loader.py", line 13, in load_config_file
+    with open(filename, "r") as file:
+FileNotFoundError: [Errno 2] No such file or directory: 'qgan_v4/configs/batteries/train_cpu.yaml'

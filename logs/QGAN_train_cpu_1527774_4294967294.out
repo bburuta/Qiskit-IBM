@@ -1,0 +1,439 @@
+Creating config files for qml_torch_noiseless:
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed2/config.yaml
+
+Creating config files for qml_torch_noisy:
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed2/config.yaml
+
+72 battery configuration files ready.
+
+Running: /work/qgan/data/train/base-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed0/config.yaml
+Run failed: /work/qgan/data/train/base-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed0/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/base-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed0/error_traceback.txt
+
+Running: /work/qgan/data/train/base-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed0/config.yaml
+Run failed: /work/qgan/data/train/base-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed0/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/base-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed0/error_traceback.txt
+
+Running: /work/qgan/data/train/base-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed1/config.yaml
+Run failed: /work/qgan/data/train/base-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed1/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/base-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed1/error_traceback.txt
+
+Running: /work/qgan/data/train/base-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed1/config.yaml
+Run failed: /work/qgan/data/train/base-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed1/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/base-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed1/error_traceback.txt
+
+Running: /work/qgan/data/train/base-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed2/config.yaml
+Run failed: /work/qgan/data/train/base-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed2/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/base-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed2/error_traceback.txt
+
+Running: /work/qgan/data/train/base-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed2/config.yaml
+Run failed: /work/qgan/data/train/base-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed2/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/base-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed2/error_traceback.txt
+
+Running: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed0/config.yaml
+Run failed: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed0/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed0/error_traceback.txt
+
+Running: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0/config.yaml
+Run failed: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0/error_traceback.txt
+
+Running: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed1/config.yaml
+Run failed: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed1/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed1/error_traceback.txt
+
+Running: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed1/config.yaml
+Run failed: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed1/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed1/error_traceback.txt
+
+Running: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed2/config.yaml
+Run failed: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed2/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed2/error_traceback.txt
+
+Running: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed2/config.yaml
+Run failed: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed2/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed2/error_traceback.txt
+
+Running: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed0/config.yaml
+Run failed: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed0/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed0/error_traceback.txt
+
+Running: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed0/config.yaml
+Run failed: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed0/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed0/error_traceback.txt
+
+Running: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed1/config.yaml
+Run failed: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed1/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed1/error_traceback.txt
+
+Running: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed1/config.yaml
+Run failed: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed1/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed1/error_traceback.txt
+
+Running: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed2/config.yaml
+Run failed: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed2/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed2/error_traceback.txt
+
+Running: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed2/config.yaml
+Run failed: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed2/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed2/error_traceback.txt
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed0/config.yaml
+Run failed: /work/qgan/data/train/ang-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed0/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/ang-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed0/error_traceback.txt
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed0/config.yaml
+Run failed: /work/qgan/data/train/ang-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed0/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/ang-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed0/error_traceback.txt
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed1/config.yaml
+Run failed: /work/qgan/data/train/ang-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed1/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/ang-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed1/error_traceback.txt
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed1/config.yaml
+Run failed: /work/qgan/data/train/ang-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed1/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/ang-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed1/error_traceback.txt
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed2/config.yaml
+Run failed: /work/qgan/data/train/ang-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed2/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/ang-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed2/error_traceback.txt
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed2/config.yaml
+Run failed: /work/qgan/data/train/ang-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed2/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/ang-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed2/error_traceback.txt
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed0/config.yaml
+Run failed: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed0/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed0/error_traceback.txt
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0/config.yaml
+Run failed: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0/error_traceback.txt
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed1/config.yaml
+Run failed: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed1/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed1/error_traceback.txt
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed1/config.yaml
+Run failed: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed1/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed1/error_traceback.txt
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed2/config.yaml
+Run failed: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed2/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed2/error_traceback.txt
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed2/config.yaml
+Run failed: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed2/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed2/error_traceback.txt
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed0/config.yaml
+Run failed: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed0/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed0/error_traceback.txt
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed0/config.yaml
+Run failed: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed0/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed0/error_traceback.txt
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed1/config.yaml
+Run failed: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed1/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed1/error_traceback.txt
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed1/config.yaml
+Run failed: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed1/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed1/error_traceback.txt
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed2/config.yaml
+Run failed: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed2/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed2/error_traceback.txt
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed2/config.yaml
+Run failed: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed2/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed2/error_traceback.txt
+
+Running: /work/qgan/data/train/amp-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed0/config.yaml
+Run failed: /work/qgan/data/train/amp-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed0/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/amp-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed0/error_traceback.txt
+
+Running: /work/qgan/data/train/amp-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed0/config.yaml
+Run failed: /work/qgan/data/train/amp-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed0/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/amp-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed0/error_traceback.txt
+
+Running: /work/qgan/data/train/amp-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed1/config.yaml
+Run failed: /work/qgan/data/train/amp-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed1/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/amp-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed1/error_traceback.txt
+
+Running: /work/qgan/data/train/amp-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed1/config.yaml
+Run failed: /work/qgan/data/train/amp-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed1/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/amp-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed1/error_traceback.txt
+
+Running: /work/qgan/data/train/amp-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed2/config.yaml
+Run failed: /work/qgan/data/train/amp-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed2/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/amp-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed2/error_traceback.txt
+
+Running: /work/qgan/data/train/amp-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed2/config.yaml
+Run failed: /work/qgan/data/train/amp-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed2/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/amp-qml_torch-q8-noiseless-PSR-aerCPU-rand0.1-seed2/error_traceback.txt
+
+Running: /work/qgan/data/train/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed0/config.yaml
+Run failed: /work/qgan/data/train/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed0/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed0/error_traceback.txt
+
+Running: /work/qgan/data/train/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0/config.yaml
+Run failed: /work/qgan/data/train/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0/error_traceback.txt
+
+Running: /work/qgan/data/train/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed1/config.yaml
+Run failed: /work/qgan/data/train/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed1/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed1/error_traceback.txt
+
+Running: /work/qgan/data/train/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed1/config.yaml
+Run failed: /work/qgan/data/train/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed1/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed1/error_traceback.txt
+
+Running: /work/qgan/data/train/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed2/config.yaml
+Run failed: /work/qgan/data/train/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed2/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed2/error_traceback.txt
+
+Running: /work/qgan/data/train/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed2/config.yaml
+Run failed: /work/qgan/data/train/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed2/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed2/error_traceback.txt
+
+Running: /work/qgan/data/train/amp-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed0/config.yaml
+Run failed: /work/qgan/data/train/amp-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed0/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/amp-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed0/error_traceback.txt
+
+Running: /work/qgan/data/train/amp-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed0/config.yaml
+Run failed: /work/qgan/data/train/amp-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed0/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/amp-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed0/error_traceback.txt
+
+Running: /work/qgan/data/train/amp-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed1/config.yaml
+Run failed: /work/qgan/data/train/amp-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed1/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/amp-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed1/error_traceback.txt
+
+Running: /work/qgan/data/train/amp-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed1/config.yaml
+Run failed: /work/qgan/data/train/amp-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed1/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/amp-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed1/error_traceback.txt
+
+Running: /work/qgan/data/train/amp-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed2/config.yaml
+Run failed: /work/qgan/data/train/amp-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed2/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/amp-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed2/error_traceback.txt
+
+Running: /work/qgan/data/train/amp-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed2/config.yaml
+Run failed: /work/qgan/data/train/amp-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed2/config.yaml
+   Error: ModuleNotFoundError: No module named 'qgan_v4.training'
+   Traceback saved: /work/qgan/data/train/amp-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed2/error_traceback.txt
+
+Running: /work/qgan/data/train/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Run failed: /work/qgan/data/train/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+   Error: AccountNotFoundError: "Unable to find account. Please make sure an account with the channel name 'ibm_quantum_platform' is saved."
+   Traceback saved: /work/qgan/data/train/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed0/error_traceback.txt
+
+Running: /work/qgan/data/train/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0/config.yaml
+Run failed: /work/qgan/data/train/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0/config.yaml
+   Error: AccountNotFoundError: "Unable to find account. Please make sure an account with the channel name 'ibm_quantum_platform' is saved."
+   Traceback saved: /work/qgan/data/train/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0/error_traceback.txt
+
+Running: /work/qgan/data/train/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed1/config.yaml
+Run failed: /work/qgan/data/train/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed1/config.yaml
+   Error: AccountNotFoundError: "Unable to find account. Please make sure an account with the channel name 'ibm_quantum_platform' is saved."
+   Traceback saved: /work/qgan/data/train/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed1/error_traceback.txt
+
+Running: /work/qgan/data/train/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed1/config.yaml
+Run failed: /work/qgan/data/train/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed1/config.yaml
+   Error: AccountNotFoundError: "Unable to find account. Please make sure an account with the channel name 'ibm_quantum_platform' is saved."
+   Traceback saved: /work/qgan/data/train/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed1/error_traceback.txt
+
+Running: /work/qgan/data/train/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed2/config.yaml
+Run failed: /work/qgan/data/train/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed2/config.yaml
+   Error: AccountNotFoundError: "Unable to find account. Please make sure an account with the channel name 'ibm_quantum_platform' is saved."
+   Traceback saved: /work/qgan/data/train/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed2/error_traceback.txt
+
+Running: /work/qgan/data/train/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed2/config.yaml
+Run failed: /work/qgan/data/train/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed2/config.yaml
+   Error: AccountNotFoundError: "Unable to find account. Please make sure an account with the channel name 'ibm_quantum_platform' is saved."
+   Traceback saved: /work/qgan/data/train/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed2/error_traceback.txt
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Run failed: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+   Error: AccountNotFoundError: "Unable to find account. Please make sure an account with the channel name 'ibm_quantum_platform' is saved."
+   Traceback saved: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed0/error_traceback.txt
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0/config.yaml
+Run failed: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0/config.yaml
+   Error: AccountNotFoundError: "Unable to find account. Please make sure an account with the channel name 'ibm_quantum_platform' is saved."
+   Traceback saved: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0/error_traceback.txt
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed1/config.yaml
+Run failed: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed1/config.yaml
+   Error: AccountNotFoundError: "Unable to find account. Please make sure an account with the channel name 'ibm_quantum_platform' is saved."
+   Traceback saved: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed1/error_traceback.txt
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed1/config.yaml
+Run failed: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed1/config.yaml
+   Error: AccountNotFoundError: "Unable to find account. Please make sure an account with the channel name 'ibm_quantum_platform' is saved."
+   Traceback saved: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed1/error_traceback.txt
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed2/config.yaml
+Run failed: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed2/config.yaml
+   Error: AccountNotFoundError: "Unable to find account. Please make sure an account with the channel name 'ibm_quantum_platform' is saved."
+   Traceback saved: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed2/error_traceback.txt
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed2/config.yaml
+Run failed: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed2/config.yaml
+   Error: AccountNotFoundError: "Unable to find account. Please make sure an account with the channel name 'ibm_quantum_platform' is saved."
+   Traceback saved: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed2/error_traceback.txt
+
+Running: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Run failed: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+   Error: AccountNotFoundError: "Unable to find account. Please make sure an account with the channel name 'ibm_quantum_platform' is saved."
+   Traceback saved: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed0/error_traceback.txt
+
+Running: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0/config.yaml
+Run failed: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0/config.yaml
+   Error: AccountNotFoundError: "Unable to find account. Please make sure an account with the channel name 'ibm_quantum_platform' is saved."
+   Traceback saved: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0/error_traceback.txt
+
+Running: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed1/config.yaml
+Run failed: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed1/config.yaml
+   Error: AccountNotFoundError: "Unable to find account. Please make sure an account with the channel name 'ibm_quantum_platform' is saved."
+   Traceback saved: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed1/error_traceback.txt
+
+Running: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed1/config.yaml
+Run failed: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed1/config.yaml
+   Error: AccountNotFoundError: "Unable to find account. Please make sure an account with the channel name 'ibm_quantum_platform' is saved."
+   Traceback saved: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed1/error_traceback.txt
+
+Running: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed2/config.yaml
+Run failed: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed2/config.yaml
+   Error: AccountNotFoundError: "Unable to find account. Please make sure an account with the channel name 'ibm_quantum_platform' is saved."
+   Traceback saved: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed2/error_traceback.txt
+
+Running: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed2/config.yaml
+Run failed: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed2/config.yaml
+   Error: AccountNotFoundError: "Unable to find account. Please make sure an account with the channel name 'ibm_quantum_platform' is saved."
+   Traceback saved: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed2/error_traceback.txt
+0 battery run(s) succeeded.
+72 battery run(s) failed.

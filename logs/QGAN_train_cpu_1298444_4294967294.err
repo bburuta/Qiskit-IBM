@@ -1,0 +1,1 @@
+/home/bburutaran/bin/bnd: line 124: 3976222 Bus error               (core dumped) apptainer exec "${extra[@]}" -B "$PWD:/work" -B "$uv_dir:/uvbin:ro" --pwd /work "$sif" bash -lc "$full_script" bash "$@"

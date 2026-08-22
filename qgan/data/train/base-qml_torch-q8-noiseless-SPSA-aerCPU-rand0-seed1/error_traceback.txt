@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "/work/qgan/src/qgan_v2/main.py", line 92, in run_battery
+    state = run_train(
+  File "/work/qgan/src/qgan_v2/main.py", line 40, in run_train
+    return train(config, interrupter=interrupter)
+  File "/work/qgan/src/qgan_v2/train.py", line 35, in train
+    state = impl.setup(config)
+  File "/work/qgan/src/qgan_v2/implementations/qml_torch.py", line 52, in setup
+    training_state, optimizer_g, optimizer_d = load_or_create_training_data(
+  File "/work/qgan/src/qgan_v2/training/data.py", line 234, in load_or_create_training_data
+    return load_training_data(filename, config, model_g, model_d)
+  File "/work/qgan/src/qgan_v2/training/data.py", line 215, in load_training_data
+    training_state = load_training_data_file(filename)
+  File "/work/qgan/src/qgan_v2/training/data.py", line 148, in load_training_data_file
+    return torch.load(filename, weights_only=False, map_location="cpu")
+  File "/work/.venv/lib/python3.10/site-packages/torch/serialization.py", line 1579, in load
+    return _load(
+  File "/work/.venv/lib/python3.10/site-packages/torch/serialization.py", line 2190, in _load
+    result = unpickler.load()
+  File "/work/.venv/lib/python3.10/site-packages/torch/serialization.py", line 2179, in find_class
+    return super().find_class(mod_name, name)
+ModuleNotFoundError: No module named 'qgan_v4.training'

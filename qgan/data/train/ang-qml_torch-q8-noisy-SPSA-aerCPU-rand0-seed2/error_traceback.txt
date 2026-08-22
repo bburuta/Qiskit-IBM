@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "/work/qgan/src/qgan_v2/main.py", line 92, in run_battery
+    state = run_train(
+  File "/work/qgan/src/qgan_v2/main.py", line 40, in run_train
+    return train(config, interrupter=interrupter)
+  File "/work/qgan/src/qgan_v2/train.py", line 35, in train
+    state = impl.setup(config)
+  File "/work/qgan/src/qgan_v2/implementations/qml_torch.py", line 48, in setup
+    model_g, model_d, eval_g = generate_models(config, circuit_bundle)
+  File "/work/qgan/src/qgan_v2/models/qml_torch2.py", line 277, in generate_models
+    _, _, train_estimator, train_pm, eval_backend, eval_estimator, eval_pm = create_backends(config)
+  File "/work/qgan/src/qgan_v2/execution/backend.py", line 327, in create_backends
+    real_backend_info = load_or_create_real_backend_info(config)
+  File "/work/qgan/src/qgan_v2/execution/backend.py", line 215, in load_or_create_real_backend_info
+    _, real_backend = create_real_backend(real_backend_options)
+  File "/work/qgan/src/qgan_v2/execution/backend.py", line 89, in create_real_backend
+    service = QiskitRuntimeService(channel=real_backend_options['channel'])
+  File "/work/.venv/lib/python3.10/site-packages/qiskit_ibm_runtime/qiskit_runtime_service.py", line 212, in __init__
+    self._account = self._discover_account(
+  File "/work/.venv/lib/python3.10/site-packages/qiskit_ibm_runtime/qiskit_runtime_service.py", line 424, in _discover_account
+    account = AccountManager.get(filename=filename, name=name, channel=channel)
+  File "/work/.venv/lib/python3.10/site-packages/qiskit_ibm_runtime/accounts/management.py", line 211, in get
+    raise AccountNotFoundError(
+qiskit_ibm_runtime.accounts.exceptions.AccountNotFoundError: "Unable to find account. Please make sure an account with the channel name 'ibm_quantum_platform' is saved."

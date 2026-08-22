@@ -1,0 +1,16 @@
+Creating config files for noisy_sv_fr:
+Configuration file rewritten. Path: /work/qgan_v4/data/test/noisy_sv_fr/base-qml_torch-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+
+1 battery configuration files ready.
+
+Running: /work/qgan_v4/data/test/noisy_sv_fr/base-qml_torch-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.839 |             -0.319 |               3.59 |               3.59 |               13.3 |
+                  1 |             -0.834 |              -0.32 |               3.48 |               3.48 |               13.4 |
+                  2 |             -0.844 |              -0.32 |               3.41 |               3.41 |               13.1 |
+                  3 |             -0.839 |             -0.316 |               3.41 |               3.41 |               13.3 |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/noisy_sv_fr/base-qml_torch-q4-fake_real-SPSA-aerCPU-rand0-seed0 
+   Best eval: 3.414151136857061 
+   Total time: 53.02971291542053

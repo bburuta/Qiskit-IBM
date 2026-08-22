@@ -1,0 +1,70 @@
+implementation:
+  name: qml_torch
+  discriminator_packing: separate
+run:
+  id: base-qml_torch-q4-noisy-SPSA-aerGPU-rand0.1-seed1
+  label: null
+  data_path: qgan/data/train
+  seed: 1
+  device: CPU
+experiment:
+  implementation: base
+  execution_type: noisy
+  n_qubits: 4
+  gradient_method: SPSA
+training:
+  max_iterations: 1000
+  gen_iterations: 1
+  disc_iterations: 1
+  init_scale: 0.1
+  learning_rate: 0.005
+  print_every: 100
+dataset:
+  id: specific_distribution
+  reset: false
+  type: quantum
+  source: specific_distribution
+  parameters: {}
+circuits:
+  reset: false
+  generator: real_amplitudes
+  discriminator: efficient_su2
+backend:
+  reset: false
+  precision: 0.015625
+  transpilation:
+    optimization_level: 3
+    layout_method: sabre
+    routing_method: sabre
+  simulator:
+    device: GPU
+    data_type: double
+    noiseless_method: statevector
+    noisy_method: density_matrix
+    noisy_backend_mapping: hardware
+    max_parallel_threads: 0
+    max_parallel_experiments: 1
+    max_parallel_shots: 0
+    gpu:
+      cuStateVec_enable: true
+      batched_shots_gpu: false
+      blocking_enable: false
+      runtime_parameter_bind_enable: false
+  real:
+    id: ibm_basquecountry
+    name: ibm_basquecountry
+    channel: ibm_quantum_platform
+    reset_info: false
+    confirm_execution: true
+    estimator:
+      resilience_level: 1
+      dynamical_decoupling:
+        enable: true
+encoding:
+  type: direct_circuit
+  contrast: 1
+  randomness: 0.1
+  batch_size: 1
+  eval_batch_size: 1
+  max_parallel_threads: 1
+  eval_method: kl

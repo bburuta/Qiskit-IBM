@@ -1,0 +1,9 @@
+/work/qgan_v4/src/qgan_v4/training/data.py:190: UserWarning: Training data config differs from current config:
+- backend.real.confirm_execution: previous=None, current=True
+- training.print_every: previous=10, current=100
+  warn_config_changes(training_state.config, config)
+/work/qgan_v4/src/qgan_v4/training/data.py:190: UserWarning: Training data config differs from current config:
+- backend.real.confirm_execution: previous=None, current=True
+- training.print_every: previous=10, current=100
+  warn_config_changes(training_state.config, config)
+/home/bburutaran/bin/bnd: line 124: 2310038 Bus error               (core dumped) apptainer exec "${extra[@]}" -B "$PWD:/work" -B "$uv_dir:/uvbin:ro" --pwd /work "$sif" bash -lc "$full_script" bash "$@"

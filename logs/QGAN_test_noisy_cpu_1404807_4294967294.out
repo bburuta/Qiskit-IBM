@@ -1,0 +1,68 @@
+Creating config files for noisy_dm_hw:
+Configuration file written. Path: /work/qgan_v4/data/test/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0:noisy_dm_hw/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed0:noisy_dm_hw/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0:noisy_dm_hw/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed0:noisy_dm_hw/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0:noisy_dm_hw/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed0:noisy_dm_hw/config.yaml
+
+Creating config files for noisy_dm_nm:
+Configuration file written. Path: /work/qgan_v4/data/test/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0:noisy_dm_nm/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed0:noisy_dm_nm/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0:noisy_dm_nm/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed0:noisy_dm_nm/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0:noisy_dm_nm/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed0:noisy_dm_nm/config.yaml
+
+Creating config files for noisy_sv_hw:
+Configuration file written. Path: /work/qgan_v4/data/test/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0:noisy_sv_hw/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed0:noisy_sv_hw/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0:noisy_sv_hw/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed0:noisy_sv_hw/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0:noisy_sv_hw/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed0:noisy_sv_hw/config.yaml
+
+Creating config files for noisy_sv_nm:
+Configuration file written. Path: /work/qgan_v4/data/test/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0:noisy_sv_nm/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed0:noisy_sv_nm/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0:noisy_sv_nm/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed0:noisy_sv_nm/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0:noisy_sv_nm/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed0:noisy_sv_nm/config.yaml
+
+24 battery configuration files ready.
+
+Running: /work/qgan_v4/data/test/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0:noisy_dm_hw/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.885 |              -0.29 |               3.59 |               3.59 |               21.7 |
+                  1 |             -0.899 |             -0.297 |               3.63 |               3.59 |               21.8 |
+                  2 |             -0.885 |             -0.278 |               3.74 |               3.59 |               22.9 |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0:noisy_dm_hw 
+   Best eval: 3.5920340482110547 
+   Total time: 66.38505268096924
+
+Running: /work/qgan_v4/data/test/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed0:noisy_dm_hw/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.733 |             -0.418 |               2.53 |               2.53 |               25.2 |
+                  1 |             -0.682 |             -0.365 |               2.38 |               2.38 |                 24 |
+                  2 |             -0.693 |             -0.381 |               3.22 |               2.38 |               24.9 |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed0:noisy_dm_hw 
+   Best eval: 2.3755654523294094 
+   Total time: 74.14803194999695
+
+Running: /work/qgan_v4/data/test/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0:noisy_dm_hw/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+
+Interrupter: will stop after the current epoch. Press Ctrl+C again to force quit.
+                  0 |             -0.889 |             -0.336 |             0.0281 |             0.0281 |               79.7 |
+Interrupter: Graceful exit triggered. Breaking loop.
+Training complete: 
+   Data path: /work/qgan_v4/data/test/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0:noisy_dm_hw 
+   Best eval: 0.028121717274188995 
+   Total time: 79.67571663856506
+Interrupter: battery execution stopped.

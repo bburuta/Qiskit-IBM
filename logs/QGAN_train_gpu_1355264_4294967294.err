@@ -1,0 +1,3 @@
+/work/qgan_v4/src/qgan_v4/training/data.py:190: UserWarning: Training data config differs from current config:
+- backend.simulator.gpu.runtime_parameter_bind_enable: previous=True, current=False
+  warn_config_changes(training_state.config, config)

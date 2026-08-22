@@ -1,0 +1,699 @@
+Creating config files for aer_baseline:
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_baseline/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_baseline/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_baseline/config.yaml
+
+Creating config files for aer_fast_precision:
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_fast_precision/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_fast_precision/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_fast_precision/config.yaml
+
+Creating config files for aer_medium_precision:
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_medium_precision/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_medium_precision/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_medium_precision/config.yaml
+
+Creating config files for aer_parallel_experiments:
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_parallel_experiments/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_parallel_experiments/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_parallel_experiments/config.yaml
+
+Creating config files for aer_all_serial:
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_all_serial/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_all_serial/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_all_serial/config.yaml
+
+Creating config files for aer_experiments_2:
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_experiments_2/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_experiments_2/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_experiments_2/config.yaml
+
+Creating config files for aer_experiments_4:
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_experiments_4/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_experiments_4/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_experiments_4/config.yaml
+
+Creating config files for aer_shots_1:
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_1/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_1/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_1/config.yaml
+
+Creating config files for aer_shots_4:
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_4/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_4/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_4/config.yaml
+
+Creating config files for aer_shots_8:
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_8/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_8/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_8/config.yaml
+
+Creating config files for aer_threads_1:
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_1/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_1/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_1/config.yaml
+
+Creating config files for aer_threads_8:
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_8/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_8/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_8/config.yaml
+
+Creating config files for aer_threads_4:
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_4/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_4/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_4/config.yaml
+
+Creating config files for aer_single:
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_single/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_single/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_single/config.yaml
+
+Creating config files for aer_nm_mapping:
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_nm_mapping/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_nm_mapping/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_nm_mapping/config.yaml
+
+Creating config files for aer_gpu_runtime_bind_off:
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_runtime_bind_off/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_runtime_bind_off/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_runtime_bind_off/config.yaml
+
+Creating config files for aer_gpu_custatevec_off:
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_custatevec_off/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_custatevec_off/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_custatevec_off/config.yaml
+
+Creating config files for aer_gpu_batched_shots:
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_batched_shots/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_batched_shots/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_batched_shots/config.yaml
+
+Creating config files for aer_gpu_blocking:
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_blocking/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_blocking/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_blocking/config.yaml
+
+Creating config files for aer_gpu_runtime_bind_psr_rand:
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-PSR-aerGPU-rand0.1-seed0:aer_gpu_runtime_bind_psr_rand/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-PSR-aerGPU-rand0.1-seed0:aer_gpu_runtime_bind_psr_rand/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-PSR-aerGPU-rand0.1-seed0:aer_gpu_runtime_bind_psr_rand/config.yaml
+
+Creating config files for aer_gpu_runtime_bind_off_psr_rand:
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-PSR-aerGPU-rand0.1-seed0:aer_gpu_runtime_bind_off_psr_rand/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-PSR-aerGPU-rand0.1-seed0:aer_gpu_runtime_bind_off_psr_rand/config.yaml
+Configuration file written. Path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-PSR-aerGPU-rand0.1-seed0:aer_gpu_runtime_bind_off_psr_rand/config.yaml
+
+63 battery configuration files ready.
+
+Running: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_baseline/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.893 |               -0.3 |               3.59 |               3.59 |               18.6 |
+                  1 |             -0.894 |             -0.285 |               3.52 |               3.52 |               18.3 |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_baseline 
+   Best eval: 3.5244713061077295 
+   Total time: 36.86919331550598
+
+Running: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_baseline/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_baseline 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_baseline/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_baseline/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_baseline 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_baseline/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_fast_precision/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.897 |             -0.295 |               3.59 |               3.59 |               20.1 |
+                  1 |              -0.84 |             -0.304 |               3.49 |               3.49 |               21.5 |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_fast_precision 
+   Best eval: 3.4872378242726834 
+   Total time: 41.60573625564575
+
+Running: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_fast_precision/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_fast_precision 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_fast_precision/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_fast_precision/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_fast_precision 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_fast_precision/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_medium_precision/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.884 |             -0.268 |               3.59 |               3.59 |               23.5 |
+                  1 |             -0.917 |             -0.267 |                3.5 |                3.5 |                103 |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_medium_precision 
+   Best eval: 3.4992242737848507 
+   Total time: 126.22335052490234
+
+Running: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_medium_precision/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_medium_precision 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_medium_precision/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_medium_precision/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_medium_precision 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_medium_precision/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_parallel_experiments/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.886 |             -0.307 |               3.59 |               3.59 |               24.4 |
+                  1 |             -0.881 |              -0.28 |               3.49 |               3.49 |               24.2 |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_parallel_experiments 
+   Best eval: 3.4873363675483486 
+   Total time: 48.59173130989075
+
+Running: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_parallel_experiments/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_parallel_experiments 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_parallel_experiments/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_parallel_experiments/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_parallel_experiments 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_parallel_experiments/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_all_serial/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.899 |             -0.304 |               3.59 |               3.59 |               22.6 |
+                  1 |             -0.886 |              -0.27 |               3.59 |               3.59 |               23.8 |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_all_serial 
+   Best eval: 3.5920340451391457 
+   Total time: 46.441709995269775
+
+Running: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_all_serial/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_all_serial 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_all_serial/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_all_serial/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_all_serial 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_all_serial/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_experiments_2/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.876 |             -0.275 |               4.45 |               4.45 |               23.7 |
+                  1 |             -0.911 |             -0.284 |               3.92 |               3.92 |                 24 |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_experiments_2 
+   Best eval: 3.916778249044773 
+   Total time: 47.67287564277649
+
+Running: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_experiments_2/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_experiments_2 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_experiments_2/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_experiments_2/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_experiments_2 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_experiments_2/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_experiments_4/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.884 |             -0.308 |               3.59 |               3.59 |               24.7 |
+                  1 |             -0.897 |             -0.285 |               3.53 |               3.53 |               24.3 |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_experiments_4 
+   Best eval: 3.5321199683507323 
+   Total time: 48.92747235298157
+
+Running: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_experiments_4/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_experiments_4 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_experiments_4/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_experiments_4/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_experiments_4 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_experiments_4/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_1/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.897 |             -0.282 |               4.45 |               4.45 |               26.3 |
+                  1 |             -0.888 |             -0.291 |               4.26 |               4.26 |               26.2 |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_1 
+   Best eval: 4.256125881107403 
+   Total time: 52.50785422325134
+
+Running: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_1/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_1 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_1/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_1/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_1 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_1/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_4/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |              -0.89 |              -0.28 |               3.59 |               3.59 |               25.5 |
+                  1 |             -0.897 |             -0.296 |               3.54 |               3.54 |               25.2 |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_4 
+   Best eval: 3.5390579871992887 
+   Total time: 50.65493631362915
+
+Running: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_4/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_4 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_4/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_4/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_4 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_4/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_8/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.913 |              -0.27 |               3.59 |               3.59 |               24.9 |
+                  1 |             -0.911 |             -0.296 |               3.57 |               3.57 |               24.4 |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_8 
+   Best eval: 3.5663002994282706 
+   Total time: 49.3219211101532
+
+Running: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_8/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_8 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_8/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_8/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_8 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_shots_8/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_1/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.875 |             -0.278 |               3.59 |               3.59 |               29.3 |
+                  1 |             -0.891 |             -0.279 |               3.48 |               3.48 |               25.7 |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_1 
+   Best eval: 3.4788229135107778 
+   Total time: 55.04612684249878
+
+Running: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_1/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_1 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_1/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_1/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_1 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_1/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_8/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |              -0.91 |              -0.28 |               4.45 |               4.45 |               27.4 |
+                  1 |              -0.88 |             -0.298 |               4.39 |               4.39 |               27.1 |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_8 
+   Best eval: 4.390667341132176 
+   Total time: 54.54590606689453
+
+Running: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_8/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_8 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_8/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_8/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_8 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_8/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_4/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.866 |             -0.279 |               3.59 |               3.59 |               25.3 |
+                  1 |             -0.906 |             -0.295 |               3.49 |               3.49 |               27.9 |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_4 
+   Best eval: 3.4875859986067574 
+   Total time: 53.109644651412964
+
+Running: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_4/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_4 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_4/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_4/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_4 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_threads_4/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_single/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.898 |             -0.297 |               3.59 |               3.59 |               26.1 |
+                  1 |             -0.916 |             -0.268 |               3.48 |               3.48 |               25.5 |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_single 
+   Best eval: 3.4837849140167236 
+   Total time: 51.60299801826477
+
+Running: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_single/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_single 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_single/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_single/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_single 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_single/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_nm_mapping/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.866 |             -0.301 |               3.59 |               3.59 |                 27 |
+                  1 |             -0.892 |              -0.28 |               3.52 |               3.52 |               26.2 |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_nm_mapping 
+   Best eval: 3.5214553238025923 
+   Total time: 53.152048110961914
+
+Running: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_nm_mapping/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_nm_mapping 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_nm_mapping/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_nm_mapping/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_nm_mapping 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_nm_mapping/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_runtime_bind_off/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.907 |               -0.3 |               3.59 |               3.59 |               28.2 |
+                  1 |             -0.889 |             -0.304 |               3.48 |               3.48 |               27.7 |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_runtime_bind_off 
+   Best eval: 3.47838312179251 
+   Total time: 55.84856104850769
+
+Running: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_runtime_bind_off/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.897 |             -0.335 |             0.0243 |             0.0243 |               87.3 |
+                  1 |             -0.898 |             -0.341 |             0.0328 |             0.0243 |               87.4 |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_runtime_bind_off 
+   Best eval: 0.024251453578472137 
+   Total time: 174.653489112854
+
+Running: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_runtime_bind_off/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.899 |             -0.204 |             0.0797 |             0.0797 |               88.1 |
+                  1 |             -0.895 |             -0.204 |             0.0797 |             0.0797 |               91.9 |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_runtime_bind_off 
+   Best eval: 0.07970862684339325 
+   Total time: 180.03250098228455
+
+Running: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_custatevec_off/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.894 |             -0.282 |               3.59 |               3.59 |               29.8 |
+                  1 |              -0.87 |             -0.299 |               3.56 |               3.56 |               25.3 |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_custatevec_off 
+   Best eval: 3.555350333029688 
+   Total time: 55.107255697250366
+
+Running: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_custatevec_off/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_custatevec_off 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_custatevec_off/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_custatevec_off/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_custatevec_off 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_custatevec_off/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_batched_shots/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.901 |             -0.307 |               3.59 |               3.59 |                 27 |
+                  1 |             -0.901 |              -0.28 |               3.65 |               3.59 |               26.5 |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_batched_shots 
+   Best eval: 3.5920340496188903 
+   Total time: 53.46809530258179
+
+Running: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_batched_shots/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_batched_shots 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_batched_shots/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_batched_shots/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_batched_shots 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_batched_shots/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_blocking/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |              -0.91 |             -0.275 |               4.45 |               4.45 |               27.8 |
+                  1 |             -0.894 |             -0.302 |               3.93 |               3.93 |               21.7 |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_blocking 
+   Best eval: 3.929993544066075 
+   Total time: 49.53309917449951
+
+Running: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_blocking/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_blocking 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_blocking/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_blocking/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_blocking 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0:aer_gpu_blocking/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-PSR-aerGPU-rand0.1-seed0:aer_gpu_runtime_bind_psr_rand/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.726 |             -0.417 |               2.56 |               2.56 |                323 |
+                  1 |             -0.686 |             -0.352 |               2.36 |               2.36 |                316 |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-PSR-aerGPU-rand0.1-seed0:aer_gpu_runtime_bind_psr_rand 
+   Best eval: 2.3631345552549177 
+   Total time: 638.1200971603394
+
+Running: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-PSR-aerGPU-rand0.1-seed0:aer_gpu_runtime_bind_psr_rand/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-PSR-aerGPU-rand0.1-seed0:aer_gpu_runtime_bind_psr_rand 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-PSR-aerGPU-rand0.1-seed0:aer_gpu_runtime_bind_psr_rand/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-PSR-aerGPU-rand0.1-seed0:aer_gpu_runtime_bind_psr_rand/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-PSR-aerGPU-rand0.1-seed0:aer_gpu_runtime_bind_psr_rand 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-PSR-aerGPU-rand0.1-seed0:aer_gpu_runtime_bind_psr_rand/config.yaml
+
+Running: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-PSR-aerGPU-rand0.1-seed0:aer_gpu_runtime_bind_off_psr_rand/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.728 |             -0.407 |               2.53 |               2.53 |                331 |
+                  1 |             -0.651 |             -0.369 |               2.35 |               2.35 |                321 |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/base-qml_torch-q4-noisy-PSR-aerGPU-rand0.1-seed0:aer_gpu_runtime_bind_off_psr_rand 
+   Best eval: 2.349920821102634 
+   Total time: 651.6342630386353
+
+Running: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-PSR-aerGPU-rand0.1-seed0:aer_gpu_runtime_bind_off_psr_rand/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.724 |             -0.422 |             0.0152 |             0.0152 |           1.27e+03 |
+                  1 |             -0.753 |             -0.397 |           0.000576 |           0.000576 |           1.28e+03 |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/ang-qml_torch-q4-noisy-PSR-aerGPU-rand0.1-seed0:aer_gpu_runtime_bind_off_psr_rand 
+   Best eval: 0.0005756933242082596 
+   Total time: 2549.444023370743
+
+Running: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-PSR-aerGPU-rand0.1-seed0:aer_gpu_runtime_bind_off_psr_rand/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.734 |             -0.294 |             0.0659 |             0.0659 |           1.21e+03 |
+                  1 |             -0.739 |             -0.264 |               0.07 |             0.0659 |           1.21e+03 |
+Training complete: 
+   Data path: /work/qgan_v4/data/test/aer_gpu/amp-qml_torch-q4-noisy-PSR-aerGPU-rand0.1-seed0:aer_gpu_runtime_bind_off_psr_rand 
+   Best eval: 0.06588380086932391 
+   Total time: 2425.497593641281
+38 battery run(s) failed.
