@@ -51,6 +51,8 @@ default_config_values:
     learning_rate: 0.005
     # Epoch interval for progress prints. Values: [int >= 0], 0 disables printing.
     print_every: 1
+    # Epoch interval for checkpoint saves. Values: [int >= 0], 0 saves only at the end.
+    checkpoint_every: 1
 
   dataset:
     # Dataset id. Values: null, [string].

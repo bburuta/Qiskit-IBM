@@ -33,6 +33,7 @@ Important fields:
 - `experiment.gradient_method`: `PSR`, `SPSA`, or `REG`.
 - `training.init_scale`: initial trainable parameter scale applied to samples from `[-pi, pi]`.
 - `training.learning_rate`: shared Adam learning rate for the generator and discriminator optimizers.
+- `training.checkpoint_every`: completed-epoch interval for checkpoint saves; `0` disables periodic saves and writes only at the end.
 - `run.data_path`: output directory for generated configs and checkpoints.
 - `run.label`: optional suffix appended to generated run IDs.
 - `run.device`: PyTorch device, `CPU` or `GPU`.

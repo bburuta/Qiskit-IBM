@@ -41,6 +41,9 @@ def train(config, interrupter=None):
         print()
 
     epoch = state.current_epoch - 1
+    last_completed_epoch = state.current_epoch - 1
+    last_checkpoint_epoch = state.current_epoch - 1
+    checkpoint_every = config["training"]["checkpoint_every"]
     best_eval = state.metrics.best_eval()
     prev_times = sum(state.metrics.times.values())
     start_time = time.time()
@@ -73,8 +76,11 @@ def train(config, interrupter=None):
             state.metrics.times[epoch] = time.time() - start_time
             start_time = time.time()
 
-            # Save checkpoint after the epoch is complete
-            save_checkpoint(state, epoch)
+            # Save checkpoint only after the epoch is complete
+            last_completed_epoch = epoch
+            if checkpoint_every and (epoch + 1) % checkpoint_every == 0:
+                save_checkpoint(state, epoch)
+                last_checkpoint_epoch = epoch
 
             # Print epoch progress
             print_every = config["training"]["print_every"]
@@ -87,6 +93,10 @@ def train(config, interrupter=None):
             if interrupter.kill_now:
                 print("Interrupter: Graceful exit triggered. Breaking loop.")
                 break
+
+        # Training finished save
+        if last_completed_epoch > last_checkpoint_epoch:
+            save_checkpoint(state, last_completed_epoch)
 
     finally:
         # Close implementation without marking a partial epoch as complete

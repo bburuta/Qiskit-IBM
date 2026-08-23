@@ -32,6 +32,7 @@ NUMBER_RULES = [
     ("training.init_scale", 0, False),
     ("training.learning_rate", 0, False),
     ("training.print_every", 0, True),
+    ("training.checkpoint_every", 0, True),
     ("backend.precision", 0, False),
     ("backend.simulator.max_parallel_threads", 0, True),
     ("backend.simulator.max_parallel_experiments", 0, True),

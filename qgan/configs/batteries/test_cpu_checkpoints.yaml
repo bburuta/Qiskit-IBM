@@ -1,13 +1,10 @@
-# qGAN battery config.
+# qGAN battery config for checkpoint frequency timing.
 #
-# Batteries follow the config battery pattern:
-# - default_config_values: base config used for every generated run.
-# - variable_config_values_list: named Cartesian-product sweeps.
-#
-# Variable keys can be dotted paths, e.g. experiment.n_qubits. Dotted paths
-# are preferred because they are explicit and avoid ambiguous keys.
+# Each group runs the same small CPU experiment with a different
+# training.checkpoint_every value. Use the reported training times to compare
+# checkpoint overhead.
 
-#- Test config creation dict -#
+#- Checkpoint timing test config creation dict -#
 
 # Default config values
 default_config_values:
@@ -24,7 +21,7 @@ default_config_values:
     # Optional label appended to the run id as :label. Values: null, [string].
     label: null
     # Base directory where run data is stored. Values: [path].
-    data_path: qgan/data/test
+    data_path: qgan/data/test/checkpoints
     # Random seed for Python, NumPy, Torch, and simulator options. Values: [int].
     seed: 0
     # Torch device. Values: CPU, GPU. runtime_packed requires CPU.
@@ -42,7 +39,7 @@ default_config_values:
 
   training:
     # Number of training epochs. Values: [int >= 0].
-    max_iterations: 2
+    max_iterations: 20
     # Generator updates per epoch. Values: [int >= 0].
     gen_iterations: 1
     # Discriminator updates per epoch. Values: [int >= 0].
@@ -52,9 +49,9 @@ default_config_values:
     # Adam optimizer learning rate for generator and discriminator. Values: [number >= 0].
     learning_rate: 0.005
     # Epoch interval for progress prints. Values: [int >= 0], 0 disables printing.
-    print_every: 1
+    print_every: 20
     # Epoch interval for checkpoint saves. Values: [int >= 0], 0 saves only at the end.
-    checkpoint_every: 1
+    checkpoint_every: 0
 
   dataset:
     # Dataset id. Values: null, [string].
@@ -110,11 +107,11 @@ default_config_values:
       gpu:
         # Enable cuStateVec acceleration when using GPU. Values: true, false.
         cuStateVec_enable: true
-        # Enable batched shots on GPU (not compatible with cuStateVec). Values: true, false. # True with execution_type='noiseless' does not work
+        # Enable batched shots on GPU (not compatible with cuStateVec). Values: true, false.
         batched_shots_gpu: false
         # Enable GPU blocking (true for multiple GPUs). Values: true, false.
         blocking_enable: false
-        # Enable Aer runtime parameter binding on GPU. Values: true, false. # Ang and Amp parameterized GPU circuits fail, set false to use standard binding
+        # Enable Aer runtime parameter binding on GPU. Values: true, false.
         runtime_parameter_bind_enable: false
 
     real:
@@ -155,7 +152,11 @@ default_config_values:
 # Variable config options
 variable_config_values_list:
 
-  qml_torch_noiseless:
+  checkpoint_final_only:
+    run.label:
+      - ckpt_final
+    training.checkpoint_every:
+      - 0
     implementation.name:
       - qml_torch
     experiment.implementation:
@@ -166,20 +167,20 @@ variable_config_values_list:
       - noiseless
     experiment.gradient_method:
       - PSR
-      - SPSA
-      - REG
     experiment.n_qubits:
       - 3
     backend.simulator.device:
       - CPU
-      # - GPU
     run.seed:
       - 0
     encoding.randomness:
-      - 0
       - 0.1
 
-  qml_torch_noisy:
+  checkpoint_every_10:
+    run.label:
+      - ckpt_10
+    training.checkpoint_every:
+      - 10
     implementation.name:
       - qml_torch
     experiment.implementation:
@@ -187,87 +188,62 @@ variable_config_values_list:
       - ang
       - amp
     experiment.execution_type:
-      - noisy
+      - noiseless
     experiment.gradient_method:
-      - SPSA
-      # - PSR
+      - PSR
     experiment.n_qubits:
       - 3
     backend.simulator.device:
       - CPU
-      # - GPU
     run.seed:
       - 0
     encoding.randomness:
-      - 0
       - 0.1
 
-  # runtime_packed_separate:
-  #   implementation.name:
-  #     - runtime_packed
-  #   implementation.discriminator_packing:
-  #     - separate
-  #   experiment.implementation:
-  #     - base
-  #     - ang
-  #     - amp
-  #   experiment.execution_type:
-  #     - noisy
-  #   experiment.gradient_method:
-  #     - SPSA
-  #   experiment.n_qubits:
-  #     - 3
-  #   backend.simulator.device:
-  #     - CPU
-  #     - GPU
-  #   run.seed:
-  #     - 0
-  #   encoding.randomness:
-  #     - 0
-  #     - 0.1
+  checkpoint_every_5:
+    run.label:
+      - ckpt_5
+    training.checkpoint_every:
+      - 5
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noiseless
+    experiment.gradient_method:
+      - PSR
+    experiment.n_qubits:
+      - 3
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0.1
 
-  # runtime_packed_joined:
-  #   implementation.name:
-  #     - runtime_packed
-  #   implementation.discriminator_packing:
-  #     - joined
-  #   experiment.implementation:
-  #     - base
-  #     - ang
-  #   experiment.execution_type:
-  #     - noisy
-  #   experiment.gradient_method:
-  #     - SPSA
-  #   experiment.n_qubits:
-  #     - 3
-  #   backend.simulator.device:
-  #     - CPU
-  #     - GPU
-  #   run.seed:
-  #     - 0
-  #   encoding.randomness:
-  #     - 0
-  #     - 0.1
-
-  # real_options:
-  #   implementation.name:
-  #     - qml_torch
-  #   experiment.implementation:
-  #     - base
-  #     - ang
-  #     - amp
-  #   experiment.execution_type:
-  #     - fake_real
-  #   experiment.gradient_method:
-  #     - SPSA
-  #     - PSR
-  #   experiment.n_qubits:
-  #     - 3
-  #   # backend.simulator.device:
-  #   #   - CPU
-  #   #   - GPU
-  #   run.seed:
-  #     - 0
-  #   encoding.randomness:
-  #     - 0
-  #     - 0.1
+  checkpoint_every_1:
+    run.label:
+      - ckpt_1
+    training.checkpoint_every:
+      - 1
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noiseless
+    experiment.gradient_method:
+      - PSR
+    experiment.n_qubits:
+      - 3
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0.1
