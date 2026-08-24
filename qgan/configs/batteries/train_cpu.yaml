@@ -172,9 +172,9 @@ variable_config_values_list:
     #   - 4
     #   - 8
     #   - 16
-    backend.simulator.device:
-      - CPU
-      # - GPU
+    # backend.simulator.device:
+    #   - CPU
+    #   - GPU
     run.seed:
       - 0
       - 1
@@ -199,9 +199,9 @@ variable_config_values_list:
     #   - 4
     #   - 8
     #   - 16
-    backend.simulator.device:
-      - CPU
-      # - GPU
+    # backend.simulator.device:
+    #   - CPU
+    #   - GPU
     run.seed:
       - 0
       - 1

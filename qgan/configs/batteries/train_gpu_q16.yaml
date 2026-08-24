@@ -92,7 +92,7 @@ default_config_values:
 
     simulator:
       # Aer simulator device. Values: CPU, GPU.
-      device: CPU
+      device: GPU
       # Floating point precision for simulator/Torch tensors. Values: double, float.
       data_type: double
       # Aer method for noiseless simulation. Values: statevector, density_matrix.
@@ -172,9 +172,9 @@ variable_config_values_list:
     #   - 4
     #   - 8
     #   - 16
-    backend.simulator.device:
-      - CPU
-      # - GPU
+    # backend.simulator.device:
+    #   - CPU
+    #   - GPU
     run.seed:
       - 0
       - 1
@@ -199,9 +199,9 @@ variable_config_values_list:
     #   - 4
     #   - 8
     #   - 16
-    backend.simulator.device:
-      - CPU
-      # - GPU
+    # backend.simulator.device:
+    #   - CPU
+    #   - GPU
     run.seed:
       - 0
       - 1
