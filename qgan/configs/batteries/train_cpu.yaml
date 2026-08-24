@@ -36,7 +36,7 @@ default_config_values:
     # Execution target. Values: noiseless, noisy, fake_real, real.
     execution_type: noiseless
     # Number of qubits. Values: [int >= 1].
-    n_qubits: 8
+    n_qubits: 4
     # Estimator gradient method. Values: PSR, SPSA, REG.
     gradient_method: PSR
 
