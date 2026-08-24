@@ -1,0 +1,490 @@
+Creating config files for checkpoint_final_only:
+Configuration file written. Path: /work/qgan/data/test/checkpoints/base-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_final/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_final/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/base-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_final/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_final/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/ang-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_final/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_final/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/ang-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_final/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_final/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/amp-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_final/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_final/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/amp-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_final/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_final/config.yaml
+
+Creating config files for checkpoint_every_10:
+Configuration file written. Path: /work/qgan/data/test/checkpoints/base-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_10/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_10/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/base-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_10/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_10/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/ang-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_10/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_10/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/ang-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_10/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_10/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/amp-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_10/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_10/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/amp-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_10/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_10/config.yaml
+
+Creating config files for checkpoint_every_5:
+Configuration file written. Path: /work/qgan/data/test/checkpoints/base-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_5/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_5/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/base-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_5/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_5/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/ang-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_5/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_5/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/ang-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_5/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_5/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/amp-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_5/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_5/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/amp-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_5/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_5/config.yaml
+
+Creating config files for checkpoint_every_1:
+Configuration file written. Path: /work/qgan/data/test/checkpoints/base-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_1/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_1/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/base-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_1/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_1/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/ang-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_1/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_1/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/ang-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_1/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_1/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/amp-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_1/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_1/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/amp-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_1/config.yaml
+Configuration file written. Path: /work/qgan/data/test/checkpoints/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_1/config.yaml
+
+48 battery configuration files ready.
+
+Running: /work/qgan/data/test/checkpoints/base-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_final/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.796 |             -0.428 |               3.29 |               3.29 |             0.0608 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/base-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_final 
+   Best eval: 1.1809622373142568 
+   Total time: 0.464916467666626
+
+Running: /work/qgan/data/test/checkpoints/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_final/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.857 |             -0.321 |               4.54 |               4.54 |             0.0396 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_final 
+   Best eval: 3.6297720466309027 
+   Total time: 0.7801084518432617
+
+Running: /work/qgan/data/test/checkpoints/base-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_final/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.742 |             -0.465 |               3.66 |               3.66 |               33.3 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/base-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_final 
+   Best eval: 1.0996620406441067 
+   Total time: 752.944531917572
+
+Running: /work/qgan/data/test/checkpoints/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_final/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |              -0.64 |             -0.134 |               4.54 |               4.54 |               50.8 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_final 
+   Best eval: 3.7568624962740627 
+   Total time: 1007.3864321708679
+
+Running: /work/qgan/data/test/checkpoints/ang-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_final/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.855 |             -0.538 |                  0 |                  0 |              0.353 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/ang-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_final 
+   Best eval: 0.0 
+   Total time: 7.093609571456909
+
+Running: /work/qgan/data/test/checkpoints/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_final/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |              -0.83 |             -0.512 |             0.0262 |             0.0262 |               1.35 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_final 
+   Best eval: 0.006973778363317251 
+   Total time: 27.22875714302063
+
+Running: /work/qgan/data/test/checkpoints/ang-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_final/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.697 |             -0.747 |                  0 |                  0 |               85.4 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/ang-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_final 
+   Best eval: 0.0 
+   Total time: 1740.4352643489838
+
+Running: /work/qgan/data/test/checkpoints/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_final/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.727 |             -0.551 |             0.0191 |             0.0191 |               91.6 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_final 
+   Best eval: 0.004518426954746246 
+   Total time: 1775.7012567520142
+
+Running: /work/qgan/data/test/checkpoints/amp-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_final/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.819 |             -0.438 |              0.172 |              0.172 |             0.0621 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/amp-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_final 
+   Best eval: 0.12785915810014872 
+   Total time: 0.8351616859436035
+
+Running: /work/qgan/data/test/checkpoints/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_final/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.828 |              -0.25 |            0.00375 |            0.00375 |              0.162 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_final 
+   Best eval: 0.003644427181791695 
+   Total time: 3.307734727859497
+
+Running: /work/qgan/data/test/checkpoints/amp-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_final/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.987 |             -0.391 |               0.17 |               0.17 |               90.8 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/amp-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_final 
+   Best eval: 0.11523183080794427 
+   Total time: 1851.704113960266
+
+Running: /work/qgan/data/test/checkpoints/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_final/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.822 |             -0.251 |            0.00374 |            0.00374 |               97.3 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_final 
+   Best eval: 0.003603951646072914 
+   Total time: 1954.2587084770203
+
+Running: /work/qgan/data/test/checkpoints/base-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_10/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.782 |               -0.4 |               3.29 |               3.29 |             0.0334 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/base-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_10 
+   Best eval: 1.2154410938045626 
+   Total time: 0.7164556980133057
+
+Running: /work/qgan/data/test/checkpoints/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_10/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.855 |             -0.314 |               4.54 |               4.54 |             0.0629 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_10 
+   Best eval: 3.671042552527547 
+   Total time: 1.3365881443023682
+
+Running: /work/qgan/data/test/checkpoints/base-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_10/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.665 |             -0.426 |               3.29 |               3.29 |                 51 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/base-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_10 
+   Best eval: 1.2980671957366527 
+   Total time: 1060.4206955432892
+
+Running: /work/qgan/data/test/checkpoints/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_10/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.707 |             -0.306 |               4.55 |               4.55 |               49.9 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_10 
+   Best eval: 3.6354137323389617 
+   Total time: 1084.202296257019
+
+Running: /work/qgan/data/test/checkpoints/ang-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_10/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.848 |             -0.543 |                  0 |                  0 |              0.343 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/ang-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_10 
+   Best eval: 0.0 
+   Total time: 7.116952419281006
+
+Running: /work/qgan/data/test/checkpoints/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_10/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.833 |             -0.495 |             0.0132 |             0.0132 |               1.35 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_10 
+   Best eval: 0.0077318050898611546 
+   Total time: 27.37053608894348
+
+Running: /work/qgan/data/test/checkpoints/ang-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_10/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.608 |             -0.583 |                  0 |                  0 |               89.7 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/ang-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_10 
+   Best eval: 0.0 
+   Total time: 1810.5109899044037
+
+Running: /work/qgan/data/test/checkpoints/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_10/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.684 |             -0.408 |             0.0271 |             0.0271 |               89.9 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_10 
+   Best eval: 0.011188914068043232 
+   Total time: 1840.9045701026917
+
+Running: /work/qgan/data/test/checkpoints/amp-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_10/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.837 |             -0.431 |               0.17 |               0.17 |             0.0519 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/amp-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_10 
+   Best eval: 0.1258772714419421 
+   Total time: 1.1346895694732666
+
+Running: /work/qgan/data/test/checkpoints/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_10/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.827 |             -0.241 |            0.00373 |            0.00373 |              0.165 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_10 
+   Best eval: 0.0035947126257234877 
+   Total time: 3.317101240158081
+
+Running: /work/qgan/data/test/checkpoints/amp-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_10/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.883 |             -0.353 |               0.17 |               0.17 |               94.8 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/amp-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_10 
+   Best eval: 0.12090505315267336 
+   Total time: 1929.9896564483643
+
+Running: /work/qgan/data/test/checkpoints/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_10/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.648 |             -0.223 |            0.00375 |            0.00375 |                102 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_10 
+   Best eval: 0.0036525243254016838 
+   Total time: 2002.2382147312164
+
+Running: /work/qgan/data/test/checkpoints/base-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_5/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.784 |             -0.411 |               3.29 |               3.29 |             0.0472 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/base-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_5 
+   Best eval: 1.268773205188122 
+   Total time: 0.7695508003234863
+
+Running: /work/qgan/data/test/checkpoints/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_5/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.845 |              -0.32 |               4.55 |               4.55 |             0.0696 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_5 
+   Best eval: 3.8147410232604475 
+   Total time: 1.313513994216919
+
+Running: /work/qgan/data/test/checkpoints/base-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_5/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |              -1.06 |             -0.368 |               3.66 |               3.66 |               57.1 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/base-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_5 
+   Best eval: 1.039200672890624 
+   Total time: 1102.561334848404
+
+Running: /work/qgan/data/test/checkpoints/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_5/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.709 |             -0.375 |               4.54 |               4.54 |               54.1 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_5 
+   Best eval: 3.72903457508811 
+   Total time: 1109.9722208976746
+
+Running: /work/qgan/data/test/checkpoints/ang-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_5/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.848 |             -0.538 |                  0 |                  0 |               0.39 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/ang-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_5 
+   Best eval: 0.0 
+   Total time: 7.108935117721558
+
+Running: /work/qgan/data/test/checkpoints/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_5/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.848 |             -0.519 |             0.0218 |             0.0218 |               1.34 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_5 
+   Best eval: 0.010213197208940983 
+   Total time: 27.353854656219482
+
+Running: /work/qgan/data/test/checkpoints/ang-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_5/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |               -0.8 |             -0.502 |                  0 |                  0 |               94.6 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/ang-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_5 
+   Best eval: 0.0 
+   Total time: 1834.8408331871033
+
+Running: /work/qgan/data/test/checkpoints/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_5/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |              -1.14 |             -0.429 |             0.0177 |             0.0177 |               92.4 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_5 
+   Best eval: 0.008013101294636726 
+   Total time: 1876.3415749073029
+
+Running: /work/qgan/data/test/checkpoints/amp-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_5/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.847 |             -0.446 |              0.172 |              0.172 |              0.064 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/amp-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_5 
+   Best eval: 0.13423068855352926 
+   Total time: 1.181513786315918
+
+Running: /work/qgan/data/test/checkpoints/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_5/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |              -0.83 |             -0.247 |            0.00375 |            0.00375 |              0.159 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_5 
+   Best eval: 0.00363925752038267 
+   Total time: 3.1776087284088135
+
+Running: /work/qgan/data/test/checkpoints/amp-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_5/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.799 |             -0.576 |               0.17 |               0.17 |               94.9 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/amp-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_5 
+   Best eval: 0.12133882126045362 
+   Total time: 1965.6768820285797
+
+Running: /work/qgan/data/test/checkpoints/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_5/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.995 |             -0.358 |            0.00375 |            0.00375 |                101 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_5 
+   Best eval: 0.0036528655004635585 
+   Total time: 2025.8993079662323
+
+Running: /work/qgan/data/test/checkpoints/base-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_1/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.788 |             -0.449 |               3.29 |               3.29 |             0.0332 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/base-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_1 
+   Best eval: 1.2700742545409165 
+   Total time: 0.8833622932434082
+
+Running: /work/qgan/data/test/checkpoints/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_1/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.857 |             -0.322 |               4.55 |               4.55 |             0.0741 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_1 
+   Best eval: 3.712668202156402 
+   Total time: 1.4274060726165771
+
+Running: /work/qgan/data/test/checkpoints/base-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_1/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.653 |             -0.518 |               3.66 |               3.66 |               53.7 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/base-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_1 
+   Best eval: 1.1871944601850513 
+   Total time: 1103.6285560131073
+
+Running: /work/qgan/data/test/checkpoints/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_1/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |              -1.42 |             -0.599 |               4.54 |               4.54 |                 55 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_1 
+   Best eval: 3.6826777386582776 
+   Total time: 1121.1756966114044
+
+Running: /work/qgan/data/test/checkpoints/ang-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_1/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.855 |             -0.529 |                  0 |                  0 |              0.345 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/ang-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_1 
+   Best eval: 0.0 
+   Total time: 7.177252531051636
+
+Running: /work/qgan/data/test/checkpoints/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_1/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.855 |             -0.509 |             0.0131 |             0.0131 |               1.35 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_1 
+   Best eval: 0.007345704827457666 
+   Total time: 27.532938957214355
+
+Running: /work/qgan/data/test/checkpoints/ang-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_1/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.946 |             -0.787 |                  0 |                  0 |               92.4 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/ang-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_1 
+   Best eval: 0.0 
+   Total time: 1872.2697763442993
+
+Running: /work/qgan/data/test/checkpoints/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_1/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.813 |             -0.536 |             0.0251 |             0.0251 |               96.8 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_1 
+   Best eval: 0.006680063903331757 
+   Total time: 1910.6062805652618
+
+Running: /work/qgan/data/test/checkpoints/amp-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_1/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.838 |             -0.437 |              0.172 |              0.172 |             0.0458 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/amp-qml_torch-q3-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_1 
+   Best eval: 0.1293070326764526 
+   Total time: 0.9294383525848389
+
+Running: /work/qgan/data/test/checkpoints/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_1/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.839 |             -0.239 |            0.00373 |            0.00373 |              0.138 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0:ckpt_1 
+   Best eval: 0.0036191471202509243 
+   Total time: 2.8059232234954834
+
+Running: /work/qgan/data/test/checkpoints/amp-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_1/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |              -1.06 |             -0.323 |               0.17 |               0.17 |                101 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/amp-qml_torch-q3-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_1 
+   Best eval: 0.12606318947816347 
+   Total time: 1980.00874209404
+
+Running: /work/qgan/data/test/checkpoints/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_1/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.602 |             -0.311 |            0.00374 |            0.00374 |                106 |
+Training complete: 
+   Data path: /work/qgan/data/test/checkpoints/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0:ckpt_1 
+   Best eval: 0.0036217244314104245 
+   Total time: 2060.3735756874084
+48 battery run(s) succeeded.

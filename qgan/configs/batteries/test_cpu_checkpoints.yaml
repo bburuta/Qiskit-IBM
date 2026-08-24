@@ -165,10 +165,12 @@ variable_config_values_list:
       - amp
     experiment.execution_type:
       - noiseless
+      - noisy
     experiment.gradient_method:
-      - PSR
+      - SPSA
     experiment.n_qubits:
       - 3
+      - 8
     backend.simulator.device:
       - CPU
     run.seed:
@@ -189,10 +191,12 @@ variable_config_values_list:
       - amp
     experiment.execution_type:
       - noiseless
+      - noisy
     experiment.gradient_method:
-      - PSR
+      - SPSA
     experiment.n_qubits:
       - 3
+      - 8
     backend.simulator.device:
       - CPU
     run.seed:
@@ -213,10 +217,12 @@ variable_config_values_list:
       - amp
     experiment.execution_type:
       - noiseless
+      - noisy
     experiment.gradient_method:
-      - PSR
+      - SPSA
     experiment.n_qubits:
       - 3
+      - 8
     backend.simulator.device:
       - CPU
     run.seed:
@@ -237,10 +243,12 @@ variable_config_values_list:
       - amp
     experiment.execution_type:
       - noiseless
+      - noisy
     experiment.gradient_method:
-      - PSR
+      - SPSA
     experiment.n_qubits:
       - 3
+      - 8
     backend.simulator.device:
       - CPU
     run.seed:
