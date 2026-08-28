@@ -18,4 +18,4 @@
 #SBATCH --error=logs/QGAN_train_cpu_%A_%a.err
 
 
-bnd run --cpu python -u main.py --battery_path qgan/configs/batteries/train_cpu.yaml --overwrite
+bnd run --cpu python -u main.py run --battery-path qgan/configs/batteries/train_cpu.yaml --overwrite

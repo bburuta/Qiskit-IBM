@@ -3,6 +3,7 @@ import copy
 from pathlib import Path
 import traceback
 
+from qgan_v2 import __version__
 from qgan_v2.config.battery import create_battery_configs
 from qgan_v2.config.loader import load_config_file, load_run_config
 from qgan_v2.training.interrupter import Interrupter
@@ -11,15 +12,26 @@ from qgan_v2.training.interrupter import Interrupter
 
 # Create CLI parser
 def build_parser():
-    parser = argparse.ArgumentParser(description="qGAN")
-    parser.add_argument("-p", "--battery_path", required=True, type=str)
-    parser.add_argument("--reset_data", action="store_true")
-    parser.add_argument("--reset_real_backend_info", "--reset_rb", action="store_true")
-    parser.add_argument("--overwrite", action="store_true")
-    parser.add_argument("--stop_on_error", action="store_true")
+    parser = argparse.ArgumentParser(prog="qgan-v2", description="qGAN")
+    parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
+
+    subparsers = parser.add_subparsers(dest="command", required=True)
+
+    run_parser = subparsers.add_parser("run", help="Run a battery config.")
+    run_parser.add_argument("-p", "--battery-path", dest="battery_path", required=True, type=str)
+    run_parser.add_argument("--reset-data", dest="reset_data", action="store_true")
+    run_parser.add_argument(
+        "--reset-real-backend-info",
+        "--reset-rb",
+        dest="reset_real_backend_info",
+        action="store_true",
+    )
+    run_parser.add_argument("--overwrite", action="store_true")
+    run_parser.add_argument("--stop-on-error", dest="stop_on_error", action="store_true")
+
+    subparsers.add_parser("save-account", help="Interactively save IBM Runtime credentials.")
 
     return parser.parse_args()
-
 
 #- Run configuration -#
 
@@ -128,13 +140,21 @@ def run_battery(battery_path, reset_data=False, reset_rb=False, stop_on_error=Fa
 def main():
     args = build_parser()
 
-    run_battery(
-        args.battery_path,
-        reset_data=args.reset_data,
-        reset_rb=args.reset_real_backend_info,
-        overwrite=args.overwrite,
-        stop_on_error=args.stop_on_error,
-    )
+    if args.command == "save-account":
+        from qgan_v2.execution.account import save_runtime_account
+
+        save_runtime_account()
+        return 0
+
+    if args.command == "run":
+        run_battery(
+            args.battery_path,
+            reset_data=args.reset_data,
+            reset_rb=args.reset_real_backend_info,
+            overwrite=args.overwrite,
+            stop_on_error=args.stop_on_error,
+        )
+
     return 0
 
 

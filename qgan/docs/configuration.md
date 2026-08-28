@@ -37,6 +37,10 @@ Important fields:
 - `run.data_path`: output directory for generated configs and checkpoints.
 - `run.label`: optional suffix appended to generated run IDs.
 - `run.device`: PyTorch device, `CPU` or `GPU`.
+- `backend.reset`: recreate the cached per-run backend options file.
+- `backend.save_backend_file`: save and reuse the per-run backend options file.
+- `backend.real.reset_info`: recreate cached real-backend calibration/topology data.
+- `backend.real.confirm_runtime_execution`: ask for confirmation before `real` or `fake_real` Runtime execution.
 - `backend.simulator.device`: Aer simulator device, `CPU` or `GPU`.
 - `backend.transpilation`: compiler optimization, layout, and routing settings.
 
@@ -54,6 +58,12 @@ Training writes or updates:
 
 ```text
 <run.data_path>/<run.id>/training_data.pth
+```
+
+Backend options are cached per run:
+
+```text
+<run.data_path>/<run.id>/backend.pkl
 ```
 
 The default smoke-test battery writes under `qgan/data/test/`.
@@ -108,6 +118,8 @@ Execution modes:
 - `noisy`: local Aer simulation from cached real-backend calibration data.
 - `fake_real`: local Runtime execution using `qiskit_ibm_runtime.fake_provider.FakeSherbrooke`; this checks hardware-style transpilation and execution without submitting IBM Quantum jobs.
 - `real`: IBM Runtime execution on `backend.real.name`.
+
+When `backend.real.confirm_runtime_execution: true`, the run asks before `real` or `fake_real` Runtime execution.
 
 Noisy local simulation supports two mapping modes:
 

@@ -79,6 +79,8 @@ default_config_values:
   backend:
     # Recreate cached backend data. Values: true, false.
     reset: false
+    # Cache per-run backend options in backend.pkl. Values: true, false.
+    save_backend_file: false
     # Estimator precision. Values: [number >= 0]. 0 means exact/no shots.
     precision: 0.015625
 
@@ -127,7 +129,7 @@ default_config_values:
       # Recreate cached real backend info. Values: true, false.
       reset_info: false
       # Ask for input confirmation before real/fake-real hardware execution. Values: true, false.
-      confirm_execution: true
+      confirm_runtime_execution: false
       estimator:
         # IBM Runtime estimator resilience level. Values: 0, 1, 2.
         resilience_level: 1

@@ -75,15 +75,6 @@ def get_eval_sim_options(config):
     return sim_options
 
 
-# # Save account
-# QiskitRuntimeService.save_account(
-#     token="",
-#     instance="crn:v1:bluemix:public:quantum-computing:eu-de:a/cb804b30dfcb48b890393bfd6e41e9c2:4cb40c64-a531-4c13-b39c-e04c31185259::",
-#     set_as_default = True,
-#     overwrite=True
-# )
-
-
 # Create real backend
 def create_real_backend(real_backend_options):
     service = QiskitRuntimeService(channel=real_backend_options['channel'])
@@ -92,12 +83,12 @@ def create_real_backend(real_backend_options):
     return service, backend
 
 
-# User confirmation of real hardware execution
-def confirm_real_hardware_execution(backend):
-    answer = input(f"You are about to execute on REAL IBM Quantum hardware: {backend.name}. Type 'yes' to continue: ")
+# User confirmation before Runtime execution
+def confirm_runtime_execution(backend):
+    answer = input(f"You are about to execute on: {backend.name}. Type 'yes' to continue: ")
 
     if answer.strip().lower() != "yes":
-        raise RuntimeError("Real hardware execution cancelled by user.")
+        raise RuntimeError("Runtime execution cancelled by user.")
 
 
 # Create fake real backend
@@ -261,7 +252,10 @@ def load_or_create_fake_real_backend_info(config, sherbrooke_backend=None):
 #- Backend management -#
 
 # Load backend options and create backends
-def create_backends(config, save_real_backend_info=True, save_backend_file=False):
+def create_backends(config, save_real_backend_info=True, save_backend_file=None):
+    if save_backend_file is None:
+        save_backend_file = config['backend']['save_backend_file']
+
     # Save backend options file
     if save_backend_file:
         filename = get_run_backend_filename(config)
@@ -304,8 +298,8 @@ def create_backends(config, save_real_backend_info=True, save_backend_file=False
     if execution_type == "real":
         _, train_backend = create_real_backend(real_backend_options)
 
-        if real_backend_options['confirm_execution']:
-            confirm_real_hardware_execution(train_backend)
+        if real_backend_options['confirm_runtime_execution']:
+            confirm_runtime_execution(train_backend)
 
         session, train_estimator = create_real_estimator(train_backend, real_estimator_options)
 
@@ -315,8 +309,8 @@ def create_backends(config, save_real_backend_info=True, save_backend_file=False
     elif execution_type == "fake_real":
         train_backend = create_fake_real_backend()
 
-        if real_backend_options['confirm_execution']:
-            confirm_real_hardware_execution(train_backend)
+        if real_backend_options['confirm_runtime_execution']:
+            confirm_runtime_execution(train_backend)
 
         # Use the Runtime estimator against the local fake backend
         session, train_estimator = create_real_estimator(train_backend, real_estimator_options)
@@ -387,7 +381,7 @@ if __name__ == "__main__":
         'name': "ibm_basquecountry",
         'channel': "ibm_quantum_platform",
         'reset_info': False,
-        'confirm_execution': True,
+        'confirm_runtime_execution': True,
         'estimator': {
             'resilience_level': 1,
             'dynamical_decoupling': {

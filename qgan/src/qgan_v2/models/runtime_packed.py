@@ -361,6 +361,6 @@ def generate_models(config, circuit_bundle):
         eval_estimator,
         eval_pm,
     )
-    eval_g = generate_eval_g(encoding, eval_model, eval_backend)
+    eval_g = generate_eval_g(encoding, eval_model, eval_backend, config)
 
     return model_g, model_d, eval_g, session

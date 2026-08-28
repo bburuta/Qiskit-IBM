@@ -18,4 +18,4 @@
 #SBATCH --error=logs/QGAN_test_cpu_checkpoints_%A_%a.err
 
 
-bnd run --cpu python -u main.py --battery_path qgan/configs/batteries/test_cpu_checkpoints.yaml --overwrite --reset_data
+bnd run --cpu python -u main.py run --battery-path qgan/configs/batteries/test_cpu_checkpoints.yaml --overwrite --reset-data

@@ -48,8 +48,9 @@ NUMBER_RULES = [
 # Boolean values
 BOOLEAN_RULES = [
     "backend.reset",
+    "backend.save_backend_file",
     "backend.real.reset_info",
-    "backend.real.confirm_execution",
+    "backend.real.confirm_runtime_execution",
     "backend.real.estimator.dynamical_decoupling.enable",
     "backend.simulator.gpu.cuStateVec_enable",
     "backend.simulator.gpu.batched_shots_gpu",
