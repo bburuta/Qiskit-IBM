@@ -9,6 +9,7 @@ VALID_DEVICES = {"CPU", "GPU"}
 VALID_ENCODINGS = {"direct_circuit", "angle", "amplitude"}
 VALID_SIMULATOR_MAPPINGS = {"hardware", "noise_model"}
 VALID_DISCRIMINATOR_PACKING = {"separate", "joined"}
+VALID_RANDOM_CIRCUITS = {0, 1, 2, 3}
 
 CHOICE_RULES = [
     ("implementation.name", VALID_IMPLEMENTATIONS),
@@ -85,6 +86,7 @@ PRE_NORMALIZATION_REQUIRED_OPTIONS = [
     "backend.real.id",
     "backend.real.name",
     "encoding",
+    "encoding.random_circuit",
     "encoding.randomness",
 ]
 
@@ -122,6 +124,19 @@ def require_choice(config, path, choices):
     if value not in choices:
         allowed = ", ".join(sorted(choices))
         raise ConfigValidationError(f"Invalid value for {path}: {value!r}. Allowed values: {allowed}")
+    return value
+
+
+# Require an integer config path value to be one of the allowed choices
+def require_integer_choice(config, path, choices):
+    value = require_path(config, path)
+    if not isinstance(value, int) or isinstance(value, bool):
+        raise ConfigValidationError(f"{path} must be an integer. Got: {value!r}")
+
+    if value not in choices:
+        allowed = ", ".join(str(choice) for choice in sorted(choices))
+        raise ConfigValidationError(f"Invalid value for {path}: {value!r}. Allowed values: {allowed}")
+
     return value
 
 
@@ -226,6 +241,8 @@ def validate_implementation_compatibility(config):
 def validate_config(config):
     for path, choices in CHOICE_RULES:
         require_choice(config, path, choices)
+
+    require_integer_choice(config, "encoding.random_circuit", VALID_RANDOM_CIRCUITS)
 
     for path, minimum, integer in NUMBER_RULES:
         require_number(config, path, minimum=minimum, integer=integer)

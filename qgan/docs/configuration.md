@@ -34,6 +34,8 @@ Important fields:
 - `training.init_scale`: initial trainable parameter scale applied to samples from `[-pi, pi]`.
 - `training.learning_rate`: shared Adam learning rate for the generator and discriminator optimizers.
 - `training.checkpoint_every`: completed-epoch interval for checkpoint saves; `0` disables periodic saves and writes only at the end.
+- `encoding.random_circuit`: randomizer circuit mode used when `encoding.randomness` is nonzero. For `direct_circuit` and `amplitude`: `0` none, `1` RY gates, `2` EfficientSU2 with two repetitions, `3` fixed random statevector. For `angle`: `0` none, any nonzero value uses the original angle-style RY randomizer.
+- `encoding.randomness`: random input value scale applied to samples from `[0, 2*pi]` when the selected randomizer has parameters. `0` disables the randomizer circuit regardless of `encoding.random_circuit`.
 - `run.data_path`: output directory for generated configs and checkpoints.
 - `run.label`: optional suffix appended to generated run IDs.
 - `run.device`: PyTorch device, `CPU` or `GPU`.
@@ -68,10 +70,10 @@ Backend options are cached per run:
 
 The default smoke-test battery writes under `qgan/data/test/`.
 
-Run IDs are generated from the qGAN preset, implementation adapter, runtime-packed discriminator packing, qubits, execution type, gradient method, Aer device, randomness, and seed, for example:
+Run IDs are generated from the qGAN preset, implementation adapter, runtime-packed discriminator packing, qubits, execution type, gradient method, Aer device, randomness scale, and seed, for example:
 
 ```text
-ang-qml_torch-q3-noiseless-PSR-aerGPU-rand0-seed0
+ang-qml_torch-q3-noiseless-PSR-aerGPU-rand0.1-seed0
 ```
 
 Set `run.label` to append a short group label to the final run ID. The label is appended as `:<label>` whether `run.id` was generated from `null` or written manually:
@@ -83,7 +85,7 @@ run:
 ```
 
 ```text
-ang-qml_torch-q3-noisy-PSR-aerCPU-rand0-seed0:noisy_dm_hw
+ang-qml_torch-q3-noisy-PSR-aerCPU-rand0.1-seed0:noisy_dm_hw
 ```
 
 ## Presets

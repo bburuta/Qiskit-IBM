@@ -77,7 +77,7 @@ def get_eval_sim_options(config):
 
 # Create real backend
 def create_real_backend(real_backend_options):
-    service = QiskitRuntimeService(channel=real_backend_options['channel'])
+    service = QiskitRuntimeService()
     backend = service.backend(real_backend_options['name']) #backend = service.least_busy(min_num_qubits=30)
 
     return service, backend
@@ -379,7 +379,6 @@ if __name__ == "__main__":
     real_backend_options = {
         'id': "ibm_basquecountry",
         'name': "ibm_basquecountry",
-        'channel': "ibm_quantum_platform",
         'reset_info': False,
         'confirm_runtime_execution': True,
         'estimator': {

@@ -124,8 +124,6 @@ default_config_values:
       id: null
       # IBM Quantum backend name. Values: [backend name]. Example: ibm_basquecountry.
       name: ibm_basquecountry
-      # IBM Runtime channel. Values: [channel]. Example: ibm_quantum_platform.
-      channel: ibm_quantum_platform
       # Recreate cached real backend info. Values: true, false.
       reset_info: false
       # Ask for input confirmation before real/fake-real hardware execution. Values: true, false.
@@ -142,7 +140,9 @@ default_config_values:
     type: angle
     # Image intensity contrast exponent. Values: [number >= 0].
     contrast: 1
-    # Random input scale. Values: [number >= 0].
+    # Randomizer circuit type used when randomness is nonzero. Direct/amplitude: 0 none, 1 ry, 2 efficient_su2_reps2, 3 random_statevector. Angle: 0 none, nonzero ry.
+    random_circuit: 1
+    # Random input value scale. Values: [number >= 0].
     randomness: 0
     # Training batch size. Values: [int >= 1].
     batch_size: 4
@@ -156,7 +156,7 @@ default_config_values:
 
 # Variable config options
 #
-# This file generates 66 runs: base, ang, and amp for each Aer GPU case.
+# This file generates 69 runs: base, ang, and amp for each Aer GPU case.
 #
 # - aer_baseline: density matrix, hardware mapping, precision: 0.015625
 # - aer_fast_precision: same, precision: 0.0625
@@ -201,9 +201,6 @@ variable_config_values_list:
       - GPU
     run.seed:
       - 0
-    encoding.randomness:
-      - 0
-
   aer_fast_precision:
     run.label:
       - aer_fast_precision
@@ -224,8 +221,6 @@ variable_config_values_list:
     backend.simulator.device:
       - GPU
     run.seed:
-      - 0
-    encoding.randomness:
       - 0
     backend.precision:
       - 0.0625
@@ -251,8 +246,6 @@ variable_config_values_list:
       - GPU
     run.seed:
       - 0
-    encoding.randomness:
-      - 0
     backend.precision:
       - 0.03125
 
@@ -277,8 +270,6 @@ variable_config_values_list:
       - GPU
     run.seed:
       - 0
-    encoding.randomness:
-      - 0
     backend.simulator.max_parallel_experiments:
       - 0
 
@@ -302,8 +293,6 @@ variable_config_values_list:
     backend.simulator.device:
       - GPU
     run.seed:
-      - 0
-    encoding.randomness:
       - 0
     backend.simulator.max_parallel_threads:
       - 1
@@ -331,8 +320,6 @@ variable_config_values_list:
       - GPU
     run.seed:
       - 0
-    encoding.randomness:
-      - 0
     backend.simulator.max_parallel_experiments:
       - 2
 
@@ -356,8 +343,6 @@ variable_config_values_list:
     backend.simulator.device:
       - GPU
     run.seed:
-      - 0
-    encoding.randomness:
       - 0
     backend.simulator.max_parallel_experiments:
       - 4
@@ -383,8 +368,6 @@ variable_config_values_list:
       - GPU
     run.seed:
       - 0
-    encoding.randomness:
-      - 0
     backend.simulator.max_parallel_shots:
       - 1
 
@@ -408,8 +391,6 @@ variable_config_values_list:
     backend.simulator.device:
       - GPU
     run.seed:
-      - 0
-    encoding.randomness:
       - 0
     backend.simulator.max_parallel_shots:
       - 4
@@ -435,8 +416,6 @@ variable_config_values_list:
       - GPU
     run.seed:
       - 0
-    encoding.randomness:
-      - 0
     backend.simulator.max_parallel_shots:
       - 8
 
@@ -460,8 +439,6 @@ variable_config_values_list:
     backend.simulator.device:
       - GPU
     run.seed:
-      - 0
-    encoding.randomness:
       - 0
     backend.simulator.max_parallel_threads:
       - 1
@@ -487,8 +464,6 @@ variable_config_values_list:
       - GPU
     run.seed:
       - 0
-    encoding.randomness:
-      - 0
     backend.simulator.max_parallel_threads:
       - 8
 
@@ -512,8 +487,6 @@ variable_config_values_list:
     backend.simulator.device:
       - GPU
     run.seed:
-      - 0
-    encoding.randomness:
       - 0
     backend.simulator.max_parallel_threads:
       - 4
@@ -539,8 +512,6 @@ variable_config_values_list:
       - GPU
     run.seed:
       - 0
-    encoding.randomness:
-      - 0
     backend.simulator.data_type:
       - single
 
@@ -564,8 +535,6 @@ variable_config_values_list:
     backend.simulator.device:
       - GPU
     run.seed:
-      - 0
-    encoding.randomness:
       - 0
     backend.simulator.noisy_backend_mapping:
       - noise_model
@@ -591,8 +560,6 @@ variable_config_values_list:
       - GPU
     run.seed:
       - 0
-    encoding.randomness:
-      - 0
     backend.simulator.gpu.cuStateVec_enable:
       - false
 
@@ -616,8 +583,6 @@ variable_config_values_list:
     backend.simulator.device:
       - GPU
     run.seed:
-      - 0
-    encoding.randomness:
       - 0
     backend.simulator.gpu.cuStateVec_enable:
       - false
@@ -644,8 +609,6 @@ variable_config_values_list:
     backend.simulator.device:
       - GPU
     run.seed:
-      - 0
-    encoding.randomness:
       - 0
     backend.simulator.gpu.blocking_enable:
       - true

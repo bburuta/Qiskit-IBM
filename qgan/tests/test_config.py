@@ -1,4 +1,7 @@
+import pytest
+
 from qgan_v2.config.loader import prepare_run_config
+from qgan_v2.config.validation import ConfigValidationError
 
 
 def base_config():
@@ -69,7 +72,6 @@ def base_config():
             "real": {
                 "id": None,
                 "name": "ibm_basquecountry",
-                "channel": "ibm_quantum_platform",
                 "reset_info": False,
                 "confirm_runtime_execution": False,
                 "estimator": {
@@ -83,6 +85,7 @@ def base_config():
         "encoding": {
             "type": "direct_circuit",
             "contrast": 1,
+            "random_circuit": 1,
             "randomness": 0.1,
             "batch_size": 1,
             "eval_batch_size": 1,
@@ -97,3 +100,35 @@ def test_prepare_run_config_accepts_current_backend_options():
 
     assert config["backend"]["real"]["confirm_runtime_execution"] is False
     assert config["backend"]["save_backend_file"] is False
+
+
+def test_prepare_run_config_keeps_random_circuit_separate_from_randomness():
+    raw_config = base_config()
+    raw_config["encoding"]["random_circuit"] = 0
+    raw_config["encoding"]["randomness"] = 0.1
+
+    config = prepare_run_config(raw_config)
+
+    assert config["encoding"]["random_circuit"] == 0
+    assert config["encoding"]["randomness"] == 0.1
+    assert "rand0.1" in config["run"]["id"]
+    assert "rc0" not in config["run"]["id"]
+
+
+@pytest.mark.parametrize("random_circuit", [0, 1, 2, 3])
+def test_prepare_run_config_accepts_random_circuit_types(random_circuit):
+    raw_config = base_config()
+    raw_config["encoding"]["random_circuit"] = random_circuit
+
+    config = prepare_run_config(raw_config)
+
+    assert config["encoding"]["random_circuit"] == random_circuit
+
+
+@pytest.mark.parametrize("random_circuit", [False, True, 4])
+def test_prepare_run_config_rejects_invalid_random_circuit_types(random_circuit):
+    raw_config = base_config()
+    raw_config["encoding"]["random_circuit"] = random_circuit
+
+    with pytest.raises(ConfigValidationError):
+        prepare_run_config(raw_config)

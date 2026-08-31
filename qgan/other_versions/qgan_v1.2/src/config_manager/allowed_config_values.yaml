@@ -84,8 +84,6 @@ backend:
   real:
     id: []
     name: []
-    channel:
-      - ibm_quantum_platform
     reset_info:
       - true
       - false

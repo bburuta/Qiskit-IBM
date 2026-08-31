@@ -1,7 +1,9 @@
 import torch
 
 from qiskit import QuantumCircuit
+from qiskit.circuit.library import efficient_su2
 from qiskit.circuit import ParameterVector
+from qiskit.quantum_info import random_statevector
 
 from qgan_v2.datasets.images import get_images_dataset
 from qgan_v2.datasets.quantum import create_quantum_dataset_circuits
@@ -22,28 +24,53 @@ def generate_amp_circuits(n_qubits, X_amplitudes):
     return qcs
     
 
-# Create random input generator
-def generate_amp_randomizer(n_qubits, randomness):
-    if randomness != 0:
-        # # Almost fully random circuit, but expensive TODO
-        # qc = efficient_su2(n_qubits,
-        #                   entanglement="reverse_linear",
-        #                   reps=3, # Number of layers
-        #                   parameter_prefix='θ_r',
-        #                   name='Randomizer').decompose()
+# Create RY random input generator
+def generate_ry_randomizer(n_qubits):
+    random_weights = ParameterVector('θ_r', n_qubits)
+    qc = QuantumCircuit(n_qubits, name="Randomizer")
 
-        # Low randomness circuit, cheaper
-        disc_weights = ParameterVector('θ_r', n_qubits)
-        qc = QuantumCircuit(n_qubits, name="Randomizer")
-        param_index = 0
+    for q in range(n_qubits):
+        qc.ry(random_weights[q], q)
 
-        for q in range(n_qubits):
-            qc.ry(disc_weights[param_index], q); param_index += 1
-        
-    else:
-        qc = QuantumCircuit(n_qubits)
-    
     return qc
+
+
+# Create EfficientSU2 random input generator
+def generate_efficient_su2_randomizer(n_qubits):
+    return efficient_su2(
+        n_qubits,
+        entanglement="reverse_linear",
+        reps=2,
+        parameter_prefix='θ_r',
+        name='Randomizer',
+    ).decompose()
+
+
+# Create a fixed random statevector input circuit
+def generate_statevector_randomizer(n_qubits, seed):
+    qc = QuantumCircuit(n_qubits, name="Randomizer")
+    statevector = random_statevector(2 ** n_qubits, seed=seed)
+    qc.prepare_state(
+        state=statevector,
+        qubits=qc.qubits,
+        normalize=False,
+    )
+
+    return qc
+
+
+# Create random input generator for amplitude-style encodings
+def generate_amp_randomizer(n_qubits, random_circuit, seed):
+    if random_circuit == 0:
+        return QuantumCircuit(n_qubits, name="Randomizer")
+    if random_circuit == 1:
+        return generate_ry_randomizer(n_qubits)
+    if random_circuit == 2:
+        return generate_efficient_su2_randomizer(n_qubits)
+    if random_circuit == 3:
+        return generate_statevector_randomizer(n_qubits, seed)
+
+    raise ValueError(f"Unknown random circuit type: {random_circuit}")
 
 
 
@@ -61,14 +88,11 @@ def generate_ang_circuit(n_qubits):
     return qc
 
 
-# Create random input generator
-def generate_ang_randomizer(n_qubits, randomness):
-    if randomness != 0:
-        qc = generate_ang_circuit(n_qubits)
-    else:
-        qc = QuantumCircuit(n_qubits)
-    
-    return qc
+# Create angle random input generator
+def generate_ang_randomizer(n_qubits, random_circuit):
+    if random_circuit != 0:
+        return generate_ang_circuit(n_qubits)
+    return QuantumCircuit(n_qubits, name="Randomizer")
 
 
 
@@ -133,11 +157,13 @@ def create_randomizer_circuit(config):
     encoding = config['encoding']['type']
     n_qubits = config['experiment']['n_qubits']
     randomness = config['encoding']['randomness']
+    random_circuit = 0 if randomness == 0 else config['encoding']['random_circuit']
+    seed = config['run']['seed']
 
     if encoding in ['direct_circuit', "amplitude"]:
-        randomizer_circuit = generate_amp_randomizer(n_qubits, randomness)
-    elif encoding == 'angle':   
-        randomizer_circuit = generate_ang_randomizer(n_qubits, randomness)
+        randomizer_circuit = generate_amp_randomizer(n_qubits, random_circuit, seed)
+    elif encoding == 'angle':
+        randomizer_circuit = generate_ang_randomizer(n_qubits, random_circuit)
     else:
         raise ValueError(f"Unknown encoding method: {encoding}")
     
