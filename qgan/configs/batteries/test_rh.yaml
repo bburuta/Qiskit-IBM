@@ -34,7 +34,7 @@ default_config_values:
     # Experiment preset. Values: base, ang, amp.
     implementation: ang
     # Execution target. Values: noiseless, noisy, fake_real, real.
-    execution_type: fake_real
+    execution_type: real
     # Number of qubits. Values: [int >= 1].
     n_qubits: 3
     # Estimator gradient method. Values: PSR, SPSA, REG.
@@ -158,60 +158,62 @@ default_config_values:
 
 # Variable config options
 variable_config_values_list:
-  # runtime_packed_separate:
-  #   implementation.name:
-  #     - runtime_packed
-  #   implementation.discriminator_packing:
-  #     - separate
-  #   experiment.implementation:
-  #     - base
-  #     - ang
-  #     - amp
-  #   experiment.execution_type:
-  #     - fake_real
-  #   experiment.gradient_method:
-  #     - SPSA
-  #   experiment.n_qubits:
-  #     - 3
-  #   backend.simulator.device:
-  #     - CPU
-  #   run.seed:
-  #     - 0
-
-  # runtime_packed_joined:
-  #   implementation.name:
-  #     - runtime_packed
-  #   implementation.discriminator_packing:
-  #     - joined
-  #   experiment.implementation:
-  #     - base
-  #     - ang
-  #   experiment.execution_type:
-  #     - fake_real
-  #   experiment.gradient_method:
-  #     - SPSA
-  #   experiment.n_qubits:
-  #     - 3
-  #   backend.simulator.device:
-  #     - CPU
-  #   run.seed:
-  #     - 0
-
-  real_options:
+  runtime_packed_separate:
     implementation.name:
-      - qml_torch
+      - runtime_packed
+    implementation.discriminator_packing:
+      - separate
     experiment.implementation:
       - base
-      # - ang
-      # - amp
-    experiment.execution_type:
-      - real
+      - ang
+      - amp
+    # experiment.execution_type:
+    #   - real
     experiment.gradient_method:
       - SPSA
-      # - PSR
+      - PSR
     experiment.n_qubits:
       - 3
     backend.simulator.device:
       - CPU
     run.seed:
       - 0
+
+  runtime_packed_joined:
+    implementation.name:
+      - runtime_packed
+    implementation.discriminator_packing:
+      - joined
+    experiment.implementation:
+      - base
+      - ang
+    # experiment.execution_type:
+    #   - real
+    experiment.gradient_method:
+      - SPSA
+      - PSR
+    experiment.n_qubits:
+      - 3
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+
+  # real_options:
+  #   implementation.name:
+  #     - qml_torch
+  #   experiment.implementation:
+  #     - base
+  #     - ang
+  #     - amp
+  #   # experiment.execution_type:
+  #   #   - real
+  #   experiment.gradient_method:
+  #     - SPSA
+  #     - PSR
+  #   experiment.n_qubits:
+  #     - 3
+  #   backend.simulator.device:
+  #     - CPU
+  #   run.seed:
+  #     - 0
