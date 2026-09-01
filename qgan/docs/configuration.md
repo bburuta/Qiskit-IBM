@@ -34,8 +34,8 @@ Important fields:
 - `training.init_scale`: initial trainable parameter scale applied to samples from `[-pi, pi]`.
 - `training.learning_rate`: shared Adam learning rate for the generator and discriminator optimizers.
 - `training.checkpoint_every`: completed-epoch interval for checkpoint saves; `0` disables periodic saves and writes only at the end.
-- `encoding.random_circuit`: randomizer circuit mode used when `encoding.randomness` is nonzero. For `direct_circuit` and `amplitude`: `0` none, `1` RY gates, `2` EfficientSU2 with two repetitions, `3` fixed random statevector. For `angle`: `0` none, any nonzero value uses the original angle-style RY randomizer.
-- `encoding.randomness`: random input value scale applied to samples from `[0, 2*pi]` when the selected randomizer has parameters. `0` disables the randomizer circuit regardless of `encoding.random_circuit`.
+- `encoding.random_circuit`: randomizer circuit mode used when `encoding.randomness` is nonzero. For `direct_circuit` and `amplitude`: `0` none, `1` RY gates, `2` EfficientSU2 with two repetitions. Mode `3` is kept in code as a disabled fixed-statevector prototype. For `angle`: `0` none, any nonzero value uses the original angle-style RY randomizer.
+- `encoding.randomness`: normalized random input strength in `[0, 1]`. For parameterized randomizers, it scales samples from `[0, 2*pi]`. `0` disables the randomizer circuit regardless of `encoding.random_circuit`.
 - `run.data_path`: output directory for generated configs and checkpoints.
 - `run.label`: optional suffix appended to generated run IDs.
 - `run.device`: PyTorch device, `CPU` or `GPU`.

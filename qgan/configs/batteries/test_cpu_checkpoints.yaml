@@ -137,9 +137,9 @@ default_config_values:
     type: angle
     # Image intensity contrast exponent. Values: [number >= 0].
     contrast: 1
-    # Randomizer circuit type used when randomness is nonzero. Direct/amplitude: 0 none, 1 ry, 2 efficient_su2_reps2, 3 random_statevector. Angle: 0 none, nonzero ry.
+    # Randomizer circuit type used when randomness is nonzero. Direct/amplitude: 0 none, 1 ry, 2 efficient_su2_reps2. Mode 3 is disabled. Angle: 0 none, nonzero ry.
     random_circuit: 1
-    # Random input value scale. Values: [number >= 0].
+    # Random input strength. Values: [number in [0, 1]].
     randomness: 0.1
     # Training batch size. Values: [int >= 1].
     batch_size: 2

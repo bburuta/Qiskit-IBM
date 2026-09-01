@@ -115,7 +115,7 @@ def test_prepare_run_config_keeps_random_circuit_separate_from_randomness():
     assert "rc0" not in config["run"]["id"]
 
 
-@pytest.mark.parametrize("random_circuit", [0, 1, 2, 3])
+@pytest.mark.parametrize("random_circuit", [0, 1, 2])
 def test_prepare_run_config_accepts_random_circuit_types(random_circuit):
     raw_config = base_config()
     raw_config["encoding"]["random_circuit"] = random_circuit
@@ -125,10 +125,18 @@ def test_prepare_run_config_accepts_random_circuit_types(random_circuit):
     assert config["encoding"]["random_circuit"] == random_circuit
 
 
-@pytest.mark.parametrize("random_circuit", [False, True, 4])
+@pytest.mark.parametrize("random_circuit", [False, True, 3, 4])
 def test_prepare_run_config_rejects_invalid_random_circuit_types(random_circuit):
     raw_config = base_config()
     raw_config["encoding"]["random_circuit"] = random_circuit
 
     with pytest.raises(ConfigValidationError):
+        prepare_run_config(raw_config)
+
+
+def test_prepare_run_config_rejects_randomness_above_one():
+    raw_config = base_config()
+    raw_config["encoding"]["randomness"] = 1.1
+
+    with pytest.raises(ConfigValidationError, match="encoding.randomness must be <= 1"):
         prepare_run_config(raw_config)

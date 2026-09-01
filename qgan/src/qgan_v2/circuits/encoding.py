@@ -1,4 +1,5 @@
 import torch
+import numpy as np
 
 from qiskit import QuantumCircuit
 from qiskit.circuit.library import efficient_su2
@@ -46,12 +47,30 @@ def generate_efficient_su2_randomizer(n_qubits):
     ).decompose()
 
 
-# Create a fixed random statevector input circuit
-def generate_statevector_randomizer(n_qubits, seed):
+# Create a fixed random statevector input circuit at a controlled distance from |0...0>
+def generate_statevector_randomizer(n_qubits, randomness, seed):
+    if randomness < 0 or randomness > 1:
+        raise ValueError("Statevector randomizer randomness must be in [0, 1].")
+
+    dimension = 2 ** n_qubits
+    statevector = random_statevector(dimension, seed=seed).data
+
+    random_direction = statevector.copy()
+    random_direction[0] = 0
+    direction_norm = np.linalg.norm(random_direction)
+    if direction_norm == 0:
+        random_direction[1] = 1
+        direction_norm = 1
+
+    random_direction = random_direction / direction_norm
+    angle = randomness * np.pi / 2
+    interpolated_state = np.zeros(dimension, dtype=complex)
+    interpolated_state[0] = np.cos(angle)
+    interpolated_state += np.sin(angle) * random_direction
+
     qc = QuantumCircuit(n_qubits, name="Randomizer")
-    statevector = random_statevector(2 ** n_qubits, seed=seed)
     qc.prepare_state(
-        state=statevector,
+        state=interpolated_state,
         qubits=qc.qubits,
         normalize=False,
     )
@@ -60,7 +79,7 @@ def generate_statevector_randomizer(n_qubits, seed):
 
 
 # Create random input generator for amplitude-style encodings
-def generate_amp_randomizer(n_qubits, random_circuit, seed):
+def generate_amp_randomizer(n_qubits, random_circuit, randomness, seed):
     if random_circuit == 0:
         return QuantumCircuit(n_qubits, name="Randomizer")
     if random_circuit == 1:
@@ -68,7 +87,7 @@ def generate_amp_randomizer(n_qubits, random_circuit, seed):
     if random_circuit == 2:
         return generate_efficient_su2_randomizer(n_qubits)
     if random_circuit == 3:
-        return generate_statevector_randomizer(n_qubits, seed)
+        return generate_statevector_randomizer(n_qubits, randomness, seed)
 
     raise ValueError(f"Unknown random circuit type: {random_circuit}")
 
@@ -161,7 +180,7 @@ def create_randomizer_circuit(config):
     seed = config['run']['seed']
 
     if encoding in ['direct_circuit', "amplitude"]:
-        randomizer_circuit = generate_amp_randomizer(n_qubits, random_circuit, seed)
+        randomizer_circuit = generate_amp_randomizer(n_qubits, random_circuit, randomness, seed)
     elif encoding == 'angle':
         randomizer_circuit = generate_ang_randomizer(n_qubits, random_circuit)
     else:

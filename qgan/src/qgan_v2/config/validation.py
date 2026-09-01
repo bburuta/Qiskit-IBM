@@ -9,7 +9,7 @@ VALID_DEVICES = {"CPU", "GPU"}
 VALID_ENCODINGS = {"direct_circuit", "angle", "amplitude"}
 VALID_SIMULATOR_MAPPINGS = {"hardware", "noise_model"}
 VALID_DISCRIMINATOR_PACKING = {"separate", "joined"}
-VALID_RANDOM_CIRCUITS = {0, 1, 2, 3}
+VALID_RANDOM_CIRCUITS = {0, 1, 2}
 
 CHOICE_RULES = [
     ("implementation.name", VALID_IMPLEMENTATIONS),
@@ -26,23 +26,23 @@ CHOICE_RULES = [
 
 # Numeric values
 NUMBER_RULES = [
-    ("experiment.n_qubits", 1, True),
-    ("training.max_iterations", 0, True),
-    ("training.gen_iterations", 0, True),
-    ("training.disc_iterations", 0, True),
-    ("training.init_scale", 0, False),
-    ("training.learning_rate", 0, False),
-    ("training.print_every", 0, True),
-    ("training.checkpoint_every", 0, True),
-    ("backend.precision", 0, False),
-    ("backend.simulator.max_parallel_threads", 0, True),
-    ("backend.simulator.max_parallel_experiments", 0, True),
-    ("backend.simulator.max_parallel_shots", 0, True),
-    ("encoding.contrast", 0, False),
-    ("encoding.randomness", 0, False),
-    ("encoding.batch_size", 1, True),
-    ("encoding.eval_batch_size", 1, True),
-    ("encoding.max_parallel_threads", 1, True),
+    ("experiment.n_qubits", 1, None, True),
+    ("training.max_iterations", 0, None, True),
+    ("training.gen_iterations", 0, None, True),
+    ("training.disc_iterations", 0, None, True),
+    ("training.init_scale", 0, None, False),
+    ("training.learning_rate", 0, None, False),
+    ("training.print_every", 0, None, True),
+    ("training.checkpoint_every", 0, None, True),
+    ("backend.precision", 0, None, False),
+    ("backend.simulator.max_parallel_threads", 0, None, True),
+    ("backend.simulator.max_parallel_experiments", 0, None, True),
+    ("backend.simulator.max_parallel_shots", 0, None, True),
+    ("encoding.contrast", 0, None, False),
+    ("encoding.randomness", 0, 1, False),
+    ("encoding.batch_size", 1, None, True),
+    ("encoding.eval_batch_size", 1, None, True),
+    ("encoding.max_parallel_threads", 1, None, True),
 ]
 
 
@@ -141,7 +141,7 @@ def require_integer_choice(config, path, choices):
 
 
 # Require a numeric config path value
-def require_number(config, path, minimum=None, integer=False):
+def require_number(config, path, minimum=None, maximum=None, integer=False):
     value = require_path(config, path)
     if integer:
         valid_type = isinstance(value, int) and not isinstance(value, bool)
@@ -154,6 +154,9 @@ def require_number(config, path, minimum=None, integer=False):
 
     if minimum is not None and value < minimum:
         raise ConfigValidationError(f"{path} must be >= {minimum}. Got: {value!r}")
+
+    if maximum is not None and value > maximum:
+        raise ConfigValidationError(f"{path} must be <= {maximum}. Got: {value!r}")
 
     return value
 
@@ -244,8 +247,8 @@ def validate_config(config):
 
     require_integer_choice(config, "encoding.random_circuit", VALID_RANDOM_CIRCUITS)
 
-    for path, minimum, integer in NUMBER_RULES:
-        require_number(config, path, minimum=minimum, integer=integer)
+    for path, minimum, maximum, integer in NUMBER_RULES:
+        require_number(config, path, minimum=minimum, maximum=maximum, integer=integer)
 
     for path in BOOLEAN_RULES:
         require_boolean(config, path)
