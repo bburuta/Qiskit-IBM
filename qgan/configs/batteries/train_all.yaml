@@ -1,21 +1,23 @@
-# qGAN battery config.
+# qGAN thesis analysis battery.
 #
-# Batteries follow the config battery pattern:
-# - default_config_values: base config used for every generated run.
-# - variable_config_values_list: named Cartesian-product sweeps.
+# This file generates the matched runs needed for thesis figures:
+# - evaluation convergence across seeds
+# - final-quality distributions
+# - runtime-per-epoch comparisons
+# - quality/runtime tradeoff plots
+# - randomness and qubit-scaling plots
+# - a small real-hardware case study
 #
-# Variable keys can be dotted paths, e.g. experiment.n_qubits. Dotted paths
-# are preferred because they are explicit and avoid ambiguous keys.
+# The broad statistical sweep is local simulation. Real hardware is kept small
+# and explicitly confirmed before execution.
 
-#- Train config creation dict -#
-
-# Default config values
 default_config_values:
 
   implementation:
     # Training implementation to use. Values: qml_torch, runtime_packed, manual_estimator.
     name: qml_torch
     # Discriminator circuit packing for runtime_packed. Values: separate, joined.
+    # qml_torch ignores this value, but the config schema requires it.
     discriminator_packing: separate
 
   run:
@@ -28,6 +30,7 @@ default_config_values:
     # Random seed for Python, NumPy, Torch, and simulator options. Values: [int].
     seed: 0
     # Torch device. Values: CPU, GPU. runtime_packed requires CPU.
+    # Keep fixed because run.device is not encoded in generated run ids.
     device: CPU
 
   experiment:
@@ -36,9 +39,9 @@ default_config_values:
     # Execution target. Values: noiseless, noisy, fake_real, real.
     execution_type: noiseless
     # Number of qubits. Values: [int >= 1].
-    n_qubits: 8
+    n_qubits: 4
     # Estimator gradient method. Values: PSR, SPSA, REG.
-    gradient_method: PSR
+    gradient_method: SPSA
 
   training:
     # Number of training epochs. Values: [int >= 0].
@@ -49,7 +52,7 @@ default_config_values:
     disc_iterations: 1
     # Initial trainable parameter scale relative to [-pi, pi]. Values: [number >= 0].
     init_scale: 0.1
-    # Adam optimizer learning rate for generator and discriminator. Values: [number >= 0].
+    # Adam optimizer learning rate for generator and discriminator optimizers. Values: [number >= 0].
     learning_rate: 0.005
     # Epoch interval for progress prints. Values: [int >= 0], 0 disables printing.
     print_every: 100
@@ -82,6 +85,7 @@ default_config_values:
     # Cache per-run backend options in backend.pkl. Values: true, false.
     save_backend_file: false
     # Estimator precision. Values: [number >= 0]. 0 means exact/no shots.
+    # Equivalent to 4096 shots for primitive precision-based estimators.
     precision: 0.015625
 
     transpilation:
@@ -94,7 +98,7 @@ default_config_values:
 
     simulator:
       # Aer simulator device. Values: CPU, GPU.
-      device: GPU
+      device: CPU
       # Floating point precision for simulator/Torch tensors. Values: double, float.
       data_type: double
       # Aer method for noiseless simulation. Values: statevector, density_matrix.
@@ -112,11 +116,11 @@ default_config_values:
       gpu:
         # Enable cuStateVec acceleration when using GPU. Values: true, false.
         cuStateVec_enable: true
-        # Enable batched shots on GPU (not compatible with cuStateVec). Values: true, false. # True with execution_type='noiseless' does not work
+        # Enable batched shots on GPU (not compatible with cuStateVec). Values: true, false. True with execution_type='noiseless' does not work.
         batched_shots_gpu: false
         # Enable GPU blocking (true for multiple GPUs). Values: true, false.
         blocking_enable: false
-        # Enable Aer runtime parameter binding on GPU. Values: true, false. # Ang and Amp parameterized GPU circuits fail, set false to use standard binding
+        # Enable Aer runtime parameter binding on GPU. Values: true, false. Ang and Amp parameterized GPU circuits fail, set false to use standard binding.
         runtime_parameter_bind_enable: false
 
     real:
@@ -126,7 +130,7 @@ default_config_values:
       name: ibm_basquecountry
       # Real backend info storage. Values: shared, run. shared uses qgan/backends; run saves beside each config.yaml.
       info_storage: shared
-      # Recreate cached real backend info. Values: true, false.
+      # Recreate cached real-backend calibration/topology data. Values: true, false.
       reset_info: false
       # Ask for input confirmation before real/fake-real hardware execution. Values: true, false.
       confirm_runtime_execution: false
@@ -156,9 +160,10 @@ default_config_values:
     eval_method: gradient
 
 
-# Variable config options
 variable_config_values_list:
 
+  # Main gradient-method, CPU/GPU, randomness, and qubit-scaling analysis.
+  # Noiseless qml_torch supports REG.
   qml_torch_noiseless:
     implementation.name:
       - qml_torch
@@ -172,13 +177,13 @@ variable_config_values_list:
       - PSR
       - SPSA
       - REG
-    # experiment.n_qubits:
-    #   - 4
-    #   - 8
-    #   - 16
-    # backend.simulator.device:
-    #   - CPU
-    #   - GPU
+    experiment.n_qubits:
+      - 4
+      - 8
+      - 16
+    backend.simulator.device:
+      - CPU
+      - GPU
     run.seed:
       - 0
       - 1
@@ -186,6 +191,8 @@ variable_config_values_list:
     encoding.randomness:
       - 0
       - 0.1
+
+  # Main noise-impact analysis.
   qml_torch_noisy:
     implementation.name:
       - qml_torch
@@ -196,15 +203,15 @@ variable_config_values_list:
     experiment.execution_type:
       - noisy
     experiment.gradient_method:
-      # - PSR
       - SPSA
-    # experiment.n_qubits:
-    #   - 4
-    #   - 8
-    #   - 16
-    # backend.simulator.device:
-    #   - CPU
-    #   - GPU
+      # - PSR
+    experiment.n_qubits:
+      - 4
+      - 8
+      - 16
+    backend.simulator.device:
+      - CPU
+      - GPU
     run.seed:
       - 0
       - 1
@@ -212,3 +219,55 @@ variable_config_values_list:
     encoding.randomness:
       - 0
       - 0.1
+
+  # Main real hardware analysis.
+  qml_torch_rh:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - real
+    experiment.gradient_method:
+      - SPSA
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+    backend.real.info_storage:
+      - run
+    backend.real.reset_info:
+      - true
+
+  # Runtime packed real hardware analysis.
+  runtime_packed_rh:
+    implementation.name:
+      - runtime_packed
+    implementation.discriminator_packing:
+      - separate
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - real
+    experiment.gradient_method:
+      - SPSA
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+    backend.real.info_storage:
+      - run
+    backend.real.reset_info:
+      - true

@@ -25,6 +25,7 @@ class QMLTorchState(TrainingState):
     eval_g: Any = None
     optimizer_g: Any = None
     optimizer_d: Any = None
+    session: Any = None
     x_data: Any = None
     target_probs: Any = None
     num_random_params: int = 0
@@ -45,7 +46,7 @@ class QMLTorchImplementation(QGANImplementation):
         training_data_file = get_training_data_filename(config)
 
         circuit_bundle = get_circuits(config)
-        model_g, model_d, eval_g = generate_models(config, circuit_bundle)
+        model_g, model_d, eval_g, session = generate_models(config, circuit_bundle)
         move_models(model_g, model_d, eval_g, device, dtype)
 
         num_random_params = get_num_random_params(eval_g)
@@ -86,6 +87,7 @@ class QMLTorchImplementation(QGANImplementation):
             eval_g=eval_g,
             optimizer_g=optimizer_g,
             optimizer_d=optimizer_d,
+            session=session,
             init_gen_params=training_state.init_gen_params,
             x_data=x_data,
             target_probs=target_probs,
@@ -158,3 +160,7 @@ class QMLTorchImplementation(QGANImplementation):
             target_probs=state.target_probs,
             eval_weights=state.model_g.weight,
         )
+
+    def close(self, state):
+        if state.session is not None:
+            state.session.close()

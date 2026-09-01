@@ -34,9 +34,16 @@ Important fields:
 - `training.init_scale`: initial trainable parameter scale applied to samples from `[-pi, pi]`.
 - `training.learning_rate`: shared Adam learning rate for the generator and discriminator optimizers.
 - `training.checkpoint_every`: completed-epoch interval for checkpoint saves; `0` disables periodic saves and writes only at the end.
+- `encoding.random_circuit`: randomizer circuit mode used when `encoding.randomness` is nonzero. For `direct_circuit` and `amplitude`: `0` none, `1` RY gates, `2` EfficientSU2 with two repetitions. Mode `3` is kept in code as a disabled fixed-statevector prototype. For `angle`: `0` none, any nonzero value uses the original angle-style RY randomizer.
+- `encoding.randomness`: normalized random input strength in `[0, 1]`. For parameterized randomizers, it scales samples from `[0, 2*pi]`. `0` disables the randomizer circuit regardless of `encoding.random_circuit`.
 - `run.data_path`: output directory for generated configs and checkpoints.
 - `run.label`: optional suffix appended to generated run IDs.
 - `run.device`: PyTorch device, `CPU` or `GPU`.
+- `backend.reset`: recreate the cached per-run backend options file.
+- `backend.save_backend_file`: save and reuse the per-run backend options file.
+- `backend.real.info_storage`: where real-backend calibration/topology data is cached: `shared` stores it in `qgan/backends/`; `run` stores it beside each generated `config.yaml`.
+- `backend.real.reset_info`: recreate cached real-backend calibration/topology data.
+- `backend.real.confirm_runtime_execution`: ask for confirmation before `real` or `fake_real` Runtime execution.
 - `backend.simulator.device`: Aer simulator device, `CPU` or `GPU`.
 - `backend.transpilation`: compiler optimization, layout, and routing settings.
 
@@ -56,12 +63,29 @@ Training writes or updates:
 <run.data_path>/<run.id>/training_data.pth
 ```
 
-The default smoke-test battery writes under `qgan/data/test/`.
-
-Run IDs are generated from the qGAN preset, implementation adapter, runtime-packed discriminator packing, qubits, execution type, gradient method, Aer device, randomness, and seed, for example:
+Backend options are cached per run:
 
 ```text
-ang-qml_torch-q3-noiseless-PSR-aerGPU-rand0-seed0
+<run.data_path>/<run.id>/backend.pkl
+```
+
+Real-backend calibration/topology data is cached according to `backend.real.info_storage`:
+
+```text
+shared -> qgan/backends/<backend.real.id>.pkl
+run    -> <run.data_path>/<run.id>/real_backend.pkl
+```
+
+Battery-generated configs set `backend.real.reset_info: false` for `shared` storage so runs do not repeatedly overwrite the same shared file. Use `--reset-rb` to refresh the shared backend file once before a battery run. `run` storage keeps `backend.real.reset_info` and refreshes independently inside each run when it is true.
+
+For `fake_real`, `run` storage saves the local `FakeSherbrooke` backend info in the run folder.
+
+The default smoke-test battery writes under `qgan/data/test/`.
+
+Run IDs are generated from the qGAN preset, implementation adapter, runtime-packed discriminator packing, qubits, execution type, gradient method, Aer device, randomness scale, and seed, for example:
+
+```text
+ang-qml_torch-q3-noiseless-PSR-aerGPU-rand0.1-seed0
 ```
 
 Set `run.label` to append a short group label to the final run ID. The label is appended as `:<label>` whether `run.id` was generated from `null` or written manually:
@@ -73,7 +97,7 @@ run:
 ```
 
 ```text
-ang-qml_torch-q3-noisy-PSR-aerCPU-rand0-seed0:noisy_dm_hw
+ang-qml_torch-q3-noisy-PSR-aerCPU-rand0.1-seed0:noisy_dm_hw
 ```
 
 ## Presets
@@ -108,6 +132,8 @@ Execution modes:
 - `noisy`: local Aer simulation from cached real-backend calibration data.
 - `fake_real`: local Runtime execution using `qiskit_ibm_runtime.fake_provider.FakeSherbrooke`; this checks hardware-style transpilation and execution without submitting IBM Quantum jobs.
 - `real`: IBM Runtime execution on `backend.real.name`.
+
+When `backend.real.confirm_runtime_execution: true`, the run asks before `real` or `fake_real` Runtime execution.
 
 Noisy local simulation supports two mapping modes:
 

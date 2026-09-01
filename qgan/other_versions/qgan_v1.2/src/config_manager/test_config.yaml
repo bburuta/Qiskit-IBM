@@ -50,7 +50,6 @@ default_config_values:
     real:
       id: null
       name: ibm_basquecountry
-      channel: ibm_quantum_platform
       reset_info: false
       estimator:
         resilience_level: 1

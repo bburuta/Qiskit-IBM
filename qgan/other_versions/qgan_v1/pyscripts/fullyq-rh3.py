@@ -91,7 +91,7 @@ if (gpu_index != -1):
 
 # Get backend
 if real_hardware:
-    service = QiskitRuntimeService(channel='ibm_quantum') # Execution in real hardware
+    service = QiskitRuntimeService() # Execution in real hardware
     backend = service.backend("ibm_sherbrooke") #backend = service.least_busy(min_num_qubits=30)
 else:
     backend = FakeSherbrooke() # Execution in simulator with noise

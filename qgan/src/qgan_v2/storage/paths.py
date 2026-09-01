@@ -7,6 +7,7 @@ CONFIG_FILENAME = "config.yaml"
 TRAINING_DATA_FILENAME = "training_data.pth"
 CIRCUITS_FILENAME = "circuits.qpy"
 RUN_BACKEND_FILENAME = "backend.pkl"
+RUN_REAL_BACKEND_FILENAME = "real_backend.pkl"
 DATASET_FILE_EXTENSION = ".npz"
 REAL_BACKEND_FILE_EXTENSION = ".pkl"
 
@@ -83,6 +84,11 @@ def get_run_backend_filename(config):
     return get_run_path(config) / RUN_BACKEND_FILENAME
 
 
+# Get run real-backend info file path
+def get_run_real_backend_filename(config):
+    return get_run_path(config) / RUN_REAL_BACKEND_FILENAME
+
+
 #- Shared file paths -#
 
 # Get prepared dataset file path
@@ -92,6 +98,16 @@ def get_prepared_dataset_filename(config):
 
 
 # Get real backend info file path
-def get_real_backend_filename(config):
+def get_shared_real_backend_filename(config):
     backend_id = config["backend"]["real"]["id"]
     return get_backends_path() / f"{backend_id}{REAL_BACKEND_FILE_EXTENSION}"
+
+
+# Get real backend info file path
+def get_real_backend_filename(config):
+    info_storage = config["backend"]["real"]['info_storage']
+
+    if info_storage == "run":
+        return get_run_real_backend_filename(config)
+
+    return get_shared_real_backend_filename(config)

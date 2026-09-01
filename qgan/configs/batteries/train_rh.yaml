@@ -7,7 +7,7 @@
 # Variable keys can be dotted paths, e.g. experiment.n_qubits. Dotted paths
 # are preferred because they are explicit and avoid ambiguous keys.
 
-#- Train config creation dict -#
+#- Train real-hardware config creation dict -#
 
 # Default config values
 default_config_values:
@@ -32,13 +32,13 @@ default_config_values:
 
   experiment:
     # Experiment preset. Values: base, ang, amp.
-    implementation: ang
+    implementation: base
     # Execution target. Values: noiseless, noisy, fake_real, real.
-    execution_type: noiseless
+    execution_type: real
     # Number of qubits. Values: [int >= 1].
-    n_qubits: 8
+    n_qubits: 4
     # Estimator gradient method. Values: PSR, SPSA, REG.
-    gradient_method: PSR
+    gradient_method: SPSA
 
   training:
     # Number of training epochs. Values: [int >= 0].
@@ -52,9 +52,9 @@ default_config_values:
     # Adam optimizer learning rate for generator and discriminator. Values: [number >= 0].
     learning_rate: 0.005
     # Epoch interval for progress prints. Values: [int >= 0], 0 disables printing.
-    print_every: 100
+    print_every: 10
     # Epoch interval for checkpoint saves. Values: [int >= 0], 0 saves only at the end.
-    checkpoint_every: 100
+    checkpoint_every: 1
 
   dataset:
     # Dataset id. Values: null, [string].
@@ -94,7 +94,7 @@ default_config_values:
 
     simulator:
       # Aer simulator device. Values: CPU, GPU.
-      device: GPU
+      device: CPU
       # Floating point precision for simulator/Torch tensors. Values: double, float.
       data_type: double
       # Aer method for noiseless simulation. Values: statevector, density_matrix.
@@ -121,13 +121,13 @@ default_config_values:
 
     real:
       # Real backend cache id. Values: null, [string].
-      id: null
+      id: ibm_basquecountry_new
       # IBM Quantum backend name. Values: [backend name]. Example: ibm_basquecountry.
       name: ibm_basquecountry
       # Real backend info storage. Values: shared, run. shared uses qgan/backends; run saves beside each config.yaml.
-      info_storage: shared
+      info_storage: run
       # Recreate cached real backend info. Values: true, false.
-      reset_info: false
+      reset_info: true
       # Ask for input confirmation before real/fake-real hardware execution. Values: true, false.
       confirm_runtime_execution: false
       estimator:
@@ -158,57 +158,62 @@ default_config_values:
 
 # Variable config options
 variable_config_values_list:
-
-  qml_torch_noiseless:
+  real_options:
     implementation.name:
       - qml_torch
     experiment.implementation:
       - base
-      - ang
-      - amp
-    experiment.execution_type:
-      - noiseless
+      # - ang
+      # - amp
     experiment.gradient_method:
-      - PSR
       - SPSA
-      - REG
-    # experiment.n_qubits:
-    #   - 4
-    #   - 8
-    #   - 16
-    # backend.simulator.device:
-    #   - CPU
-    #   - GPU
-    run.seed:
-      - 0
-      - 1
-      - 2
-    encoding.randomness:
-      - 0
-      - 0.1
-  qml_torch_noisy:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - base
-      - ang
-      - amp
-    experiment.execution_type:
-      - noisy
-    experiment.gradient_method:
       # - PSR
-      - SPSA
-    # experiment.n_qubits:
-    #   - 4
-    #   - 8
-    #   - 16
-    # backend.simulator.device:
-    #   - CPU
-    #   - GPU
+    experiment.n_qubits:
+      - 4
+      # - 8
+      # - 16
+    backend.simulator.device:
+      - CPU
     run.seed:
       - 0
-      - 1
-      - 2
-    encoding.randomness:
+
+  runtime_packed_separate:
+    implementation.name:
+      - runtime_packed
+    implementation.discriminator_packing:
+      - separate
+    experiment.implementation:
+      - base
+      # - ang
+      # - amp
+    experiment.gradient_method:
+      - SPSA
+      # - PSR
+    experiment.n_qubits:
+      - 4
+      # - 8
+      # - 16
+    backend.simulator.device:
+      - CPU
+    run.seed:
       - 0
-      - 0.1
+
+
+
+  # runtime_packed_joined:
+  #   implementation.name:
+  #     - runtime_packed
+  #   implementation.discriminator_packing:
+  #     - joined
+  #   experiment.implementation:
+  #     - base
+  #     - ang
+  #   experiment.gradient_method:
+  #     - SPSA
+  #     - PSR
+  #   experiment.n_qubits:
+  #     - 3
+  #   backend.simulator.device:
+  #     - CPU
+  #   run.seed:
+  #     - 0

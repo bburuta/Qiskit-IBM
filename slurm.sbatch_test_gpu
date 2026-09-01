@@ -18,4 +18,4 @@
 #SBATCH --error=logs/QGAN_test_gpu_%A_%a.err
 
 
-bnd run --gpu python -u main.py --battery_path qgan/configs/batteries/test_gpu.yaml --overwrite --reset_data 
+bnd run --gpu python -u main.py run --battery-path qgan/configs/batteries/test_gpu.yaml --overwrite --reset-data

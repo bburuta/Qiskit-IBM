@@ -79,6 +79,8 @@ default_config_values:
   backend:
     # Recreate cached backend data. Values: true, false.
     reset: false
+    # Cache per-run backend options in backend.pkl. Values: true, false.
+    save_backend_file: false
     # Estimator precision. Values: [number >= 0]. 0 means exact/no shots.
     precision: 0.015625
 
@@ -122,12 +124,12 @@ default_config_values:
       id: null
       # IBM Quantum backend name. Values: [backend name]. Example: ibm_basquecountry.
       name: ibm_basquecountry
-      # IBM Runtime channel. Values: [channel]. Example: ibm_quantum_platform.
-      channel: ibm_quantum_platform
+      # Real backend info storage. Values: shared, run. shared uses qgan/backends; run saves beside each config.yaml.
+      info_storage: shared
       # Recreate cached real backend info. Values: true, false.
       reset_info: false
       # Ask for input confirmation before real/fake-real hardware execution. Values: true, false.
-      confirm_execution: true
+      confirm_runtime_execution: false
       estimator:
         # IBM Runtime estimator resilience level. Values: 0, 1, 2.
         resilience_level: 1
@@ -140,7 +142,9 @@ default_config_values:
     type: angle
     # Image intensity contrast exponent. Values: [number >= 0].
     contrast: 1
-    # Random input scale. Values: [number >= 0].
+    # Randomizer circuit type used when randomness is nonzero. Direct/amplitude: 0 none, 1 ry, 2 efficient_su2_reps2. Mode 3 is disabled. Angle: 0 none, nonzero ry.
+    random_circuit: 1
+    # Random input strength. Values: [number in [0, 1]].
     randomness: 0
     # Training batch size. Values: [int >= 1].
     batch_size: 4
@@ -182,7 +186,6 @@ variable_config_values_list:
     encoding.randomness:
       - 0
       - 0.1
-
   qml_torch_noisy:
     implementation.name:
       - qml_torch

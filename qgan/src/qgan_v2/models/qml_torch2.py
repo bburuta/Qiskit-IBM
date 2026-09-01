@@ -274,7 +274,7 @@ def generate_models(config, circuit_bundle):
     seed = config['run']['seed']
 
     # Create Qiskit backends, circuits, observables and gradients
-    _, _, train_estimator, train_pm, eval_backend, eval_estimator, eval_pm = create_backends(config)
+    session, _, train_estimator, train_pm, eval_backend, eval_estimator, eval_pm = create_backends(config)
     generator_circuit, discriminator_circuit, randomizer_circuit, real_circuits = circuit_bundle
     ran_gen_circuit, gen_disc_circuit, real_disc_circuits = get_composed_circuits(generator_circuit, discriminator_circuit, randomizer_circuit, real_circuits)
 
@@ -303,4 +303,4 @@ def generate_models(config, circuit_bundle):
 
     eval_g = generate_eval_g(encoding, gen_eval_model, eval_backend, config)
 
-    return model_g, model_d, eval_g
+    return model_g, model_d, eval_g, session

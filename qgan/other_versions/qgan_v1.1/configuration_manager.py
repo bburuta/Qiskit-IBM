@@ -113,7 +113,6 @@ config = {
         # Real backend options
         'real_backend_options': {
             'name': "ibm_basquecountry", # Real backend name
-            'channel': "ibm_quantum_platform", # Real backend channel
             "real_estimator_options": {
                 "resilience_level": 1, # Mitigacion basica de errores.
                 "dynamical_decoupling": {"enable": True,}, # Inserta pulsos/secuencias entre puertas para reducir decoherencia mientras los qubits están inactivos.
@@ -224,7 +223,6 @@ DEFAULT_CONFIG_VALUES = {
         'data_type': "double",
         'real_backend_options': {
             'name': "ibm_basquecountry",
-            'channel': "ibm_quantum_platform",
             'reset_backend': False,
             'real_estimator_options': {
                 'resilience_level': 1,
@@ -333,7 +331,6 @@ DEFAULT_CONFIG_VALUES = {
         'data_type': "double",
         'real_backend_options': {
             'name': "ibm_basquecountry",
-            'channel': "ibm_quantum_platform",
             'reset_backend': False,
             'real_estimator_options': {
                 'resilience_level': 1,

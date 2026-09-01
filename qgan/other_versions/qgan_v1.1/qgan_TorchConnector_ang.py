@@ -177,7 +177,7 @@ def load_backend_file(filename):
     if config['data_management']['reset_backend'] or not os.path.exists(filename):
         # Get real backend info
         if config['implementation_options']['execution_type'] == "noisy" and config['data_management']['reset_backend']:
-            #service = QiskitRuntimeService(channel=real_backend_options['channel'])
+            #service = QiskitRuntimeService()
             #real_backend = service.backend(real_backend_options['name']) #backend = service.least_busy(min_num_qubits=30)
             real_backend = FakeSherbrooke()
             backend = AerSimulator.from_backend(real_backend, **sim_options) # Get current backend state
@@ -195,7 +195,7 @@ def load_backend_file(filename):
 # Create backend
 if config['implementation_options']['execution_type'] == "real":
     # Get real backend
-    service = QiskitRuntimeService(channel=real_backend_options['channel'])
+    service = QiskitRuntimeService()
     backend = service.backend(real_backend_options['name']) #backend = service.least_busy(min_num_qubits=30)
 
     # Save backend info
