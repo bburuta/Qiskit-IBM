@@ -1,0 +1,8 @@
+/work/qgan/src/qgan_v2/training/data.py:216: UserWarning: Training data config differs from current config:
+- run.data_path: previous='qgan_v4/data/train', current='qgan/data/train'
+- training.checkpoint_every: previous=None, current=100
+  warn_config_changes(training_state.config, config)
+/work/qgan/src/qgan_v2/training/data.py:216: UserWarning: Training data config differs from current config:
+- run.data_path: previous='qgan_v4/data/train', current='qgan/data/train'
+- training.checkpoint_every: previous=None, current=100
+  warn_config_changes(training_state.config, config)

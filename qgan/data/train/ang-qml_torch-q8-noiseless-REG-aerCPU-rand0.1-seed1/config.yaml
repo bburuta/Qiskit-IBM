@@ -19,6 +19,7 @@ training:
   init_scale: 0.1
   learning_rate: 0.005
   print_every: 100
+  checkpoint_every: 100
 dataset:
   id: generated_gradients-total_pixels8
   reset: false
