@@ -41,6 +41,7 @@ Important fields:
 - `run.device`: PyTorch device, `CPU` or `GPU`.
 - `backend.reset`: recreate the cached per-run backend options file.
 - `backend.save_backend_file`: save and reuse the per-run backend options file.
+- `backend.real.info_storage`: where real-backend calibration/topology data is cached: `shared` stores it in `qgan/backends/`; `run` stores it beside each generated `config.yaml`.
 - `backend.real.reset_info`: recreate cached real-backend calibration/topology data.
 - `backend.real.confirm_runtime_execution`: ask for confirmation before `real` or `fake_real` Runtime execution.
 - `backend.simulator.device`: Aer simulator device, `CPU` or `GPU`.
@@ -67,6 +68,17 @@ Backend options are cached per run:
 ```text
 <run.data_path>/<run.id>/backend.pkl
 ```
+
+Real-backend calibration/topology data is cached according to `backend.real.info_storage`:
+
+```text
+shared -> qgan/backends/<backend.real.id>.pkl
+run    -> <run.data_path>/<run.id>/real_backend.pkl
+```
+
+Battery-generated configs set `backend.real.reset_info: false` for `shared` storage so runs do not repeatedly overwrite the same shared file. Use `--reset-rb` to refresh the shared backend file once before a battery run. `run` storage keeps `backend.real.reset_info` and refreshes independently inside each run when it is true.
+
+For `fake_real`, `run` storage saves the local `FakeSherbrooke` backend info in the run folder.
 
 The default smoke-test battery writes under `qgan/data/test/`.
 

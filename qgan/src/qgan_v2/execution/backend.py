@@ -12,7 +12,11 @@ from qiskit_aer.primitives import EstimatorV2 as EstimatorV2_sim
 from qiskit_aer.noise import NoiseModel
 from qiskit_ibm_runtime.fake_provider import FakeSherbrooke
 
-from qgan_v2.storage.paths import get_real_backend_filename, get_run_backend_filename
+from qgan_v2.storage.paths import (
+    get_real_backend_filename,
+    get_run_backend_filename,
+    get_shared_real_backend_filename,
+)
 
 #- Create backend -#
 
@@ -315,6 +319,9 @@ def create_backends(config, save_real_backend_info=True, save_backend_file=None)
         # Use the Runtime estimator against the local fake backend
         session, train_estimator = create_real_estimator(train_backend, real_estimator_options)
 
+        if save_real_backend_info and real_backend_options["info_storage"] == "run":
+            real_backend_info = load_or_create_fake_real_backend_info(config, train_backend)
+
     elif execution_type == "noisy":
         # Save real backend info
         if save_real_backend_info:
@@ -365,7 +372,7 @@ def reset_real_backend_info(real_backend_options):
 
     # Create real backend info file
     config = {'backend': {'real': real_backend_options}}
-    real_backend_filename = get_real_backend_filename(config)
+    real_backend_filename = get_shared_real_backend_filename(config)
     create_backend_file(real_backend_info, real_backend_filename)
 
     print(real_backend_info)

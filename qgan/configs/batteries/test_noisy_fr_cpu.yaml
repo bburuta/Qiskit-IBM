@@ -122,6 +122,8 @@ default_config_values:
       id: null
       # IBM Quantum backend name. Values: [backend name]. Example: ibm_basquecountry.
       name: ibm_basquecountry
+      # Real backend info storage. Values: shared, run. shared uses qgan/backends; run saves beside each config.yaml.
+      info_storage: shared
       # Recreate cached real backend info. Values: true, false.
       reset_info: false
       # Ask for input confirmation before real/fake-real hardware execution. Values: true, false.

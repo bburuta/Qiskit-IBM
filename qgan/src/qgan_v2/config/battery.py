@@ -64,8 +64,12 @@ def reset_derived_ids(config, modified_paths):
     if "dataset.id" not in modified:
         config["dataset"]["id"] = None
 
-    if "backend.real.id" not in modified:
-        config["backend"]["real"]["id"] = None
+
+# Shared backend info is reset explicitly with --reset-rb, not by each run.
+def disable_shared_real_backend_reset(config):
+    real_backend = config["backend"]["real"]
+    if real_backend["info_storage"] == "shared":
+        real_backend["reset_info"] = False
 
 
 #- Battery config building -#
@@ -83,6 +87,7 @@ def build_config_from_options(default_config, option_values):
     reset_derived_ids(config, modified_paths)
     validate_raw_config(config)
     config = normalize_config(config)
+    disable_shared_real_backend_reset(config)
     return validate_config(config)
 
 

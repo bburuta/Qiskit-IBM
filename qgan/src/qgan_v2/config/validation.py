@@ -10,6 +10,7 @@ VALID_ENCODINGS = {"direct_circuit", "angle", "amplitude"}
 VALID_SIMULATOR_MAPPINGS = {"hardware", "noise_model"}
 VALID_DISCRIMINATOR_PACKING = {"separate", "joined"}
 VALID_RANDOM_CIRCUITS = {0, 1, 2}
+VALID_REAL_BACKEND_INFO_STORAGE = {"shared", "run"}
 
 CHOICE_RULES = [
     ("implementation.name", VALID_IMPLEMENTATIONS),
@@ -21,6 +22,7 @@ CHOICE_RULES = [
     ("backend.simulator.device", VALID_DEVICES),
     ("encoding.type", VALID_ENCODINGS),
     ("backend.simulator.noisy_backend_mapping", VALID_SIMULATOR_MAPPINGS),
+    ("backend.real.info_storage", VALID_REAL_BACKEND_INFO_STORAGE),
 ]
 
 
@@ -85,6 +87,7 @@ PRE_NORMALIZATION_REQUIRED_OPTIONS = [
     "backend.simulator.device",
     "backend.real.id",
     "backend.real.name",
+    "backend.real.info_storage",
     "encoding",
     "encoding.random_circuit",
     "encoding.randomness",

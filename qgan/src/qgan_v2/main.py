@@ -36,19 +36,36 @@ def build_parser():
 #- Run configuration -#
 
 # Apply runtime reset options
-def apply_reset_options(config, reset_data=False):
+def apply_reset_options(
+    config,
+    reset_data=False,
+    reset_real_backend_info=False,
+):
     if reset_data:
         config["training"]["reset_data"] = True
+
+    real_backend = config["backend"]["real"]
+    if reset_real_backend_info and real_backend["info_storage"] == "run":
+        real_backend["reset_info"] = True
 
     return config
 
 
 # Run one training config
-def run_train(config_path, reset_data=False, interrupter=None):
+def run_train(
+    config_path,
+    reset_data=False,
+    reset_real_backend_info=False,
+    interrupter=None,
+):
     from qgan_v2.train import train
 
     config = load_run_config(config_path)
-    config = apply_reset_options(config, reset_data=reset_data)
+    config = apply_reset_options(
+        config,
+        reset_data=reset_data,
+        reset_real_backend_info=reset_real_backend_info,
+    )
     return train(config, interrupter=interrupter)
 
 
@@ -78,12 +95,13 @@ def format_error(exc):
 def run_battery(battery_path, reset_data=False, reset_rb=False, stop_on_error=False, overwrite=False):
     interrupter = Interrupter()
 
-    # Reset real backend info before running the battery
+    # Reset shared real backend info once before running the battery.
     if reset_rb:
         from qgan_v2.execution.backend import reset_real_backend_info
 
         real_backend_options = get_battery_real_backend_options(battery_path)
-        reset_real_backend_info(real_backend_options)
+        if real_backend_options["info_storage"] == "shared":
+            reset_real_backend_info(real_backend_options)
 
     config_files = create_battery(battery_path, overwrite=overwrite)
     results = []
@@ -104,6 +122,7 @@ def run_battery(battery_path, reset_data=False, reset_rb=False, stop_on_error=Fa
             state = run_train(
                 config_file,
                 reset_data=reset_data,
+                reset_real_backend_info=reset_rb,
                 interrupter=interrupter,
             )
         except Exception as exc:

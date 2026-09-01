@@ -88,9 +88,9 @@ default_config_values:
       # Preset pass manager optimization level. Values: 0, 1, 2, 3.
       optimization_level: 1
       # Initial physical-qubit placement method. Values: trivial, dense, sabre.
-      layout_method: trivial
+      layout_method: sabre
       # SWAP routing method. Values: basic, lookahead, sabre, none.
-      routing_method: basic
+      routing_method: sabre
 
     simulator:
       # Aer simulator device. Values: CPU, GPU.
@@ -124,6 +124,8 @@ default_config_values:
       id: ibm_basquecountry_new
       # IBM Quantum backend name. Values: [backend name]. Example: ibm_basquecountry.
       name: ibm_basquecountry
+      # Real backend info storage. Values: shared, run. shared uses qgan/backends; run saves beside each config.yaml.
+      info_storage: run
       # Recreate cached real backend info. Values: true, false.
       reset_info: true
       # Ask for input confirmation before real/fake-real hardware execution. Values: true, false.
@@ -203,7 +205,7 @@ variable_config_values_list:
       # - ang
       # - amp
     experiment.execution_type:
-      - noisy
+      - real
     experiment.gradient_method:
       - SPSA
       # - PSR

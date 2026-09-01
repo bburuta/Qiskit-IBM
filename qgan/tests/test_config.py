@@ -1,5 +1,6 @@
 import pytest
 
+from qgan_v2.config.battery import build_config_from_options
 from qgan_v2.config.loader import prepare_run_config
 from qgan_v2.config.validation import ConfigValidationError
 
@@ -72,6 +73,7 @@ def base_config():
             "real": {
                 "id": None,
                 "name": "ibm_basquecountry",
+                "info_storage": "shared",
                 "reset_info": False,
                 "confirm_runtime_execution": False,
                 "estimator": {
@@ -100,6 +102,41 @@ def test_prepare_run_config_accepts_current_backend_options():
 
     assert config["backend"]["real"]["confirm_runtime_execution"] is False
     assert config["backend"]["save_backend_file"] is False
+
+
+def test_battery_config_preserves_explicit_real_backend_id():
+    raw_config = base_config()
+    raw_config["backend"]["real"]["id"] = "ibm_basquecountry_new"
+
+    config = build_config_from_options(raw_config, {"experiment.execution_type": "noisy"})
+
+    assert config["backend"]["real"]["id"] == "ibm_basquecountry_new"
+
+
+def test_battery_config_generates_missing_real_backend_id():
+    config = build_config_from_options(base_config(), {"experiment.execution_type": "noisy"})
+
+    assert config["backend"]["real"]["id"] == "ibm_basquecountry"
+
+
+def test_battery_config_disables_reset_info_for_shared_real_backend_info():
+    raw_config = base_config()
+    raw_config["backend"]["real"]["info_storage"] = "shared"
+    raw_config["backend"]["real"]["reset_info"] = True
+
+    config = build_config_from_options(raw_config, {"experiment.execution_type": "noisy"})
+
+    assert config["backend"]["real"]["reset_info"] is False
+
+
+def test_battery_config_keeps_reset_info_for_run_real_backend_info():
+    raw_config = base_config()
+    raw_config["backend"]["real"]["info_storage"] = "run"
+    raw_config["backend"]["real"]["reset_info"] = True
+
+    config = build_config_from_options(raw_config, {"experiment.execution_type": "noisy"})
+
+    assert config["backend"]["real"]["reset_info"] is True
 
 
 def test_prepare_run_config_keeps_random_circuit_separate_from_randomness():
@@ -139,4 +176,20 @@ def test_prepare_run_config_rejects_randomness_above_one():
     raw_config["encoding"]["randomness"] = 1.1
 
     with pytest.raises(ConfigValidationError, match="encoding.randomness must be <= 1"):
+        prepare_run_config(raw_config)
+
+
+def test_prepare_run_config_rejects_invalid_real_backend_info_storage():
+    raw_config = base_config()
+    raw_config["backend"]["real"]["info_storage"] = "per_run"
+
+    with pytest.raises(ConfigValidationError, match="backend.real.info_storage"):
+        prepare_run_config(raw_config)
+
+
+def test_prepare_run_config_requires_real_backend_info_storage():
+    raw_config = base_config()
+    del raw_config["backend"]["real"]["info_storage"]
+
+    with pytest.raises(ConfigValidationError, match="backend.real.info_storage"):
         prepare_run_config(raw_config)

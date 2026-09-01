@@ -3,6 +3,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+from qgan_v2.main import apply_reset_options
+
 
 def run_cli(*args):
     project_root = Path(__file__).resolve().parents[1]
@@ -44,3 +46,31 @@ def test_cli_version():
 
     assert result.returncode == 0
     assert "0.1.0" in result.stdout
+
+
+def test_reset_real_backend_info_flag_applies_to_run_storage_only():
+    run_storage_config = {
+        "training": {},
+        "backend": {
+            "real": {
+                "info_storage": "run",
+                "reset_info": False,
+            },
+        },
+    }
+    shared_storage_config = {
+        "training": {},
+        "backend": {
+            "real": {
+                "id": "ibm_basquecountry",
+                "info_storage": "shared",
+                "reset_info": False,
+            },
+        },
+    }
+
+    apply_reset_options(run_storage_config, reset_real_backend_info=True)
+    apply_reset_options(shared_storage_config, reset_real_backend_info=True)
+
+    assert run_storage_config["backend"]["real"]["reset_info"] is True
+    assert shared_storage_config["backend"]["real"]["reset_info"] is False
