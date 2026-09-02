@@ -1,0 +1,71 @@
+implementation:
+  name: qml_torch
+  discriminator_packing: separate
+run:
+  id: ang-qml_torch-q4-noisy-PSR-aerCPU-rand0.1-seed1
+  label: null
+  data_path: qgan/data/train
+  seed: 1
+  device: CPU
+experiment:
+  implementation: ang
+  execution_type: noisy
+  n_qubits: 4
+  gradient_method: PSR
+training:
+  max_iterations: 1000
+  gen_iterations: 1
+  disc_iterations: 1
+  init_scale: 0.1
+  learning_rate: 0.005
+  print_every: 100
+dataset:
+  id: generated_gradients-total_pixels4
+  reset: false
+  type: classical
+  source: generated_gradients
+  parameters:
+    total_pixels: 4
+circuits:
+  reset: false
+  generator: real_amplitudes
+  discriminator: efficient_su2
+backend:
+  reset: false
+  precision: 0.015625
+  transpilation:
+    optimization_level: 3
+    layout_method: sabre
+    routing_method: sabre
+  simulator:
+    device: CPU
+    data_type: double
+    noiseless_method: statevector
+    noisy_method: density_matrix
+    noisy_backend_mapping: hardware
+    max_parallel_threads: 0
+    max_parallel_experiments: 1
+    max_parallel_shots: 0
+    gpu:
+      cuStateVec_enable: true
+      batched_shots_gpu: false
+      blocking_enable: false
+      runtime_parameter_bind_enable: true
+  real:
+    id: ibm_basquecountry
+    name: ibm_basquecountry
+    channel: ibm_quantum_platform
+    reset_info: false
+    confirm_execution: true
+    estimator:
+      resilience_level: 1
+      dynamical_decoupling:
+        enable: true
+encoding:
+  type: angle
+  contrast: 1
+  randomness: 0.1
+  batch_size: 4
+  eval_batch_size: 8
+  max_parallel_threads: 1
+  eval_method: gradient

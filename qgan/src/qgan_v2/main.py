@@ -92,7 +92,7 @@ def format_error(exc):
 
 
 # Run battery config files
-def run_battery(battery_path, reset_data=False, reset_rb=False, stop_on_error=False, overwrite=False):
+def run_battery(battery_path, reset_data=False, reset_rb=False, stop_on_error=False, overwrite=False, keep_states=False):
     interrupter = Interrupter()
 
     # Reset shared real backend info once before running the battery.
@@ -139,9 +139,10 @@ def run_battery(battery_path, reset_data=False, reset_rb=False, stop_on_error=Fa
 
         result = {
             "config_file": str(config_file),
-            "state": state,
             "error": error,
         }
+        if keep_states: result['state'] = state # Reduce memory use
+
         results.append(result)
 
     failed_runs = sum(1 for result in results if result["error"] is not None)
