@@ -5,7 +5,8 @@ qgan/
   pyproject.toml           # package metadata
   README.md                # project overview
   docs/                    # project documentation
-  configs/batteries/       # sweep definitions
+  configs/batteries/test/  # smoke-test sweep definitions
+  configs/batteries/train/ # training sweep definitions
   datasets/prepared/       # reusable prepared datasets
   data/                    # generated configs and checkpoints
   notebooks/               # tutorial notebook

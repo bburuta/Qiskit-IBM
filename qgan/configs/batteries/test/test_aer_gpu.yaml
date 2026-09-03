@@ -1,13 +1,15 @@
-# qGAN battery config.
+# qGAN GPU Aer-option test battery.
 #
-# Batteries follow the config battery pattern:
-# - default_config_values: base config used for every generated run.
-# - variable_config_values_list: named Cartesian-product sweeps.
+# Runs short noisy qml_torch GPU simulations for all qGAN presets while varying:
+# - estimator precision
+# - Aer parallel experiments, shots, and threads
+# - simulator floating-point precision
+# - noisy backend mapping: hardware topology vs noise model
+# - GPU-specific cuStateVec, batched-shots, blocking, and runtime binding options
 #
-# Variable keys can be dotted paths, e.g. experiment.n_qubits. Dotted paths
-# are preferred because they are explicit and avoid ambiguous keys.
+# Use this to compare local GPU simulator settings.
 
-#- Train config creation dict -#
+#- GPU Aer-option experiment defaults -#
 
 # Default config values
 default_config_values:
@@ -24,11 +26,11 @@ default_config_values:
     # Optional label appended to the run id as :label. Values: null, [string].
     label: null
     # Base directory where run data is stored. Values: [path].
-    data_path: qgan/data/test/aer_cpu
+    data_path: qgan/data/test/aer_gpu
     # Random seed for Python, NumPy, Torch, and simulator options. Values: [int].
     seed: 0
     # Torch device. Values: CPU, GPU. runtime_packed requires CPU.
-    device: CPU
+    device: GPU
 
   experiment:
     # Experiment preset. Values: base, ang, amp.
@@ -94,7 +96,7 @@ default_config_values:
 
     simulator:
       # Aer simulator device. Values: CPU, GPU.
-      device: CPU
+      device: GPU
       # Floating point precision for simulator/Torch tensors. Values: double, single.
       data_type: double
       # Aer method for noiseless simulation. Values: statevector, density_matrix.
@@ -158,7 +160,7 @@ default_config_values:
 
 # Variable config options
 #
-# This file generates 45 runs: base, ang, and amp for each Aer CPU case.
+# This file generates 69 runs: base, ang, and amp for each Aer GPU case.
 #
 # - aer_baseline: density matrix, hardware mapping, precision: 0.015625
 # - aer_fast_precision: same, precision: 0.0625
@@ -175,6 +177,10 @@ default_config_values:
 # - aer_threads_8: max_parallel_threads: 8
 # - aer_single: simulator data_type: single
 # - aer_nm_mapping: noise_model mapping comparison
+# - aer_gpu_custatevec_off: cuStateVec disabled
+# - aer_gpu_batched_shots: GPU batched shots enabled without cuStateVec
+# - aer_gpu_blocking: GPU blocking enabled
+# - aer_gpu_rpbegpu: runtime parameter binding enabled for PSR/SPSA and randomness 0/0.1
 variable_config_values_list:
 
   aer_baseline:
@@ -190,12 +196,13 @@ variable_config_values_list:
       - noisy
     experiment.gradient_method:
       - SPSA
+      - PSR
     # experiment.n_qubits:
     #   - 4
     #   - 8
     #   - 16
     backend.simulator.device:
-      - CPU
+      - GPU
     run.seed:
       - 0
   aer_fast_precision:
@@ -216,7 +223,7 @@ variable_config_values_list:
     #   - 8
     #   - 16
     backend.simulator.device:
-      - CPU
+      - GPU
     run.seed:
       - 0
     backend.precision:
@@ -240,7 +247,7 @@ variable_config_values_list:
     #   - 8
     #   - 16
     backend.simulator.device:
-      - CPU
+      - GPU
     run.seed:
       - 0
     backend.precision:
@@ -264,7 +271,7 @@ variable_config_values_list:
     #   - 8
     #   - 16
     backend.simulator.device:
-      - CPU
+      - GPU
     run.seed:
       - 0
     backend.simulator.max_parallel_experiments:
@@ -288,7 +295,7 @@ variable_config_values_list:
     #   - 8
     #   - 16
     backend.simulator.device:
-      - CPU
+      - GPU
     run.seed:
       - 0
     backend.simulator.max_parallel_threads:
@@ -314,7 +321,7 @@ variable_config_values_list:
     #   - 8
     #   - 16
     backend.simulator.device:
-      - CPU
+      - GPU
     run.seed:
       - 0
     backend.simulator.max_parallel_experiments:
@@ -338,7 +345,7 @@ variable_config_values_list:
     #   - 8
     #   - 16
     backend.simulator.device:
-      - CPU
+      - GPU
     run.seed:
       - 0
     backend.simulator.max_parallel_experiments:
@@ -362,7 +369,7 @@ variable_config_values_list:
     #   - 8
     #   - 16
     backend.simulator.device:
-      - CPU
+      - GPU
     run.seed:
       - 0
     backend.simulator.max_parallel_shots:
@@ -386,7 +393,7 @@ variable_config_values_list:
     #   - 8
     #   - 16
     backend.simulator.device:
-      - CPU
+      - GPU
     run.seed:
       - 0
     backend.simulator.max_parallel_shots:
@@ -410,7 +417,7 @@ variable_config_values_list:
     #   - 8
     #   - 16
     backend.simulator.device:
-      - CPU
+      - GPU
     run.seed:
       - 0
     backend.simulator.max_parallel_shots:
@@ -434,7 +441,7 @@ variable_config_values_list:
     #   - 8
     #   - 16
     backend.simulator.device:
-      - CPU
+      - GPU
     run.seed:
       - 0
     backend.simulator.max_parallel_threads:
@@ -458,7 +465,7 @@ variable_config_values_list:
     #   - 8
     #   - 16
     backend.simulator.device:
-      - CPU
+      - GPU
     run.seed:
       - 0
     backend.simulator.max_parallel_threads:
@@ -482,7 +489,7 @@ variable_config_values_list:
     #   - 8
     #   - 16
     backend.simulator.device:
-      - CPU
+      - GPU
     run.seed:
       - 0
     backend.simulator.max_parallel_threads:
@@ -506,7 +513,7 @@ variable_config_values_list:
     #   - 8
     #   - 16
     backend.simulator.device:
-      - CPU
+      - GPU
     run.seed:
       - 0
     backend.simulator.data_type:
@@ -530,8 +537,110 @@ variable_config_values_list:
     #   - 8
     #   - 16
     backend.simulator.device:
-      - CPU
+      - GPU
     run.seed:
       - 0
     backend.simulator.noisy_backend_mapping:
       - noise_model
+
+  aer_gpu_custatevec_off:
+    run.label:
+      - aer_gpu_custatevec_off
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+    # experiment.n_qubits:
+    #   - 4
+    #   - 8
+    #   - 16
+    backend.simulator.device:
+      - GPU
+    run.seed:
+      - 0
+    backend.simulator.gpu.cuStateVec_enable:
+      - false
+
+  aer_gpu_batched_shots:
+    run.label:
+      - aer_gpu_batched_shots
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+    # experiment.n_qubits:
+    #   - 4
+    #   - 8
+    #   - 16
+    backend.simulator.device:
+      - GPU
+    run.seed:
+      - 0
+    backend.simulator.gpu.cuStateVec_enable:
+      - false
+    backend.simulator.gpu.batched_shots_gpu:
+      - true
+
+  aer_gpu_blocking:
+    run.label:
+      - aer_gpu_blocking
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+    # experiment.n_qubits:
+    #   - 4
+    #   - 8
+    #   - 16
+    backend.simulator.device:
+      - GPU
+    run.seed:
+      - 0
+    backend.simulator.gpu.blocking_enable:
+      - true
+
+  aer_gpu_rpbegpu:
+    run.label:
+      - aer_gpu_rpbegpu
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - PSR
+      - SPSA
+    # experiment.n_qubits:
+    #   - 4
+    #   - 8
+    #   - 16
+    backend.simulator.device:
+      - GPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+      - 0.1
+    backend.simulator.gpu.runtime_parameter_bind_enable:
+      - true
