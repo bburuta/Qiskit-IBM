@@ -1,0 +1,50 @@
+Traceback (most recent call last):
+  File "/work/.venv/lib/python3.10/site-packages/qiskit_machine_learning/gradients/spsa/spsa_estimator_gradient.py", line 121, in _run
+    results = job.result()
+  File "/work/.venv/lib/python3.10/site-packages/qiskit_ibm_runtime/runtime_job_v2.py", line 138, in result
+    raise RuntimeJobFailureError(f"Unable to retrieve job result. {error_message}")
+qiskit_ibm_runtime.exceptions.RuntimeJobFailureError: 'Unable to retrieve job result. Error code 1251; Error preprocessing job.'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/work/.venv/lib/python3.10/site-packages/qiskit_machine_learning/neural_networks/estimator_qnn.py", line 310, in _backward
+    results = job.result()
+  File "/work/.venv/lib/python3.10/site-packages/qiskit/primitives/primitive_job.py", line 70, in result
+    self._result = self._future.result()
+  File "/work/.uv/python/cpython-3.10.19-linux-x86_64-gnu/lib/python3.10/concurrent/futures/_base.py", line 458, in result
+    return self.__get_result()
+  File "/work/.uv/python/cpython-3.10.19-linux-x86_64-gnu/lib/python3.10/concurrent/futures/_base.py", line 403, in __get_result
+    raise self._exception
+  File "/work/.uv/python/cpython-3.10.19-linux-x86_64-gnu/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/work/.venv/lib/python3.10/site-packages/qiskit_machine_learning/gradients/spsa/spsa_estimator_gradient.py", line 123, in _run
+    raise AlgorithmError("Estimator job failed.") from exc
+qiskit_machine_learning.exceptions.AlgorithmError: 'Estimator job failed.'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/work/qgan/src/qgan_v2/main.py", line 122, in run_battery
+    state = run_train(
+  File "/work/qgan/src/qgan_v2/main.py", line 69, in run_train
+    return train(config, interrupter=interrupter)
+  File "/work/qgan/src/qgan_v2/train.py", line 63, in train
+    gen_loss = impl.train_generator_step(state)
+  File "/work/qgan/src/qgan_v2/implementations/qml_torch.py", line 145, in train_generator_step
+    gen_loss.backward()
+  File "/work/.venv/lib/python3.10/site-packages/torch/_tensor.py", line 631, in backward
+    torch.autograd.backward(
+  File "/work/.venv/lib/python3.10/site-packages/torch/autograd/__init__.py", line 379, in backward
+    _engine_run_backward(
+  File "/work/.venv/lib/python3.10/site-packages/torch/autograd/graph.py", line 882, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+  File "/work/.venv/lib/python3.10/site-packages/torch/autograd/function.py", line 317, in apply
+    return user_fn(self, *args)
+  File "/work/.venv/lib/python3.10/site-packages/qiskit_machine_learning/connectors/torch_connector.py", line 229, in backward
+    input_grad, weights_grad = neural_network.backward(
+  File "/work/.venv/lib/python3.10/site-packages/qiskit_machine_learning/neural_networks/neural_network.py", line 257, in backward
+    input_grad, weight_grad = self._backward(input_, weights_)
+  File "/work/.venv/lib/python3.10/site-packages/qiskit_machine_learning/neural_networks/estimator_qnn.py", line 312, in _backward
+    raise QiskitMachineLearningError(f"Estimator job failed. {exc}") from exc
+qiskit_machine_learning.exceptions.QiskitMachineLearningError: "Estimator job failed. 'Estimator job failed.'"

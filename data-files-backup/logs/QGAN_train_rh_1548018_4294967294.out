@@ -1,0 +1,19 @@
+Creating config files for real_options:
+Configuration file written. Path: /work/qgan/data/train/base-qml_torch-q4-real-SPSA-aerCPU-rand0-seed0/config.yaml
+
+Creating config files for runtime_packed_separate:
+Configuration file written. Path: /work/qgan/data/train/base-runtime_packed-separate-q4-real-SPSA-aerCPU-rand0-seed0/config.yaml
+
+2 battery configuration files ready.
+
+Running: /work/qgan/data/train/base-qml_torch-q4-real-SPSA-aerCPU-rand0-seed0/config.yaml
+Run failed: /work/qgan/data/train/base-qml_torch-q4-real-SPSA-aerCPU-rand0-seed0/config.yaml
+   Error: AccountNotFoundError: "Unable to find account. Please make sure an account with the channel name 'ibm_quantum_platform' is saved."
+   Traceback saved: /work/qgan/data/train/base-qml_torch-q4-real-SPSA-aerCPU-rand0-seed0/error_traceback.txt
+
+Running: /work/qgan/data/train/base-runtime_packed-separate-q4-real-SPSA-aerCPU-rand0-seed0/config.yaml
+Run failed: /work/qgan/data/train/base-runtime_packed-separate-q4-real-SPSA-aerCPU-rand0-seed0/config.yaml
+   Error: AccountNotFoundError: "Unable to find account. Please make sure an account with the channel name 'ibm_quantum_platform' is saved."
+   Traceback saved: /work/qgan/data/train/base-runtime_packed-separate-q4-real-SPSA-aerCPU-rand0-seed0/error_traceback.txt
+0 battery run(s) succeeded.
+2 battery run(s) failed.

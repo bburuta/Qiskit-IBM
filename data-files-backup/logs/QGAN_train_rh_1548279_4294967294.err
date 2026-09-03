@@ -1,0 +1,34 @@
+/work/.venv/lib/python3.10/site-packages/qiskit_ibm_runtime/qiskit_runtime_service.py:1224: UserWarning: This instance has met its usage limit. Workloads will not run until time ismade available. Check https://quantum.cloud.ibm.com/instances/crn%3Av1%3Abluemix%3Apublic%3Aquantum-computing%3Aeu-de%3Aa%2Fcb804b30dfcb48b890393bfd6e41e9c2%3Ae5cf08be-edc6-48d4-a3b5-51ed8a7a387c%3A%3A for more details.
+  warnings.warn(
+Traceback (most recent call last):
+  File "/work/main.py", line 14, in <module>
+    main()
+  File "/work/qgan/src/qgan_v2/main.py", line 169, in main
+    run_battery(
+  File "/work/qgan/src/qgan_v2/main.py", line 122, in run_battery
+    state = run_train(
+  File "/work/qgan/src/qgan_v2/main.py", line 69, in run_train
+    return train(config, interrupter=interrupter)
+  File "/work/qgan/src/qgan_v2/train.py", line 63, in train
+    gen_loss = impl.train_generator_step(state)
+  File "/work/qgan/src/qgan_v2/implementations/runtime_packed.py", line 116, in train_generator_step
+    output, circuit_gradients = state.model_g(
+  File "/work/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/work/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/work/qgan/src/qgan_v2/models/runtime_packed.py", line 54, in forward
+    circuit_gradients = packed_gradients(
+  File "/work/qgan/src/qgan_v2/models/packed_circuits.py", line 311, in packed_gradients
+    ).result()
+  File "/work/.venv/lib/python3.10/site-packages/qiskit/primitives/primitive_job.py", line 70, in result
+    self._result = self._future.result()
+  File "/work/.uv/python/cpython-3.10.19-linux-x86_64-gnu/lib/python3.10/concurrent/futures/_base.py", line 453, in result
+    self._condition.wait(timeout)
+  File "/work/.uv/python/cpython-3.10.19-linux-x86_64-gnu/lib/python3.10/threading.py", line 320, in wait
+    waiter.acquire()
+  File "/work/qgan/src/qgan_v2/training/interrupter.py", line 17, in handle_signal
+    print("\nInterrupter: will stop after the current epoch. Press Ctrl+C again to force quit.")
+  File "/work/qgan/src/qgan_v2/training/interrupter.py", line 21, in handle_signal
+    raise KeyboardInterrupt
+KeyboardInterrupt

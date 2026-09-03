@@ -1,0 +1,38 @@
+Creating config files for real_options:
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-real-SPSA-aerCPU-rand0-seed0/config.yaml
+
+Creating config files for runtime_packed_separate:
+Configuration file rewritten. Path: /work/qgan/data/train/base-runtime_packed-separate-q4-real-SPSA-aerCPU-rand0-seed0/config.yaml
+
+2 battery configuration files ready.
+
+Running: /work/qgan/data/train/base-qml_torch-q4-real-SPSA-aerCPU-rand0-seed0/config.yaml
+Backend file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                160 |             -0.259 |             -0.673 |               3.29 |               3.03 |                757 |
+                170 |             -0.288 |              -0.66 |               3.38 |               3.03 |           1.68e+03 |
+                180 |             -0.306 |             -0.657 |               3.68 |               3.03 |           1.68e+03 |
+                190 |             -0.325 |             -0.653 |                3.5 |               3.03 |           1.69e+03 |
+                200 |             -0.327 |             -0.668 |               3.39 |               3.03 |           1.68e+03 |
+                210 |             -0.364 |             -0.651 |               3.28 |               3.03 |           1.68e+03 |
+                220 |             -0.394 |             -0.646 |               3.27 |               3.03 |           1.68e+03 |
+                230 |             -0.411 |              -0.64 |               3.39 |               3.03 |           1.67e+03 |
+Training complete: 
+   Data path: /work/qgan/data/train/base-qml_torch-q4-real-SPSA-aerCPU-rand0-seed0 
+   Best eval: 3.032940695344694 
+   Total time: 42423.25716090202
+Run failed: /work/qgan/data/train/base-qml_torch-q4-real-SPSA-aerCPU-rand0-seed0/config.yaml
+   Error: QiskitMachineLearningError: "Estimator job failed. 'Estimator job failed.'"
+   Traceback saved: /work/qgan/data/train/base-qml_torch-q4-real-SPSA-aerCPU-rand0-seed0/error_traceback.txt
+
+Running: /work/qgan/data/train/base-runtime_packed-separate-q4-real-SPSA-aerCPU-rand0-seed0/config.yaml
+Backend file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.137 |              -0.65 |               3.59 |               3.59 |           7.81e+04 |
+                 10 |             -0.132 |             -0.653 |               3.18 |               3.18 |           1.67e+03 |
+                 20 |             -0.139 |             -0.651 |               3.14 |               3.11 |           1.68e+03 |
+
+Interrupter: will stop after the current epoch. Press Ctrl+C again to force quit.Training complete: 
+   Data path: /work/qgan/data/train/base-runtime_packed-separate-q4-real-SPSA-aerCPU-rand0-seed0 
+   Best eval: 3.109071667973785 
+   Total time: 82080.86304092407
