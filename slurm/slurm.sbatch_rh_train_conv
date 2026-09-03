@@ -18,4 +18,4 @@
 #SBATCH --error=logs/QGAN_rh_train_conv_%A_%a.err
 
 
-bnd run --cpu qgan-v2 run --battery-path qgan/configs/batteries/train/train_conv_rh.yaml --overwrite
+bnd run --cpu env PYTHONPATH=qgan/src PYTHONUNBUFFERED=1 python -u qgan/src/qgan_v2/main.py run --battery-path qgan/configs/batteries/train/train_conv_rh.yaml --overwrite
