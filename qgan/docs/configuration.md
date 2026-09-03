@@ -1,6 +1,6 @@
 # Configuration
 
-Battery files live in `qgan/configs/batteries/`. They define default config values and one or more variable sweeps.
+Battery files live in `qgan/configs/batteries/test/` for smoke-test batteries and `qgan/configs/batteries/train/` for training batteries. The folder inventory is in `qgan/configs/batteries/README.md`. They define default config values and one or more variable sweeps.
 
 Minimal shape:
 

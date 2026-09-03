@@ -37,7 +37,7 @@ python -m ipykernel install --user --name qgan_v2
 
 ```bash
 qgan-v2 --help
-qgan-v2 run -p qgan/configs/batteries/test.yaml
+qgan-v2 run -p qgan/configs/batteries/test/test_cpu.yaml
 qgan-v2 save-account
 ```
 

@@ -1,13 +1,13 @@
-# qGAN battery config.
+# qGAN real-hardware smoke-test battery.
 #
-# Batteries follow the config battery pattern:
-# - default_config_values: base config used for every generated run.
-# - variable_config_values_list: named Cartesian-product sweeps.
+# Runs short runtime_packed IBM Runtime checks on 3 qubits:
+# - separate discriminator packing for base, angle, and amplitude presets
+# - joined discriminator packing for base and angle presets
+# - SPSA and PSR gradients
 #
-# Variable keys can be dotted paths, e.g. experiment.n_qubits. Dotted paths
-# are preferred because they are explicit and avoid ambiguous keys.
+# Use this only when you want a small real-hardware submission.
 
-#- Test config creation dict -#
+#- Real-hardware smoke-test experiment defaults -#
 
 # Default config values
 default_config_values:
@@ -34,7 +34,7 @@ default_config_values:
     # Experiment preset. Values: base, ang, amp.
     implementation: ang
     # Execution target. Values: noiseless, noisy, fake_real, real.
-    execution_type: noiseless
+    execution_type: real
     # Number of qubits. Values: [int >= 1].
     n_qubits: 3
     # Estimator gradient method. Values: PSR, SPSA, REG.
@@ -88,9 +88,9 @@ default_config_values:
       # Preset pass manager optimization level. Values: 0, 1, 2, 3.
       optimization_level: 1
       # Initial physical-qubit placement method. Values: trivial, dense, sabre.
-      layout_method: trivial
+      layout_method: sabre
       # SWAP routing method. Values: basic, lookahead, sabre, none.
-      routing_method: basic
+      routing_method: sabre
 
     simulator:
       # Aer simulator device. Values: CPU, GPU.
@@ -121,13 +121,13 @@ default_config_values:
 
     real:
       # Real backend cache id. Values: null, [string].
-      id: null
+      id: ibm_basquecountry_new
       # IBM Quantum backend name. Values: [backend name]. Example: ibm_basquecountry.
       name: ibm_basquecountry
       # Real backend info storage. Values: shared, run. shared uses qgan/backends; run saves beside each config.yaml.
-      info_storage: shared
+      info_storage: run
       # Recreate cached real backend info. Values: true, false.
-      reset_info: false
+      reset_info: true
       # Ask for input confirmation before real/fake-real hardware execution. Values: true, false.
       confirm_runtime_execution: false
       estimator:
@@ -159,117 +159,39 @@ default_config_values:
 # Variable config options
 variable_config_values_list:
 
-  qml_torch_noiseless:
+  runtime_packed_separate:
     implementation.name:
-      - qml_torch
+      - runtime_packed
+    implementation.discriminator_packing:
+      - separate
     experiment.implementation:
       - base
       - ang
       - amp
-    experiment.execution_type:
-      - noiseless
     experiment.gradient_method:
+      - SPSA
       - PSR
-      - SPSA
-      - REG
     experiment.n_qubits:
       - 3
     backend.simulator.device:
-      # - CPU
-      - GPU
+      - CPU
     run.seed:
       - 0
-    encoding.randomness:
-      - 0
-      - 0.1
-  qml_torch_noisy:
+
+  runtime_packed_joined:
     implementation.name:
-      - qml_torch
+      - runtime_packed
+    implementation.discriminator_packing:
+      - joined
     experiment.implementation:
       - base
       - ang
-      - amp
-    experiment.execution_type:
-      - noisy
     experiment.gradient_method:
       - SPSA
-      # - PSR
+      - PSR
     experiment.n_qubits:
       - 3
     backend.simulator.device:
-      # - CPU
-      - GPU
+      - CPU
     run.seed:
       - 0
-    encoding.randomness:
-      - 0
-      - 0.1
-  # runtime_packed_separate:
-  #   implementation.name:
-  #     - runtime_packed
-  #   implementation.discriminator_packing:
-  #     - separate
-  #   experiment.implementation:
-  #     - base
-  #     - ang
-  #     - amp
-  #   experiment.execution_type:
-  #     - noisy
-  #   experiment.gradient_method:
-  #     - SPSA
-  #   experiment.n_qubits:
-  #     - 3
-  #   backend.simulator.device:
-  #     - CPU
-  #     - GPU
-  #   run.seed:
-  #     - 0
-  #   encoding.randomness:
-  #     - 0
-  #     - 0.1
-
-  # runtime_packed_joined:
-  #   implementation.name:
-  #     - runtime_packed
-  #   implementation.discriminator_packing:
-  #     - joined
-  #   experiment.implementation:
-  #     - base
-  #     - ang
-  #   experiment.execution_type:
-  #     - noisy
-  #   experiment.gradient_method:
-  #     - SPSA
-  #   experiment.n_qubits:
-  #     - 3
-  #   backend.simulator.device:
-  #     - CPU
-  #     - GPU
-  #   run.seed:
-  #     - 0
-  #   encoding.randomness:
-  #     - 0
-  #     - 0.1
-
-  # real_options:
-  #   implementation.name:
-  #     - qml_torch
-  #   experiment.implementation:
-  #     - base
-  #     - ang
-  #     - amp
-  #   experiment.execution_type:
-  #     - fake_real
-  #   experiment.gradient_method:
-  #     - SPSA
-  #     - PSR
-  #   experiment.n_qubits:
-  #     - 3
-  #   # backend.simulator.device:
-  #   #   - CPU
-  #   #   - GPU
-  #   run.seed:
-  #     - 0
-  #   encoding.randomness:
-  #     - 0
-  #     - 0.1

@@ -10,13 +10,13 @@ qgan-v2 run --help
 Run the default smoke-test battery:
 
 ```bash
-qgan-v2 run -p qgan/configs/batteries/test.yaml
+qgan-v2 run -p qgan/configs/batteries/test/test_cpu.yaml
 ```
 
 Start from fresh training data:
 
 ```bash
-qgan-v2 run -p qgan/configs/batteries/test.yaml --reset-data
+qgan-v2 run -p qgan/configs/batteries/test/test_cpu.yaml --reset-data
 ```
 
 Save or replace IBM Runtime credentials:
@@ -42,7 +42,7 @@ If a battery run fails, the short error is printed in the terminal and the full 
 To run without installing the package:
 
 ```bash
-PYTHONPATH=qgan/src python3 -m qgan_v2.main run -p qgan/configs/batteries/test.yaml
+PYTHONPATH=qgan/src python3 -m qgan_v2.main run -p qgan/configs/batteries/test/test_cpu.yaml
 ```
 
 After training a run, visualize it from Python:

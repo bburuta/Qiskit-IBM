@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#SBATCH --job-name=QGAN_cpu_install_package
+##2 Particiones
+##CPU
+##GPU
+#SBATCH --partition=QPU
+##SBATCH --gres=gpu:1
+##SBATCH --gres=gpu:1:h100
+##SBATCH --gres=gpu:1:rtx6000
+# #SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=16GB
+#SBATCH --time=01:00:00
+##SBATCH --array=0-1439
+#SBATCH --output=logs/QGAN_cpu_install_package_%A_%a.out
+#SBATCH --error=logs/QGAN_cpu_install_package_%A_%a.err
+
+
+bnd run --cpu python -m pip install -e qgan
+bnd run --cpu qgan-v2 --help

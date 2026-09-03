@@ -46,10 +46,11 @@ def train(config, interrupter=None):
     checkpoint_every = config["training"]["checkpoint_every"]
     best_eval = state.metrics.best_eval()
     prev_times = sum(state.metrics.times.values())
-    start_time = time.time()
 
     try:
         for epoch in range(state.current_epoch, config["training"]["max_iterations"]):
+            start_time = time.time()
+
             disc_loss = float("nan")
             gen_loss = float("nan")
 
@@ -74,7 +75,6 @@ def train(config, interrupter=None):
 
             # Update epoch time
             state.metrics.times[epoch] = time.time() - start_time
-            start_time = time.time()
 
             # Save checkpoint only after the epoch is complete
             last_completed_epoch = epoch

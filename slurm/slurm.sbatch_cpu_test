@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=QGAN_test_cpu
+#SBATCH --job-name=QGAN_cpu_test
 ##2 Particiones 
 ##CPU
 ##GPU
@@ -14,8 +14,8 @@
 #SBATCH --mem=16GB
 #SBATCH --time=12:00:00
 ##SBATCH --array=0-1439
-#SBATCH --output=logs/QGAN_test_cpu_checkpoints_%A_%a.out
-#SBATCH --error=logs/QGAN_test_cpu_checkpoints_%A_%a.err
+#SBATCH --output=logs/QGAN_cpu_test_%A_%a.out
+#SBATCH --error=logs/QGAN_cpu_test_%A_%a.err
 
 
-bnd run --cpu python -u main.py run --battery-path qgan/configs/batteries/test_cpu_checkpoints.yaml --overwrite --reset-data
+bnd run --cpu qgan-v2 run --battery-path qgan/configs/batteries/test/test_cpu_checkpoints.yaml --overwrite --reset-data

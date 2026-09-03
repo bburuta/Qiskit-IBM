@@ -1,13 +1,13 @@
-# qGAN battery config.
+# qGAN CPU noisy-simulation test battery.
 #
-# Batteries follow the config battery pattern:
-# - default_config_values: base config used for every generated run.
-# - variable_config_values_list: named Cartesian-product sweeps.
+# Runs short noisy qml_torch CPU simulations for all qGAN presets with:
+# - density-matrix and statevector noisy simulation methods
+# - hardware-topology and noise-model mappings
+# - randomness levels 0 and 0.1
 #
-# Variable keys can be dotted paths, e.g. experiment.n_qubits. Dotted paths
-# are preferred because they are explicit and avoid ambiguous keys.
+# Use this to compare noisy CPU simulator modes.
 
-#- Train real-hardware config creation dict -#
+#- CPU noisy-simulation experiment defaults -#
 
 # Default config values
 default_config_values:
@@ -24,7 +24,7 @@ default_config_values:
     # Optional label appended to the run id as :label. Values: null, [string].
     label: null
     # Base directory where run data is stored. Values: [path].
-    data_path: qgan/data/train
+    data_path: qgan/data/test
     # Random seed for Python, NumPy, Torch, and simulator options. Values: [int].
     seed: 0
     # Torch device. Values: CPU, GPU. runtime_packed requires CPU.
@@ -32,17 +32,17 @@ default_config_values:
 
   experiment:
     # Experiment preset. Values: base, ang, amp.
-    implementation: base
+    implementation: ang
     # Execution target. Values: noiseless, noisy, fake_real, real.
-    execution_type: real
+    execution_type: noiseless
     # Number of qubits. Values: [int >= 1].
-    n_qubits: 4
+    n_qubits: 8
     # Estimator gradient method. Values: PSR, SPSA, REG.
-    gradient_method: SPSA
+    gradient_method: PSR
 
   training:
     # Number of training epochs. Values: [int >= 0].
-    max_iterations: 1000
+    max_iterations: 3
     # Generator updates per epoch. Values: [int >= 0].
     gen_iterations: 1
     # Discriminator updates per epoch. Values: [int >= 0].
@@ -52,7 +52,7 @@ default_config_values:
     # Adam optimizer learning rate for generator and discriminator. Values: [number >= 0].
     learning_rate: 0.005
     # Epoch interval for progress prints. Values: [int >= 0], 0 disables printing.
-    print_every: 10
+    print_every: 1
     # Epoch interval for checkpoint saves. Values: [int >= 0], 0 saves only at the end.
     checkpoint_every: 1
 
@@ -121,13 +121,13 @@ default_config_values:
 
     real:
       # Real backend cache id. Values: null, [string].
-      id: ibm_basquecountry_new
+      id: null
       # IBM Quantum backend name. Values: [backend name]. Example: ibm_basquecountry.
       name: ibm_basquecountry
       # Real backend info storage. Values: shared, run. shared uses qgan/backends; run saves beside each config.yaml.
-      info_storage: run
+      info_storage: shared
       # Recreate cached real backend info. Values: true, false.
-      reset_info: true
+      reset_info: false
       # Ask for input confirmation before real/fake-real hardware execution. Values: true, false.
       confirm_runtime_execution: false
       estimator:
@@ -158,62 +158,118 @@ default_config_values:
 
 # Variable config options
 variable_config_values_list:
-  real_options:
+
+  noisy_dm_hw:
+    run.label:
+      - noisy_dm_hw
     implementation.name:
       - qml_torch
     experiment.implementation:
       - base
-      # - ang
-      # - amp
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
     experiment.gradient_method:
-      - SPSA
       # - PSR
-    experiment.n_qubits:
-      - 4
-      # - 8
-      # - 16
+      - SPSA
+    # experiment.n_qubits:
+    #   - 4
+    #   - 8
+    #   - 16
     backend.simulator.device:
       - CPU
+      # - GPU
     run.seed:
       - 0
-
-  runtime_packed_separate:
+    encoding.randomness:
+      - 0
+      - 0.1
+  noisy_dm_nm:
+    run.label:
+      - noisy_dm_nm
     implementation.name:
-      - runtime_packed
-    implementation.discriminator_packing:
-      - separate
+      - qml_torch
     experiment.implementation:
       - base
-      # - ang
-      # - amp
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
     experiment.gradient_method:
-      - SPSA
       # - PSR
-    experiment.n_qubits:
-      - 4
-      # - 8
-      # - 16
+      - SPSA
+    # experiment.n_qubits:
+    #   - 4
+    #   - 8
+    #   - 16
     backend.simulator.device:
       - CPU
+      # - GPU
     run.seed:
       - 0
+    encoding.randomness:
+      - 0
+      - 0.1
+    backend.simulator.noisy_backend_mapping:
+      - noise_model
 
+  noisy_sv_hw:
+    run.label:
+      - noisy_sv_hw
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      # - PSR
+      - SPSA
+    # experiment.n_qubits:
+    #   - 4
+    #   - 8
+    #   - 16
+    backend.simulator.device:
+      - CPU
+      # - GPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+      - 0.1
+    backend.simulator.noisy_method:
+      - statevector
 
-
-  # runtime_packed_joined:
-  #   implementation.name:
-  #     - runtime_packed
-  #   implementation.discriminator_packing:
-  #     - joined
-  #   experiment.implementation:
-  #     - base
-  #     - ang
-  #   experiment.gradient_method:
-  #     - SPSA
-  #     - PSR
-  #   experiment.n_qubits:
-  #     - 3
-  #   backend.simulator.device:
-  #     - CPU
-  #   run.seed:
-  #     - 0
+  noisy_sv_nm:
+    run.label:
+      - noisy_sv_nm
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      # - PSR
+      - SPSA
+    # experiment.n_qubits:
+    #   - 4
+    #   - 8
+    #   - 16
+    backend.simulator.device:
+      - CPU
+      # - GPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+      - 0.1
+    backend.simulator.noisy_method:
+      - statevector
+    backend.simulator.noisy_backend_mapping:
+      - noise_model
