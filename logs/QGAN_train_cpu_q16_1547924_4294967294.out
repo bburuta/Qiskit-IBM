@@ -205,3 +205,6 @@ Training complete:
 Running: /work/qgan/data/train/ang-qml_torch-q16-noiseless-PSR-aerCPU-rand0-seed0/config.yaml
               Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
                   0 |             -0.789 |             -0.446 |             0.0115 |             0.0115 |           2.17e+03 |
+                100 |             -0.768 |             -0.521 |             0.0241 |             0.0105 |           2.17e+05 |
+
+Interrupter: will stop after the current epoch. Press Ctrl+C again to force quit.

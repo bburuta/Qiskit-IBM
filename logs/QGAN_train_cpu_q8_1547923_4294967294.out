@@ -576,3 +576,28 @@ Running: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed2/co
                 500 |             -0.939 |             -0.446 |            0.00385 |            0.00384 |           1.01e+04 |
                 600 |             -0.948 |             -0.451 |             0.0038 |             0.0038 |           1.01e+04 |
                 700 |             -0.922 |             -0.457 |            0.00388 |            0.00378 |           1.01e+04 |
+                800 |             -0.902 |             -0.464 |            0.00389 |            0.00378 |           1.01e+04 |
+                900 |             -0.901 |             -0.469 |            0.00383 |            0.00378 |           1.01e+04 |
+Training complete: 
+   Data path: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed2 
+   Best eval: 0.003784420069492858 
+   Total time: 100599.18656396866
+
+Running: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed2/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.897 |             -0.263 |            0.00389 |            0.00389 |               99.9 |
+                100 |             -0.856 |             -0.385 |            0.00389 |            0.00366 |           1.01e+04 |
+                200 |             -0.888 |             -0.422 |            0.00379 |            0.00366 |           1.01e+04 |
+                300 |             -0.918 |             -0.455 |            0.00375 |            0.00363 |           1.01e+04 |
+                400 |             -0.932 |             -0.455 |            0.00388 |            0.00363 |           1.01e+04 |
+                500 |             -0.915 |             -0.462 |            0.00385 |            0.00346 |           1.01e+04 |
+                600 |             -0.878 |             -0.467 |            0.00391 |            0.00346 |           1.01e+04 |
+                700 |             -0.872 |             -0.473 |            0.00384 |            0.00346 |           1.01e+04 |
+                800 |              -0.88 |             -0.468 |             0.0038 |            0.00346 |           1.01e+04 |
+                900 |             -0.862 |             -0.471 |            0.00377 |            0.00346 |           1.01e+04 |
+Training complete: 
+   Data path: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed2 
+   Best eval: 0.0034596882388758044 
+   Total time: 100932.47672748566
+72 battery run(s) succeeded.
