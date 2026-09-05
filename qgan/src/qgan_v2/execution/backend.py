@@ -148,7 +148,7 @@ def get_real_backend_info(real_backend):
 # Create real backend session and estimator
 def create_real_estimator(backend, real_estimator_options):
     # Create session
-    session = Session(backend=backend)
+    session = Session(backend=backend, max_time="8h")
 
     # Create estimator for real hardware
     estimator = EstimatorV2_rh(mode=session, options=real_estimator_options)
