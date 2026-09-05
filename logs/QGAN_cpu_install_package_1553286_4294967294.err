@@ -1,0 +1,2 @@
+/work/.venv/bin/python: No module named pip
+bash: line 23: exec: qgan-v2: not found

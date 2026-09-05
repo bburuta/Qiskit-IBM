@@ -1,0 +1,10 @@
+/work/qgan/src/qgan_v2/training/data.py:216: UserWarning: Training data config differs from current config:
+- training.max_iterations: previous=10, current=5
+  warn_config_changes(training_state.config, config)
+/work/qgan/src/qgan_v2/training/data.py:216: UserWarning: Training data config differs from current config:
+- training.max_iterations: previous=10, current=5
+  warn_config_changes(training_state.config, config)
+/work/qgan/src/qgan_v2/execution/backend.py:262: RuntimeWarning: The quantum state for the training density_matrix simulation of 16 qubits uses about 64.0 GiB before Aer and process overhead. Check the available CPU or GPU memory before running.
+  warn_simulation_memory(config)
+/home/bburutaran/bin/bnd: line 124: 2730106 Killed                  apptainer exec "${extra[@]}" -B "$PWD:/work" -B "$uv_dir:/uvbin:ro" --pwd /work "$sif" bash -lc "$full_script" bash "$@"
+slurmstepd-node14: error: Detected 1 oom_kill event in StepId=1558757.batch. Some of the step tasks have been OOM Killed.

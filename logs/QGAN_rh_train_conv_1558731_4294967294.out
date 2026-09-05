@@ -1,0 +1,14 @@
+Creating config files for qml_torch_rh_grad:
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-real-PSR-aerCPU-rand0-seed0/config.yaml
+
+1 battery configuration files ready.
+
+Running: /work/qgan/data/train/base-qml_torch-q4-real-PSR-aerCPU-rand0-seed0/config.yaml
+Backend file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+
+Interrupter: will stop after the current epoch. Press Ctrl+C again to force quit.
+Training complete: 
+   Data path: /work/qgan/data/train/base-qml_torch-q4-real-PSR-aerCPU-rand0-seed0 
+   Best eval: 1.2522631658283698 
+   Total time: 75162.29203033447

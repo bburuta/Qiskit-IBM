@@ -1,0 +1,372 @@
+Creating config files for qml_torch_noiseless_base_ang:
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-PSR-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-PSR-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-PSR-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-SPSA-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-SPSA-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-REG-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-REG-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-REG-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-REG-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-REG-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-PSR-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-PSR-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-PSR-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-SPSA-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-SPSA-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-REG-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-REG-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-REG-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-REG-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-REG-aerCPU-rand1-seed0/config.yaml
+
+Creating config files for qml_torch_noisy_base_ang:
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q4-noisy-SPSA-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q8-noisy-SPSA-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q16-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q16-noisy-SPSA-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q4-noisy-PSR-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q8-noisy-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q8-noisy-PSR-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q16-noisy-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q16-noisy-PSR-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q16-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q16-noisy-SPSA-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q4-noisy-PSR-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q8-noisy-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q8-noisy-PSR-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q16-noisy-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q16-noisy-PSR-aerCPU-rand1-seed0/config.yaml
+
+Creating config files for qml_torch_noiseless_amp:
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q4-noiseless-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q4-noiseless-PSR-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q8-noiseless-PSR-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q4-noiseless-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q4-noiseless-SPSA-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q4-noiseless-REG-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q4-noiseless-REG-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q8-noiseless-REG-aerCPU-rand1-seed0/config.yaml
+
+Creating config files for qml_torch_noisy_amp:
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q4-noisy-PSR-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q8-noisy-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q8-noisy-PSR-aerCPU-rand1-seed0/config.yaml
+
+80 battery configuration files ready.
+
+Running: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-PSR-aerCPU-rand0-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-PSR-aerCPU-rand0-seed0 
+   Best eval: 3.5501545800750796 
+   Total time: 2.271958827972412
+
+Running: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-PSR-aerCPU-rand1-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-PSR-aerCPU-rand1-seed0 
+   Best eval: 1.5170520871644864 
+   Total time: 2.269253730773926
+
+Running: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed0 
+   Best eval: 6.347195983213647 
+   Total time: 7.34104323387146
+
+Running: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-PSR-aerCPU-rand1-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-PSR-aerCPU-rand1-seed0 
+   Best eval: 2.1197576618644005 
+   Total time: 7.54403829574585
+
+Running: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-PSR-aerCPU-rand0-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-PSR-aerCPU-rand0-seed0 
+   Best eval: 9.2861875615791 
+   Total time: 83.30742073059082
+
+Running: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-PSR-aerCPU-rand1-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-PSR-aerCPU-rand1-seed0 
+   Best eval: 3.2138414877542036 
+   Total time: 83.81900572776794
+
+Running: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-SPSA-aerCPU-rand0-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-SPSA-aerCPU-rand0-seed0 
+   Best eval: 3.6219431867245153 
+   Total time: 0.16550707817077637
+
+Running: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-SPSA-aerCPU-rand1-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-SPSA-aerCPU-rand1-seed0 
+   Best eval: 1.5389020352315563 
+   Total time: 0.1709890365600586
+
+Running: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed0 
+   Best eval: 6.316506663583105 
+   Total time: 0.26070356369018555
+
+Running: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand1-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand1-seed0 
+   Best eval: 2.0909404885724294 
+   Total time: 0.27351975440979004
+
+Running: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-SPSA-aerCPU-rand0-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-SPSA-aerCPU-rand0-seed0 
+   Best eval: 9.21236785936117 
+   Total time: 1.8989074230194092
+
+Running: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-SPSA-aerCPU-rand1-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-SPSA-aerCPU-rand1-seed0 
+   Best eval: 3.188424797864039 
+   Total time: 1.9398181438446045
+
+Running: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-REG-aerCPU-rand0-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-REG-aerCPU-rand0-seed0 
+   Best eval: 3.322139803453905 
+   Total time: 0.836353063583374
+
+Running: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-REG-aerCPU-rand1-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-REG-aerCPU-rand1-seed0 
+   Best eval: 1.5152276504197328 
+   Total time: 0.9337151050567627
+
+Running: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed0 
+   Best eval: 6.267348509337108 
+   Total time: 7.539351224899292
+
+Running: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-REG-aerCPU-rand1-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-REG-aerCPU-rand1-seed0 
+   Best eval: 2.1064057543179273 
+   Total time: 7.777015209197998
+
+Running: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-REG-aerCPU-rand0-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-REG-aerCPU-rand0-seed0 
+   Best eval: 9.13149141503618 
+   Total time: 282.5289399623871
+
+Running: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-REG-aerCPU-rand1-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-REG-aerCPU-rand1-seed0 
+   Best eval: 3.2747420084046954 
+   Total time: 255.71387314796448
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-PSR-aerCPU-rand0-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-PSR-aerCPU-rand0-seed0 
+   Best eval: 0.024643106386065483 
+   Total time: 24.393247604370117
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-PSR-aerCPU-rand1-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-PSR-aerCPU-rand1-seed0 
+   Best eval: 0.13221430778503418 
+   Total time: 24.34512948989868
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-PSR-aerCPU-rand0-seed0 
+   Best eval: 0.01606421172618866 
+   Total time: 60.81820893287659
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-PSR-aerCPU-rand1-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-PSR-aerCPU-rand1-seed0 
+   Best eval: 0.09753274917602539 
+   Total time: 64.43292927742004
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-PSR-aerCPU-rand0-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-PSR-aerCPU-rand0-seed0 
+   Best eval: 0.012545960023999214 
+   Total time: 10824.180985212326
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-PSR-aerCPU-rand1-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-PSR-aerCPU-rand1-seed0 
+   Best eval: 0.10011076927185059 
+   Total time: 10789.334520578384
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-SPSA-aerCPU-rand0-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-SPSA-aerCPU-rand0-seed0 
+   Best eval: 0.024965420365333557 
+   Total time: 7.892414569854736
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-SPSA-aerCPU-rand1-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-SPSA-aerCPU-rand1-seed0 
+   Best eval: 0.11866506189107895 
+   Total time: 7.898930549621582
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed0 
+   Best eval: 0.016656801104545593 
+   Total time: 15.852845430374146
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand1-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand1-seed0 
+   Best eval: 0.13752612471580505 
+   Total time: 17.18486762046814
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-SPSA-aerCPU-rand0-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-SPSA-aerCPU-rand0-seed0 
+   Best eval: 0.013279454782605171 
+   Total time: 10634.308945894241
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-SPSA-aerCPU-rand1-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-SPSA-aerCPU-rand1-seed0 
+   Best eval: 0.10441456735134125 
+   Total time: 10610.265706777573
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-REG-aerCPU-rand0-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-REG-aerCPU-rand0-seed0 
+   Best eval: 0.020384566858410835 
+   Total time: 9.199569702148438
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-REG-aerCPU-rand1-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-REG-aerCPU-rand1-seed0 
+   Best eval: 0.1344195306301117 
+   Total time: 9.219990968704224
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed0 
+   Best eval: 0.018094953149557114 
+   Total time: 30.4996657371521
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-REG-aerCPU-rand1-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-REG-aerCPU-rand1-seed0 
+   Best eval: 0.13707135617733002 
+   Total time: 32.44041609764099
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-REG-aerCPU-rand0-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-REG-aerCPU-rand0-seed0 
+   Best eval: 0.012729809619486332 
+   Total time: 11104.99242568016
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-REG-aerCPU-rand1-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-REG-aerCPU-rand1-seed0 
+   Best eval: 0.10636754333972931 
+   Total time: 11098.111084222794
+
+Running: /work/qgan/data/train/times/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0 
+   Best eval: 3.411447426263977 
+   Total time: 112.02898859977722
+
+Running: /work/qgan/data/train/times/base-qml_torch-q4-noisy-SPSA-aerCPU-rand1-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q4-noisy-SPSA-aerCPU-rand1-seed0 
+   Best eval: 1.5149335405984754 
+   Total time: 119.2716658115387
+
+Running: /work/qgan/data/train/times/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed0 
+   Best eval: 6.110280957934505 
+   Total time: 120.78025579452515
+
+Running: /work/qgan/data/train/times/base-qml_torch-q8-noisy-SPSA-aerCPU-rand1-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q8-noisy-SPSA-aerCPU-rand1-seed0 
+   Best eval: 2.123160062422403 
+   Total time: 121.15776443481445
+
+Running: /work/qgan/data/train/times/base-qml_torch-q16-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |

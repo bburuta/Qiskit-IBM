@@ -1,0 +1,8 @@
+/work/qgan/src/qgan_v2/training/data.py:216: UserWarning: Training data config differs from current config:
+- training.max_iterations: previous=10, current=5
+  warn_config_changes(training_state.config, config)
+/work/qgan/src/qgan_v2/training/data.py:216: UserWarning: Training data config differs from current config:
+- training.max_iterations: previous=10, current=5
+  warn_config_changes(training_state.config, config)
+/home/bburutaran/bin/bnd: line 124: 2636190 Killed                  apptainer exec "${extra[@]}" -B "$PWD:/work" -B "$uv_dir:/uvbin:ro" --pwd /work "$sif" bash -lc "$full_script" bash "$@"
+slurmstepd-node14: error: Detected 1 oom_kill event in StepId=1553326.batch. Some of the step tasks have been OOM Killed.

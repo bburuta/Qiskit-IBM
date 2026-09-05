@@ -1,0 +1,104 @@
+Looking in links: /tmp/tmp0sci6lv8
+Requirement already satisfied: setuptools in ./.venv/lib/python3.10/site-packages (81.0.0)
+Processing /tmp/tmp0sci6lv8/pip-23.0.1-py3-none-any.whl
+Installing collected packages: pip
+Successfully installed pip-23.0.1
+Obtaining file:///work/qgan
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Getting requirements to build editable: started
+  Getting requirements to build editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'done'
+Requirement already satisfied: numpy==2.2.6 in ./.venv/lib/python3.10/site-packages (from qgan-v2==0.1.0) (2.2.6)
+Requirement already satisfied: pyyaml==6.0.3 in ./.venv/lib/python3.10/site-packages (from qgan-v2==0.1.0) (6.0.3)
+Requirement already satisfied: qiskit-algorithms==0.4.0 in ./.venv/lib/python3.10/site-packages (from qgan-v2==0.1.0) (0.4.0)
+Requirement already satisfied: qiskit-ibm-runtime==0.47.0 in ./.venv/lib/python3.10/site-packages (from qgan-v2==0.1.0) (0.47.0)
+Requirement already satisfied: qiskit-aer==0.17.2 in ./.venv/lib/python3.10/site-packages (from qgan-v2==0.1.0) (0.17.2)
+Requirement already satisfied: qiskit-machine-learning[sparse]==0.9.0 in ./.venv/lib/python3.10/site-packages (from qgan-v2==0.1.0) (0.9.0)
+Requirement already satisfied: torch==2.12.1 in ./.venv/lib/python3.10/site-packages (from qgan-v2==0.1.0) (2.12.1)
+Requirement already satisfied: qiskit==2.4.2 in ./.venv/lib/python3.10/site-packages (from qgan-v2==0.1.0) (2.4.2)
+Requirement already satisfied: scipy>=1.5 in ./.venv/lib/python3.10/site-packages (from qiskit==2.4.2->qgan-v2==0.1.0) (1.15.3)
+Requirement already satisfied: rustworkx>=0.15.0 in ./.venv/lib/python3.10/site-packages (from qiskit==2.4.2->qgan-v2==0.1.0) (0.18.0)
+Requirement already satisfied: typing-extensions in ./.venv/lib/python3.10/site-packages (from qiskit==2.4.2->qgan-v2==0.1.0) (4.15.0)
+Requirement already satisfied: dill>=0.3 in ./.venv/lib/python3.10/site-packages (from qiskit==2.4.2->qgan-v2==0.1.0) (0.4.1)
+Requirement already satisfied: stevedore>=3.0.0 in ./.venv/lib/python3.10/site-packages (from qiskit==2.4.2->qgan-v2==0.1.0) (5.8.0)
+Requirement already satisfied: psutil>=5 in ./.venv/lib/python3.10/site-packages (from qiskit-aer==0.17.2->qgan-v2==0.1.0) (7.2.2)
+Requirement already satisfied: python-dateutil>=2.8.0 in ./.venv/lib/python3.10/site-packages (from qiskit-aer==0.17.2->qgan-v2==0.1.0) (2.9.0.post0)
+Requirement already satisfied: ibm-platform-services>=0.61.1 in ./.venv/lib/python3.10/site-packages (from qiskit-ibm-runtime==0.47.0->qgan-v2==0.1.0) (0.75.1)
+Requirement already satisfied: pydantic>=2.11.0 in ./.venv/lib/python3.10/site-packages (from qiskit-ibm-runtime==0.47.0->qgan-v2==0.1.0) (2.13.4)
+Requirement already satisfied: pybase64>=1.4.0 in ./.venv/lib/python3.10/site-packages (from qiskit-ibm-runtime==0.47.0->qgan-v2==0.1.0) (1.4.3)
+Requirement already satisfied: ibm-quantum-schemas<1,>=0.7.20260419 in ./.venv/lib/python3.10/site-packages (from qiskit-ibm-runtime==0.47.0->qgan-v2==0.1.0) (0.9.20260612)
+Requirement already satisfied: samplomatic>=0.13.0 in ./.venv/lib/python3.10/site-packages (from qiskit-ibm-runtime==0.47.0->qgan-v2==0.1.0) (0.19.0)
+Requirement already satisfied: requests-ntlm>=1.1.0 in ./.venv/lib/python3.10/site-packages (from qiskit-ibm-runtime==0.47.0->qgan-v2==0.1.0) (1.3.0)
+Requirement already satisfied: requests>=2.32.4 in ./.venv/lib/python3.10/site-packages (from qiskit-ibm-runtime==0.47.0->qgan-v2==0.1.0) (2.34.2)
+Requirement already satisfied: urllib3>=2.4.0 in ./.venv/lib/python3.10/site-packages (from qiskit-ibm-runtime==0.47.0->qgan-v2==0.1.0) (2.7.0)
+Requirement already satisfied: scikit-learn>=1.2 in ./.venv/lib/python3.10/site-packages (from qiskit-machine-learning[sparse]==0.9.0->qgan-v2==0.1.0) (1.7.2)
+Requirement already satisfied: setuptools>=40.1 in ./.venv/lib/python3.10/site-packages (from qiskit-machine-learning[sparse]==0.9.0->qgan-v2==0.1.0) (81.0.0)
+Requirement already satisfied: sparse in ./.venv/lib/python3.10/site-packages (from qiskit-machine-learning[sparse]==0.9.0->qgan-v2==0.1.0) (0.17.0)
+Requirement already satisfied: networkx>=2.5.1 in ./.venv/lib/python3.10/site-packages (from torch==2.12.1->qgan-v2==0.1.0) (3.4.2)
+Requirement already satisfied: nvidia-cublas<=13.1.1.3,>=13.1.0.3 in ./.venv/lib/python3.10/site-packages (from torch==2.12.1->qgan-v2==0.1.0) (13.1.1.3)
+Requirement already satisfied: nvidia-nccl-cu13==2.29.7 in ./.venv/lib/python3.10/site-packages (from torch==2.12.1->qgan-v2==0.1.0) (2.29.7)
+Requirement already satisfied: triton==3.7.1 in ./.venv/lib/python3.10/site-packages (from torch==2.12.1->qgan-v2==0.1.0) (3.7.1)
+Requirement already satisfied: nvidia-nvshmem-cu13==3.4.5 in ./.venv/lib/python3.10/site-packages (from torch==2.12.1->qgan-v2==0.1.0) (3.4.5)
+Requirement already satisfied: filelock in ./.venv/lib/python3.10/site-packages (from torch==2.12.1->qgan-v2==0.1.0) (3.29.4)
+Requirement already satisfied: fsspec>=0.8.5 in ./.venv/lib/python3.10/site-packages (from torch==2.12.1->qgan-v2==0.1.0) (2026.6.0)
+Requirement already satisfied: cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2 in ./.venv/lib/python3.10/site-packages (from torch==2.12.1->qgan-v2==0.1.0) (13.0.2)
+Requirement already satisfied: nvidia-cusparselt-cu13==0.8.1 in ./.venv/lib/python3.10/site-packages (from torch==2.12.1->qgan-v2==0.1.0) (0.8.1)
+Requirement already satisfied: cuda-bindings<14,>=13.0.3 in ./.venv/lib/python3.10/site-packages (from torch==2.12.1->qgan-v2==0.1.0) (13.3.1)
+Requirement already satisfied: jinja2 in ./.venv/lib/python3.10/site-packages (from torch==2.12.1->qgan-v2==0.1.0) (3.1.6)
+Requirement already satisfied: nvidia-cudnn-cu13==9.20.0.48 in ./.venv/lib/python3.10/site-packages (from torch==2.12.1->qgan-v2==0.1.0) (9.20.0.48)
+Requirement already satisfied: sympy>=1.13.3 in ./.venv/lib/python3.10/site-packages (from torch==2.12.1->qgan-v2==0.1.0) (1.14.0)
+Requirement already satisfied: nvidia-curand==10.4.0.35.* in ./.venv/lib/python3.10/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2->torch==2.12.1->qgan-v2==0.1.0) (10.4.0.35)
+Requirement already satisfied: nvidia-nvtx==13.0.85.* in ./.venv/lib/python3.10/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2->torch==2.12.1->qgan-v2==0.1.0) (13.0.85)
+Requirement already satisfied: nvidia-cuda-cupti==13.0.85.* in ./.venv/lib/python3.10/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2->torch==2.12.1->qgan-v2==0.1.0) (13.0.85)
+Requirement already satisfied: nvidia-cuda-nvrtc==13.0.88.* in ./.venv/lib/python3.10/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2->torch==2.12.1->qgan-v2==0.1.0) (13.0.88)
+Requirement already satisfied: nvidia-cuda-runtime==13.0.96.* in ./.venv/lib/python3.10/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2->torch==2.12.1->qgan-v2==0.1.0) (13.0.96)
+Requirement already satisfied: nvidia-cufile==1.15.1.6.* in ./.venv/lib/python3.10/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2->torch==2.12.1->qgan-v2==0.1.0) (1.15.1.6)
+Requirement already satisfied: nvidia-cusparse==12.6.3.3.* in ./.venv/lib/python3.10/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2->torch==2.12.1->qgan-v2==0.1.0) (12.6.3.3)
+Requirement already satisfied: nvidia-cusolver==12.0.4.66.* in ./.venv/lib/python3.10/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2->torch==2.12.1->qgan-v2==0.1.0) (12.0.4.66)
+Requirement already satisfied: nvidia-nvjitlink==13.0.88.* in ./.venv/lib/python3.10/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2->torch==2.12.1->qgan-v2==0.1.0) (13.0.88)
+Requirement already satisfied: nvidia-cufft==12.0.0.61.* in ./.venv/lib/python3.10/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2->torch==2.12.1->qgan-v2==0.1.0) (12.0.0.61)
+Requirement already satisfied: cuda-pathfinder>=1.4.2 in ./.venv/lib/python3.10/site-packages (from cuda-bindings<14,>=13.0.3->torch==2.12.1->qgan-v2==0.1.0) (1.5.5)
+Requirement already satisfied: ibm_cloud_sdk_core<4.0.0,>=3.24.4 in ./.venv/lib/python3.10/site-packages (from ibm-platform-services>=0.61.1->qiskit-ibm-runtime==0.47.0->qgan-v2==0.1.0) (3.24.4)
+Requirement already satisfied: annotated-types>=0.6.0 in ./.venv/lib/python3.10/site-packages (from pydantic>=2.11.0->qiskit-ibm-runtime==0.47.0->qgan-v2==0.1.0) (0.7.0)
+Requirement already satisfied: typing-inspection>=0.4.2 in ./.venv/lib/python3.10/site-packages (from pydantic>=2.11.0->qiskit-ibm-runtime==0.47.0->qgan-v2==0.1.0) (0.4.2)
+Requirement already satisfied: pydantic-core==2.46.4 in ./.venv/lib/python3.10/site-packages (from pydantic>=2.11.0->qiskit-ibm-runtime==0.47.0->qgan-v2==0.1.0) (2.46.4)
+Requirement already satisfied: six>=1.5 in ./.venv/lib/python3.10/site-packages (from python-dateutil>=2.8.0->qiskit-aer==0.17.2->qgan-v2==0.1.0) (1.17.0)
+Requirement already satisfied: charset_normalizer<4,>=2 in ./.venv/lib/python3.10/site-packages (from requests>=2.32.4->qiskit-ibm-runtime==0.47.0->qgan-v2==0.1.0) (3.4.7)
+Requirement already satisfied: idna<4,>=2.5 in ./.venv/lib/python3.10/site-packages (from requests>=2.32.4->qiskit-ibm-runtime==0.47.0->qgan-v2==0.1.0) (3.18)
+Requirement already satisfied: certifi>=2023.5.7 in ./.venv/lib/python3.10/site-packages (from requests>=2.32.4->qiskit-ibm-runtime==0.47.0->qgan-v2==0.1.0) (2026.6.17)
+Requirement already satisfied: pyspnego>=0.4.0 in ./.venv/lib/python3.10/site-packages (from requests-ntlm>=1.1.0->qiskit-ibm-runtime==0.47.0->qgan-v2==0.1.0) (0.12.1)
+Requirement already satisfied: cryptography>=1.3 in ./.venv/lib/python3.10/site-packages (from requests-ntlm>=1.1.0->qiskit-ibm-runtime==0.47.0->qgan-v2==0.1.0) (49.0.0)
+Requirement already satisfied: orjson>=3.9.0 in ./.venv/lib/python3.10/site-packages (from samplomatic>=0.13.0->qiskit-ibm-runtime==0.47.0->qgan-v2==0.1.0) (3.11.9)
+Requirement already satisfied: joblib>=1.2.0 in ./.venv/lib/python3.10/site-packages (from scikit-learn>=1.2->qiskit-machine-learning[sparse]==0.9.0->qgan-v2==0.1.0) (1.5.3)
+Requirement already satisfied: threadpoolctl>=3.1.0 in ./.venv/lib/python3.10/site-packages (from scikit-learn>=1.2->qiskit-machine-learning[sparse]==0.9.0->qgan-v2==0.1.0) (3.6.0)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in ./.venv/lib/python3.10/site-packages (from sympy>=1.13.3->torch==2.12.1->qgan-v2==0.1.0) (1.3.0)
+Requirement already satisfied: MarkupSafe>=2.0 in ./.venv/lib/python3.10/site-packages (from jinja2->torch==2.12.1->qgan-v2==0.1.0) (3.0.3)
+Requirement already satisfied: numba>=0.49 in ./.venv/lib/python3.10/site-packages (from sparse->qiskit-machine-learning[sparse]==0.9.0->qgan-v2==0.1.0) (0.65.1)
+Requirement already satisfied: cffi>=2.0.0 in ./.venv/lib/python3.10/site-packages (from cryptography>=1.3->requests-ntlm>=1.1.0->qiskit-ibm-runtime==0.47.0->qgan-v2==0.1.0) (2.0.0)
+Requirement already satisfied: PyJWT<3.0.0,>=2.11.0 in ./.venv/lib/python3.10/site-packages (from ibm_cloud_sdk_core<4.0.0,>=3.24.4->ibm-platform-services>=0.61.1->qiskit-ibm-runtime==0.47.0->qgan-v2==0.1.0) (2.13.0)
+Requirement already satisfied: llvmlite<0.48,>=0.47.0dev0 in ./.venv/lib/python3.10/site-packages (from numba>=0.49->sparse->qiskit-machine-learning[sparse]==0.9.0->qgan-v2==0.1.0) (0.47.0)
+Requirement already satisfied: pycparser in ./.venv/lib/python3.10/site-packages (from cffi>=2.0.0->cryptography>=1.3->requests-ntlm>=1.1.0->qiskit-ibm-runtime==0.47.0->qgan-v2==0.1.0) (3.0)
+Building wheels for collected packages: qgan-v2
+  Building editable for qgan-v2 (pyproject.toml): started
+  Building editable for qgan-v2 (pyproject.toml): finished with status 'done'
+  Created wheel for qgan-v2: filename=qgan_v2-0.1.0-0.editable-py3-none-any.whl size=4199 sha256=3fb9756fe935a15d44e6e4e4dc554c4bc047542e1b6e8a7de3bca6ed24a8c4d7
+  Stored in directory: /tmp/pip-ephem-wheel-cache-05a_gzv1/wheels/69/6e/80/eb5c021cfa0da8a6373b9824112d1142b9b54b64f6e3b50696
+Successfully built qgan-v2
+Installing collected packages: qgan-v2
+Successfully installed qgan-v2-0.1.0
+usage: qgan-v2 [-h] [--version] {run,save-account} ...
+
+qGAN
+
+positional arguments:
+  {run,save-account}
+    run               Run a battery config.
+    save-account      Interactively save IBM Runtime credentials.
+
+options:
+  -h, --help          show this help message and exit
+  --version           show program's version number and exit

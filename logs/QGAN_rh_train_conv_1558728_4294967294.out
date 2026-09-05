@@ -1,0 +1,8 @@
+Creating config files for qml_torch_rh_grad:
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-real-PSR-aerCPU-rand0-seed0/config.yaml
+
+1 battery configuration files ready.
+
+Running: /work/qgan/data/train/base-qml_torch-q4-real-PSR-aerCPU-rand0-seed0/config.yaml
+Backend file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |

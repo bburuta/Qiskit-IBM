@@ -1,0 +1,56 @@
+/work/.venv/lib/python3.10/site-packages/qiskit_ibm_runtime/qiskit_runtime_service.py:1224: UserWarning: This instance has met its usage limit. Workloads will not run until time ismade available. Check https://quantum.cloud.ibm.com/instances/crn%3Av1%3Abluemix%3Apublic%3Aquantum-computing%3Aeu-de%3Aa%2Fcb804b30dfcb48b890393bfd6e41e9c2%3Ae5cf08be-edc6-48d4-a3b5-51ed8a7a387c%3A%3A for more details.
+  warnings.warn(
+Traceback (most recent call last):
+  File "/work/qgan/src/qgan_v2/main.py", line 182, in <module>
+    main()
+  File "/work/qgan/src/qgan_v2/main.py", line 170, in main
+    run_battery(
+  File "/work/qgan/src/qgan_v2/main.py", line 122, in run_battery
+    state = run_train(
+  File "/work/qgan/src/qgan_v2/main.py", line 69, in run_train
+    return train(config, interrupter=interrupter)
+  File "/work/qgan/src/qgan_v2/train.py", line 59, in train
+    disc_loss = impl.train_discriminator_step(state)
+  File "/work/qgan/src/qgan_v2/implementations/qml_torch.py", line 121, in train_discriminator_step
+    real_output, fake_output = state.model_d(real_inputs, fake_inputs)
+  File "/work/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/work/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/work/qgan/src/qgan_v2/models/qml_torch2.py", line 163, in forward
+    real_output = self.model_dr(real_input, self.weight)
+  File "/work/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/work/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/work/qgan/src/qgan_v2/models/qml_torch2.py", line 115, in forward
+    outputs = [
+  File "/work/qgan/src/qgan_v2/models/qml_torch2.py", line 116, in <listcomp>
+    self.call_model(int(index), weights)
+  File "/work/qgan/src/qgan_v2/models/qml_torch2.py", line 104, in call_model
+    return functional_call(
+  File "/work/.venv/lib/python3.10/site-packages/torch/_functorch/functional_call.py", line 154, in functional_call
+    return nn.utils.stateless._functional_call(
+  File "/work/.venv/lib/python3.10/site-packages/torch/nn/utils/stateless.py", line 279, in _functional_call
+    return module(*args, **kwargs)
+  File "/work/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/work/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/work/.venv/lib/python3.10/site-packages/qiskit_machine_learning/connectors/torch_connector.py", line 427, in forward
+    return _TorchNNFunction.apply(input_, self._weights, self._neural_network, self._sparse)
+  File "/work/.venv/lib/python3.10/site-packages/torch/autograd/function.py", line 596, in apply
+    return super().apply(*args, **kwargs)  # type: ignore[misc]
+  File "/work/.venv/lib/python3.10/site-packages/qiskit_machine_learning/connectors/torch_connector.py", line 164, in forward
+    result = neural_network.forward(
+  File "/work/.venv/lib/python3.10/site-packages/qiskit_machine_learning/neural_networks/neural_network.py", line 229, in forward
+    output_data = self._forward(input_, weights_)
+  File "/work/.venv/lib/python3.10/site-packages/qiskit_machine_learning/neural_networks/estimator_qnn.py", line 254, in _forward
+    results = [result.data.evs for result in job.result()]
+  File "/work/.venv/lib/python3.10/site-packages/qiskit_ibm_runtime/runtime_job_v2.py", line 133, in result
+    self.wait_for_final_state(timeout=timeout, poll_interval=poll_interval)
+  File "/work/.venv/lib/python3.10/site-packages/qiskit_ibm_runtime/runtime_job_v2.py", line 266, in wait_for_final_state
+    time.sleep(poll_interval)
+  File "/work/qgan/src/qgan_v2/training/interrupter.py", line 21, in handle_signal
+    raise KeyboardInterrupt
+KeyboardInterrupt
