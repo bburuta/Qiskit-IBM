@@ -14,7 +14,7 @@
 default_config_values:
 
   implementation:
-    # Training implementation to use. Values: qml_torch, runtime_packed, manual_estimator.
+    # Training implementation to use. Values: qml_torch, runtime_packed.
     name: qml_torch
     # Discriminator circuit packing for runtime_packed. Values: separate, joined.
     discriminator_packing: separate

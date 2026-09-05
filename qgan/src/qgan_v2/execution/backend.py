@@ -17,6 +17,7 @@ from qgan_v2.storage.paths import (
     get_run_backend_filename,
     get_shared_real_backend_filename,
 )
+from qgan_v2.config.validation import validate_backend_capacity, warn_simulation_memory
 
 #- Create backend -#
 
@@ -257,6 +258,9 @@ def load_or_create_fake_real_backend_info(config, sherbrooke_backend=None):
 
 # Load backend options and create backends
 def create_backends(config, save_real_backend_info=True, save_backend_file=None):
+    # Give resource guidance without guessing the job's usable memory limit.
+    warn_simulation_memory(config)
+
     if save_backend_file is None:
         save_backend_file = config['backend']['save_backend_file']
 
@@ -344,6 +348,8 @@ def create_backends(config, save_real_backend_info=True, save_backend_file=None)
         train_estimator = create_sim_estimator(train_backend)
     else:
         raise ValueError(f"Unsupported execution_type: {execution_type}")
+
+    validate_backend_capacity(config, train_backend)
 
     # Transpilation method
     train_pm = create_pm(train_backend, config)

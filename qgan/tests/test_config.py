@@ -1,8 +1,19 @@
 import pytest
 
-from qgan_v2.config.battery import build_config_from_options
+from qgan_v2.config.battery import (
+    build_config_combinations,
+    build_config_from_options,
+    validate_unique_config_filenames,
+)
 from qgan_v2.config.loader import prepare_run_config
-from qgan_v2.config.validation import ConfigValidationError
+from qgan_v2.config.validation import (
+    ConfigValidationError,
+    RuntimeValidationError,
+    validate_backend_capacity,
+    validate_config,
+    validate_loaded_dataset,
+    warn_simulation_memory,
+)
 
 
 def base_config():
@@ -193,3 +204,112 @@ def test_prepare_run_config_requires_real_backend_info_storage():
 
     with pytest.raises(ConfigValidationError, match="backend.real.info_storage"):
         prepare_run_config(raw_config)
+
+
+def test_prepare_run_config_rejects_non_finite_numbers():
+    raw_config = base_config()
+    raw_config["training"]["learning_rate"] = float("nan")
+
+    with pytest.raises(ConfigValidationError, match="training.learning_rate must be finite"):
+        prepare_run_config(raw_config)
+
+
+def test_prepare_run_config_rejects_invalid_simulator_precision():
+    raw_config = base_config()
+    raw_config["backend"]["simulator"]["data_type"] = "float"
+
+    with pytest.raises(ConfigValidationError, match="backend.simulator.data_type"):
+        prepare_run_config(raw_config)
+
+
+def test_prepare_run_config_rejects_unimplemented_manual_estimator():
+    raw_config = base_config()
+    raw_config["implementation"]["name"] = "manual_estimator"
+
+    with pytest.raises(ConfigValidationError, match="implementation.name"):
+        prepare_run_config(raw_config)
+
+
+def test_base_preset_requires_two_qubits():
+    raw_config = base_config()
+    raw_config["experiment"]["n_qubits"] = 1
+
+    with pytest.raises(ConfigValidationError, match="base preset requires"):
+        prepare_run_config(raw_config)
+
+
+def test_reg_requires_local_noiseless_qml_torch():
+    raw_config = base_config()
+    raw_config["experiment"]["execution_type"] = "noisy"
+    raw_config["experiment"]["gradient_method"] = "REG"
+
+    with pytest.raises(ConfigValidationError, match="REG requires"):
+        prepare_run_config(raw_config)
+
+
+def test_amplitude_preset_requires_state_dimension():
+    raw_config = base_config()
+    raw_config["experiment"]["implementation"] = "amp"
+    config = prepare_run_config(raw_config)
+    config["dataset"]["parameters"]["total_pixels"] = 7
+
+    with pytest.raises(ConfigValidationError, match="requires dataset.parameters.total_pixels=8"):
+        validate_config(config)
+
+
+def test_loaded_dataset_must_match_encoding_dimension():
+    np = pytest.importorskip("numpy")
+    raw_config = base_config()
+    raw_config["experiment"]["implementation"] = "amp"
+    config = prepare_run_config(raw_config)
+
+    with pytest.raises(RuntimeValidationError, match="requires 8 values per sample"):
+        validate_loaded_dataset(config, np.ones((2, 7)))
+
+
+def test_backend_must_have_enough_qubits():
+    config = prepare_run_config(base_config())
+    backend = type("SmallBackend", (), {"num_qubits": 2})()
+
+    with pytest.raises(RuntimeValidationError, match="requires 3"):
+        validate_backend_capacity(config, backend)
+
+
+def test_large_density_matrix_emits_memory_warning():
+    raw_config = base_config()
+    raw_config["experiment"]["execution_type"] = "noisy"
+    raw_config["experiment"]["gradient_method"] = "SPSA"
+    raw_config["experiment"]["n_qubits"] = 16
+    config = prepare_run_config(raw_config)
+    with pytest.warns(RuntimeWarning, match="density_matrix simulation of 16 qubits"):
+        estimated_bytes = warn_simulation_memory(config)
+
+    assert estimated_bytes == 64 * 1024**3
+
+
+def test_transpiler_plugin_names_are_not_restricted():
+    raw_config = base_config()
+    raw_config["backend"]["transpilation"]["layout_method"] = "custom_layout_plugin"
+    raw_config["backend"]["transpilation"]["routing_method"] = "custom_routing_plugin"
+
+    prepare_run_config(raw_config)
+
+
+def test_parallelism_combination_is_left_to_aer():
+    raw_config = base_config()
+    raw_config["backend"]["simulator"]["max_parallel_experiments"] = 2
+    raw_config["backend"]["simulator"]["max_parallel_shots"] = 2
+
+    prepare_run_config(raw_config)
+
+
+def test_battery_option_values_must_be_non_empty_lists():
+    with pytest.raises(ConfigValidationError, match="non-empty list"):
+        build_config_combinations(base_config(), {"run.seed": []})
+
+
+def test_battery_rejects_duplicate_output_files():
+    config = prepare_run_config(base_config())
+
+    with pytest.raises(ConfigValidationError, match="same config file"):
+        validate_unique_config_filenames([("first", [config]), ("second", [config])])

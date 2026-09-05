@@ -26,7 +26,7 @@ Dotted keys such as `experiment.n_qubits` are preferred because simple keys can 
 
 Important fields:
 
-- `implementation.name`: `qml_torch`, `runtime_packed`, or `manual_estimator`.
+- `implementation.name`: `qml_torch` or `runtime_packed`. The `manual_estimator` scaffold is not executable.
 - `implementation.discriminator_packing`: `separate` executes real and fake discriminator circuits independently; `joined` combines them into one packed circuit.
 - `experiment.implementation`: qGAN preset, usually `base`, `ang`, or `amp`.
 - `experiment.execution_type`: `noiseless`, `noisy`, `fake_real`, or `real`.
@@ -145,3 +145,5 @@ backend:
 ```
 
 Use `noise_model` when you want calibrated local noise without mapping small circuits onto the full real-backend topology.
+
+Large local statevector and density-matrix simulations print an informational estimate of the raw quantum-state memory. The estimate does not block execution or attempt to infer Slurm, container, or GPU memory limits.

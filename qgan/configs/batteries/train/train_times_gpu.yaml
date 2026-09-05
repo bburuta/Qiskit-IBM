@@ -11,7 +11,7 @@
 default_config_values:
 
   implementation:
-    # Training implementation to use. Values: qml_torch, runtime_packed, manual_estimator.
+    # Training implementation to use. Values: qml_torch, runtime_packed.
     name: qml_torch
     # Discriminator circuit packing for runtime_packed. Values: separate, joined.
     # qml_torch ignores this value, but the config schema requires it.
@@ -95,7 +95,7 @@ default_config_values:
     simulator:
       # Aer simulator device. Values: CPU, GPU.
       device: GPU
-      # Floating point precision for simulator/Torch tensors. Values: double, float.
+      # Floating point precision for simulator/Torch tensors. Values: double, single.
       data_type: double
       # Aer method for noiseless simulation. Values: statevector, density_matrix.
       noiseless_method: statevector

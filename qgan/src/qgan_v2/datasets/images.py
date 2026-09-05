@@ -1,6 +1,7 @@
 import numpy as np
 
 from qgan_v2.storage.paths import get_prepared_dataset_filename
+from qgan_v2.config.validation import validate_loaded_dataset
 
 #- Generated image datasets -#
 
@@ -132,4 +133,5 @@ def get_images_dataset(config):
                             filename
                             )
 
-    return load_images_dataset_file(filename)
+    dataset = load_images_dataset_file(filename)
+    return validate_loaded_dataset(config, dataset)

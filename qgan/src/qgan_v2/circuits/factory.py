@@ -5,6 +5,7 @@ from qiskit.circuit import Parameter
 from qiskit import qpy
 
 from qgan_v2.circuits.encoding import create_real_circuits, create_randomizer_circuit
+from qgan_v2.config.validation import validate_circuit_bundle
 from qgan_v2.storage.paths import get_circuits_filename
 
 
@@ -115,4 +116,5 @@ def get_circuits(config, save_file=False):
         randomizer_circuit = create_randomizer_circuit(config)
         real_circuits = create_real_circuits(config)
 
-    return [generator_circuit, discriminator_circuit, randomizer_circuit, real_circuits]
+    circuit_bundle = [generator_circuit, discriminator_circuit, randomizer_circuit, real_circuits]
+    return validate_circuit_bundle(config, circuit_bundle)

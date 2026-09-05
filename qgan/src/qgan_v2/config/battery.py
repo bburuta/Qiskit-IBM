@@ -3,7 +3,7 @@ import itertools
 
 from qgan_v2.config.defaults import normalize_config
 from qgan_v2.config.loader import load_config_file, load_run_config, save_config_file
-from qgan_v2.config.validation import validate_config, validate_raw_config
+from qgan_v2.config.validation import ConfigValidationError, validate_config, validate_raw_config
 from qgan_v2.storage.paths import get_config_filename
 
 
@@ -93,6 +93,15 @@ def build_config_from_options(default_config, option_values):
 
 # Build all config combinations for one variable group
 def build_config_combinations(default_config, variable_config_values):
+    if not isinstance(variable_config_values, dict):
+        raise ConfigValidationError("Each battery variable group must be a mapping.")
+
+    for option_key, values in variable_config_values.items():
+        if not isinstance(values, list) or not values:
+            raise ConfigValidationError(
+                f"Battery option {option_key!r} must contain a non-empty list of values."
+            )
+
     keys = list(variable_config_values.keys())
     configs = []
 
@@ -106,7 +115,37 @@ def build_config_combinations(default_config, variable_config_values):
 # Load battery YAML file
 def load_battery_file(filename):
     values = load_config_file(filename)
-    return values["default_config_values"], values["variable_config_values_list"]
+    if not isinstance(values, dict):
+        raise ConfigValidationError("Battery root must be a mapping.")
+
+    default_config = values.get("default_config_values")
+    variable_groups = values.get("variable_config_values_list")
+    if not isinstance(default_config, dict):
+        raise ConfigValidationError("default_config_values must be a mapping.")
+    if not isinstance(variable_groups, dict) or not variable_groups:
+        raise ConfigValidationError("variable_config_values_list must be a non-empty mapping.")
+
+    for group_name, variable_values in variable_groups.items():
+        if not isinstance(group_name, str) or not group_name.strip():
+            raise ConfigValidationError("Battery group names must be non-empty strings.")
+        if not isinstance(variable_values, dict):
+            raise ConfigValidationError(f"Battery group {group_name!r} must be a mapping.")
+
+    return default_config, variable_groups
+
+
+# Prevent two generated configs from writing to the same run directory
+def validate_unique_config_filenames(grouped_configs):
+    seen = {}
+    for group_name, configs in grouped_configs:
+        for config in configs:
+            filename = str(get_config_filename(config))
+            if filename in seen:
+                raise ConfigValidationError(
+                    f"Battery groups {seen[filename]!r} and {group_name!r} generate "
+                    f"the same config file: {filename}. Give the runs different labels or options."
+                )
+            seen[filename] = group_name
 
 
 #- Battery file creation -#
@@ -137,11 +176,16 @@ def create_config_file(config, overwrite=False):
 # Create all config files from a battery file
 def create_battery_configs(battery_filename, overwrite=False):
     default_config, variable_groups = load_battery_file(battery_filename)
+    grouped_configs = [
+        (group_name, build_config_combinations(default_config, variable_values))
+        for group_name, variable_values in variable_groups.items()
+    ]
+    validate_unique_config_filenames(grouped_configs)
+
     filenames = []
 
-    for group_name, variable_config_values in variable_groups.items():
+    for group_name, configs in grouped_configs:
         print(f"Creating config files for {group_name}:")
-        configs = build_config_combinations(default_config, variable_config_values)
         for config in configs:
             filenames.append(create_config_file(config, overwrite=overwrite))
         print()
