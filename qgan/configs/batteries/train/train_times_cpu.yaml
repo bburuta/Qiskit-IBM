@@ -164,7 +164,7 @@ variable_config_values_list:
 
   # Main CPU gradient-method, randomness, and qubit-scaling timing analysis.
   # Noiseless qml_torch supports REG.
-  qml_torch_noiseless:
+  qml_torch_noiseless_base_ang:
     implementation.name:
       - qml_torch
     experiment.implementation:
@@ -190,7 +190,7 @@ variable_config_values_list:
       - 1
 
   # Main CPU noise-impact timing analysis.
-  qml_torch_noisy:
+  qml_torch_noisy_base_ang:
     implementation.name:
       - qml_torch
     experiment.implementation:
@@ -216,7 +216,7 @@ variable_config_values_list:
 
   # Amplitude encoding CPU gradient-method, randomness, and qubit-scaling timing analysis.
   # Amplitude encoding with 16 qubits requires too many resources.
-  qml_torch_noiseless:
+  qml_torch_noiseless_amp:
     implementation.name:
       - qml_torch
     experiment.implementation:
@@ -243,7 +243,7 @@ variable_config_values_list:
 
 
   # Amplitude encoding CPU noise-impact timing analysis.
-  qml_torch_noisy:
+  qml_torch_noisy_amp:
     implementation.name:
       - qml_torch
     experiment.implementation:

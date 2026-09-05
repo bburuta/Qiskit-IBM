@@ -155,30 +155,30 @@ default_config_values:
 
 variable_config_values_list:
 
-  # # Implementation real hardware analysis.
-  # qml_torch_rh_imp:
-  #   implementation.name:
-  #     - qml_torch
-  #   experiment.implementation:
-  #     - base
-  #     # - ang
-  #     # - amp
-  #   experiment.execution_type:
-  #     - real
-  #   experiment.gradient_method:
-  #     - SPSA
-  #   experiment.n_qubits:
-  #     - 4
-  #   backend.simulator.device:
-  #     - CPU
-  #   run.seed:
-  #     - 0
-  #   encoding.randomness:
-  #     - 0
-  #   backend.real.info_storage:
-  #     - run
-  #   backend.real.reset_info:
-  #     - true
+  # Implementation real hardware analysis.
+  qml_torch_rh_imp:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      # - ang
+      # - amp
+    experiment.execution_type:
+      - real
+    experiment.gradient_method:
+      - SPSA
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+    backend.real.info_storage:
+      - run
+    backend.real.reset_info:
+      - true
 
   # Gradient-method real hardware analysis.
   # The base/SPSA qml_torch run is covered by qml_torch_rh_imp.
