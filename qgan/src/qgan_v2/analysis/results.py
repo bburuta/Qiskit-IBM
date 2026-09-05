@@ -25,6 +25,7 @@ DEFAULT_GROUP_FIELDS = (
     "gen_iterations",
     "disc_iterations",
     "precision",
+    "run_device",
     "simulator_device",
     "noiseless_method",
     "noisy_method",
@@ -32,6 +33,25 @@ DEFAULT_GROUP_FIELDS = (
     "real_backend",
     "resilience_level",
     "dynamical_decoupling",
+)
+
+
+DEFAULT_PAIR_FIELDS = (
+    "preset",
+    "implementation",
+    "gradient_method",
+    "n_qubits",
+    "random_circuit",
+    "randomness",
+    "batch_size",
+    "eval_batch_size",
+    "eval_method",
+    "learning_rate",
+    "max_iterations",
+    "precision",
+    "run_device",
+    "simulator_device",
+    "seed",
 )
 
 
@@ -43,6 +63,7 @@ SUMMARY_LABEL_FIELDS = (
     "gradient_method",
     "n_qubits",
     "randomness",
+    "run_device",
     "simulator_device",
     "eval_method",
 )
@@ -52,6 +73,7 @@ METADATA_PATHS = {
     "run_id": "run.id",
     "label": "run.label",
     "seed": "run.seed",
+    "run_device": "run.device",
     "preset": "experiment.implementation",
     "implementation": "implementation.name",
     "packing": "implementation.discriminator_packing",
@@ -137,6 +159,56 @@ def _clean_metric(metric: dict[Any, Any] | None) -> dict[int, float]:
     }
 
 
+def _is_finite_number(value: Any) -> bool:
+    try:
+        return bool(np.isfinite(value))
+    except TypeError:
+        return False
+
+
+def _count_values(value: Any) -> int | None:
+    if value is None:
+        return None
+    if hasattr(value, "numel"):
+        return int(value.numel())
+    if isinstance(value, dict):
+        total = 0
+        found = False
+        for item in value.values():
+            count = _count_values(item)
+            if count is not None:
+                total += count
+                found = True
+        return total if found else None
+    try:
+        return int(np.asarray(value).size)
+    except Exception:
+        return None
+
+
+def _add_state_metadata(metadata: dict[str, Any], state: Any, config: dict[str, Any]) -> dict[str, Any]:
+    generator_count = _count_values(getattr(state, "init_gen_params", None))
+    discriminator_count = _count_values(getattr(state, "model_d_state", None))
+    total_count = None
+    if generator_count is not None and discriminator_count is not None:
+        total_count = generator_count + discriminator_count
+
+    n_qubits = get_nested(config, "experiment.n_qubits")
+    batch_size = get_nested(config, "encoding.batch_size")
+    implementation = get_nested(config, "implementation.name")
+    approx_packed_width = n_qubits
+    if implementation == "runtime_packed" and n_qubits is not None and batch_size is not None:
+        approx_packed_width = n_qubits * batch_size
+
+    metadata.update({
+        "generator_parameter_count": generator_count,
+        "discriminator_parameter_count": discriminator_count,
+        "total_parameter_count": total_count,
+        "approx_packed_width": approx_packed_width,
+    })
+    return metadata
+
+
 def _load_training_state(training_data_file: Path):
     import torch
 
@@ -157,10 +229,11 @@ def load_result(training_data_file: str | Path) -> RunResult:
     state = _load_training_state(training_data_file)
     config = state.config
     metrics = state.metrics
+    metadata = _add_state_metadata(_metadata_from_config(config), state, config)
     return RunResult(
         path=training_data_file.parent,
         config=config,
-        metadata=_metadata_from_config(config),
+        metadata=metadata,
         eval=_clean_metric(metrics.eval),
         gloss=_clean_metric(metrics.gloss),
         dloss=_clean_metric(metrics.dloss),
@@ -223,6 +296,13 @@ def load_results(
     return results
 
 
+def load_result_sets(*data_paths: str | Path, **kwargs: Any) -> list[RunResult]:
+    results: list[RunResult] = []
+    for data_path in data_paths:
+        results.extend(load_results(data_path, **kwargs))
+    return results
+
+
 def filter_results(results: Iterable[RunResult], **filters: Any) -> list[RunResult]:
     selected = []
     for result in results:
@@ -281,6 +361,31 @@ def elapsed_arrays(result: RunResult, metric: str = "eval") -> tuple[np.ndarray,
         running += float(result.times.get(epoch, np.nan))
         elapsed.append(running)
     return np.asarray(elapsed, dtype=float), values
+
+
+def truncate_result(result: RunResult, max_epoch: int) -> RunResult:
+    def truncate_metric(metric: dict[int, float]) -> dict[int, float]:
+        return {
+            epoch: value
+            for epoch, value in metric.items()
+            if epoch <= max_epoch
+        }
+
+    return RunResult(
+        path=result.path,
+        config=result.config,
+        metadata=dict(result.metadata),
+        eval=truncate_metric(result.eval),
+        gloss=truncate_metric(result.gloss),
+        dloss=truncate_metric(result.dloss),
+        times=truncate_metric(result.times),
+        status=result.status,
+        error=result.error,
+    )
+
+
+def truncate_results(results: Iterable[RunResult], max_epoch: int) -> list[RunResult]:
+    return [truncate_result(result, max_epoch) for result in results]
 
 
 def aggregate_metric(
@@ -442,8 +547,8 @@ def representative_runs(
 ) -> dict[str, RunResult]:
     scored = []
     for result in results:
-        value = run_summary(result).get(metric_name, np.nan)
-        if np.isfinite(value):
+        value = run_summary(result).get(metric_name)
+        if _is_finite_number(value):
             scored.append((float(value), result))
 
     if not scored:
@@ -585,7 +690,7 @@ def _summary_values(
         samples = [
             float(row[metric_name])
             for row in rows
-            if row.get(compare_by) == value and np.isfinite(row.get(metric_name, np.nan))
+            if row.get(compare_by) == value and _is_finite_number(row.get(metric_name))
         ]
         if samples:
             filtered_values.append(value)
@@ -657,6 +762,135 @@ def plot_runtime(
     return ax
 
 
+def _aggregate_samples(samples: list[float], center: str, spread: str) -> tuple[float, float, float]:
+    values = np.asarray(samples, dtype=float)
+    if center == "median":
+        center_value = float(np.nanmedian(values))
+    elif center == "mean":
+        center_value = float(np.nanmean(values))
+    else:
+        raise ValueError("center must be 'median' or 'mean'")
+
+    if spread == "iqr":
+        low, high = np.nanpercentile(values, [25, 75])
+    elif spread == "std":
+        mean = float(np.nanmean(values))
+        std = float(np.nanstd(values))
+        low, high = mean - std, mean + std
+    else:
+        raise ValueError("spread must be 'iqr' or 'std'")
+
+    return center_value, float(low), float(high)
+
+
+def plot_metric_by_numeric_field(
+    results: Iterable[RunResult],
+    *,
+    x_field: str,
+    metric_name: str = "best_eval",
+    line_by: str | None = None,
+    filters: dict[str, Any] | None = None,
+    center: str = "median",
+    spread: str = "iqr",
+    show_points: bool = True,
+    ax=None,
+):
+    import matplotlib.pyplot as plt
+
+    rows = results_table(filter_results(results, **(filters or {})))
+    rows = [
+        row for row in rows
+        if row.get(x_field) is not None
+        and _is_finite_number(row.get(x_field))
+        and _is_finite_number(row.get(metric_name))
+    ]
+    if ax is None:
+        _, ax = plt.subplots(figsize=(7, 4))
+
+    if not rows:
+        ax.text(0.5, 0.5, "No matching metric values", transform=ax.transAxes, ha="center")
+        ax.set_xlabel(x_field)
+        ax.set_ylabel(metric_name.replace("_", " "))
+        return ax
+
+    line_values = [None]
+    if line_by is not None:
+        line_values = sorted({row.get(line_by) for row in rows}, key=lambda value: str(value))
+
+    colors = plt.rcParams["axes.prop_cycle"].by_key()["color"]
+    for index, line_value in enumerate(line_values):
+        line_rows = rows
+        label = None
+        if line_by is not None:
+            line_rows = [row for row in rows if row.get(line_by) == line_value]
+            label = f"{line_by}={line_value}"
+
+        xs = sorted({float(row[x_field]) for row in line_rows})
+        centers = []
+        lows = []
+        highs = []
+        for x in xs:
+            samples = [
+                float(row[metric_name])
+                for row in line_rows
+                if float(row[x_field]) == x
+            ]
+            center_value, low, high = _aggregate_samples(samples, center, spread)
+            centers.append(center_value)
+            lows.append(low)
+            highs.append(high)
+
+            if show_points:
+                jitter = np.zeros(len(samples)) if len(samples) <= 1 else np.linspace(-0.015, 0.015, len(samples))
+                ax.scatter(
+                    np.full(len(samples), x) + jitter,
+                    samples,
+                    color=colors[index % len(colors)],
+                    alpha=0.35,
+                    s=22,
+                )
+
+        ax.fill_between(
+            xs,
+            lows,
+            highs,
+            color=colors[index % len(colors)],
+            alpha=0.15,
+            linewidth=0,
+        )
+        ax.plot(
+            xs,
+            centers,
+            color=colors[index % len(colors)],
+            marker="o",
+            linewidth=2,
+            label=label,
+        )
+
+    if line_by is not None:
+        ax.legend()
+    ax.set_xlabel(x_field)
+    ax.set_ylabel(metric_name.replace("_", " "))
+    ax.grid(True, alpha=0.25)
+    return ax
+
+
+def plot_seed_sensitivity(
+    results: Iterable[RunResult],
+    *,
+    metric_name: str = "best_eval",
+    filters: dict[str, Any] | None = None,
+    ax=None,
+):
+    return plot_final_metric(
+        results,
+        compare_by="seed",
+        metric_name=metric_name,
+        filters=filters,
+        ax=ax,
+    )
+
+
 def plot_quality_vs_time(
     results: Iterable[RunResult],
     *,
@@ -672,8 +906,8 @@ def plot_quality_vs_time(
     rows = results_table(filter_results(results, **(filters or {})))
     rows = [
         row for row in rows
-        if np.isfinite(row.get(quality_metric, np.nan))
-        and np.isfinite(row.get(time_metric, np.nan))
+        if _is_finite_number(row.get(quality_metric))
+        and _is_finite_number(row.get(time_metric))
     ]
     if ax is None:
         _, ax = plt.subplots(figsize=(7, 4))
@@ -713,6 +947,105 @@ def plot_quality_vs_time(
     ax.set_xlabel(time_metric.replace("_", " "))
     ax.set_ylabel(quality_metric.replace("_", " "))
     ax.grid(True, alpha=0.25)
+    return ax
+
+
+def _metric_by_pair(
+    rows: Iterable[dict[str, Any]],
+    pair_fields: Iterable[str],
+    metric_name: str,
+) -> dict[tuple[Any, ...], list[float]]:
+    grouped: dict[tuple[Any, ...], list[float]] = defaultdict(list)
+    for row in rows:
+        value = row.get(metric_name)
+        if _is_finite_number(value):
+            grouped[tuple(row.get(field) for field in pair_fields)].append(float(value))
+    return dict(grouped)
+
+
+def paired_metric_deltas(
+    results: Iterable[RunResult],
+    *,
+    baseline_filters: dict[str, Any],
+    treatment_filters: dict[str, Any],
+    metric_name: str = "best_eval",
+    pair_fields: Iterable[str] = DEFAULT_PAIR_FIELDS,
+) -> list[dict[str, Any]]:
+    baseline_rows = results_table(filter_results(results, **baseline_filters))
+    treatment_rows = results_table(filter_results(results, **treatment_filters))
+    baseline = _metric_by_pair(baseline_rows, pair_fields, metric_name)
+    treatment = _metric_by_pair(treatment_rows, pair_fields, metric_name)
+
+    deltas = []
+    for key in sorted(baseline.keys() & treatment.keys(), key=str):
+        baseline_value = float(np.median(baseline[key]))
+        treatment_value = float(np.median(treatment[key]))
+        ratio = np.nan
+        if baseline_value != 0:
+            ratio = treatment_value / baseline_value
+        deltas.append({
+            **dict(zip(pair_fields, key)),
+            "baseline": baseline_value,
+            "treatment": treatment_value,
+            "delta": treatment_value - baseline_value,
+            "ratio": ratio,
+            "metric": metric_name,
+        })
+    return deltas
+
+
+def plot_paired_delta(
+    results: Iterable[RunResult],
+    *,
+    baseline_filters: dict[str, Any],
+    treatment_filters: dict[str, Any],
+    metric_name: str = "best_eval",
+    pair_fields: Iterable[str] = DEFAULT_PAIR_FIELDS,
+    x_field: str = "gradient_method",
+    value: str = "delta",
+    ax=None,
+):
+    import matplotlib.pyplot as plt
+
+    rows = paired_metric_deltas(
+        results,
+        baseline_filters=baseline_filters,
+        treatment_filters=treatment_filters,
+        metric_name=metric_name,
+        pair_fields=pair_fields,
+    )
+    rows = [row for row in rows if _is_finite_number(row.get(value))]
+    if ax is None:
+        _, ax = plt.subplots(figsize=(7, 4))
+
+    if not rows:
+        ax.text(0.5, 0.5, "No matched pairs", transform=ax.transAxes, ha="center")
+        ax.set_ylabel(value)
+        return ax
+
+    x_values = sorted({row.get(x_field) for row in rows}, key=lambda item: str(item))
+    data = [
+        [row[value] for row in rows if row.get(x_field) == x]
+        for x in x_values
+    ]
+    positions = np.arange(1, len(x_values) + 1)
+    ax.boxplot(data, positions=positions, widths=0.55, showfliers=False)
+    for position, samples in zip(positions, data):
+        jitter = np.zeros(len(samples)) if len(samples) <= 1 else np.linspace(-0.08, 0.08, len(samples))
+        ax.scatter(
+            np.full(len(samples), position) + jitter,
+            samples,
+            color="black",
+            s=22,
+            alpha=0.75,
+            zorder=3,
+        )
+
+    ax.axhline(0, color="0.35", linewidth=1, linestyle="--")
+    ax.set_xticks(positions, [str(x) for x in x_values], rotation=30, ha="right")
+    ax.set_xlabel(x_field)
+    ax.set_ylabel(f"{value} {metric_name}".strip())
+    ax.grid(True, axis="y", alpha=0.25)
     return ax
 
 

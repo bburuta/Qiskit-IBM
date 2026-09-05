@@ -189,31 +189,6 @@ variable_config_values_list:
       - 0
       - 1
 
-  # Main CPU noise-impact timing analysis.
-  qml_torch_noisy_base_ang:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - base
-      - ang
-    #  - amp
-    experiment.execution_type:
-      - noisy
-    experiment.gradient_method:
-      - SPSA
-      - PSR
-    experiment.n_qubits:
-      - 4
-      - 8
-      - 16
-    backend.simulator.device:
-      - CPU
-    run.seed:
-      - 0
-    encoding.randomness:
-      - 0
-      - 1
-
   # Amplitude encoding CPU gradient-method, randomness, and qubit-scaling timing analysis.
   # Amplitude encoding with 16 qubits requires too many resources.
   qml_torch_noiseless_amp:
@@ -241,14 +216,14 @@ variable_config_values_list:
       - 0
       - 1
 
-
-  # Amplitude encoding CPU noise-impact timing analysis.
-  qml_torch_noisy_amp:
+  # Main CPU noise-impact timing analysis.
+  # Noisy execution with 16 qubits requires too many resources.
+  qml_torch_noisy:
     implementation.name:
       - qml_torch
     experiment.implementation:
-    #  - base
-    #  - ang
+      - base
+      - ang
       - amp
     experiment.execution_type:
       - noisy
