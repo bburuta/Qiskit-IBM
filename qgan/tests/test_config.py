@@ -14,6 +14,7 @@ from qgan_v2.config.validation import (
     validate_loaded_dataset,
     warn_simulation_memory,
 )
+from qgan_v2.storage.paths import get_training_data_filename
 
 
 def base_config():
@@ -113,6 +114,44 @@ def test_prepare_run_config_accepts_current_backend_options():
 
     assert config["backend"]["real"]["confirm_runtime_execution"] is False
     assert config["backend"]["save_backend_file"] is False
+
+
+@pytest.mark.parametrize("device_name", ["missing", None])
+def test_simulator_device_name_defaults_to_execution_device(device_name):
+    raw_config = base_config()
+    raw_config["backend"]["simulator"]["device"] = "GPU"
+    if device_name != "missing":
+        raw_config["backend"]["simulator"]["device_name"] = device_name
+
+    config = prepare_run_config(raw_config)
+
+    assert config["backend"]["simulator"]["device_name"] == "GPU"
+    assert "aerGPU" in config["run"]["id"]
+
+
+def test_simulator_device_name_overrides_only_run_id_device():
+    cpu_config = prepare_run_config(base_config())
+
+    raw_config = base_config()
+    raw_config["run"]["device"] = "GPU"
+    raw_config["backend"]["simulator"]["device"] = "GPU"
+    raw_config["backend"]["simulator"]["device_name"] = "CPU"
+
+    config = prepare_run_config(raw_config)
+
+    assert config["run"]["device"] == "GPU"
+    assert config["backend"]["simulator"]["device"] == "GPU"
+    assert config["backend"]["simulator"]["device_name"] == "CPU"
+    assert "aerCPU" in config["run"]["id"]
+    assert get_training_data_filename(config) == get_training_data_filename(cpu_config)
+
+
+def test_prepare_run_config_rejects_invalid_simulator_device_name():
+    raw_config = base_config()
+    raw_config["backend"]["simulator"]["device_name"] = "CUDA"
+
+    with pytest.raises(ConfigValidationError, match="backend.simulator.device_name"):
+        prepare_run_config(raw_config)
 
 
 def test_battery_config_preserves_explicit_real_backend_id():

@@ -18,4 +18,4 @@
 #SBATCH --error=logs/QGAN_save_ac_rh_%A_%a.err
 
 
-bnd run --cpu python -u -c "from qiskit_ibm_runtime import QiskitRuntimeService; QiskitRuntimeService.save_account(channel='ibm_quantum_platform', token='yScch9l3MErxaeDwmbeWqHYe5hrnJoSKMQ96Qld2K7vk', instance='Generic project_on-prem', set_as_default=True, overwrite=True)"
+bnd run --cpu python -u -c "from qiskit_ibm_runtime import QiskitRuntimeService; QiskitRuntimeService.save_account(channel='ibm_quantum_platform', token='', instance='', set_as_default=True, overwrite=True)"

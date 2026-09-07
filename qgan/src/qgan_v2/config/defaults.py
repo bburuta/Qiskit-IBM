@@ -73,8 +73,16 @@ def apply_implementation_preset(config):
 # Normalize a raw config dict into the expected format
 def normalize_config(config):
     apply_implementation_preset(config)
+    normalize_simulator_device_name(config)
     create_config_ids(config)
     return config
+
+
+# Use the execution device as its run-id name unless explicitly overridden
+def normalize_simulator_device_name(config):
+    simulator = config["backend"]["simulator"]
+    if simulator.get("device_name") is None:
+        simulator["device_name"] = simulator["device"]
 
 
 # Generate run id from experiment and run options
@@ -96,7 +104,7 @@ def generate_run_id(config):
         f"q{experiment['n_qubits']}-"
         f"{experiment['execution_type']}-"
         f"{experiment['gradient_method']}-"
-        f"aer{simulator['device']}-"
+        f"aer{simulator['device_name']}-"
         f"rand{config['encoding']['randomness']}-"
         f"seed{run['seed']}"
     )

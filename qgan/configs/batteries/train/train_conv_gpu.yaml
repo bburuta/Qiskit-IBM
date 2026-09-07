@@ -95,6 +95,8 @@ default_config_values:
     simulator:
       # Aer simulator device. Values: CPU, GPU.
       device: GPU
+      # Device label used in generated run ids. CPU shares convergence checkpoints with CPU runs.
+      device_name: CPU
       # Floating point precision for simulator/Torch tensors. Values: double, single.
       data_type: double
       # Aer method for noiseless simulation. Values: statevector, density_matrix.
