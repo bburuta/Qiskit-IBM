@@ -5,7 +5,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --gres=gpu:rtx4500:1
-#SBATCH --cpus-per-task=1
+#SBATCH --cpus-per-task=4
 #SBATCH --mem=32GB
 #SBATCH --time=150:00:00
 #SBATCH --output=logs/QGAN_gpu_conv_rtx4500_1_%A_%a.out

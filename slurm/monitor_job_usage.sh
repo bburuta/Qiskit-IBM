@@ -90,8 +90,11 @@ duration="$4"
 end_time=$((SECONDS + duration + 5))
 
 while [ "$SECONDS" -lt "$end_time" ]; do
-    pids=$(scontrol listpids "$job_id" 2>/dev/null |
-        awk 'NR > 1 && $1 ~ /^[0-9]+$/ {printf "%s%s", separator, $1; separator=","}')
+    pids=$(scontrol listpids "${job_id}.batch" 2>/dev/null |
+        awk 'NR > 1 && $1 ~ /^[0-9]+$/ && $3 == "batch" {
+            printf "%s%s", separator, $1
+            separator=","
+        }')
 
     cpu_raw=0
     rss_kib=0
@@ -105,26 +108,41 @@ while [ "$SECONDS" -lt "$end_time" ]; do
     cpu_usage=$(awk -v used="$cpu_raw" -v total="$allocated_cpus" \
         'BEGIN {if (total > 0) printf "%.1f", used / total; else print "0.0"}')
 
+    gpu_id="-"
     gpu_usage="-"
     gpu_memory_used="-"
     gpu_memory_total="-"
-    if [[ "$gres" == *gpu* ]] && nvidia-smi -L >/dev/null 2>&1; then
-        read -r gpu_usage gpu_memory_used gpu_memory_total <<< "$(
+    allocated_gpu="${SLURM_STEP_GPUS:-${SLURM_JOB_GPUS:-}}"
+    allocated_gpu="${allocated_gpu%%,*}"
+    if [[ "$gres" == *gpu* ]] && [ -n "$allocated_gpu" ]; then
+        read -r gpu_id gpu_usage gpu_memory_used gpu_memory_total <<< "$(
             nvidia-smi \
-                --query-gpu=utilization.gpu,memory.used,memory.total \
+                --query-gpu=index,minor_number,uuid,utilization.gpu,memory.used,memory.total \
                 --format=csv,noheader,nounits 2>/dev/null |
-                awk -F',' 'NR == 1 {
-                    gsub(/[[:space:]]/, "", $1)
-                    gsub(/[[:space:]]/, "", $2)
-                    gsub(/[[:space:]]/, "", $3)
-                    print $1, $2, $3
-                }'
+                awk -F',' -v wanted="$allocated_gpu" '
+                    {
+                        for (field = 1; field <= NF; field++) {
+                            gsub(/^[[:space:]]+|[[:space:]]+$/, "", $field)
+                        }
+                        if ($2 == wanted || $3 == wanted) {
+                            print $2, $4, $5, $6
+                            found = 1
+                            exit
+                        }
+                        if ($1 == wanted) {
+                            fallback = $2 " " $4 " " $5 " " $6
+                        }
+                    }
+                    END {
+                        if (!found && fallback != "") print fallback
+                    }
+                '
         )"
     fi
 
-    printf "%s|%s|%s|%s|%s|%s\n" \
+    printf "%s|%s|%s|%s|%s|%s|%s\n" \
         "$cpu_usage" "$cpu_raw" "$rss_kib" \
-        "$gpu_usage" "$gpu_memory_used" "$gpu_memory_total"
+        "$gpu_id" "$gpu_usage" "$gpu_memory_used" "$gpu_memory_total"
     sleep 1
 done
 SAMPLER
@@ -143,12 +161,12 @@ summarize_samples() {
     local sample_file="$1"
 
     if [ ! -s "$sample_file" ]; then
-        echo "waiting|-|-|-|-|-|-|-|-|0"
+        echo "waiting|-|-|-|-|-|-|-|-|-|0"
         return
     fi
 
     awk -F'|' '
-        NF == 6 {
+        NF == 7 {
             samples++
             cpu_now = $1
             cpu_sum += $1
@@ -156,19 +174,19 @@ summarize_samples() {
             rss_now = $3 / 1024
             if (rss_now > rss_max) rss_max = rss_now
 
-            if ($4 != "-") {
+            if ($5 != "-") {
                 gpu_samples++
-                gpu_now = $4
-                gpu_sum += $4
-                if ($4 > gpu_max) gpu_max = $4
-                gpu_mem_now = $5
-                gpu_mem_total = $6
-                if ($5 > gpu_mem_max) gpu_mem_max = $5
+                gpu_id = $4
+                gpu_now = $5
+                gpu_sum += $5
+                if ($5 > gpu_max) gpu_max = $5
+                gpu_mem_total = $7
+                if ($6 > gpu_mem_max) gpu_mem_max = $6
             }
         }
         END {
             if (samples == 0) {
-                print "waiting|-|-|-|-|-|-|-|-|0"
+                print "waiting|-|-|-|-|-|-|-|-|-|0"
                 exit
             }
 
@@ -176,11 +194,11 @@ summarize_samples() {
                 cpu_now, cpu_sum / samples, cpu_max, rss_now, rss_max
 
             if (gpu_samples > 0) {
-                printf "%.1f|%.1f|%.1f|%.0f/%.0f|%d\n", \
-                    gpu_now, gpu_sum / gpu_samples, gpu_max, \
+                printf "%s|%.1f|%.1f|%.1f|%.0f/%.0f|%d\n", \
+                    gpu_id, gpu_now, gpu_sum / gpu_samples, gpu_max, \
                     gpu_mem_max, gpu_mem_total, samples
             } else {
-                printf "-|-|-|-|%d\n", samples
+                printf "-|-|-|-|-|%d\n", samples
             }
         }
     ' "$sample_file"
@@ -191,7 +209,7 @@ print_live_results() {
     local remaining=$((duration - elapsed))
     local index summary
     local cpu_now cpu_average cpu_max rss_now rss_max
-    local gpu_now gpu_average gpu_max gpu_memory samples
+    local gpu_id gpu_now gpu_average gpu_max gpu_memory samples
 
     if [ "$remaining" -lt 0 ]; then
         remaining=0
@@ -200,13 +218,13 @@ print_live_results() {
     printf '\033[2J\033[H'
     printf "Usage inspection: %ss elapsed, %ss remaining — press q to finish early\n\n" \
         "$elapsed" "$remaining"
-    printf "%-10s %-32s %-8s %-10s %-10s %-10s %-10s %-14s\n" \
-        "JOB" "NAME" "CPUS" "CPU NOW" "CPU AVG" "RAM MiB" "GPU NOW" "VRAM MiB"
+    printf "%-10s %-32s %-8s %-7s %-10s %-10s %-10s %-10s %-14s\n" \
+        "JOB" "NAME" "CPUS" "GPU ID" "CPU NOW" "CPU AVG" "RAM MiB" "GPU NOW" "VRAM MiB"
 
     for index in "${!job_ids[@]}"; do
         summary=$(summarize_samples "$monitor_dir/${job_ids[$index]}.samples")
         IFS='|' read -r cpu_now cpu_average cpu_max rss_now rss_max \
-            gpu_now gpu_average gpu_max gpu_memory samples <<< "$summary"
+            gpu_id gpu_now gpu_average gpu_max gpu_memory samples <<< "$summary"
 
         if [ "$cpu_now" != "waiting" ]; then
             cpu_now="${cpu_now}%"
@@ -216,27 +234,34 @@ print_live_results() {
             gpu_now="${gpu_now}%"
         fi
 
-        printf "%-10s %-32s %-8s %-10s %-10s %-10s %-10s %-14s\n" \
+        printf "%-10s %-32s %-8s %-7s %-10s %-10s %-10s %-10s %-14s\n" \
             "${job_ids[$index]}" "${job_names[$index]}" "${job_cpus[$index]}" \
-            "$cpu_now" "$cpu_average" "$rss_now" "$gpu_now" "$gpu_memory"
+            "$gpu_id" "$cpu_now" "$cpu_average" "$rss_now" "$gpu_now" "$gpu_memory"
     done
 }
 
 interpret_result() {
     local cpu_average="$1"
     local gpu_average="$2"
+    local gres="$3"
+    local cpus="$4"
 
     if [ "$cpu_average" = "-" ]; then
         echo "no data"
         return
     fi
 
-    awk -v cpu="$cpu_average" -v gpu="$gpu_average" '
+    if [[ "$gres" == *gpu* ]] && [ "$gpu_average" = "-" ]; then
+        echo "GPU unavailable"
+        return
+    fi
+
+    awk -v cpu="$cpu_average" -v gpu="$gpu_average" -v cpus="$cpus" '
         BEGIN {
             if (gpu != "-") {
                 if (gpu >= 70) print "GPU busy"
-                else if (gpu < 30 && cpu >= 80) print "CPU bottleneck"
-                else if (gpu < 30 && cpu < 50) print "low usage/waiting"
+                else if (gpu < 30 && cpu * cpus / 100 >= 0.8) print "CPU bottleneck"
+                else if (gpu < 30) print "low usage/waiting"
                 else print "mixed usage"
             } else {
                 if (cpu >= 80) print "CPU busy"
@@ -251,18 +276,18 @@ print_final_results() {
     local reason="$1"
     local index summary error_file
     local cpu_now cpu_average cpu_max rss_now rss_max
-    local gpu_now gpu_average gpu_max gpu_memory samples result
+    local gpu_id gpu_now gpu_average gpu_max gpu_memory samples result
 
     printf '\033[2J\033[H'
     printf "Usage inspection finished: %s\n\n" "$reason"
-    printf "%-10s %-32s %-8s %-10s %-10s %-12s %-10s %-10s %-16s %-8s %-18s\n" \
-        "JOB" "NAME" "CPUS" "CPU AVG" "CPU MAX" "RAM MAX MiB" \
+    printf "%-10s %-32s %-8s %-7s %-10s %-10s %-12s %-10s %-10s %-16s %-8s %-18s\n" \
+        "JOB" "NAME" "CPUS" "GPU ID" "CPU AVG" "CPU MAX" "RAM MAX MiB" \
         "GPU AVG" "GPU MAX" "VRAM MAX/TOTAL" "SAMPLES" "RESULT"
 
     for index in "${!job_ids[@]}"; do
         summary=$(summarize_samples "$monitor_dir/${job_ids[$index]}.samples")
         IFS='|' read -r cpu_now cpu_average cpu_max rss_now rss_max \
-            gpu_now gpu_average gpu_max gpu_memory samples <<< "$summary"
+            gpu_id gpu_now gpu_average gpu_max gpu_memory samples <<< "$summary"
 
         if [ "$cpu_now" = "waiting" ]; then
             cpu_average="-"
@@ -270,7 +295,8 @@ print_final_results() {
             rss_max="-"
             result="no data"
         else
-            result=$(interpret_result "$cpu_average" "$gpu_average")
+            result=$(interpret_result \
+                "$cpu_average" "$gpu_average" "${job_gres[$index]}" "${job_cpus[$index]}")
             cpu_average="${cpu_average}%"
             cpu_max="${cpu_max}%"
         fi
@@ -279,9 +305,9 @@ print_final_results() {
             gpu_max="${gpu_max}%"
         fi
 
-        printf "%-10s %-32s %-8s %-10s %-10s %-12s %-10s %-10s %-16s %-8s %-18s\n" \
+        printf "%-10s %-32s %-8s %-7s %-10s %-10s %-12s %-10s %-10s %-16s %-8s %-18s\n" \
             "${job_ids[$index]}" "${job_names[$index]}" "${job_cpus[$index]}" \
-            "$cpu_average" "$cpu_max" "$rss_max" \
+            "$gpu_id" "$cpu_average" "$cpu_max" "$rss_max" \
             "$gpu_average" "$gpu_max" "$gpu_memory" "$samples" "$result"
 
         error_file="$monitor_dir/${job_ids[$index]}.errors"
@@ -292,7 +318,7 @@ print_final_results() {
     done
 
     printf "\nInterpretation:\n"
-    printf "  GPU busy: GPU AVG >= 70%%. CPU bottleneck: GPU AVG < 30%% and CPU AVG >= 80%%.\n"
+    printf "  GPU busy: GPU AVG >= 70%%. CPU bottleneck: GPU AVG < 30%% with about one CPU core busy.\n"
     printf "  CPU-only jobs near 100%% use most allocated CPUs; below 30%% means underused.\n"
     printf "  RAM/VRAM near the allocation limit: memory pressure.\n"
     printf "  Results are simple heuristics; short or bursty workloads may appear as mixed/low usage.\n"
