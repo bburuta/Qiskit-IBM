@@ -1,12 +1,4 @@
-# qGAN GPU convergence training battery.
-#
-# Runs long qml_torch GPU convergence experiments:
-# - base, angle, and amplitude presets
-# - noiseless execution with PSR, SPSA, and REG gradients
-# - noisy execution with SPSA and PSR gradients
-# - 4-, 8-, and 16-qubit circuits
-# - seeds 0, 1, and 2
-# - randomness levels 0, 0.1, 0.25, 0.5, and 1
+# qGAN H100 convergence training battery.
 
 default_config_values:
 
@@ -160,14 +152,11 @@ default_config_values:
 
 variable_config_values_list:
 
-  # Main GPU gradient-method, randomness, and qubit-scaling analysis.
-  # Noiseless qml_torch supports REG.
-  qml_torch_noiseless:
+  # Amplitude noiseless q16 runs.
+  noiseless_amp_q16:
     implementation.name:
       - qml_torch
     experiment.implementation:
-      - base
-      - ang
       - amp
     experiment.execution_type:
       - noiseless
@@ -176,8 +165,6 @@ variable_config_values_list:
       - SPSA
       - REG
     experiment.n_qubits:
-      - 4
-      - 8
       - 16
     backend.simulator.device:
       - GPU
@@ -191,33 +178,3 @@ variable_config_values_list:
       - 0.25
       - 0.5
       - 1
-
-  # # Main GPU noise-impact analysis.
-  # qml_torch_noisy:
-  #   implementation.name:
-  #     - qml_torch
-  #   experiment.implementation:
-  #     - base
-  #     - ang
-  #     - amp
-  #   experiment.execution_type:
-  #     - noisy
-  #   experiment.gradient_method:
-  #     - SPSA
-  #     - PSR
-  #   experiment.n_qubits:
-  #     - 4
-  #     - 8
-  #     - 16
-  #   backend.simulator.device:
-  #     - GPU
-  #   run.seed:
-  #     - 0
-  #     - 1
-  #     - 2
-  #   encoding.randomness:
-  #     - 0
-  #     - 0.1
-  #     - 0.25
-  #     - 0.5
-  #     - 1

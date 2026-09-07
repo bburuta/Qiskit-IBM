@@ -1,0 +1,10 @@
+#!/bin/bash
+
+sbatch slurm/slurm.sbatch_cpu_train_conv_node14
+sbatch slurm/slurm.sbatch_cpu_train_conv_node15
+sbatch slurm/slurm.sbatch_gpu_train_conv_h100
+sbatch slurm/slurm.sbatch_gpu_train_conv_rtx6000_1
+sbatch slurm/slurm.sbatch_gpu_train_conv_rtx6000_2
+sbatch slurm/slurm.sbatch_gpu_train_conv_rtx4500_1
+sbatch slurm/slurm.sbatch_gpu_train_conv_rtx4500_2
+sbatch slurm/slurm.sbatch_gpu_train_times

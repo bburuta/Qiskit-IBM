@@ -1,12 +1,4 @@
-# qGAN GPU timing training battery.
-#
-# Runs short qml_torch GPU timing experiments:
-# - base, angle, and amplitude presets
-# - noiseless execution with PSR, SPSA, and REG gradients
-# - noisy execution with SPSA and PSR gradients
-# - 4-, 8-, and 16-qubit circuits
-# - seed 0
-# - randomness levels 0 and 1
+# qGAN RTX 4500 convergence training battery 2.
 
 default_config_values:
 
@@ -23,7 +15,7 @@ default_config_values:
     # Optional label appended to the run id as :label. Values: null, [string].
     label: null
     # Base directory where run data is stored. Values: [path].
-    data_path: qgan/data/train/times
+    data_path: qgan/data/train
     # Random seed for Python, NumPy, Torch, and simulator options. Values: [int].
     seed: 0
     # Torch device. Values: CPU, GPU. runtime_packed requires CPU.
@@ -41,7 +33,7 @@ default_config_values:
 
   training:
     # Number of training epochs. Values: [int >= 0].
-    max_iterations: 5
+    max_iterations: 1000
     # Generator updates per epoch. Values: [int >= 0].
     gen_iterations: 1
     # Discriminator updates per epoch. Values: [int >= 0].
@@ -51,9 +43,9 @@ default_config_values:
     # Adam optimizer learning rate for generator and discriminator optimizers. Values: [number >= 0].
     learning_rate: 0.005
     # Epoch interval for progress prints. Values: [int >= 0], 0 disables printing.
-    print_every: 1
+    print_every: 100
     # Epoch interval for checkpoint saves. Values: [int >= 0], 0 saves only at the end.
-    checkpoint_every: 10
+    checkpoint_every: 100
 
   dataset:
     # Dataset id. Values: null, [string].
@@ -95,6 +87,8 @@ default_config_values:
     simulator:
       # Aer simulator device. Values: CPU, GPU.
       device: GPU
+      # Device label used in generated run ids. CPU shares convergence checkpoints with CPU runs.
+      device_name: CPU
       # Floating point precision for simulator/Torch tensors. Values: double, single.
       data_type: double
       # Aer method for noiseless simulation. Values: statevector, density_matrix.
@@ -158,54 +152,28 @@ default_config_values:
 
 variable_config_values_list:
 
-  # Main GPU gradient-method, randomness, and qubit-scaling timing analysis.
-  # Noiseless qml_torch supports REG.
-  qml_torch_noiseless:
+  # Base and amplitude noisy q4 PSR runs.
+  noisy_q4_base_amp_psr:
     implementation.name:
       - qml_torch
     experiment.implementation:
       - base
-      - ang
-      - amp
-    experiment.execution_type:
-      - noiseless
-    experiment.gradient_method:
-      - PSR
-      - SPSA
-      - REG
-    experiment.n_qubits:
-      - 4
-      - 8
-      - 16
-    backend.simulator.device:
-      - GPU
-    run.seed:
-      - 0
-    encoding.randomness:
-      - 0
-      - 1
-
-  # Main GPU noise-impact timing analysis.
-  qml_torch_noisy:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - base
-      - ang
       - amp
     experiment.execution_type:
       - noisy
     experiment.gradient_method:
-      - SPSA
       - PSR
     experiment.n_qubits:
       - 4
-      - 8
-      # - 16
     backend.simulator.device:
       - GPU
     run.seed:
       - 0
+      - 1
+      - 2
     encoding.randomness:
       - 0
+      - 0.1
+      - 0.25
+      - 0.5
       - 1

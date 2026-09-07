@@ -1,12 +1,4 @@
-# qGAN GPU timing training battery.
-#
-# Runs short qml_torch GPU timing experiments:
-# - base, angle, and amplitude presets
-# - noiseless execution with PSR, SPSA, and REG gradients
-# - noisy execution with SPSA and PSR gradients
-# - 4-, 8-, and 16-qubit circuits
-# - seed 0
-# - randomness levels 0 and 1
+# qGAN CPU convergence training battery for node14.
 
 default_config_values:
 
@@ -23,11 +15,12 @@ default_config_values:
     # Optional label appended to the run id as :label. Values: null, [string].
     label: null
     # Base directory where run data is stored. Values: [path].
-    data_path: qgan/data/train/times
+    data_path: qgan/data/train
     # Random seed for Python, NumPy, Torch, and simulator options. Values: [int].
     seed: 0
     # Torch device. Values: CPU, GPU. runtime_packed requires CPU.
-    device: GPU
+    # Keep fixed because run.device is not encoded in generated run ids.
+    device: CPU
 
   experiment:
     # Experiment preset. Values: base, ang, amp.
@@ -41,7 +34,7 @@ default_config_values:
 
   training:
     # Number of training epochs. Values: [int >= 0].
-    max_iterations: 5
+    max_iterations: 1000
     # Generator updates per epoch. Values: [int >= 0].
     gen_iterations: 1
     # Discriminator updates per epoch. Values: [int >= 0].
@@ -51,9 +44,9 @@ default_config_values:
     # Adam optimizer learning rate for generator and discriminator optimizers. Values: [number >= 0].
     learning_rate: 0.005
     # Epoch interval for progress prints. Values: [int >= 0], 0 disables printing.
-    print_every: 1
+    print_every: 100
     # Epoch interval for checkpoint saves. Values: [int >= 0], 0 saves only at the end.
-    checkpoint_every: 10
+    checkpoint_every: 100
 
   dataset:
     # Dataset id. Values: null, [string].
@@ -94,7 +87,7 @@ default_config_values:
 
     simulator:
       # Aer simulator device. Values: CPU, GPU.
-      device: GPU
+      device: CPU
       # Floating point precision for simulator/Torch tensors. Values: double, single.
       data_type: double
       # Aer method for noiseless simulation. Values: statevector, density_matrix.
@@ -103,8 +96,8 @@ default_config_values:
       noisy_method: density_matrix
       # Noisy simulator mapping. Values: hardware, noise_model. hardware uses the full backend coupling map/target; noise_model uses backend-derived noise only.
       noisy_backend_mapping: hardware
-      # Maximum CPU threads used by Aer. Values: [int >= 0]. 0 lets Aer choose.
-      max_parallel_threads: 0
+      # Maximum CPU threads used by Aer. Match the CPUs reserved by Slurm.
+      max_parallel_threads: 96
       # Maximum experiments/circuits Aer runs in parallel. Values: [int >= 0].
       max_parallel_experiments: 1
       # Maximum shot batches Aer runs in parallel. Values: [int >= 0].
@@ -158,14 +151,87 @@ default_config_values:
 
 variable_config_values_list:
 
-  # Main GPU gradient-method, randomness, and qubit-scaling timing analysis.
-  # Noiseless qml_torch supports REG.
-  qml_torch_noiseless:
+  # Amplitude noisy q8 SPSA runs.
+  noisy_q8_amp_spsa:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+    experiment.n_qubits:
+      - 8
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+      - 1
+      - 2
+    encoding.randomness:
+      - 0
+      - 0.1
+      - 0.25
+      - 0.5
+      - 1
+
+  # Base and angle noisy q4 SPSA runs.
+  noisy_q4_base_ang_spsa:
     implementation.name:
       - qml_torch
     experiment.implementation:
       - base
       - ang
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+      - 1
+      - 2
+    encoding.randomness:
+      - 0
+      - 0.1
+      - 0.25
+      - 0.5
+      - 1
+
+  # Angle noiseless q8 PSR runs.
+  noiseless_ang_q8_psr:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - ang
+    experiment.execution_type:
+      - noiseless
+    experiment.gradient_method:
+      - PSR
+    experiment.n_qubits:
+      - 8
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+      - 1
+      - 2
+    encoding.randomness:
+      - 0
+      - 0.1
+      - 0.25
+      - 0.5
+      - 1
+
+  # Amplitude noiseless q8 runs.
+  noiseless_amp_q8:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
       - amp
     experiment.execution_type:
       - noiseless
@@ -174,38 +240,142 @@ variable_config_values_list:
       - SPSA
       - REG
     experiment.n_qubits:
-      - 4
       - 8
-      - 16
     backend.simulator.device:
-      - GPU
+      - CPU
     run.seed:
       - 0
+      - 1
+      - 2
     encoding.randomness:
       - 0
+      - 0.1
+      - 0.25
+      - 0.5
       - 1
 
-  # Main GPU noise-impact timing analysis.
-  qml_torch_noisy:
+  # Angle noiseless q4 SPSA and REG runs.
+  noiseless_ang_q4_spsa_reg:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - ang
+    experiment.execution_type:
+      - noiseless
+    experiment.gradient_method:
+      - SPSA
+      - REG
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+      - 1
+      - 2
+    encoding.randomness:
+      - 0
+      - 0.1
+      - 0.25
+      - 0.5
+      - 1
+
+  # Base noiseless q8 PSR runs.
+  noiseless_base_q8_psr:
     implementation.name:
       - qml_torch
     experiment.implementation:
       - base
-      - ang
-      - amp
     experiment.execution_type:
-      - noisy
+      - noiseless
     experiment.gradient_method:
-      - SPSA
       - PSR
     experiment.n_qubits:
-      - 4
       - 8
-      # - 16
     backend.simulator.device:
-      - GPU
+      - CPU
     run.seed:
       - 0
+      - 1
+      - 2
     encoding.randomness:
       - 0
+      - 0.1
+      - 0.25
+      - 0.5
+      - 1
+
+  # Base noiseless q16 SPSA runs.
+  noiseless_base_q16_spsa:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+    experiment.execution_type:
+      - noiseless
+    experiment.gradient_method:
+      - SPSA
+    experiment.n_qubits:
+      - 16
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+      - 1
+      - 2
+    encoding.randomness:
+      - 0
+      - 0.1
+      - 0.25
+      - 0.5
+      - 1
+
+  # Base noiseless q4 REG runs.
+  noiseless_base_q4_reg:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+    experiment.execution_type:
+      - noiseless
+    experiment.gradient_method:
+      - REG
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+      - 1
+      - 2
+    encoding.randomness:
+      - 0
+      - 0.1
+      - 0.25
+      - 0.5
+      - 1
+
+  # Amplitude noiseless q4 SPSA runs.
+  noiseless_amp_q4_spsa:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - amp
+    experiment.execution_type:
+      - noiseless
+    experiment.gradient_method:
+      - SPSA
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+      - 1
+      - 2
+    encoding.randomness:
+      - 0
+      - 0.1
+      - 0.25
+      - 0.5
       - 1

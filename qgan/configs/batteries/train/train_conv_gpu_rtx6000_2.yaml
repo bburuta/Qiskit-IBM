@@ -1,12 +1,4 @@
-# qGAN GPU convergence training battery.
-#
-# Runs long qml_torch GPU convergence experiments:
-# - base, angle, and amplitude presets
-# - noiseless execution with PSR, SPSA, and REG gradients
-# - noisy execution with SPSA and PSR gradients
-# - 4-, 8-, and 16-qubit circuits
-# - seeds 0, 1, and 2
-# - randomness levels 0, 0.1, 0.25, 0.5, and 1
+# qGAN RTX 6000 convergence training battery 2.
 
 default_config_values:
 
@@ -160,60 +152,66 @@ default_config_values:
 
 variable_config_values_list:
 
-  # # Main GPU gradient-method, randomness, and qubit-scaling analysis.
-  # # Noiseless qml_torch supports REG.
-  # qml_torch_noiseless:
-  #   implementation.name:
-  #     - qml_torch
-  #   experiment.implementation:
-  #     - base
-  #     - ang
-  #     - amp
-  #   experiment.execution_type:
-  #     - noiseless
-  #   experiment.gradient_method:
-  #     - PSR
-  #     - SPSA
-  #     - REG
-  #   experiment.n_qubits:
-  #     - 4
-  #     - 8
-  #     - 16
-  #   backend.simulator.device:
-  #     - GPU
-  #   run.seed:
-  #     - 0
-  #     - 1
-  #     - 2
-  #   encoding.randomness:
-  #     - 0
-  #     - 0.1
-  #     - 0.25
-  #     - 0.5
-  #     - 1
-
-  # Main GPU noise-impact analysis.
-  qml_torch_noisy:
+  # Angle noiseless q16 SPSA runs.
+  noiseless_ang_q16_spsa:
     implementation.name:
       - qml_torch
     experiment.implementation:
-      - base
       - ang
-      - amp
     experiment.execution_type:
-      - noisy
+      - noiseless
     experiment.gradient_method:
       - SPSA
-      # - PSR
     experiment.n_qubits:
-      # - 4
-      - 8
-      # - 16
+      - 16
     backend.simulator.device:
       - GPU
     run.seed:
       - 0
       - 1
+      - 2
+    encoding.randomness:
+      - 0
+      - 0.1
+      - 0.25
+      - 0.5
+      - 1
+
+  # Second part of the angle noiseless q16 REG runs.
+  noiseless_ang_q16_reg_seed1_part2:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - ang
+    experiment.execution_type:
+      - noiseless
+    experiment.gradient_method:
+      - REG
+    experiment.n_qubits:
+      - 16
+    backend.simulator.device:
+      - GPU
+    run.seed:
+      - 1
+    encoding.randomness:
+      - 0.25
+      - 0.5
+      - 1
+
+  noiseless_ang_q16_reg_seed2:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - ang
+    experiment.execution_type:
+      - noiseless
+    experiment.gradient_method:
+      - REG
+    experiment.n_qubits:
+      - 16
+    backend.simulator.device:
+      - GPU
+    run.seed:
       - 2
     encoding.randomness:
       - 0

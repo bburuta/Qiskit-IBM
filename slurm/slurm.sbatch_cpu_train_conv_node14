@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#SBATCH --job-name=QGAN_cpu_conv_node14
+#SBATCH --partition=QPU
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --nodelist=node14
+#SBATCH --cpus-per-task=96
+#SBATCH --mem=240GB
+#SBATCH --time=150:00:00
+#SBATCH --output=logs/QGAN_cpu_conv_node14_%A_%a.out
+#SBATCH --error=logs/QGAN_cpu_conv_node14_%A_%a.err
+
+bnd run --cpu env PYTHONUNBUFFERED=1 \
+    qgan-v2 run \
+    --battery-path qgan/configs/batteries/train/train_conv_cpu_node14.yaml \
+    --overwrite

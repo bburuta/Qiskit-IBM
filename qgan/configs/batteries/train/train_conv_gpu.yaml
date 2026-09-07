@@ -208,7 +208,7 @@ variable_config_values_list:
     experiment.n_qubits:
       - 4
       - 8
-      - 16
+      # - 16
     backend.simulator.device:
       - GPU
     run.seed:
