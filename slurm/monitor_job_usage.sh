@@ -90,8 +90,9 @@ duration="$4"
 end_time=$((SECONDS + duration + 5))
 
 while [ "$SECONDS" -lt "$end_time" ]; do
-    pids=$(scontrol listpids "${job_id}.batch" 2>/dev/null |
-        awk 'NR > 1 && $1 ~ /^[0-9]+$/ && $3 == "batch" {
+    pids=$(scontrol listpids "$job_id" 2>/dev/null |
+        awk -v monitor_step="${SLURM_STEP_ID:-}" '
+        NR > 1 && $1 ~ /^[0-9]+$/ && $3 != monitor_step {
             printf "%s%s", separator, $1
             separator=","
         }')
@@ -115,29 +116,22 @@ while [ "$SECONDS" -lt "$end_time" ]; do
     allocated_gpu="${SLURM_STEP_GPUS:-${SLURM_JOB_GPUS:-}}"
     allocated_gpu="${allocated_gpu%%,*}"
     if [[ "$gres" == *gpu* ]] && [ -n "$allocated_gpu" ]; then
-        read -r gpu_id gpu_usage gpu_memory_used gpu_memory_total <<< "$(
+        gpu_id="$allocated_gpu"
+        gpu_data=$(
             nvidia-smi \
-                --query-gpu=index,minor_number,uuid,utilization.gpu,memory.used,memory.total \
+                --id="$allocated_gpu" \
+                --query-gpu=utilization.gpu,memory.used,memory.total \
                 --format=csv,noheader,nounits 2>/dev/null |
-                awk -F',' -v wanted="$allocated_gpu" '
-                    {
-                        for (field = 1; field <= NF; field++) {
-                            gsub(/^[[:space:]]+|[[:space:]]+$/, "", $field)
-                        }
-                        if ($2 == wanted || $3 == wanted) {
-                            print $2, $4, $5, $6
-                            found = 1
-                            exit
-                        }
-                        if ($1 == wanted) {
-                            fallback = $2 " " $4 " " $5 " " $6
-                        }
-                    }
-                    END {
-                        if (!found && fallback != "") print fallback
-                    }
-                '
-        )"
+                awk -F',' 'NR == 1 {
+                    gsub(/[[:space:]]/, "", $1)
+                    gsub(/[[:space:]]/, "", $2)
+                    gsub(/[[:space:]]/, "", $3)
+                    print $1, $2, $3
+                }'
+        )
+        if [ -n "$gpu_data" ]; then
+            read -r gpu_usage gpu_memory_used gpu_memory_total <<< "$gpu_data"
+        fi
     fi
 
     printf "%s|%s|%s|%s|%s|%s|%s\n" \
@@ -166,7 +160,7 @@ summarize_samples() {
     fi
 
     awk -F'|' '
-        NF == 7 {
+        NF == 7 && $1 != "" && $3 != "" {
             samples++
             cpu_now = $1
             cpu_sum += $1
@@ -174,7 +168,7 @@ summarize_samples() {
             rss_now = $3 / 1024
             if (rss_now > rss_max) rss_max = rss_now
 
-            if ($5 != "-") {
+            if ($4 != "" && $4 != "-" && $5 != "" && $5 != "-") {
                 gpu_samples++
                 gpu_id = $4
                 gpu_now = $5
