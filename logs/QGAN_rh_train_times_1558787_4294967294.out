@@ -1,0 +1,21 @@
+Creating config files for runtime_packed_rh_separate:
+Configuration file written. Path: /work/qgan/data/train/times/base-runtime_packed-separate-q4-real-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file written. Path: /work/qgan/data/train/times/ang-runtime_packed-separate-q4-real-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file written. Path: /work/qgan/data/train/times/amp-runtime_packed-separate-q4-real-SPSA-aerCPU-rand0-seed0/config.yaml
+
+Creating config files for runtime_packed_rh_joined:
+Configuration file written. Path: /work/qgan/data/train/times/base-runtime_packed-joined-q4-real-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file written. Path: /work/qgan/data/train/times/ang-runtime_packed-joined-q4-real-SPSA-aerCPU-rand0-seed0/config.yaml
+
+5 battery configuration files ready.
+
+Running: /work/qgan/data/train/times/base-runtime_packed-separate-q4-real-SPSA-aerCPU-rand0-seed0/config.yaml
+Backend file created.
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+
+Interrupter: will stop after the current epoch. Press Ctrl+C again to force quit.
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-runtime_packed-separate-q4-real-SPSA-aerCPU-rand0-seed0 
+   Best eval: inf 
+   Total time: 0

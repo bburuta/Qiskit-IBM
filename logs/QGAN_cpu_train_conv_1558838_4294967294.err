@@ -1,0 +1,23 @@
+/work/qgan/src/qgan_v2/training/data.py:216: UserWarning: Training data config differs from current config:
+- backend.real.channel: previous='ibm_quantum_platform', current=None
+- backend.real.confirm_execution: previous=True, current=None
+- backend.real.confirm_runtime_execution: previous=None, current=False
+- backend.real.info_storage: previous=None, current='shared'
+- backend.save_backend_file: previous=None, current=False
+- encoding.random_circuit: previous=None, current=1
+- encoding.randomness: previous=0.1, current=0
+- run.data_path: previous='qgan_v4/data/train', current='qgan/data/train'
+- run.id: previous='base-qml_torch-q4-noiseless-PSR-aerCPU-rand0.1-seed0', current='base-qml_torch-q4-noiseless-PSR-aerCPU-rand0-seed0'
+- training.checkpoint_every: previous=None, current=100
+  warn_config_changes(training_state.config, config)
+/work/qgan/src/qgan_v2/training/data.py:216: UserWarning: Training data config differs from current config:
+- backend.real.channel: previous='ibm_quantum_platform', current=None
+- backend.real.confirm_execution: previous=True, current=None
+- backend.real.confirm_runtime_execution: previous=None, current=False
+- backend.real.info_storage: previous=None, current='shared'
+- backend.save_backend_file: previous=None, current=False
+- encoding.random_circuit: previous=None, current=1
+- run.data_path: previous='qgan_v4/data/train', current='qgan/data/train'
+- training.checkpoint_every: previous=None, current=100
+  warn_config_changes(training_state.config, config)
+/home/bburutaran/bin/bnd: line 124: 2740761 Bus error               (core dumped) apptainer exec "${extra[@]}" -B "$PWD:/work" -B "$uv_dir:/uvbin:ro" --pwd /work "$sif" bash -lc "$full_script" bash "$@"

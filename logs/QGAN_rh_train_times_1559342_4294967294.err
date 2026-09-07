@@ -1,0 +1,68 @@
+/work/.venv/lib/python3.10/site-packages/qiskit_ibm_runtime/qiskit_runtime_service.py:1224: UserWarning: This instance has met its usage limit. Workloads will not run until time ismade available. Check https://quantum.cloud.ibm.com/instances/crn%3Av1%3Abluemix%3Apublic%3Aquantum-computing%3Aeu-de%3Aa%2Fcb804b30dfcb48b890393bfd6e41e9c2%3Ae5cf08be-edc6-48d4-a3b5-51ed8a7a387c%3A%3A for more details.
+  warnings.warn(
+Traceback (most recent call last):
+  File "/work/qgan/src/qgan_v2/main.py", line 182, in <module>
+    main()
+  File "/work/qgan/src/qgan_v2/main.py", line 170, in main
+    run_battery(
+  File "/work/qgan/src/qgan_v2/main.py", line 122, in run_battery
+    state = run_train(
+  File "/work/qgan/src/qgan_v2/main.py", line 69, in run_train
+    return train(config, interrupter=interrupter)
+  File "/work/qgan/src/qgan_v2/train.py", line 59, in train
+    disc_loss = impl.train_discriminator_step(state)
+  File "/work/qgan/src/qgan_v2/implementations/runtime_packed.py", line 81, in train_discriminator_step
+    real_output, fake_output, real_gradients, fake_gradients = state.model_d(
+  File "/work/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/work/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/work/qgan/src/qgan_v2/models/runtime_packed.py", line 143, in forward
+    real_values, real_gradients = self.real(to_numpy(real_input))
+  File "/work/qgan/src/qgan_v2/models/runtime_packed.py", line 115, in real
+    values = packed_values(self.estimator, real_disc_job, parameter_rows)
+  File "/work/qgan/src/qgan_v2/models/packed_circuits.py", line 299, in packed_values
+    result = estimator.run([pub]).result()
+  File "/work/.venv/lib/python3.10/site-packages/qiskit_ibm_runtime/runtime_job_v2.py", line 133, in result
+    self.wait_for_final_state(timeout=timeout, poll_interval=poll_interval)
+  File "/work/.venv/lib/python3.10/site-packages/qiskit_ibm_runtime/runtime_job_v2.py", line 267, in wait_for_final_state
+    status = self.status()
+  File "/work/.venv/lib/python3.10/site-packages/qiskit_ibm_runtime/runtime_job_v2.py", line 168, in status
+    self._set_status_and_error_message()
+  File "/work/.venv/lib/python3.10/site-packages/qiskit_ibm_runtime/base_runtime_job.py", line 208, in _set_status_and_error_message
+    response = self._api_client.job_get(job_id=self.job_id())
+  File "/work/.venv/lib/python3.10/site-packages/qiskit_ibm_runtime/api/clients/runtime.py", line 108, in job_get
+    response = self._api.program_job(job_id).get(exclude_params=exclude_params)
+  File "/work/.venv/lib/python3.10/site-packages/qiskit_ibm_runtime/api/rest/program_job.py", line 57, in get
+    return self.session.get(
+  File "/work/.venv/lib/python3.10/site-packages/requests/sessions.py", line 671, in get
+    return self.request("GET", url, params=params, **kwargs)
+  File "/work/.venv/lib/python3.10/site-packages/qiskit_ibm_runtime/api/session.py", line 329, in request
+    response = super().request(method, final_url, headers=headers, **kwargs)
+  File "/work/.venv/lib/python3.10/site-packages/requests/sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/work/.venv/lib/python3.10/site-packages/requests/sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+  File "/work/.venv/lib/python3.10/site-packages/requests/adapters.py", line 696, in send
+    resp = conn.urlopen(
+  File "/work/.venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 788, in urlopen
+    response = self._make_request(
+  File "/work/.venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 534, in _make_request
+    response = conn.getresponse()
+  File "/work/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 571, in getresponse
+    httplib_response = super().getresponse()
+  File "/work/.uv/python/cpython-3.10.19-linux-x86_64-gnu/lib/python3.10/http/client.py", line 1375, in getresponse
+    response.begin()
+  File "/work/.uv/python/cpython-3.10.19-linux-x86_64-gnu/lib/python3.10/http/client.py", line 318, in begin
+    version, status, reason = self._read_status()
+  File "/work/.uv/python/cpython-3.10.19-linux-x86_64-gnu/lib/python3.10/http/client.py", line 279, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+  File "/work/.uv/python/cpython-3.10.19-linux-x86_64-gnu/lib/python3.10/socket.py", line 717, in readinto
+    return self._sock.recv_into(b)
+  File "/work/.uv/python/cpython-3.10.19-linux-x86_64-gnu/lib/python3.10/ssl.py", line 1307, in recv_into
+    return self.read(nbytes, buffer)
+  File "/work/.uv/python/cpython-3.10.19-linux-x86_64-gnu/lib/python3.10/ssl.py", line 1163, in read
+    return self._sslobj.read(len, buffer)
+  File "/work/qgan/src/qgan_v2/training/interrupter.py", line 21, in handle_signal
+    raise KeyboardInterrupt
+KeyboardInterrupt
