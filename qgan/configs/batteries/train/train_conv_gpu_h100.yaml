@@ -152,20 +152,20 @@ default_config_values:
 
 variable_config_values_list:
 
-  # Amplitude noiseless q16 runs.
-  noiseless_amp_q16:
+  # Noisy q8 PSR runs.
+  noisy_q8_psr:
     implementation.name:
       - qml_torch
     experiment.implementation:
+      - base
+      - ang
       - amp
     experiment.execution_type:
-      - noiseless
+      - noisy
     experiment.gradient_method:
       - PSR
-      - SPSA
-      - REG
     experiment.n_qubits:
-      - 16
+      - 8
     backend.simulator.device:
       - GPU
     run.seed:

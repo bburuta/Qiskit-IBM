@@ -162,14 +162,46 @@ default_config_values:
 
 variable_config_values_list:
 
-  # Main CPU gradient-method, randomness, and qubit-scaling analysis.
+  # Main GPU gradient-method, randomness, and qubit-scaling analysis.
   # Noiseless qml_torch supports REG.
-  qml_torch_noiseless:
+  qml_torch_noiseless_main:
     implementation.name:
       - qml_torch
     experiment.implementation:
       - base
       - ang
+      # - amp
+    experiment.execution_type:
+      - noiseless
+    experiment.gradient_method:
+      - PSR
+      - SPSA
+      - REG
+    experiment.n_qubits:
+      - 4
+      - 8
+      - 16
+    backend.simulator.device:
+      - GPU
+    run.seed:
+      - 0
+      - 1
+      - 2
+    encoding.randomness:
+      - 0
+      - 0.1
+      - 0.25
+      - 0.5
+      - 1
+
+  # Main GPU gradient-method, randomness, and qubit-scaling analysis.
+  # Unable to transpile amplitude encoding with 16 qubits
+  qml_torch_noiseless_amp:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      # - base
+      # - ang
       - amp
     experiment.execution_type:
       - noiseless
@@ -182,7 +214,7 @@ variable_config_values_list:
       - 8
       # - 16
     backend.simulator.device:
-      - CPU
+      - GPU
     run.seed:
       - 0
       - 1
@@ -194,7 +226,7 @@ variable_config_values_list:
       - 0.5
       - 1
 
-  # Main CPU noise-impact analysis.
+  # Main GPU noise-impact analysis.
   qml_torch_noisy:
     implementation.name:
       - qml_torch
@@ -206,13 +238,13 @@ variable_config_values_list:
       - noisy
     experiment.gradient_method:
       - SPSA
-      # - PSR
+      - PSR
     experiment.n_qubits:
       - 4
-      # - 8
+      - 8
       # - 16
     backend.simulator.device:
-      - CPU
+      - GPU
     run.seed:
       - 0
       - 1

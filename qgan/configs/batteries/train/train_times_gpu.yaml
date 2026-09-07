@@ -160,13 +160,12 @@ variable_config_values_list:
 
   # Main GPU gradient-method, randomness, and qubit-scaling timing analysis.
   # Noiseless qml_torch supports REG.
-  qml_torch_noiseless:
+  qml_torch_noiseless_base_ang:
     implementation.name:
       - qml_torch
     experiment.implementation:
       - base
       - ang
-      - amp
     experiment.execution_type:
       - noiseless
     experiment.gradient_method:
@@ -177,6 +176,29 @@ variable_config_values_list:
       - 4
       - 8
       - 16
+    backend.simulator.device:
+      - GPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+      - 1
+
+  # Amplitude q16 state preparation cannot be transpiled.
+  qml_torch_noiseless_amp:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - amp
+    experiment.execution_type:
+      - noiseless
+    experiment.gradient_method:
+      - PSR
+      - SPSA
+      - REG
+    experiment.n_qubits:
+      - 4
+      - 8
     backend.simulator.device:
       - GPU
     run.seed:

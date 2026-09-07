@@ -1,5 +1,8 @@
 #!/bin/bash
 
+squeue -u "$USER" -o "%i | %P | %j | %u | %t | %M | %D | %R"
+printf "\n"
+
 printf "%-12s %-30s %-12s %-8s %s\n" "JOB_ID" "NAME" "NODE" "CPUS" "GPU"
 
 while IFS='|' read -r job name node cpus; do

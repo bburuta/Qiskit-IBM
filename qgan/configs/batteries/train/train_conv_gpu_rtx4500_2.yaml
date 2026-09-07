@@ -152,19 +152,44 @@ default_config_values:
 
 variable_config_values_list:
 
-  # Base and amplitude noisy q4 PSR runs.
-  noisy_q4_base_amp_psr:
+  # Amplitude noisy q4 SPSA runs.
+  noisy_q4_amp_spsa:
     implementation.name:
       - qml_torch
     experiment.implementation:
-      - base
       - amp
     experiment.execution_type:
       - noisy
     experiment.gradient_method:
-      - PSR
+      - SPSA
     experiment.n_qubits:
       - 4
+    backend.simulator.device:
+      - GPU
+    run.seed:
+      - 0
+      - 1
+      - 2
+    encoding.randomness:
+      - 0
+      - 0.1
+      - 0.25
+      - 0.5
+      - 1
+
+  # Base and angle noisy q8 SPSA runs.
+  noisy_q8_base_ang_spsa:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+    experiment.n_qubits:
+      - 8
     backend.simulator.device:
       - GPU
     run.seed:
