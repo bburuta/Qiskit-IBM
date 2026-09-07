@@ -30,6 +30,7 @@ CHOICE_RULES = [
     ("experiment.gradient_method", VALID_GRADIENT_METHODS),
     ("run.device", VALID_DEVICES),
     ("backend.simulator.device", VALID_DEVICES),
+    ("backend.simulator.device_name", VALID_DEVICES),
     ("encoding.type", VALID_ENCODINGS),
     ("dataset.type", VALID_DATASET_TYPES),
     ("dataset.source", VALID_DATASET_SOURCES),
