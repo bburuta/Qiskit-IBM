@@ -51,6 +51,26 @@ if [ "${#job_ids[@]}" -eq 0 ]; then
     exit 1
 fi
 
+declare -A node_cpu_totals=()
+for node in "${job_nodes[@]}"; do
+    if [ -n "${node_cpu_totals[$node]:-}" ]; then
+        continue
+    fi
+    node_cpu_totals[$node]=$(scontrol show node -o "$node" 2>/dev/null |
+        awk '{
+            for (field = 1; field <= NF; field++) {
+                if ($field ~ /^CPUTot=/) {
+                    sub(/^CPUTot=/, "", $field)
+                    print $field
+                    exit
+                }
+            }
+        }')
+    if [ -z "${node_cpu_totals[$node]}" ]; then
+        node_cpu_totals[$node]="?"
+    fi
+done
+
 monitor_dir=$(mktemp -d)
 monitor_pids=()
 
@@ -117,16 +137,46 @@ while [ "$SECONDS" -lt "$end_time" ]; do
     allocated_gpu="${allocated_gpu%%,*}"
     if [[ "$gres" == *gpu* ]] && [ -n "$allocated_gpu" ]; then
         gpu_id="$allocated_gpu"
+        gpu_selector=""
+        for gpu_info in /proc/driver/nvidia/gpus/*/information; do
+            if [ ! -f "$gpu_info" ]; then
+                continue
+            fi
+            gpu_minor=$(awk '/^Device Minor:/ {
+                sub(/^[^:]*:[[:space:]]*/, "")
+                print
+                exit
+            }' "$gpu_info")
+            if [ "$gpu_minor" = "$allocated_gpu" ]; then
+                gpu_selector=$(awk '/^GPU UUID:/ {
+                    sub(/^[^:]*:[[:space:]]*/, "")
+                    print
+                    exit
+                }' "$gpu_info")
+                if [ -z "$gpu_selector" ]; then
+                    gpu_selector="${gpu_info%/information}"
+                    gpu_selector="${gpu_selector##*/}"
+                fi
+                break
+            fi
+        done
+        if [ -z "$gpu_selector" ]; then
+            gpu_selector="$allocated_gpu"
+        fi
         gpu_data=$(
             nvidia-smi \
-                --id="$allocated_gpu" \
+                --id="$gpu_selector" \
                 --query-gpu=utilization.gpu,memory.used,memory.total \
                 --format=csv,noheader,nounits 2>/dev/null |
                 awk -F',' 'NR == 1 {
                     gsub(/[[:space:]]/, "", $1)
                     gsub(/[[:space:]]/, "", $2)
                     gsub(/[[:space:]]/, "", $3)
-                    print $1, $2, $3
+                    if ($1 ~ /^[0-9]+([.][0-9]+)?$/ &&
+                        $2 ~ /^[0-9]+([.][0-9]+)?$/ &&
+                        $3 ~ /^[0-9]+([.][0-9]+)?$/ && $3 > 0) {
+                        print $1, $2, $3
+                    }
                 }'
         )
         if [ -n "$gpu_data" ]; then
@@ -168,9 +218,9 @@ summarize_samples() {
             rss_now = $3 / 1024
             if (rss_now > rss_max) rss_max = rss_now
 
+            if ($4 != "" && $4 != "-") gpu_id = $4
             if ($4 != "" && $4 != "-" && $5 != "" && $5 != "-") {
                 gpu_samples++
-                gpu_id = $4
                 gpu_now = $5
                 gpu_sum += $5
                 if ($5 > gpu_max) gpu_max = $5
@@ -192,10 +242,109 @@ summarize_samples() {
                     gpu_id, gpu_now, gpu_sum / gpu_samples, gpu_max, \
                     gpu_mem_max, gpu_mem_total, samples
             } else {
-                printf "-|-|-|-|-|%d\n", samples
+                if (gpu_id == "") gpu_id = "-"
+                printf "%s|-|-|-|-|%d\n", gpu_id, samples
             }
         }
     ' "$sample_file"
+}
+
+print_combined_results() {
+    local index node summary cpu_average gpu_average gpu_memory
+    local cpu_now cpu_max rss_now rss_max gpu_id gpu_now gpu_max samples
+    local used_memory total_memory cpu_triplet cpu_node_percent
+    local gpu_average_all gpu_equivalent gpu_count
+    local -a nodes=()
+    local -A seen=()
+    local -A node_jobs=()
+    local -A node_cpu_allocated=()
+    local -A node_cpu_used=()
+    local -A node_gpu_expected=()
+    local -A node_gpu_measured=()
+    local -A node_gpu_sum=()
+    local -A node_vram_used=()
+    local -A node_vram_total=()
+
+    for index in "${!job_ids[@]}"; do
+        node="${job_nodes[$index]}"
+        if [ -z "${seen[$node]:-}" ]; then
+            seen[$node]=1
+            nodes+=("$node")
+        fi
+
+        node_jobs[$node]=$(( ${node_jobs[$node]:-0} + 1 ))
+        node_cpu_allocated[$node]=$(( ${node_cpu_allocated[$node]:-0} + ${job_cpus[$index]} ))
+        if [[ "${job_gres[$index]}" == *gpu* ]]; then
+            node_gpu_expected[$node]=$(( ${node_gpu_expected[$node]:-0} + 1 ))
+        fi
+
+        summary=$(summarize_samples "$monitor_dir/${job_ids[$index]}.samples")
+        IFS='|' read -r cpu_now cpu_average cpu_max rss_now rss_max \
+            gpu_id gpu_now gpu_average gpu_max gpu_memory samples <<< "$summary"
+
+        if [ "$cpu_now" != "waiting" ]; then
+            node_cpu_used[$node]=$(awk \
+                -v current="${node_cpu_used[$node]:-0}" \
+                -v percent="$cpu_average" -v cpus="${job_cpus[$index]}" \
+                'BEGIN {printf "%.3f", current + percent * cpus / 100}')
+        fi
+
+        if [ "$gpu_average" != "-" ]; then
+            node_gpu_measured[$node]=$(( ${node_gpu_measured[$node]:-0} + 1 ))
+            node_gpu_sum[$node]=$(awk \
+                -v current="${node_gpu_sum[$node]:-0}" -v usage="$gpu_average" \
+                'BEGIN {printf "%.3f", current + usage}')
+            used_memory="${gpu_memory%/*}"
+            total_memory="${gpu_memory#*/}"
+            node_vram_used[$node]=$(( ${node_vram_used[$node]:-0} + used_memory ))
+            node_vram_total[$node]=$(( ${node_vram_total[$node]:-0} + total_memory ))
+        fi
+    done
+
+    printf "\nCombined usage of monitored jobs by node:\n"
+    printf "%-12s %-6s %-24s %-11s %-10s %-10s %-12s %-18s\n" \
+        "NODE" "JOBS" "CPU USED/ALLOC/NODE" "OUR NODE %" \
+        "GPUS" "GPU AVG" "GPU EQUIV" "VRAM MAX/TOTAL"
+
+    for node in "${nodes[@]}"; do
+        cpu_triplet=$(printf "%.1f/%s/%s" \
+            "${node_cpu_used[$node]:-0}" \
+            "${node_cpu_allocated[$node]:-0}" \
+            "${node_cpu_totals[$node]}")
+        if [ "${node_cpu_totals[$node]}" = "?" ]; then
+            cpu_node_percent="-"
+        else
+            cpu_node_percent=$(awk \
+                -v used="${node_cpu_used[$node]:-0}" \
+                -v total="${node_cpu_totals[$node]}" \
+                'BEGIN {printf "%.1f%%", 100 * used / total}')
+        fi
+
+        if [ "${node_gpu_expected[$node]:-0}" -eq 0 ]; then
+            gpu_count="-"
+            gpu_average_all="-"
+            gpu_equivalent="-"
+            gpu_memory="-"
+        elif [ "${node_gpu_measured[$node]:-0}" -gt 0 ]; then
+            gpu_count="${node_gpu_measured[$node]}/${node_gpu_expected[$node]}"
+            gpu_average_all=$(awk \
+                -v sum="${node_gpu_sum[$node]}" -v count="${node_gpu_measured[$node]}" \
+                'BEGIN {printf "%.1f%%", sum / count}')
+            gpu_equivalent=$(awk \
+                -v sum="${node_gpu_sum[$node]}" -v count="${node_gpu_expected[$node]}" \
+                'BEGIN {printf "%.2f/%d", sum / 100, count}')
+            gpu_memory="${node_vram_used[$node]:-0}/${node_vram_total[$node]:-0}"
+        else
+            gpu_count="0/${node_gpu_expected[$node]}"
+            gpu_average_all="-"
+            gpu_equivalent="-"
+            gpu_memory="-"
+        fi
+
+        printf "%-12s %-6s %-24s %-11s %-10s %-10s %-12s %-18s\n" \
+            "$node" "${node_jobs[$node]}" "$cpu_triplet" "$cpu_node_percent" \
+            "$gpu_count" "$gpu_average_all" "$gpu_equivalent" "$gpu_memory"
+    done
 }
 
 print_live_results() {
@@ -232,6 +381,8 @@ print_live_results() {
             "${job_ids[$index]}" "${job_names[$index]}" "${job_cpus[$index]}" \
             "$gpu_id" "$cpu_now" "$cpu_average" "$rss_now" "$gpu_now" "$gpu_memory"
     done
+
+    print_combined_results
 }
 
 interpret_result() {
@@ -311,9 +462,13 @@ print_final_results() {
         fi
     done
 
+    print_combined_results
+
     printf "\nInterpretation:\n"
     printf "  GPU busy: GPU AVG >= 70%%. CPU bottleneck: GPU AVG < 30%% with about one CPU core busy.\n"
     printf "  CPU-only jobs near 100%% use most allocated CPUs; below 30%% means underused.\n"
+    printf "  CPU USED/ALLOC/NODE compares cores used by these jobs, their reservation, and node capacity.\n"
+    printf "  GPU EQUIV is the combined GPU load expressed as fully occupied GPUs.\n"
     printf "  RAM/VRAM near the allocation limit: memory pressure.\n"
     printf "  Results are simple heuristics; short or bursty workloads may appear as mixed/low usage.\n"
 }
