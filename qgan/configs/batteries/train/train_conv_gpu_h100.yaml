@@ -152,7 +152,51 @@ default_config_values:
 
 variable_config_values_list:
 
-  # Noisy q8 PSR runs.
+  # Each convergence GPU receives one randomness slice. This keeps the
+  # expensive noisy PSR work balanced across physical devices.
+  noiseless_ang_q16:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - ang
+    experiment.execution_type:
+      - noiseless
+    experiment.gradient_method:
+      - PSR
+      - SPSA
+      - REG
+    experiment.n_qubits:
+      - 16
+    backend.simulator.device:
+      - GPU
+    run.seed:
+      - 0
+      - 1
+      - 2
+    encoding.randomness:
+      - 0
+
+  noiseless_base_q16_psr_spsa:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+    experiment.execution_type:
+      - noiseless
+    experiment.gradient_method:
+      - PSR
+      - SPSA
+    experiment.n_qubits:
+      - 16
+    backend.simulator.device:
+      - GPU
+    run.seed:
+      - 0
+      - 1
+      - 2
+    encoding.randomness:
+      - 0
+
   noisy_q8_psr:
     implementation.name:
       - qml_torch
@@ -174,7 +218,24 @@ variable_config_values_list:
       - 2
     encoding.randomness:
       - 0
-      - 0.1
-      - 0.25
-      - 0.5
+
+  noisy_q8_base_amp_spsa:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+    experiment.n_qubits:
+      - 8
+    backend.simulator.device:
+      - GPU
+    run.seed:
+      - 0
       - 1
+      - 2
+    encoding.randomness:
+      - 0

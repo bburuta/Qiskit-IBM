@@ -303,3 +303,29 @@ variable_config_values_list:
       - 0.25
       - 0.5
       - 1
+
+  # High-cost noisy q4 PSR runs assigned to CPU after timing comparison.
+  noisy_q4_base_ang_psr:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - PSR
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+      - 1
+      - 2
+    encoding.randomness:
+      - 0
+      - 0.1
+      - 0.25
+      - 0.5
+      - 1
