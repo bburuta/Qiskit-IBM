@@ -4,6 +4,7 @@ if [ "$#" -ne 2 ]; then
     echo "Usage: $0 JOB_ID|all SECONDS"
     echo "Examples:"
     echo "  $0 1566420 60"
+    echo "  $0 1566450_3 60"
     echo "  $0 all 60"
     exit 1
 fi
@@ -24,22 +25,24 @@ if [ "$duration" -lt 1 ]; then
 fi
 
 job_ids=()
+job_display_ids=()
 job_names=()
 job_nodes=()
 job_cpus=()
 job_gres=()
 
 if [ "$target" = "all" ]; then
-    job_query=$(squeue -u "$USER" -t RUNNING -h -o "%i|%j|%N|%C|%b")
+    job_query=$(squeue --array -u "$USER" -t RUNNING -h -o "%i|%A|%j|%N|%C|%b")
 else
-    job_query=$(squeue -u "$USER" -t RUNNING -h -j "$target" -o "%i|%j|%N|%C|%b")
+    job_query=$(squeue --array -u "$USER" -t RUNNING -h -j "$target" -o "%i|%A|%j|%N|%C|%b")
 fi
 
-while IFS='|' read -r job_id job_name job_node cpus gres; do
+while IFS='|' read -r job_display_id job_id job_name job_node cpus gres; do
     if [ -z "$job_id" ]; then
         continue
     fi
     job_ids+=("$job_id")
+    job_display_ids+=("$job_display_id")
     job_names+=("$job_name")
     job_nodes+=("$job_node")
     job_cpus+=("$cpus")
@@ -378,7 +381,7 @@ print_live_results() {
         fi
 
         printf "%-10s %-32s %-8s %-7s %-10s %-10s %-10s %-10s %-14s\n" \
-            "${job_ids[$index]}" "${job_names[$index]}" "${job_cpus[$index]}" \
+            "${job_display_ids[$index]}" "${job_names[$index]}" "${job_cpus[$index]}" \
             "$gpu_id" "$cpu_now" "$cpu_average" "$rss_now" "$gpu_now" "$gpu_memory"
     done
 
@@ -451,7 +454,7 @@ print_final_results() {
         fi
 
         printf "%-10s %-32s %-8s %-7s %-10s %-10s %-12s %-10s %-10s %-16s %-8s %-18s\n" \
-            "${job_ids[$index]}" "${job_names[$index]}" "${job_cpus[$index]}" \
+            "${job_display_ids[$index]}" "${job_names[$index]}" "${job_cpus[$index]}" \
             "$gpu_id" "$cpu_average" "$cpu_max" "$rss_max" \
             "$gpu_average" "$gpu_max" "$gpu_memory" "$samples" "$result"
 
