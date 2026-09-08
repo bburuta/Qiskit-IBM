@@ -1,0 +1,30 @@
+/work/qgan/src/qgan_v2/training/data.py:216: UserWarning: Training data config differs from current config:
+- backend.simulator.device_name: previous=None, current='CPU'
+- backend.simulator.max_parallel_threads: previous=0, current=12
+- training.checkpoint_every: previous=100, current=10
+- training.print_every: previous=100, current=10
+  warn_config_changes(training_state.config, config)
+/work/qgan/src/qgan_v2/training/data.py:216: UserWarning: Training data config differs from current config:
+- backend.simulator.max_parallel_threads: previous=96, current=12
+- training.checkpoint_every: previous=100, current=10
+- training.print_every: previous=100, current=10
+  warn_config_changes(training_state.config, config)
+/work/qgan/src/qgan_v2/training/data.py:216: UserWarning: Training data config differs from current config:
+- backend.real.channel: previous='ibm_quantum_platform', current=None
+- backend.real.confirm_execution: previous=True, current=None
+- backend.real.confirm_runtime_execution: previous=None, current=False
+- backend.real.info_storage: previous=None, current='shared'
+- backend.save_backend_file: previous=None, current=False
+- backend.simulator.device_name: previous=None, current='CPU'
+- backend.simulator.max_parallel_threads: previous=0, current=12
+- encoding.random_circuit: previous=None, current=1
+- run.data_path: previous='qgan_v4/data/train', current='qgan/data/train'
+- training.checkpoint_every: previous=None, current=10
+- training.print_every: previous=100, current=10
+  warn_config_changes(training_state.config, config)
+/work/qgan/src/qgan_v2/training/data.py:216: UserWarning: Training data config differs from current config:
+- backend.simulator.device_name: previous=None, current='CPU'
+- backend.simulator.max_parallel_threads: previous=0, current=12
+- training.checkpoint_every: previous=100, current=10
+- training.print_every: previous=100, current=10
+  warn_config_changes(training_state.config, config)

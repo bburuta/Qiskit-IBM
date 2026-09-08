@@ -1,0 +1,135 @@
+Creating config files for noiseless_ang_q16:
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q16-noiseless-PSR-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q16-noiseless-PSR-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q16-noiseless-PSR-aerCPU-rand0.1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q16-noiseless-SPSA-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q16-noiseless-SPSA-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q16-noiseless-SPSA-aerCPU-rand0.1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q16-noiseless-REG-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q16-noiseless-REG-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q16-noiseless-REG-aerCPU-rand0.1-seed2/config.yaml
+
+Creating config files for noiseless_base_q16_psr_spsa:
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q16-noiseless-PSR-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q16-noiseless-PSR-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q16-noiseless-PSR-aerCPU-rand0.1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q16-noiseless-SPSA-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q16-noiseless-SPSA-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q16-noiseless-SPSA-aerCPU-rand0.1-seed2/config.yaml
+
+Creating config files for noisy_q8_psr:
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noisy-PSR-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noisy-PSR-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noisy-PSR-aerCPU-rand0.1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noisy-PSR-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noisy-PSR-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noisy-PSR-aerCPU-rand0.1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noisy-PSR-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noisy-PSR-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noisy-PSR-aerCPU-rand0.1-seed2/config.yaml
+
+Creating config files for noisy_q8_base_amp_spsa:
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed2/config.yaml
+
+30 battery configuration files ready.
+
+Running: /work/qgan/data/train/ang-qml_torch-q16-noiseless-PSR-aerCPU-rand0.1-seed0/config.yaml
+GPUs available to PyTorch: 1
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.739 |              -0.44 |             0.0517 |             0.0517 |               59.8 |
+                 10 |             -0.774 |             -0.463 |             0.0599 |             0.0351 |                562 |
+                 20 |             -0.795 |             -0.503 |             0.0462 |             0.0351 |                557 |
+                 30 |             -0.782 |             -0.539 |             0.0609 |             0.0351 |                559 |
+                 40 |             -0.748 |             -0.534 |             0.0591 |             0.0351 |                557 |
+                 50 |             -0.737 |             -0.533 |             0.0591 |             0.0351 |                546 |
+                 60 |             -0.726 |             -0.539 |             0.0544 |             0.0351 |                544 |
+                 70 |             -0.749 |             -0.542 |             0.0427 |             0.0351 |                543 |
+                 80 |             -0.765 |             -0.536 |             0.0541 |             0.0351 |                545 |
+                 90 |             -0.781 |             -0.528 |             0.0573 |             0.0351 |                546 |
+                100 |             -0.805 |             -0.521 |             0.0546 |             0.0351 |                547 |
+                110 |               -0.8 |             -0.539 |             0.0683 |             0.0351 |                550 |
+                120 |               -0.8 |             -0.514 |             0.0688 |             0.0351 |                550 |
+                130 |             -0.783 |             -0.555 |             0.0784 |             0.0351 |                548 |
+                140 |             -0.764 |             -0.529 |             0.0699 |             0.0351 |                548 |
+                150 |             -0.723 |             -0.541 |             0.0712 |             0.0351 |                546 |
+                160 |             -0.736 |             -0.538 |             0.0671 |             0.0351 |                546 |
+                170 |             -0.741 |             -0.549 |             0.0716 |             0.0351 |                545 |
+                180 |             -0.773 |             -0.517 |             0.0679 |             0.0351 |                543 |
+                190 |             -0.785 |             -0.514 |             0.0775 |             0.0351 |                544 |
+                200 |             -0.822 |             -0.518 |             0.0848 |             0.0351 |                544 |
+                210 |             -0.799 |             -0.521 |             0.0804 |             0.0351 |                544 |
+                220 |             -0.762 |             -0.534 |             0.0883 |             0.0351 |                544 |
+                230 |             -0.728 |             -0.524 |             0.0977 |             0.0351 |                543 |
+                240 |             -0.679 |              -0.55 |              0.101 |             0.0351 |                544 |
+                250 |             -0.655 |             -0.543 |              0.111 |             0.0351 |                544 |
+                260 |             -0.688 |             -0.555 |              0.119 |             0.0351 |                543 |
+                270 |             -0.696 |             -0.552 |              0.111 |             0.0351 |                544 |
+                280 |             -0.722 |             -0.586 |              0.123 |             0.0351 |                544 |
+                290 |             -0.734 |             -0.587 |              0.136 |             0.0351 |                546 |
+                300 |             -0.761 |             -0.579 |              0.152 |             0.0351 |                546 |
+                310 |             -0.785 |             -0.561 |              0.151 |             0.0351 |                546 |
+                320 |             -0.774 |             -0.574 |              0.145 |             0.0351 |                548 |
+                330 |             -0.818 |             -0.553 |              0.139 |             0.0351 |                549 |
+                340 |             -0.829 |             -0.541 |              0.138 |             0.0351 |                551 |
+                350 |             -0.811 |             -0.533 |              0.127 |             0.0351 |                549 |
+                360 |             -0.818 |             -0.531 |              0.132 |             0.0351 |                548 |
+                370 |              -0.86 |             -0.528 |              0.125 |             0.0351 |                548 |
+                380 |             -0.856 |             -0.533 |              0.127 |             0.0351 |                548 |
+                390 |             -0.848 |             -0.523 |              0.124 |             0.0351 |                548 |
+                400 |               -0.9 |             -0.516 |              0.108 |             0.0351 |                546 |
+                410 |             -0.883 |             -0.522 |              0.116 |             0.0351 |                543 |
+                420 |              -0.89 |             -0.518 |               0.12 |             0.0351 |                543 |
+                430 |             -0.916 |             -0.513 |              0.112 |             0.0351 |                544 |
+                440 |             -0.883 |             -0.514 |               0.11 |             0.0351 |                544 |
+                450 |              -0.92 |             -0.514 |              0.113 |             0.0351 |                544 |
+                460 |               -0.9 |             -0.517 |              0.117 |             0.0351 |                544 |
+                470 |             -0.897 |             -0.519 |              0.113 |             0.0351 |                545 |
+                480 |             -0.912 |             -0.525 |              0.111 |             0.0351 |                544 |
+                490 |             -0.908 |             -0.522 |              0.119 |             0.0351 |                546 |
+                500 |             -0.905 |             -0.518 |              0.115 |             0.0351 |                546 |
+                510 |              -0.89 |             -0.525 |              0.114 |             0.0351 |                547 |
+                520 |              -0.89 |             -0.517 |              0.118 |             0.0351 |                548 |
+                530 |             -0.887 |             -0.522 |              0.116 |             0.0351 |                552 |
+                540 |             -0.899 |             -0.512 |              0.116 |             0.0351 |                551 |
+                550 |             -0.893 |             -0.525 |              0.118 |             0.0351 |                547 |
+                560 |              -0.88 |             -0.511 |               0.11 |             0.0351 |                547 |
+                570 |             -0.881 |             -0.516 |              0.109 |             0.0351 |                546 |
+                580 |             -0.889 |             -0.517 |              0.115 |             0.0351 |                545 |
+                590 |             -0.868 |             -0.506 |              0.115 |             0.0351 |                544 |
+                600 |             -0.863 |             -0.513 |              0.117 |             0.0351 |                544 |
+                610 |             -0.857 |             -0.528 |              0.117 |             0.0351 |                544 |
+                620 |             -0.874 |             -0.525 |              0.117 |             0.0351 |                544 |
+                630 |             -0.904 |             -0.513 |              0.124 |             0.0351 |                542 |
+                640 |             -0.914 |               -0.5 |              0.117 |             0.0351 |                543 |
+                650 |             -0.914 |             -0.499 |              0.119 |             0.0351 |                544 |
+                660 |               -0.9 |             -0.499 |              0.116 |             0.0351 |                545 |
+                670 |             -0.914 |             -0.519 |               0.12 |             0.0351 |                546 |
+                680 |               -0.9 |             -0.512 |              0.123 |             0.0351 |                547 |
+                690 |             -0.917 |             -0.507 |              0.135 |             0.0351 |                548 |
+                700 |             -0.926 |             -0.521 |              0.138 |             0.0351 |                548 |
+                710 |             -0.915 |             -0.516 |              0.144 |             0.0351 |                549 |
+                720 |             -0.914 |             -0.504 |              0.148 |             0.0351 |                552 |
+                730 |             -0.926 |             -0.517 |              0.146 |             0.0351 |                549 |
+                740 |             -0.924 |             -0.502 |              0.144 |             0.0351 |                548 |
+                750 |             -0.907 |             -0.508 |              0.147 |             0.0351 |                548 |
+                760 |             -0.908 |             -0.513 |               0.15 |             0.0351 |                545 |
+                770 |             -0.908 |             -0.522 |              0.155 |             0.0351 |                547 |
+                780 |               -0.9 |             -0.517 |              0.155 |             0.0351 |                546 |
+                790 |             -0.869 |             -0.515 |              0.158 |             0.0351 |                549 |
+                800 |             -0.864 |             -0.518 |              0.156 |             0.0351 |                548 |
+                810 |             -0.877 |             -0.517 |              0.153 |             0.0351 |                548 |
+                820 |             -0.872 |             -0.509 |              0.147 |             0.0351 |                548 |
+                830 |              -0.85 |             -0.514 |              0.147 |             0.0351 |                549 |
+                840 |             -0.854 |             -0.519 |              0.142 |             0.0351 |                550 |
+                850 |             -0.859 |             -0.514 |              0.142 |             0.0351 |                552 |
+                860 |             -0.851 |             -0.505 |              0.136 |             0.0351 |                554 |
+                870 |              -0.87 |             -0.522 |              0.144 |             0.0351 |                554 |
+                880 |             -0.873 |             -0.499 |              0.131 |             0.0351 |                559 |
+                890 |              -0.87 |             -0.504 |              0.138 |             0.0351 |                556 |
+                900 |             -0.898 |             -0.493 |              0.141 |             0.0351 |                555 |

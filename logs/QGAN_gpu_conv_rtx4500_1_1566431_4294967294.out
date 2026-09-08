@@ -69,3 +69,12 @@ Running: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.25-seed0
 GPUs available to PyTorch: 1
               Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
                 200 |             -0.692 |             -0.421 |            0.00276 |            0.00177 |           3.17e+03 |
+
+Interrupter: will stop after the current epoch. Press Ctrl+C again to force quit.
+Interrupter: Graceful exit triggered. Breaking loop.
+Training complete: 
+   Data path: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.25-seed0 
+   Best eval: 0.001769146249476809 
+   Total time: 15997.082320690155
+Interrupter: battery execution stopped.
+3 battery run(s) succeeded.

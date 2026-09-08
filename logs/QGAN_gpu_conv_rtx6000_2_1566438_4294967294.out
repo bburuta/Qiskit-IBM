@@ -1,0 +1,126 @@
+Creating config files for noiseless_ang_q16:
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q16-noiseless-PSR-aerCPU-rand0.25-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q16-noiseless-PSR-aerCPU-rand0.25-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q16-noiseless-PSR-aerCPU-rand0.25-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q16-noiseless-SPSA-aerCPU-rand0.25-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q16-noiseless-SPSA-aerCPU-rand0.25-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q16-noiseless-SPSA-aerCPU-rand0.25-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q16-noiseless-REG-aerCPU-rand0.25-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q16-noiseless-REG-aerCPU-rand0.25-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q16-noiseless-REG-aerCPU-rand0.25-seed2/config.yaml
+
+Creating config files for noiseless_base_q16_psr_spsa:
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q16-noiseless-PSR-aerCPU-rand0.25-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q16-noiseless-PSR-aerCPU-rand0.25-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q16-noiseless-PSR-aerCPU-rand0.25-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q16-noiseless-SPSA-aerCPU-rand0.25-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q16-noiseless-SPSA-aerCPU-rand0.25-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q16-noiseless-SPSA-aerCPU-rand0.25-seed2/config.yaml
+
+Creating config files for noisy_q8_psr:
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noisy-PSR-aerCPU-rand0.25-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noisy-PSR-aerCPU-rand0.25-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noisy-PSR-aerCPU-rand0.25-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noisy-PSR-aerCPU-rand0.25-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noisy-PSR-aerCPU-rand0.25-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noisy-PSR-aerCPU-rand0.25-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noisy-PSR-aerCPU-rand0.25-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noisy-PSR-aerCPU-rand0.25-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noisy-PSR-aerCPU-rand0.25-seed2/config.yaml
+
+Creating config files for noisy_q8_base_amp_spsa:
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0.25-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0.25-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noisy-SPSA-aerCPU-rand0.25-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.25-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.25-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noisy-SPSA-aerCPU-rand0.25-seed2/config.yaml
+
+30 battery configuration files ready.
+
+Running: /work/qgan/data/train/ang-qml_torch-q16-noiseless-PSR-aerCPU-rand0.25-seed0/config.yaml
+GPUs available to PyTorch: 1
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.616 |              -0.49 |             0.0697 |             0.0697 |               65.3 |
+                 10 |             -0.703 |             -0.522 |             0.0814 |             0.0453 |                622 |
+                 20 |             -0.718 |              -0.54 |             0.0793 |             0.0453 |                613 |
+                 30 |             -0.706 |             -0.603 |             0.0872 |             0.0453 |                604 |
+                 40 |             -0.756 |             -0.591 |              0.084 |             0.0453 |                601 |
+                 50 |             -0.735 |             -0.577 |              0.101 |             0.0453 |                605 |
+                 60 |             -0.725 |             -0.539 |             0.0711 |             0.0453 |                604 |
+                 70 |             -0.743 |             -0.578 |              0.102 |             0.0453 |                604 |
+                 80 |             -0.694 |              -0.59 |             0.0895 |             0.0453 |                601 |
+                 90 |             -0.713 |             -0.625 |              0.077 |             0.0453 |                604 |
+                100 |             -0.742 |             -0.588 |             0.0778 |             0.0453 |                602 |
+                110 |             -0.723 |              -0.63 |             0.0922 |             0.0453 |                602 |
+                120 |             -0.694 |             -0.622 |             0.0737 |             0.0453 |                604 |
+                130 |             -0.694 |             -0.613 |             0.0741 |             0.0453 |                606 |
+                140 |             -0.715 |              -0.61 |              0.094 |             0.0453 |                607 |
+                150 |             -0.721 |             -0.603 |              0.096 |             0.0453 |                604 |
+                160 |             -0.695 |             -0.614 |             0.0819 |             0.0453 |                599 |
+                170 |             -0.704 |             -0.611 |             0.0825 |             0.0453 |                600 |
+                180 |             -0.675 |             -0.604 |             0.0911 |             0.0453 |                607 |
+                190 |             -0.683 |             -0.632 |             0.0912 |             0.0453 |                609 |
+                200 |             -0.691 |             -0.628 |             0.0892 |             0.0453 |                602 |
+                210 |             -0.663 |             -0.638 |              0.094 |             0.0453 |                600 |
+                220 |             -0.673 |             -0.652 |             0.0778 |             0.0453 |                600 |
+                230 |              -0.65 |              -0.62 |             0.0826 |             0.0453 |                604 |
+                240 |             -0.615 |             -0.665 |             0.0723 |             0.0453 |                603 |
+                250 |             -0.682 |             -0.635 |             0.0945 |             0.0453 |                601 |
+                260 |             -0.697 |             -0.656 |             0.0802 |             0.0453 |                604 |
+                270 |             -0.675 |             -0.613 |             0.0735 |             0.0453 |                603 |
+                280 |             -0.694 |             -0.639 |             0.0928 |             0.0453 |                603 |
+                290 |             -0.744 |             -0.637 |              0.084 |             0.0453 |                605 |
+                300 |             -0.695 |             -0.615 |             0.0881 |             0.0453 |                602 |
+                310 |              -0.72 |             -0.628 |             0.0923 |             0.0453 |                600 |
+                320 |             -0.727 |             -0.638 |             0.0843 |             0.0453 |                600 |
+                330 |             -0.758 |             -0.601 |             0.0969 |             0.0453 |                606 |
+                340 |             -0.726 |             -0.611 |             0.0921 |             0.0453 |                610 |
+                350 |             -0.739 |             -0.606 |             0.0969 |             0.0453 |                603 |
+                360 |             -0.715 |             -0.611 |              0.114 |             0.0453 |                599 |
+                370 |             -0.745 |             -0.603 |             0.0925 |             0.0453 |                600 |
+                380 |             -0.742 |             -0.594 |             0.0894 |             0.0453 |                605 |
+                390 |             -0.711 |              -0.59 |             0.0966 |             0.0453 |                602 |
+                400 |             -0.783 |             -0.596 |              0.115 |             0.0453 |                602 |
+                410 |             -0.734 |             -0.616 |             0.0977 |             0.0453 |                605 |
+                420 |             -0.707 |             -0.616 |             0.0948 |             0.0453 |                602 |
+                430 |             -0.724 |             -0.619 |              0.107 |             0.0453 |                601 |
+                440 |             -0.708 |             -0.638 |             0.0938 |             0.0453 |                604 |
+                450 |              -0.72 |             -0.607 |              0.106 |             0.0453 |                599 |
+                460 |             -0.719 |              -0.64 |             0.0993 |             0.0453 |                599 |
+                470 |             -0.737 |             -0.615 |              0.113 |             0.0453 |                603 |
+                480 |             -0.684 |             -0.621 |              0.114 |             0.0453 |                611 |
+                490 |             -0.704 |             -0.602 |              0.121 |             0.0453 |                607 |
+                500 |             -0.684 |             -0.616 |              0.105 |             0.0453 |                600 |
+                510 |              -0.71 |              -0.62 |              0.113 |             0.0453 |                599 |
+                520 |             -0.698 |             -0.616 |              0.098 |             0.0453 |                603 |
+                530 |              -0.75 |             -0.606 |             0.0968 |             0.0453 |                605 |
+                540 |             -0.684 |             -0.612 |              0.109 |             0.0453 |                604 |
+                550 |              -0.66 |             -0.622 |              0.101 |             0.0453 |                604 |
+                560 |             -0.709 |             -0.611 |              0.103 |             0.0453 |                600 |
+                570 |              -0.68 |             -0.588 |              0.102 |             0.0453 |                600 |
+                580 |             -0.702 |             -0.587 |              0.109 |             0.0453 |                605 |
+                590 |              -0.72 |             -0.564 |             0.0987 |             0.0453 |                600 |
+                600 |             -0.697 |             -0.604 |             0.0919 |             0.0453 |                599 |
+                610 |             -0.724 |             -0.613 |             0.0856 |             0.0453 |                603 |
+                620 |             -0.778 |             -0.638 |             0.0908 |             0.0453 |                606 |
+                630 |             -0.713 |             -0.621 |             0.0906 |             0.0453 |                607 |
+                640 |             -0.704 |               -0.6 |              0.105 |             0.0453 |                601 |
+                650 |             -0.735 |             -0.584 |             0.0952 |             0.0453 |                601 |
+                660 |             -0.711 |             -0.616 |             0.0971 |             0.0453 |                601 |
+                670 |             -0.728 |             -0.605 |              0.094 |             0.0453 |                608 |
+                680 |             -0.683 |             -0.611 |              0.102 |             0.0453 |                607 |
+                690 |             -0.701 |             -0.632 |             0.0979 |             0.0453 |                603 |
+                700 |             -0.715 |              -0.63 |             0.0821 |             0.0453 |                601 |
+                710 |             -0.743 |             -0.647 |             0.0782 |             0.0453 |                605 |
+                720 |              -0.71 |             -0.616 |             0.0814 |             0.0453 |                615 |
+                730 |              -0.68 |             -0.632 |             0.0802 |             0.0453 |                615 |
+                740 |             -0.718 |             -0.624 |             0.0631 |             0.0453 |                611 |
+                750 |             -0.725 |             -0.608 |             0.0715 |             0.0453 |                607 |
+                760 |             -0.669 |             -0.634 |             0.0658 |             0.0453 |                607 |
+                770 |             -0.682 |             -0.615 |             0.0592 |             0.0453 |                608 |
+                780 |             -0.737 |             -0.581 |             0.0754 |             0.0453 |                610 |
+                790 |             -0.687 |             -0.588 |             0.0665 |             0.0453 |                612 |
+                800 |             -0.702 |             -0.609 |             0.0625 |             0.0453 |                615 |
+                810 |             -0.735 |             -0.585 |             0.0544 |             0.0448 |                615 |

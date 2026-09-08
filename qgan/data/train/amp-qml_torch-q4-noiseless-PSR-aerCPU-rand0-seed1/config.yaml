@@ -18,8 +18,8 @@ training:
   disc_iterations: 1
   init_scale: 0.1
   learning_rate: 0.005
-  print_every: 100
-  checkpoint_every: 100
+  print_every: 10
+  checkpoint_every: 10
 dataset:
   id: generated_gradients-total_pixels16
   reset: false
@@ -45,7 +45,7 @@ backend:
     noiseless_method: statevector
     noisy_method: density_matrix
     noisy_backend_mapping: hardware
-    max_parallel_threads: 96
+    max_parallel_threads: 12
     max_parallel_experiments: 1
     max_parallel_shots: 0
     gpu:

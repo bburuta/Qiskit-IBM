@@ -50,3 +50,6 @@ Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q8-noisy
 Running: /work/qgan/data/train/base-qml_torch-q8-noisy-PSR-aerCPU-rand0-seed0/config.yaml
 GPUs available to PyTorch: 1
               Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+
+Interrupter: will stop after the current epoch. Press Ctrl+C again to force quit.
+Interrupter: Graceful exit triggered. Breaking loop.

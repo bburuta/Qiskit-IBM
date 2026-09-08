@@ -578,3 +578,8 @@ Running: /work/qgan/data/train/times/ang-qml_torch-q8-noisy-PSR-aerGPU-rand0-see
 GPUs available to PyTorch: 1
               Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
                   0 |             -0.918 |             -0.442 |             0.0218 |             0.0218 |           1.94e+03 |
+                  1 |             -0.906 |             -0.448 |             0.0194 |             0.0194 |           1.92e+03 |
+
+Interrupter: will stop after the current epoch. Press Ctrl+C again to force quit.
+                  2 |             -0.915 |             -0.446 |             0.0202 |             0.0194 |           1.84e+03 |
+Interrupter: Graceful exit triggered. Breaking loop.

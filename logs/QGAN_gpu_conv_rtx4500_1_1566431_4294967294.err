@@ -20,3 +20,4 @@
 - encoding.random_circuit: previous=None, current=1
 - run.device: previous='CPU', current='GPU'
   warn_config_changes(training_state.config, config)
+/home/bburutaran/bin/bnd: line 124: 78659 Bus error               (core dumped) apptainer exec "${extra[@]}" -B "$PWD:/work" -B "$uv_dir:/uvbin:ro" --pwd /work "$sif" bash -lc "$full_script" bash "$@"

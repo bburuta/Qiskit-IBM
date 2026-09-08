@@ -1,0 +1,456 @@
+Creating config files for noiseless_ang_q8_spsa_reg:
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.25-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.5-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.25-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.5-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.25-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.5-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0.25-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0.5-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0.25-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0.5-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0.25-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0.5-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand1-seed2/config.yaml
+
+Creating config files for noiseless_ang_q4_psr:
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noiseless-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noiseless-PSR-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noiseless-PSR-aerCPU-rand0.25-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noiseless-PSR-aerCPU-rand0.5-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noiseless-PSR-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noiseless-PSR-aerCPU-rand0-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noiseless-PSR-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noiseless-PSR-aerCPU-rand0.25-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noiseless-PSR-aerCPU-rand0.5-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noiseless-PSR-aerCPU-rand1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noiseless-PSR-aerCPU-rand0-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noiseless-PSR-aerCPU-rand0.1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noiseless-PSR-aerCPU-rand0.25-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noiseless-PSR-aerCPU-rand0.5-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noiseless-PSR-aerCPU-rand1-seed2/config.yaml
+
+Creating config files for noiseless_base_q8_spsa_reg:
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.25-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.5-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.25-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.5-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.25-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.5-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-SPSA-aerCPU-rand1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0.25-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0.5-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0.25-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0.5-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0.25-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand0.5-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q8-noiseless-REG-aerCPU-rand1-seed2/config.yaml
+
+Creating config files for noiseless_amp_q4_psr_reg:
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noiseless-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noiseless-PSR-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noiseless-PSR-aerCPU-rand0.25-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noiseless-PSR-aerCPU-rand0.5-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noiseless-PSR-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noiseless-PSR-aerCPU-rand0-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noiseless-PSR-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noiseless-PSR-aerCPU-rand0.25-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noiseless-PSR-aerCPU-rand0.5-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noiseless-PSR-aerCPU-rand1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noiseless-PSR-aerCPU-rand0-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noiseless-PSR-aerCPU-rand0.1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noiseless-PSR-aerCPU-rand0.25-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noiseless-PSR-aerCPU-rand0.5-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noiseless-PSR-aerCPU-rand1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noiseless-REG-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noiseless-REG-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noiseless-REG-aerCPU-rand0.25-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noiseless-REG-aerCPU-rand0.5-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noiseless-REG-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noiseless-REG-aerCPU-rand0-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noiseless-REG-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noiseless-REG-aerCPU-rand0.25-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noiseless-REG-aerCPU-rand0.5-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noiseless-REG-aerCPU-rand1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noiseless-REG-aerCPU-rand0-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noiseless-REG-aerCPU-rand0.1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noiseless-REG-aerCPU-rand0.25-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noiseless-REG-aerCPU-rand0.5-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noiseless-REG-aerCPU-rand1-seed2/config.yaml
+
+Creating config files for noiseless_base_q4_psr_spsa:
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noiseless-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noiseless-PSR-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noiseless-PSR-aerCPU-rand0.25-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noiseless-PSR-aerCPU-rand0.5-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noiseless-PSR-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noiseless-PSR-aerCPU-rand0-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noiseless-PSR-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noiseless-PSR-aerCPU-rand0.25-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noiseless-PSR-aerCPU-rand0.5-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noiseless-PSR-aerCPU-rand1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noiseless-PSR-aerCPU-rand0-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noiseless-PSR-aerCPU-rand0.1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noiseless-PSR-aerCPU-rand0.25-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noiseless-PSR-aerCPU-rand0.5-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noiseless-PSR-aerCPU-rand1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noiseless-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noiseless-SPSA-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noiseless-SPSA-aerCPU-rand0.25-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noiseless-SPSA-aerCPU-rand0.5-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noiseless-SPSA-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noiseless-SPSA-aerCPU-rand0-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noiseless-SPSA-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noiseless-SPSA-aerCPU-rand0.25-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noiseless-SPSA-aerCPU-rand0.5-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noiseless-SPSA-aerCPU-rand1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noiseless-SPSA-aerCPU-rand0-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noiseless-SPSA-aerCPU-rand0.1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noiseless-SPSA-aerCPU-rand0.25-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noiseless-SPSA-aerCPU-rand0.5-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noiseless-SPSA-aerCPU-rand1-seed2/config.yaml
+
+Creating config files for noisy_q4_amp_psr:
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy-PSR-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy-PSR-aerCPU-rand0.25-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy-PSR-aerCPU-rand0.5-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy-PSR-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy-PSR-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy-PSR-aerCPU-rand0.25-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy-PSR-aerCPU-rand0.5-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy-PSR-aerCPU-rand1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy-PSR-aerCPU-rand0.1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy-PSR-aerCPU-rand0.25-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy-PSR-aerCPU-rand0.5-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy-PSR-aerCPU-rand1-seed2/config.yaml
+
+Creating config files for noisy_q4_spsa:
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0.25-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0.5-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noisy-SPSA-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0.25-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0.5-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noisy-SPSA-aerCPU-rand1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0.25-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noisy-SPSA-aerCPU-rand0.5-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noisy-SPSA-aerCPU-rand1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand0.25-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand0.5-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand0.25-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand0.5-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand0.25-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand0.5-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noisy-SPSA-aerCPU-rand1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand0.25-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand0.5-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand0.25-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand0.5-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand0-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand0.1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand0.25-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand0.5-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand1-seed2/config.yaml
+
+Creating config files for noisy_ang_q8_spsa:
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.25-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.5-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.25-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.5-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.25-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand0.5-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand1-seed2/config.yaml
+
+Creating config files for noiseless_base_q16_reg:
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q16-noiseless-REG-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q16-noiseless-REG-aerCPU-rand0.1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q16-noiseless-REG-aerCPU-rand0.25-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q16-noiseless-REG-aerCPU-rand0.5-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q16-noiseless-REG-aerCPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q16-noiseless-REG-aerCPU-rand0-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q16-noiseless-REG-aerCPU-rand0.1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q16-noiseless-REG-aerCPU-rand0.25-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q16-noiseless-REG-aerCPU-rand0.5-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q16-noiseless-REG-aerCPU-rand1-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q16-noiseless-REG-aerCPU-rand0-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q16-noiseless-REG-aerCPU-rand0.1-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q16-noiseless-REG-aerCPU-rand0.25-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q16-noiseless-REG-aerCPU-rand0.5-seed2/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q16-noiseless-REG-aerCPU-rand1-seed2/config.yaml
+
+225 battery configuration files ready.
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed0 
+   Best eval: 0.005445647053420544 
+   Total time: 3199.8366417884827
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed0 
+   Best eval: 0.01226745080202818 
+   Total time: 3451.0172986984253
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.25-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.25-seed0 
+   Best eval: 0.018924180418252945 
+   Total time: 411.96185302734375
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.5-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.5-seed0 
+   Best eval: 0.07913389056921005 
+   Total time: 412.76580262184143
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand1-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand1-seed0 
+   Best eval: 0.07662805914878845 
+   Total time: 413.63896775245667
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed1/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed1 
+   Best eval: 0.00041844137012958527 
+   Total time: 3199.5428714752197
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed1/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed1 
+   Best eval: 0.00662627350538969 
+   Total time: 3451.595340013504
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.25-seed1/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.25-seed1 
+   Best eval: 0.026751289144158363 
+   Total time: 411.3082900047302
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.5-seed1/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.5-seed1 
+   Best eval: 0.06857874244451523 
+   Total time: 411.32653403282166
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand1-seed1/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand1-seed1 
+   Best eval: 0.07406599819660187 
+   Total time: 411.47688245773315
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed2/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed2 
+   Best eval: 0.006024103611707687 
+   Total time: 3196.108951807022
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed2/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.1-seed2 
+   Best eval: 0.006306869443506002 
+   Total time: 3451.6747817993164
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.25-seed2/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.25-seed2 
+   Best eval: 0.02771858312189579 
+   Total time: 411.51831436157227
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.5-seed2/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0.5-seed2 
+   Best eval: 0.10634925961494446 
+   Total time: 412.13271260261536
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand1-seed2/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand1-seed2 
+   Best eval: 0.0851191058754921 
+   Total time: 412.17752146720886
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed0 
+   Best eval: 0.002535275649279356 
+   Total time: 6902.614424228668
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed0 
+   Best eval: 0.0016392860561609268 
+   Total time: 6278.393582820892
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0.25-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0.25-seed0 
+   Best eval: 0.03353644162416458 
+   Total time: 3721.5137741565704
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0.5-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0.5-seed0 
+   Best eval: 0.10254684835672379 
+   Total time: 3209.595712184906
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand1-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand1-seed0 
+   Best eval: 0.06759586185216904 
+   Total time: 3698.587525367737
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed1/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed1 
+   Best eval: 0.00011754842853406444 
+   Total time: 6007.270731687546
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed1/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0.1-seed1 
+   Best eval: 0.008856639266014099 
+   Total time: 6289.212501049042
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0.25-seed1/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                450 |             -0.804 |             -0.569 |              0.369 |             0.0456 |               26.1 |
+                460 |             -0.826 |             -0.587 |              0.397 |             0.0456 |               32.4 |
+                470 |             -0.791 |             -0.549 |              0.324 |             0.0456 |               32.1 |
+                480 |             -0.795 |             -0.537 |              0.458 |             0.0456 |               32.1 |
+                490 |             -0.766 |              -0.56 |              0.414 |             0.0456 |               32.2 |
+                500 |             -0.822 |             -0.554 |              0.431 |             0.0456 |               32.4 |
+                510 |             -0.803 |             -0.536 |               0.43 |             0.0456 |               32.2 |
+                520 |              -0.82 |             -0.558 |              0.415 |             0.0456 |                 32 |
+                530 |              -0.83 |             -0.552 |              0.446 |             0.0456 |                 32 |
+                540 |             -0.785 |             -0.552 |              0.429 |             0.0456 |               32.1 |
+                550 |             -0.795 |             -0.564 |              0.403 |             0.0456 |               32.4 |
+                560 |             -0.819 |             -0.549 |               0.42 |             0.0456 |               32.2 |
+                570 |             -0.814 |             -0.593 |              0.441 |             0.0456 |               32.2 |
+                580 |             -0.771 |             -0.599 |               0.42 |             0.0456 |               32.1 |
+                590 |             -0.779 |             -0.572 |              0.333 |             0.0456 |               32.4 |
+                600 |             -0.752 |             -0.565 |              0.309 |             0.0456 |               32.1 |
+                610 |             -0.811 |             -0.564 |              0.315 |             0.0456 |               32.1 |
+                620 |             -0.769 |             -0.571 |              0.307 |             0.0456 |                 32 |
+                630 |             -0.749 |             -0.572 |              0.246 |             0.0456 |               32.1 |
+                640 |             -0.755 |             -0.595 |              0.263 |             0.0456 |               32.3 |
+                650 |             -0.722 |             -0.566 |              0.279 |             0.0456 |               32.2 |
+                660 |             -0.785 |             -0.597 |              0.268 |             0.0456 |               32.1 |
+                670 |              -0.74 |             -0.615 |              0.275 |             0.0456 |                 32 |
+                680 |             -0.771 |             -0.581 |              0.283 |             0.0456 |               32.3 |
+                690 |             -0.751 |              -0.57 |              0.302 |             0.0456 |               32.1 |
+                700 |             -0.752 |             -0.569 |              0.296 |             0.0456 |                 32 |
+                710 |             -0.789 |              -0.55 |              0.284 |             0.0456 |                 32 |
+                720 |             -0.717 |             -0.582 |              0.287 |             0.0456 |                 32 |
+                730 |             -0.725 |              -0.58 |              0.324 |             0.0456 |               32.2 |
+                740 |             -0.738 |             -0.554 |              0.299 |             0.0456 |                 32 |
+                750 |             -0.797 |             -0.566 |              0.309 |             0.0456 |                 32 |
+                760 |             -0.787 |             -0.587 |              0.279 |             0.0456 |               31.9 |
+                770 |             -0.734 |             -0.561 |              0.313 |             0.0456 |               32.2 |
+                780 |              -0.78 |             -0.598 |              0.263 |             0.0456 |               32.1 |
+                790 |             -0.754 |             -0.587 |              0.282 |             0.0456 |               31.9 |
+                800 |             -0.767 |             -0.593 |              0.219 |             0.0456 |               31.9 |
+                810 |             -0.742 |             -0.583 |              0.255 |             0.0456 |                 32 |
+                820 |             -0.745 |             -0.573 |              0.232 |             0.0456 |               32.2 |
+                830 |              -0.69 |             -0.612 |              0.235 |             0.0456 |                 32 |
+                840 |             -0.721 |             -0.613 |              0.198 |             0.0456 |               32.1 |
+                850 |             -0.731 |             -0.614 |              0.215 |             0.0456 |               32.1 |
+                860 |             -0.781 |              -0.61 |              0.213 |             0.0456 |               32.5 |
+                870 |             -0.725 |             -0.605 |               0.22 |             0.0456 |               32.2 |
+                880 |             -0.699 |             -0.607 |              0.192 |             0.0456 |               32.2 |
+                890 |             -0.572 |             -0.598 |              0.201 |             0.0456 |               32.1 |
+                900 |               -0.5 |             -0.633 |              0.248 |             0.0456 |               32.1 |
+
+Interrupter: will stop after the current epoch. Press Ctrl+C again to force quit.
+Interrupter: Graceful exit triggered. Breaking loop.
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q8-noiseless-REG-aerCPU-rand0.25-seed1 
+   Best eval: 0.045636266469955444 
+   Total time: 3116.75776386261
+Interrupter: battery execution stopped.
+23 battery run(s) succeeded.

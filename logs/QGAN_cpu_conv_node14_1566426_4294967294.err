@@ -26,3 +26,4 @@
 - backend.simulator.device_name: previous=None, current='CPU'
 - backend.simulator.max_parallel_threads: previous=0, current=96
   warn_config_changes(training_state.config, config)
+/home/bburutaran/bin/bnd: line 124: 3372049 Bus error               (core dumped) apptainer exec "${extra[@]}" -B "$PWD:/work" -B "$uv_dir:/uvbin:ro" --pwd /work "$sif" bash -lc "$full_script" bash "$@"
