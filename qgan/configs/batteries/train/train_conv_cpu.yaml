@@ -159,99 +159,84 @@ default_config_values:
     # Evaluation metric. Values: gradient, kl.
     eval_method: gradient
 
-
 variable_config_values_list:
 
-  # Main GPU gradient-method, randomness, and qubit-scaling analysis.
-  # Noiseless qml_torch supports REG.
-  qml_torch_noiseless_main:
+  # Reduced CPU node14 convergence battery.
+  # Focused on missing paired noisy PSR evidence and one runtime_packed
+  # implementation comparison under noisy simulation.
+  noisy_ang_q4_psr_topup:
     implementation.name:
       - qml_torch
     experiment.implementation:
-      - base
       - ang
-      # - amp
     experiment.execution_type:
-      - noiseless
+      - noisy
     experiment.gradient_method:
       - PSR
-      - SPSA
-      - REG
     experiment.n_qubits:
       - 4
-      - 8
-      - 16
     backend.simulator.device:
-      - GPU
+      - CPU
     run.seed:
-      - 0
       - 1
       - 2
     encoding.randomness:
       - 0
-      - 0.1
-      - 0.25
-      - 0.5
-      - 1
 
-  # Main GPU gradient-method, randomness, and qubit-scaling analysis.
-  # Unable to transpile amplitude encoding with 16 qubits
-  qml_torch_noiseless_amp:
+  runtime_packed_noisy_base_q4_spsa_separate:
     implementation.name:
-      - qml_torch
-    experiment.implementation:
-      # - base
-      # - ang
-      - amp
-    experiment.execution_type:
-      - noiseless
-    experiment.gradient_method:
-      - PSR
-      - SPSA
-      - REG
-    experiment.n_qubits:
-      - 4
-      - 8
-      # - 16
-    backend.simulator.device:
-      - GPU
-    run.seed:
-      - 0
-      - 1
-      - 2
-    encoding.randomness:
-      - 0
-      - 0.1
-      - 0.25
-      - 0.5
-      - 1
-
-  # Main GPU noise-impact analysis.
-  qml_torch_noisy:
-    implementation.name:
-      - qml_torch
+      - runtime_packed
+    implementation.discriminator_packing:
+      - separate
     experiment.implementation:
       - base
-      - ang
-      - amp
     experiment.execution_type:
       - noisy
     experiment.gradient_method:
       - SPSA
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+
+  noisy_base_q4_psr_hardware_ref_topup:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
       - PSR
     experiment.n_qubits:
       - 4
-      - 8
-      # - 16
     backend.simulator.device:
-      - GPU
+      - CPU
     run.seed:
-      - 0
-      - 1
       - 2
     encoding.randomness:
       - 0
-      - 0.1
-      - 0.25
-      - 0.5
-      - 1
+
+  runtime_packed_noisy_base_q4_spsa_joined:
+    implementation.name:
+      - runtime_packed
+    implementation.discriminator_packing:
+      - joined
+    experiment.implementation:
+      - base
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0

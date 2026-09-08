@@ -38,7 +38,8 @@ default_config_values:
 
   training:
     # Number of training epochs. Values: [int >= 0].
-    max_iterations: 1000
+    # Real-hardware case study budget: existing runs are around 150-200 epochs.
+    max_iterations: 150
     # Generator updates per epoch. Values: [int >= 0].
     gen_iterations: 1
     # Discriminator updates per epoch. Values: [int >= 0].
@@ -152,17 +153,17 @@ default_config_values:
     # Evaluation metric. Values: gradient, kl.
     eval_method: gradient
 
-
 variable_config_values_list:
 
-  # Implementation real hardware analysis.
-  qml_torch_rh_imp:
+  # Real-hardware case study only.
+  # Hardware budget is limited to the two existing base/q4 seed-0 runs. Keep the
+  # battery definition aligned with the available 150-epoch evidence rather than
+  # treating it as a statistical convergence experiment.
+  qml_torch_rh_spsa_base_q4_seed0:
     implementation.name:
       - qml_torch
     experiment.implementation:
       - base
-      # - ang
-      # - amp
     experiment.execution_type:
       - real
     experiment.gradient_method:
@@ -180,9 +181,7 @@ variable_config_values_list:
     backend.real.reset_info:
       - true
 
-  # Gradient-method real hardware analysis.
-  # The base/SPSA qml_torch run is covered by qml_torch_rh_imp.
-  qml_torch_rh_grad:
+  qml_torch_rh_psr_base_q4_seed0:
     implementation.name:
       - qml_torch
     experiment.implementation:

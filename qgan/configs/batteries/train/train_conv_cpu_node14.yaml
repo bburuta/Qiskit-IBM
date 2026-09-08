@@ -148,168 +148,15 @@ default_config_values:
     # Evaluation metric. Values: gradient, kl.
     eval_method: gradient
 
-
 variable_config_values_list:
 
-  # Angle noiseless q8 PSR runs.
-  noiseless_ang_q8_psr:
+  # Reduced CPU node14 convergence battery.
+  # Focused on missing paired noisy PSR evidence and one runtime_packed
+  # implementation comparison under noisy simulation.
+  noisy_ang_q4_psr_topup:
     implementation.name:
       - qml_torch
     experiment.implementation:
-      - ang
-    experiment.execution_type:
-      - noiseless
-    experiment.gradient_method:
-      - PSR
-    experiment.n_qubits:
-      - 8
-    backend.simulator.device:
-      - CPU
-    run.seed:
-      - 0
-      - 1
-      - 2
-    encoding.randomness:
-      - 0
-      - 0.1
-      - 0.25
-      - 0.5
-      - 1
-
-  # Amplitude noiseless q8 runs.
-  noiseless_amp_q8:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - amp
-    experiment.execution_type:
-      - noiseless
-    experiment.gradient_method:
-      - PSR
-      - SPSA
-      - REG
-    experiment.n_qubits:
-      - 8
-    backend.simulator.device:
-      - CPU
-    run.seed:
-      - 0
-      - 1
-      - 2
-    encoding.randomness:
-      - 0
-      - 0.1
-      - 0.25
-      - 0.5
-      - 1
-
-  # Angle noiseless q4 SPSA and REG runs.
-  noiseless_ang_q4_spsa_reg:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - ang
-    experiment.execution_type:
-      - noiseless
-    experiment.gradient_method:
-      - SPSA
-      - REG
-    experiment.n_qubits:
-      - 4
-    backend.simulator.device:
-      - CPU
-    run.seed:
-      - 0
-      - 1
-      - 2
-    encoding.randomness:
-      - 0
-      - 0.1
-      - 0.25
-      - 0.5
-      - 1
-
-  # Base noiseless q8 PSR runs.
-  noiseless_base_q8_psr:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - base
-    experiment.execution_type:
-      - noiseless
-    experiment.gradient_method:
-      - PSR
-    experiment.n_qubits:
-      - 8
-    backend.simulator.device:
-      - CPU
-    run.seed:
-      - 0
-      - 1
-      - 2
-    encoding.randomness:
-      - 0
-      - 0.1
-      - 0.25
-      - 0.5
-      - 1
-
-  # Base noiseless q4 REG runs.
-  noiseless_base_q4_reg:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - base
-    experiment.execution_type:
-      - noiseless
-    experiment.gradient_method:
-      - REG
-    experiment.n_qubits:
-      - 4
-    backend.simulator.device:
-      - CPU
-    run.seed:
-      - 0
-      - 1
-      - 2
-    encoding.randomness:
-      - 0
-      - 0.1
-      - 0.25
-      - 0.5
-      - 1
-
-  # Amplitude noiseless q4 SPSA runs.
-  noiseless_amp_q4_spsa:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - amp
-    experiment.execution_type:
-      - noiseless
-    experiment.gradient_method:
-      - SPSA
-    experiment.n_qubits:
-      - 4
-    backend.simulator.device:
-      - CPU
-    run.seed:
-      - 0
-      - 1
-      - 2
-    encoding.randomness:
-      - 0
-      - 0.1
-      - 0.25
-      - 0.5
-      - 1
-
-  # High-cost noisy q4 PSR runs assigned to CPU after timing comparison.
-  noisy_q4_base_ang_psr:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - base
       - ang
     experiment.execution_type:
       - noisy
@@ -320,12 +167,27 @@ variable_config_values_list:
     backend.simulator.device:
       - CPU
     run.seed:
-      - 0
       - 1
       - 2
     encoding.randomness:
       - 0
-      - 0.1
-      - 0.25
-      - 0.5
-      - 1
+
+  runtime_packed_noisy_base_q4_spsa_separate:
+    implementation.name:
+      - runtime_packed
+    implementation.discriminator_packing:
+      - separate
+    experiment.implementation:
+      - base
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0

@@ -87,8 +87,8 @@ default_config_values:
     simulator:
       # Aer simulator device. Values: CPU, GPU.
       device: GPU
-      # Device label used in generated run ids. CPU shares convergence checkpoints with CPU runs.
-      device_name: CPU
+      # Device label used in generated run ids. Keep GPU convergence results separate from CPU runs.
+      device_name: GPU
       # Floating point precision for simulator/Torch tensors. Values: double, single.
       data_type: double
       # Aer method for noiseless simulation. Values: statevector, density_matrix.
@@ -149,93 +149,25 @@ default_config_values:
     # Evaluation metric. Values: gradient, kl.
     eval_method: gradient
 
-
 variable_config_values_list:
 
-  # Each convergence GPU receives one randomness slice. This keeps the
-  # expensive noisy PSR work balanced across physical devices.
-  noiseless_ang_q16:
+  # GPU top-up for the paired noisy-vs-noiseless comparison.
+  # Each convergence GPU gets one noisy angle/q4/PSR seed so the set finishes
+  # quickly and remains paired with existing noiseless seed runs.
+  noisy_ang_q4_psr_seed2:
     implementation.name:
       - qml_torch
     experiment.implementation:
       - ang
     experiment.execution_type:
-      - noiseless
-    experiment.gradient_method:
-      - PSR
-      - SPSA
-      - REG
-    experiment.n_qubits:
-      - 16
-    backend.simulator.device:
-      - GPU
-    run.seed:
-      - 0
-      - 1
-      - 2
-    encoding.randomness:
-      - 1
-
-  noiseless_base_q16_psr_spsa:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - base
-    experiment.execution_type:
-      - noiseless
-    experiment.gradient_method:
-      - PSR
-      - SPSA
-    experiment.n_qubits:
-      - 16
-    backend.simulator.device:
-      - GPU
-    run.seed:
-      - 0
-      - 1
-      - 2
-    encoding.randomness:
-      - 1
-
-  noisy_q8_psr:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - base
-      - ang
-      - amp
-    experiment.execution_type:
       - noisy
     experiment.gradient_method:
       - PSR
     experiment.n_qubits:
-      - 8
+      - 4
     backend.simulator.device:
       - GPU
     run.seed:
-      - 0
-      - 1
       - 2
     encoding.randomness:
-      - 1
-
-  noisy_q8_base_amp_spsa:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - base
-      - amp
-    experiment.execution_type:
-      - noisy
-    experiment.gradient_method:
-      - SPSA
-    experiment.n_qubits:
-      - 8
-    backend.simulator.device:
-      - GPU
-    run.seed:
       - 0
-      - 1
-      - 2
-    encoding.randomness:
-      - 1

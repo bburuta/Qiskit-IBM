@@ -1,12 +1,8 @@
-# qGAN GPU convergence training battery.
+# qGAN real-hardware convergence training battery.
 #
-# Runs long qml_torch GPU convergence experiments:
-# - base, angle, and amplitude presets
-# - noiseless execution with PSR, SPSA, and REG gradients
-# - noisy execution with SPSA and PSR gradients
-# - 4-, 8-, and 16-qubit circuits
-# - seeds 0, 1, and 2
-# - randomness levels 0, 0.1, 0.25, 0.5, and 1
+# Runs small CPU-device real-hardware convergence studies:
+# - qml_torch implementation comparison across base, angle, and amplitude presets
+# - qml_torch gradient comparison with SPSA and PSR on the base preset
 
 default_config_values:
 
@@ -27,7 +23,8 @@ default_config_values:
     # Random seed for Python, NumPy, Torch, and simulator options. Values: [int].
     seed: 0
     # Torch device. Values: CPU, GPU. runtime_packed requires CPU.
-    device: GPU
+    # Keep fixed because run.device is not encoded in generated run ids.
+    device: CPU
 
   experiment:
     # Experiment preset. Values: base, ang, amp.
@@ -51,9 +48,9 @@ default_config_values:
     # Adam optimizer learning rate for generator and discriminator optimizers. Values: [number >= 0].
     learning_rate: 0.005
     # Epoch interval for progress prints. Values: [int >= 0], 0 disables printing.
-    print_every: 100
+    print_every: 1
     # Epoch interval for checkpoint saves. Values: [int >= 0], 0 saves only at the end.
-    checkpoint_every: 100
+    checkpoint_every: 1
 
   dataset:
     # Dataset id. Values: null, [string].
@@ -94,9 +91,7 @@ default_config_values:
 
     simulator:
       # Aer simulator device. Values: CPU, GPU.
-      device: GPU
-      # Device label used in generated run ids. Keep GPU convergence results separate from CPU runs.
-      device_name: GPU
+      device: CPU
       # Floating point precision for simulator/Torch tensors. Values: double, single.
       data_type: double
       # Aer method for noiseless simulation. Values: statevector, density_matrix.
@@ -157,46 +152,54 @@ default_config_values:
     # Evaluation metric. Values: gradient, kl.
     eval_method: gradient
 
+
 variable_config_values_list:
 
-  # Reduced GPU convergence battery for the final thesis plan.
-  # It contains only the missing paired noisy PSR q4 runs and the q16 SPSA
-  # scale-point top-up; broad timing comparisons stay in train_times_gpu.yaml.
-  noisy_ang_q4_psr_topup:
+  # Implementation real hardware analysis.
+  qml_torch_rh_imp:
     implementation.name:
       - qml_torch
     experiment.implementation:
-      - ang
+      - base
+      # - ang
+      # - amp
     experiment.execution_type:
-      - noisy
+      - real
+    experiment.gradient_method:
+      - SPSA
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+    backend.real.info_storage:
+      - run
+    backend.real.reset_info:
+      - true
+
+  # Gradient-method real hardware analysis.
+  # The base/SPSA qml_torch run is covered by qml_torch_rh_imp.
+  qml_torch_rh_grad:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+    experiment.execution_type:
+      - real
     experiment.gradient_method:
       - PSR
     experiment.n_qubits:
       - 4
     backend.simulator.device:
-      - GPU
+      - CPU
     run.seed:
       - 0
-      - 1
-      - 2
     encoding.randomness:
       - 0
-
-  noiseless_ang_q16_spsa_scaling_topup:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - ang
-    experiment.execution_type:
-      - noiseless
-    experiment.gradient_method:
-      - SPSA
-    experiment.n_qubits:
-      - 16
-    backend.simulator.device:
-      - GPU
-    run.seed:
-      - 1
-      - 2
-    encoding.randomness:
-      - 0
+    backend.real.info_storage:
+      - run
+    backend.real.reset_info:
+      - true
