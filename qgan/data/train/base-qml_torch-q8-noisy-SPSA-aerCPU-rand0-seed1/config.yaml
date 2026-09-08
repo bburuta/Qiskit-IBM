@@ -6,7 +6,7 @@ run:
   label: null
   data_path: qgan/data/train
   seed: 1
-  device: CPU
+  device: GPU
 experiment:
   implementation: base
   execution_type: noisy
@@ -32,13 +32,15 @@ circuits:
   discriminator: efficient_su2
 backend:
   reset: false
+  save_backend_file: false
   precision: 0.015625
   transpilation:
     optimization_level: 3
     layout_method: sabre
     routing_method: sabre
   simulator:
-    device: CPU
+    device: GPU
+    device_name: CPU
     data_type: double
     noiseless_method: statevector
     noisy_method: density_matrix
@@ -54,9 +56,9 @@ backend:
   real:
     id: ibm_basquecountry
     name: ibm_basquecountry
-    channel: ibm_quantum_platform
+    info_storage: shared
     reset_info: false
-    confirm_execution: true
+    confirm_runtime_execution: false
     estimator:
       resilience_level: 1
       dynamical_decoupling:
@@ -64,6 +66,7 @@ backend:
 encoding:
   type: direct_circuit
   contrast: 1
+  random_circuit: 1
   randomness: 0
   batch_size: 1
   eval_batch_size: 1

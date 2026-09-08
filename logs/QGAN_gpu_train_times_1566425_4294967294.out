@@ -1,0 +1,598 @@
+Creating config files for qml_torch_noiseless_base_ang:
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-PSR-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-PSR-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-PSR-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-PSR-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-PSR-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-PSR-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-SPSA-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-SPSA-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-SPSA-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-SPSA-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-SPSA-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-SPSA-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-REG-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-REG-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-REG-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-REG-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-REG-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-REG-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-PSR-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-PSR-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-PSR-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-PSR-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-PSR-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-PSR-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-SPSA-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-SPSA-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-SPSA-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-SPSA-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-SPSA-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-SPSA-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-REG-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-REG-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-REG-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-REG-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-REG-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-REG-aerGPU-rand1-seed0/config.yaml
+
+Creating config files for qml_torch_noiseless_amp:
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q4-noiseless-PSR-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q4-noiseless-PSR-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q8-noiseless-PSR-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q8-noiseless-PSR-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q4-noiseless-SPSA-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q4-noiseless-SPSA-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q8-noiseless-SPSA-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q8-noiseless-SPSA-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q4-noiseless-REG-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q4-noiseless-REG-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q8-noiseless-REG-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q8-noiseless-REG-aerGPU-rand1-seed0/config.yaml
+
+Creating config files for qml_torch_noisy:
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q4-noisy-SPSA-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q8-noisy-SPSA-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q8-noisy-SPSA-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q4-noisy-PSR-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q4-noisy-PSR-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q8-noisy-PSR-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q8-noisy-PSR-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q8-noisy-SPSA-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q8-noisy-SPSA-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q4-noisy-PSR-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q4-noisy-PSR-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q8-noisy-PSR-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q8-noisy-PSR-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q4-noisy-SPSA-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q8-noisy-SPSA-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q8-noisy-SPSA-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q4-noisy-PSR-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q4-noisy-PSR-aerGPU-rand1-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q8-noisy-PSR-aerGPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q8-noisy-PSR-aerGPU-rand1-seed0/config.yaml
+
+72 battery configuration files ready.
+
+Running: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-PSR-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-PSR-aerGPU-rand0-seed0 
+   Best eval: 3.587176763578209 
+   Total time: 3.305978775024414
+
+Running: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-PSR-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-PSR-aerGPU-rand1-seed0 
+   Best eval: 1.2426820566766252 
+   Total time: 2.8941025733947754
+
+Running: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-PSR-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-PSR-aerGPU-rand0-seed0 
+   Best eval: 6.437119906815924 
+   Total time: 7.693032264709473
+
+Running: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-PSR-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-PSR-aerGPU-rand1-seed0 
+   Best eval: 2.1355102304926805 
+   Total time: 7.8340489864349365
+
+Running: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-PSR-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-PSR-aerGPU-rand0-seed0 
+   Best eval: 9.26519287443666 
+   Total time: 24.491716146469116
+
+Running: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-PSR-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-PSR-aerGPU-rand1-seed0 
+   Best eval: 4.792114665277852 
+   Total time: 25.111687421798706
+
+Running: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-SPSA-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-SPSA-aerGPU-rand0-seed0 
+   Best eval: 3.3907012101303335 
+   Total time: 0.2509133815765381
+
+Running: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-SPSA-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-SPSA-aerGPU-rand1-seed0 
+   Best eval: 1.3101394348236421 
+   Total time: 0.2617182731628418
+
+Running: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-SPSA-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-SPSA-aerGPU-rand0-seed0 
+   Best eval: 6.357746330515438 
+   Total time: 0.33503031730651855
+
+Running: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-SPSA-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-SPSA-aerGPU-rand1-seed0 
+   Best eval: 2.2034407693556446 
+   Total time: 0.3397178649902344
+
+Running: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-SPSA-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-SPSA-aerGPU-rand0-seed0 
+   Best eval: 9.422916150340205 
+   Total time: 0.5352661609649658
+
+Running: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-SPSA-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-SPSA-aerGPU-rand1-seed0 
+   Best eval: 4.827712595551468 
+   Total time: 0.5781652927398682
+
+Running: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-REG-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-REG-aerGPU-rand0-seed0 
+   Best eval: 3.4423614116865195 
+   Total time: 0.6771969795227051
+
+Running: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-REG-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-REG-aerGPU-rand1-seed0 
+   Best eval: 1.270794394991944 
+   Total time: 0.7724549770355225
+
+Running: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-REG-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-REG-aerGPU-rand0-seed0 
+   Best eval: 6.3882534414780965 
+   Total time: 4.776549577713013
+
+Running: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-REG-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q8-noiseless-REG-aerGPU-rand1-seed0 
+   Best eval: 2.094505698148284 
+   Total time: 4.791236400604248
+
+Running: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-REG-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-REG-aerGPU-rand0-seed0 
+   Best eval: 9.231756873849886 
+   Total time: 155.91384029388428
+
+Running: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-REG-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q16-noiseless-REG-aerGPU-rand1-seed0 
+   Best eval: 4.760672190223776 
+   Total time: 654.3250341415405
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-PSR-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-PSR-aerGPU-rand0-seed0 
+   Best eval: 0.024171598255634308 
+   Total time: 37.89052677154541
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-PSR-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-PSR-aerGPU-rand1-seed0 
+   Best eval: 0.1851649135351181 
+   Total time: 39.58500671386719
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-PSR-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-PSR-aerGPU-rand0-seed0 
+   Best eval: 0.0155829768627882 
+   Total time: 139.67244124412537
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-PSR-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-PSR-aerGPU-rand1-seed0 
+   Best eval: 0.15864086151123047 
+   Total time: 145.2551884651184
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-PSR-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-PSR-aerGPU-rand0-seed0 
+   Best eval: 0.013140905648469925 
+   Total time: 404.9767563343048
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-PSR-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-PSR-aerGPU-rand1-seed0 
+   Best eval: 0.1310291290283203 
+   Total time: 407.1640133857727
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-SPSA-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-SPSA-aerGPU-rand0-seed0 
+   Best eval: 0.024415161460638046 
+   Total time: 26.68311357498169
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-SPSA-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-SPSA-aerGPU-rand1-seed0 
+   Best eval: 0.18208704888820648 
+   Total time: 27.956562519073486
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-SPSA-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-SPSA-aerGPU-rand0-seed0 
+   Best eval: 0.016353342682123184 
+   Total time: 108.73725628852844
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-SPSA-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-SPSA-aerGPU-rand1-seed0 
+   Best eval: 0.16856908798217773 
+   Total time: 113.62724375724792
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-SPSA-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-SPSA-aerGPU-rand0-seed0 
+   Best eval: 0.011932656168937683 
+   Total time: 298.82931780815125
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-SPSA-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-SPSA-aerGPU-rand1-seed0 
+   Best eval: 0.13425013422966003 
+   Total time: 305.1378393173218
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-REG-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-REG-aerGPU-rand0-seed0 
+   Best eval: 0.029262389987707138 
+   Total time: 28.41710114479065
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-REG-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q4-noiseless-REG-aerGPU-rand1-seed0 
+   Best eval: 0.17803917825222015 
+   Total time: 29.919663667678833
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-REG-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-REG-aerGPU-rand0-seed0 
+   Best eval: 0.018232472240924835 
+   Total time: 128.90462851524353
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-REG-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-REG-aerGPU-rand1-seed0 
+   Best eval: 0.1631256639957428 
+   Total time: 131.27114462852478
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-REG-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-REG-aerGPU-rand0-seed0 
+   Best eval: 0.011177029460668564 
+   Total time: 938.1485817432404
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-REG-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q16-noiseless-REG-aerGPU-rand1-seed0 
+   Best eval: 0.13980133831501007 
+   Total time: 899.1880731582642
+
+Running: /work/qgan/data/train/times/amp-qml_torch-q4-noiseless-PSR-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/amp-qml_torch-q4-noiseless-PSR-aerGPU-rand0-seed0 
+   Best eval: 0.07983972622927779 
+   Total time: 13.326992511749268
+
+Running: /work/qgan/data/train/times/amp-qml_torch-q4-noiseless-PSR-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/amp-qml_torch-q4-noiseless-PSR-aerGPU-rand1-seed0 
+   Best eval: 0.04172045652009808 
+   Total time: 13.433123111724854
+
+Running: /work/qgan/data/train/times/amp-qml_torch-q8-noiseless-PSR-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/amp-qml_torch-q8-noiseless-PSR-aerGPU-rand0-seed0 
+   Best eval: 0.003957651563017374 
+   Total time: 47.773385524749756
+
+Running: /work/qgan/data/train/times/amp-qml_torch-q8-noiseless-PSR-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/amp-qml_torch-q8-noiseless-PSR-aerGPU-rand1-seed0 
+   Best eval: 0.0027226064180567782 
+   Total time: 48.28483247756958
+
+Running: /work/qgan/data/train/times/amp-qml_torch-q4-noiseless-SPSA-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/amp-qml_torch-q4-noiseless-SPSA-aerGPU-rand0-seed0 
+   Best eval: 0.07966663798321844 
+   Total time: 1.078606367111206
+
+Running: /work/qgan/data/train/times/amp-qml_torch-q4-noiseless-SPSA-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/amp-qml_torch-q4-noiseless-SPSA-aerGPU-rand1-seed0 
+   Best eval: 0.04175379325514839 
+   Total time: 1.067021131515503
+
+Running: /work/qgan/data/train/times/amp-qml_torch-q8-noiseless-SPSA-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/amp-qml_torch-q8-noiseless-SPSA-aerGPU-rand0-seed0 
+   Best eval: 0.003960466620723075 
+   Total time: 1.854344367980957
+
+Running: /work/qgan/data/train/times/amp-qml_torch-q8-noiseless-SPSA-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/amp-qml_torch-q8-noiseless-SPSA-aerGPU-rand1-seed0 
+   Best eval: 0.0027250611153621243 
+   Total time: 1.9285149574279785
+
+Running: /work/qgan/data/train/times/amp-qml_torch-q4-noiseless-REG-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/amp-qml_torch-q4-noiseless-REG-aerGPU-rand0-seed0 
+   Best eval: 0.07983972672007437 
+   Total time: 2.7597405910491943
+
+Running: /work/qgan/data/train/times/amp-qml_torch-q4-noiseless-REG-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/amp-qml_torch-q4-noiseless-REG-aerGPU-rand1-seed0 
+   Best eval: 0.04171163761521532 
+   Total time: 2.8620009422302246
+
+Running: /work/qgan/data/train/times/amp-qml_torch-q8-noiseless-REG-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/amp-qml_torch-q8-noiseless-REG-aerGPU-rand0-seed0 
+   Best eval: 0.003959134156214493 
+   Total time: 57.8677875995636
+
+Running: /work/qgan/data/train/times/amp-qml_torch-q8-noiseless-REG-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/amp-qml_torch-q8-noiseless-REG-aerGPU-rand1-seed0 
+   Best eval: 0.0027349227003747277 
+   Total time: 61.02640104293823
+
+Running: /work/qgan/data/train/times/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0 
+   Best eval: 3.25287036157569 
+   Total time: 96.24905228614807
+
+Running: /work/qgan/data/train/times/base-qml_torch-q4-noisy-SPSA-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q4-noisy-SPSA-aerGPU-rand1-seed0 
+   Best eval: 1.2444624333400816 
+   Total time: 103.66394114494324
+
+Running: /work/qgan/data/train/times/base-qml_torch-q8-noisy-SPSA-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q8-noisy-SPSA-aerGPU-rand0-seed0 
+   Best eval: 6.464617202051485 
+   Total time: 105.10661768913269
+
+Running: /work/qgan/data/train/times/base-qml_torch-q8-noisy-SPSA-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q8-noisy-SPSA-aerGPU-rand1-seed0 
+   Best eval: 2.1911595733471865 
+   Total time: 105.88657760620117
+
+Running: /work/qgan/data/train/times/base-qml_torch-q4-noisy-PSR-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q4-noisy-PSR-aerGPU-rand0-seed0 
+   Best eval: 3.4712832922652304 
+   Total time: 1255.1477479934692
+
+Running: /work/qgan/data/train/times/base-qml_torch-q4-noisy-PSR-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q4-noisy-PSR-aerGPU-rand1-seed0 
+   Best eval: 1.2777339046037552 
+   Total time: 1262.4065098762512
+
+Running: /work/qgan/data/train/times/base-qml_torch-q8-noisy-PSR-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q8-noisy-PSR-aerGPU-rand0-seed0 
+   Best eval: 6.386867159354176 
+   Total time: 2377.5824308395386
+
+Running: /work/qgan/data/train/times/base-qml_torch-q8-noisy-PSR-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q8-noisy-PSR-aerGPU-rand1-seed0 
+   Best eval: 2.092660603848134 
+   Total time: 2311.9358756542206
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand0-seed0 
+   Best eval: 0.025294732302427292 
+   Total time: 333.53409123420715
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q4-noisy-SPSA-aerGPU-rand1-seed0 
+   Best eval: 0.1861303150653839 
+   Total time: 338.9670145511627
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q8-noisy-SPSA-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q8-noisy-SPSA-aerGPU-rand0-seed0 
+   Best eval: 0.02099987491965294 
+   Total time: 416.6827321052551
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q8-noisy-SPSA-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.464 |             -0.624 |              0.177 |              0.177 |               85.3 |
+                  1 |             -0.468 |             -0.655 |              0.177 |              0.177 |                 86 |
+                  2 |             -0.573 |             -0.677 |              0.184 |              0.177 |               86.2 |
+                  3 |             -0.552 |             -0.634 |              0.168 |              0.168 |               86.2 |
+                  4 |             -0.574 |             -0.646 |               0.16 |               0.16 |               86.4 |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q8-noisy-SPSA-aerGPU-rand1-seed0 
+   Best eval: 0.15960536897182465 
+   Total time: 430.063428401947
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q4-noisy-PSR-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.894 |             -0.329 |             0.0428 |             0.0428 |           1.01e+03 |
+                  1 |             -0.903 |             -0.332 |             0.0277 |             0.0277 |           1.01e+03 |
+                  2 |             -0.912 |             -0.338 |             0.0348 |             0.0277 |           1.01e+03 |
+                  3 |             -0.923 |             -0.326 |             0.0386 |             0.0277 |           1.01e+03 |
+                  4 |             -0.929 |             -0.327 |             0.0312 |             0.0277 |                970 |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q4-noisy-PSR-aerGPU-rand0-seed0 
+   Best eval: 0.027666842564940453 
+   Total time: 5007.049856901169
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q4-noisy-PSR-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.425 |             -0.534 |              0.363 |              0.363 |                943 |
+                  1 |             -0.358 |             -0.532 |              0.181 |              0.181 |                949 |
+                  2 |             -0.493 |             -0.516 |              0.197 |              0.181 |                946 |
+                  3 |             -0.477 |             -0.601 |              0.198 |              0.181 |                949 |
+                  4 |             -0.457 |             -0.537 |              0.198 |              0.181 |                949 |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q4-noisy-PSR-aerGPU-rand1-seed0 
+   Best eval: 0.1810876578092575 
+   Total time: 4736.5138330459595
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q8-noisy-PSR-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |

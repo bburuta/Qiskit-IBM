@@ -6,7 +6,7 @@ run:
   label: null
   data_path: qgan/data/train
   seed: 1
-  device: CPU
+  device: GPU
 experiment:
   implementation: base
   execution_type: noisy
@@ -39,7 +39,8 @@ backend:
     layout_method: sabre
     routing_method: sabre
   simulator:
-    device: CPU
+    device: GPU
+    device_name: CPU
     data_type: double
     noiseless_method: statevector
     noisy_method: density_matrix

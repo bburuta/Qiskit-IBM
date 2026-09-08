@@ -1,0 +1,34 @@
+Traceback (most recent call last):
+  File "/work/qgan/src/qgan_v2/main.py", line 122, in run_battery
+    state = run_train(
+  File "/work/qgan/src/qgan_v2/main.py", line 69, in run_train
+    return train(config, interrupter=interrupter)
+  File "/work/qgan/src/qgan_v2/train.py", line 35, in train
+    state = impl.setup(config)
+  File "/work/qgan/src/qgan_v2/implementations/qml_torch.py", line 49, in setup
+    model_g, model_d, eval_g, session = generate_models(config, circuit_bundle)
+  File "/work/qgan/src/qgan_v2/models/qml_torch2.py", line 289, in generate_models
+    real_disc_transpiled, gen_disc_transpiled, obs_real_disc, obs_gen_disc = transpile_train_circuits(gen_disc_circuit, real_disc_circuits, obs_train, train_pm)
+  File "/work/qgan/src/qgan_v2/models/qnn.py", line 93, in transpile_train_circuits
+    transpiled_circuits = pm.run([gen_disc_circuit, *real_disc_circuits])
+  File "/work/.venv/lib/python3.10/site-packages/qiskit/transpiler/passmanager.py", line 419, in run
+    return super().run(circuits, output_name, callback, num_processes=num_processes)
+  File "/work/.venv/lib/python3.10/site-packages/qiskit/transpiler/passmanager.py", line 456, in wrapper
+    return meth(*meth_args, **meth_kwargs)
+  File "/work/.venv/lib/python3.10/site-packages/qiskit/transpiler/passmanager.py", line 196, in run
+    return super().run(
+  File "/work/.venv/lib/python3.10/site-packages/qiskit/passmanager/passmanager.py", line 235, in run
+    out = [
+  File "/work/.venv/lib/python3.10/site-packages/qiskit/passmanager/passmanager.py", line 236, in <listcomp>
+    _run_workflow(
+  File "/work/.venv/lib/python3.10/site-packages/qiskit/passmanager/passmanager.py", line 309, in _run_workflow
+    passmanager_ir, final_state = flow_controller.execute(
+  File "/work/.venv/lib/python3.10/site-packages/qiskit/passmanager/base_tasks.py", line 215, in execute
+    passmanager_ir, state = next_task.execute(
+  File "/work/.venv/lib/python3.10/site-packages/qiskit/transpiler/basepasses.py", line 167, in execute
+    new_dag, state = super().execute(
+  File "/work/.venv/lib/python3.10/site-packages/qiskit/passmanager/base_tasks.py", line 97, in execute
+    ret = self.run(passmanager_ir)
+  File "/work/.venv/lib/python3.10/site-packages/qiskit/transpiler/passes/synthesis/high_level_synthesis.py", line 283, in run
+    res = run_on_dag(dag, self.data, self.qubits_initially_zero)
+qiskit.transpiler.exceptions.TranspilerError: 'HighLevelSynthesis is unable to synthesize "state_preparation"'
