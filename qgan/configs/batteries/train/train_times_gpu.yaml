@@ -51,7 +51,7 @@ default_config_values:
     # Adam optimizer learning rate for generator and discriminator optimizers. Values: [number >= 0].
     learning_rate: 0.005
     # Epoch interval for progress prints. Values: [int >= 0], 0 disables printing.
-    print_every: 1
+    print_every: 10
     # Epoch interval for checkpoint saves. Values: [int >= 0], 0 saves only at the end.
     checkpoint_every: 10
 
