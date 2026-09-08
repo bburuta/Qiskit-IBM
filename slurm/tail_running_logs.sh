@@ -1,23 +1,35 @@
 #!/bin/bash
 
 show_errors=false
+line_count=10
+print_all=false
 
-case "${1:-}" in
-    "")
-        ;;
-    errors|--errors|-e)
-        show_errors=true
-        ;;
-    *)
-        echo "Usage: $0 [errors|--errors|-e]"
-        exit 1
-        ;;
-esac
+usage() {
+    echo "Usage: $0 [errors|--errors|-e] [LINES|all]"
+}
 
-if [ "$#" -gt 1 ]; then
-    echo "Usage: $0 [errors|--errors|-e]"
-    exit 1
-fi
+for arg in "$@"; do
+    case "$arg" in
+        errors|--errors|-e)
+            show_errors=true
+            ;;
+        all|--all)
+            print_all=true
+            ;;
+        ''|*[!0-9]*)
+            usage
+            exit 1
+            ;;
+        *)
+            if [ "$arg" -eq 0 ]; then
+                echo "LINES must be greater than 0."
+                usage
+                exit 1
+            fi
+            line_count="$arg"
+            ;;
+    esac
+done
 
 mapfile -t jobs < <(squeue -u "$USER" -t RUNNING -h -o "%i|%j")
 
@@ -32,7 +44,11 @@ print_log_tail() {
 
     printf "%s: %s\n" "$label" "$filename"
     if [ -f "$filename" ]; then
-        tail -n 10 -- "$filename"
+        if [ "$print_all" = true ]; then
+            cat -- "$filename"
+        else
+            tail -n "$line_count" -- "$filename"
+        fi
     else
         echo "Log file not found yet."
     fi
