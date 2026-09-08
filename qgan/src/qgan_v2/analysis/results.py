@@ -63,6 +63,7 @@ SUMMARY_LABEL_FIELDS = (
     "gradient_method",
     "n_qubits",
     "randomness",
+    "device_mode",
     "run_device",
     "simulator_device",
     "eval_method",
@@ -143,10 +144,37 @@ def get_nested(mapping: dict[str, Any], dotted_path: str, default: Any = None) -
 
 
 def _metadata_from_config(config: dict[str, Any]) -> dict[str, Any]:
-    return {
+    metadata = {
         name: get_nested(config, path)
         for name, path in METADATA_PATHS.items()
     }
+    return _add_device_metadata(metadata)
+
+
+def _add_device_metadata(metadata: dict[str, Any]) -> dict[str, Any]:
+    execution_type = metadata.get("execution_type")
+    run_device = metadata.get("run_device")
+    simulator_device = metadata.get("simulator_device")
+
+    if execution_type == "real":
+        compute_device = "RH"
+    elif execution_type == "fake_real":
+        compute_device = "fake_real"
+    else:
+        compute_device = simulator_device or run_device
+
+    if compute_device is None:
+        device_mode = execution_type
+    elif execution_type is None:
+        device_mode = compute_device
+    else:
+        device_mode = f"{compute_device} {execution_type}"
+
+    metadata.update({
+        "compute_device": compute_device,
+        "device_mode": device_mode,
+    })
+    return metadata
 
 
 def _clean_metric(metric: dict[Any, Any] | None) -> dict[int, float]:
@@ -872,6 +900,103 @@ def plot_metric_by_numeric_field(
     ax.set_xlabel(x_field)
     ax.set_ylabel(metric_name.replace("_", " "))
     ax.grid(True, alpha=0.25)
+    return ax
+
+
+def plot_metric_by_category_field(
+    results: Iterable[RunResult],
+    *,
+    x_field: str,
+    metric_name: str = "best_eval",
+    line_by: str | None = None,
+    filters: dict[str, Any] | None = None,
+    center: str = "median",
+    spread: str = "iqr",
+    show_points: bool = True,
+    ax=None,
+):
+    import matplotlib.pyplot as plt
+
+    rows = results_table(filter_results(results, **(filters or {})))
+    rows = [
+        row for row in rows
+        if row.get(x_field) is not None
+        and _is_finite_number(row.get(metric_name))
+    ]
+    if ax is None:
+        _, ax = plt.subplots(figsize=(7, 4))
+
+    if not rows:
+        ax.text(0.5, 0.5, "No matching metric values", transform=ax.transAxes, ha="center")
+        ax.set_xlabel(x_field)
+        ax.set_ylabel(metric_name.replace("_", " "))
+        return ax
+
+    x_values = sorted({row.get(x_field) for row in rows}, key=lambda value: str(value))
+    x_positions = np.arange(len(x_values), dtype=float)
+    line_values = [None]
+    if line_by is not None:
+        line_values = sorted({row.get(line_by) for row in rows}, key=lambda value: str(value))
+
+    colors = plt.rcParams["axes.prop_cycle"].by_key()["color"]
+    offset_step = 0.7 / max(1, len(line_values))
+    for index, line_value in enumerate(line_values):
+        line_rows = rows
+        label = None
+        offset = 0.0
+        if line_by is not None:
+            line_rows = [row for row in rows if row.get(line_by) == line_value]
+            label = f"{line_by}={line_value}"
+            offset = (index - (len(line_values) - 1) / 2) * offset_step
+
+        positions = []
+        centers = []
+        lower_errors = []
+        upper_errors = []
+        for x_index, x_value in enumerate(x_values):
+            samples = [
+                float(row[metric_name])
+                for row in line_rows
+                if row.get(x_field) == x_value
+            ]
+            if not samples:
+                continue
+
+            center_value, low, high = _aggregate_samples(samples, center, spread)
+            position = x_positions[x_index] + offset
+            positions.append(position)
+            centers.append(center_value)
+            lower_errors.append(max(0.0, center_value - low))
+            upper_errors.append(max(0.0, high - center_value))
+
+            if show_points:
+                jitter = np.zeros(len(samples)) if len(samples) <= 1 else np.linspace(-0.03, 0.03, len(samples))
+                ax.scatter(
+                    np.full(len(samples), position) + jitter,
+                    samples,
+                    color=colors[index % len(colors)],
+                    alpha=0.3,
+                    s=22,
+                )
+
+        if positions:
+            ax.errorbar(
+                positions,
+                centers,
+                yerr=[lower_errors, upper_errors],
+                color=colors[index % len(colors)],
+                marker="o",
+                linewidth=2,
+                capsize=3,
+                label=label,
+            )
+
+    if line_by is not None:
+        ax.legend()
+    ax.set_xticks(x_positions, [str(value) for value in x_values], rotation=30, ha="right")
+    ax.set_xlabel(x_field)
+    ax.set_ylabel(metric_name.replace("_", " "))
+    ax.grid(True, axis="y", alpha=0.25)
     return ax
 
 

@@ -51,9 +51,9 @@ default_config_values:
     # Adam optimizer learning rate for generator and discriminator optimizers. Values: [number >= 0].
     learning_rate: 0.005
     # Epoch interval for progress prints. Values: [int >= 0], 0 disables printing.
-    print_every: 10
+    print_every: 1
     # Epoch interval for checkpoint saves. Values: [int >= 0], 0 saves only at the end.
-    checkpoint_every: 10
+    checkpoint_every: 1
 
   dataset:
     # Dataset id. Values: null, [string].
@@ -184,6 +184,7 @@ variable_config_values_list:
       - 0
       - 1
 
+  # Amplitude preset GPU timing analysis.
   # Amplitude q16 state preparation cannot be transpiled.
   qml_torch_noiseless_amp:
     implementation.name:
@@ -214,6 +215,32 @@ variable_config_values_list:
     experiment.implementation:
       - base
       - ang
+      # - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+      - PSR
+    experiment.n_qubits:
+      - 4
+      - 8
+      - 16
+    backend.simulator.device:
+      - GPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+      - 1
+
+  # Amplitude preset GPU noise-impact timing analysis.
+  # Amplitude q16 state preparation cannot be transpiled.
+  qml_torch_noisy:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      # - base
+      # - ang
       - amp
     experiment.execution_type:
       - noisy
