@@ -95,8 +95,8 @@ default_config_values:
     simulator:
       # Aer simulator device. Values: CPU, GPU.
       device: GPU
-      # Device label used in generated run ids. Keep GPU convergence results separate from CPU runs.
-      device_name: GPU
+      # Device label used in generated run ids. Convergence analysis collapses CPU/GPU simulator device.
+      device_name: CPU
       # Floating point precision for simulator/Torch tensors. Values: double, single.
       data_type: double
       # Aer method for noiseless simulation. Values: statevector, density_matrix.
@@ -159,29 +159,9 @@ default_config_values:
 
 variable_config_values_list:
 
-  # Reduced GPU convergence battery for the final thesis plan.
-  # It contains only the missing paired noisy PSR q4 runs and the q16 SPSA
-  # scale-point top-up; broad timing comparisons stay in train_times_gpu.yaml.
-  noisy_ang_q4_psr_topup:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - ang
-    experiment.execution_type:
-      - noisy
-    experiment.gradient_method:
-      - PSR
-    experiment.n_qubits:
-      - 4
-    backend.simulator.device:
-      - GPU
-    run.seed:
-      - 0
-      - 1
-      - 2
-    encoding.randomness:
-      - 0
-
+  # Minimum GPU convergence battery for the thesis q-scaling analysis.
+  # These are the only missing q16 angle/noiseless/SPSA seeds in the minimum
+  # convergence plan. CPU/GPU are collapsed when analyzing convergence quality.
   noiseless_ang_q16_spsa_scaling_topup:
     implementation.name:
       - qml_torch
@@ -196,6 +176,7 @@ variable_config_values_list:
     backend.simulator.device:
       - GPU
     run.seed:
+      - 0
       - 1
       - 2
     encoding.randomness:

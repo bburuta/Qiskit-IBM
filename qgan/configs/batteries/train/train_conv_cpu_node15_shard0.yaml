@@ -77,23 +77,24 @@ default_config_values:
 
 variable_config_values_list:
 
-  # CPU simulator reference for the real-hardware case study.
-  # The real hardware budget only covers base/q4/SPSA and base/q4/PSR seed 0,
-  # so this completes the matched noisy base/q4/PSR simulator seed set.
-  noisy_base_q4_psr_seed2:
+  # Minimum thesis run: joined runtime_packed counterpart for the base/q4/noisy
+  # SPSA seed-0 packing comparison.
+  runtime_packed_noisy_base_q4_spsa_joined:
     implementation.name:
-      - qml_torch
+      - runtime_packed
+    implementation.discriminator_packing:
+      - joined
     experiment.implementation:
       - base
     experiment.execution_type:
       - noisy
     experiment.gradient_method:
-      - PSR
+      - SPSA
     experiment.n_qubits:
       - 4
     backend.simulator.device:
       - CPU
     run.seed:
-      - 2
+      - 0
     encoding.randomness:
       - 0

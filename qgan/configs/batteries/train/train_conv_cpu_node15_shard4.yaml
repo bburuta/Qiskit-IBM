@@ -77,9 +77,8 @@ default_config_values:
 
 variable_config_values_list:
 
-  # Reserved shard. The Slurm array no longer submits this shard in the reduced
-  # thesis plan. It keeps one already-covered qml_torch run so the YAML remains
-  # valid if audited directly.
+  # Reserved shard. This shard is not submitted by the reduced thesis plan.
+  # It keeps one already-covered run so the YAML remains valid if audited.
   reserved_already_covered:
     implementation.name:
       - qml_torch

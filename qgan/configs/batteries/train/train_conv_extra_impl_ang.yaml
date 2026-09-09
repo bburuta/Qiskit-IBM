@@ -1,14 +1,15 @@
-# qGAN GPU timing training battery.
+# qGAN CPU convergence training battery.
 #
-# Submit this on the RTX6000 reserved for GPU timing.
-#
-# Runs short qml_torch GPU timing experiments:
+# Runs long qml_torch CPU convergence experiments:
 # - base, angle, and amplitude presets
 # - noiseless execution with PSR, SPSA, and REG gradients
 # - noisy execution with SPSA and PSR gradients
 # - 4-, 8-, and 16-qubit circuits
-# - seed 0
-# - randomness levels 0 and 1
+# - seeds 0, 1, and 2
+# - randomness levels 0, 0.1, 0.25, 0.5, and 1
+#
+# This battery contains local Aer CPU simulations only. Real-hardware studies
+# are kept in train_conv_rh.yaml.
 
 default_config_values:
 
@@ -25,11 +26,12 @@ default_config_values:
     # Optional label appended to the run id as :label. Values: null, [string].
     label: null
     # Base directory where run data is stored. Values: [path].
-    data_path: qgan/data/train/times
+    data_path: qgan/data/train
     # Random seed for Python, NumPy, Torch, and simulator options. Values: [int].
     seed: 0
     # Torch device. Values: CPU, GPU. runtime_packed requires CPU.
-    device: GPU
+    # Keep fixed because run.device is not encoded in generated run ids.
+    device: CPU
 
   experiment:
     # Experiment preset. Values: base, ang, amp.
@@ -43,7 +45,7 @@ default_config_values:
 
   training:
     # Number of training epochs. Values: [int >= 0].
-    max_iterations: 5
+    max_iterations: 1000
     # Generator updates per epoch. Values: [int >= 0].
     gen_iterations: 1
     # Discriminator updates per epoch. Values: [int >= 0].
@@ -53,9 +55,9 @@ default_config_values:
     # Adam optimizer learning rate for generator and discriminator optimizers. Values: [number >= 0].
     learning_rate: 0.005
     # Epoch interval for progress prints. Values: [int >= 0], 0 disables printing.
-    print_every: 1
+    print_every: 100
     # Epoch interval for checkpoint saves. Values: [int >= 0], 0 saves only at the end.
-    checkpoint_every: 1
+    checkpoint_every: 100
 
   dataset:
     # Dataset id. Values: null, [string].
@@ -96,7 +98,7 @@ default_config_values:
 
     simulator:
       # Aer simulator device. Values: CPU, GPU.
-      device: GPU
+      device: CPU
       # Floating point precision for simulator/Torch tensors. Values: double, single.
       data_type: double
       # Aer method for noiseless simulation. Values: statevector, density_matrix.
@@ -157,107 +159,28 @@ default_config_values:
     # Evaluation metric. Values: gradient, kl.
     eval_method: gradient
 
-
 variable_config_values_list:
 
-  # Main GPU gradient-method, randomness, and qubit-scaling timing analysis.
-  # Noiseless qml_torch supports REG.
-  qml_torch_noiseless_base_ang:
+  # Extra implementation/packing run for angle encoding.
+  # qml_torch ang/q4/noisy/SPSA seed 0 is already complete; these runtime_packed
+  # runs test separate and joined packing under the same noisy simulated setup.
+  runtime_packed_noisy_ang_q4_spsa:
     implementation.name:
-      - qml_torch
+      - runtime_packed
+    implementation.discriminator_packing:
+      - separate
+      - joined
     experiment.implementation:
-      - base
       - ang
-    experiment.execution_type:
-      - noiseless
-    experiment.gradient_method:
-      - PSR
-      - SPSA
-      - REG
-    experiment.n_qubits:
-      - 4
-      - 8
-      - 16
-    backend.simulator.device:
-      - GPU
-    run.seed:
-      - 0
-    encoding.randomness:
-      - 0
-      - 1
-
-  # Amplitude preset GPU timing analysis.
-  # Amplitude q16 state preparation cannot be transpiled.
-  qml_torch_noiseless_amp:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - amp
-    experiment.execution_type:
-      - noiseless
-    experiment.gradient_method:
-      - PSR
-      - SPSA
-      - REG
-    experiment.n_qubits:
-      - 4
-      - 8
-    backend.simulator.device:
-      - GPU
-    run.seed:
-      - 0
-    encoding.randomness:
-      - 0
-      - 1
-
-  # Main GPU noise-impact timing analysis.
-  # Keep the q4/q8 scope matched with the CPU timing battery.
-  qml_torch_noisy:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - base
-      - ang
-      # - amp
     experiment.execution_type:
       - noisy
     experiment.gradient_method:
       - SPSA
-      - PSR
     experiment.n_qubits:
       - 4
-      - 8
-      # - 16
     backend.simulator.device:
-      - GPU
+      - CPU
     run.seed:
       - 0
     encoding.randomness:
       - 0
-      - 1
-
-  # Amplitude preset GPU noise-impact timing analysis.
-  # Amplitude q16 state preparation cannot be transpiled.
-  qml_torch_noisy_amp:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      # - base
-      # - ang
-      - amp
-    experiment.execution_type:
-      - noisy
-    experiment.gradient_method:
-      - SPSA
-      - PSR
-    experiment.n_qubits:
-      - 4
-      - 8
-      # - 16
-    backend.simulator.device:
-      - GPU
-    run.seed:
-      - 0
-    encoding.randomness:
-      - 0
-      - 1

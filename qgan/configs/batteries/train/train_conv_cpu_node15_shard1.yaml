@@ -77,18 +77,15 @@ default_config_values:
 
 variable_config_values_list:
 
-  # Minimum separate-vs-joined packing comparison.
-  # Direct-circuit/base joined packing is valid only with batch_size=1, which
-  # the base preset already applies. Compare against the separate runtime run.
-  runtime_packed_noisy_base_q4_spsa_joined:
+  # Reserved shard. This shard is not submitted by the reduced thesis plan.
+  # It keeps one already-covered run so the YAML remains valid if audited.
+  reserved_already_covered:
     implementation.name:
-      - runtime_packed
-    implementation.discriminator_packing:
-      - joined
+      - qml_torch
     experiment.implementation:
-      - base
+      - ang
     experiment.execution_type:
-      - noisy
+      - noiseless
     experiment.gradient_method:
       - SPSA
     experiment.n_qubits:

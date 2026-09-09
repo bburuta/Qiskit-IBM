@@ -87,8 +87,8 @@ default_config_values:
     simulator:
       # Aer simulator device. Values: CPU, GPU.
       device: GPU
-      # Device label used in generated run ids. Keep GPU convergence results separate from CPU runs.
-      device_name: GPU
+      # Device label used in generated run ids. Convergence analysis collapses CPU/GPU simulator device.
+      device_name: CPU
       # Floating point precision for simulator/Torch tensors. Values: double, single.
       data_type: double
       # Aer method for noiseless simulation. Values: statevector, density_matrix.
@@ -151,9 +151,9 @@ default_config_values:
 
 variable_config_values_list:
 
-  # GPU q16 scaling top-up.
-  # This fills the second missing angle/noiseless/SPSA seed for the q4/q16
-  # GPU scaling comparison. Keep q16 as a case-study scale point if it overruns.
+  # Minimum thesis q-scaling run: angle encoding, noiseless SPSA, q16.
+  # Convergence analysis collapses CPU/GPU simulator device; GPU is used here
+  # only to finish the remaining q16 runs faster.
   noiseless_ang_q16_spsa_seed2:
     implementation.name:
       - qml_torch

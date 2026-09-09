@@ -77,23 +77,22 @@ default_config_values:
 
 variable_config_values_list:
 
-  # CPU top-up for the thesis noisy-vs-noiseless paired comparison.
-  # This fills the missing angle/q4/noisy/PSR seed on CPU; noiseless references
-  # and noisy SPSA references are already covered by completed runs.
-  noisy_ang_q4_psr_seed2:
+  # Reserved shard. This shard is not submitted by the reduced thesis plan.
+  # It keeps one already-covered run so the YAML remains valid if audited.
+  reserved_already_covered:
     implementation.name:
       - qml_torch
     experiment.implementation:
       - ang
     experiment.execution_type:
-      - noisy
+      - noiseless
     experiment.gradient_method:
-      - PSR
+      - SPSA
     experiment.n_qubits:
       - 4
     backend.simulator.device:
       - CPU
     run.seed:
-      - 2
+      - 0
     encoding.randomness:
       - 0

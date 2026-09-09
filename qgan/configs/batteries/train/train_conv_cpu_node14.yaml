@@ -150,28 +150,8 @@ default_config_values:
 
 variable_config_values_list:
 
-  # Reduced CPU node14 convergence battery.
-  # Focused on missing paired noisy PSR evidence and one runtime_packed
-  # implementation comparison under noisy simulation.
-  noisy_ang_q4_psr_topup:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - ang
-    experiment.execution_type:
-      - noisy
-    experiment.gradient_method:
-      - PSR
-    experiment.n_qubits:
-      - 4
-    backend.simulator.device:
-      - CPU
-    run.seed:
-      - 1
-      - 2
-    encoding.randomness:
-      - 0
-
+  # Minimum thesis run: runtime_packed implementation baseline under matched
+  # noisy simulation. qml_torch base/q4/noisy/SPSA seed 0 is already complete.
   runtime_packed_noisy_base_q4_spsa_separate:
     implementation.name:
       - runtime_packed

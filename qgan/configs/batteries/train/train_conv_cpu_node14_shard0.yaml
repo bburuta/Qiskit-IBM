@@ -77,23 +77,24 @@ default_config_values:
 
 variable_config_values_list:
 
-  # CPU top-up for the thesis noisy-vs-noiseless paired comparison.
-  # This fills the missing angle/q4/noisy/PSR seed on CPU; noiseless references
-  # and noisy SPSA references are already covered by completed runs.
-  noisy_ang_q4_psr_seed1:
+  # Minimum thesis run: runtime_packed implementation baseline under matched
+  # noisy simulation. qml_torch base/q4/noisy/SPSA seed 0 is already complete.
+  runtime_packed_noisy_base_q4_spsa_separate:
     implementation.name:
-      - qml_torch
+      - runtime_packed
+    implementation.discriminator_packing:
+      - separate
     experiment.implementation:
-      - ang
+      - base
     experiment.execution_type:
       - noisy
     experiment.gradient_method:
-      - PSR
+      - SPSA
     experiment.n_qubits:
       - 4
     backend.simulator.device:
       - CPU
     run.seed:
-      - 1
+      - 0
     encoding.randomness:
       - 0

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#SBATCH --job-name=QGAN_gpu_conv_extra_psr_q4_s1
+#SBATCH --partition=QPU
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --gres=gpu:rtx4500:1
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=32GB
+#SBATCH --time=150:00:00
+#SBATCH --output=logs/QGAN_gpu_conv_extra_psr_q4_s1_%A_%a.out
+#SBATCH --error=logs/QGAN_gpu_conv_extra_psr_q4_s1_%A_%a.err
+
+bnd run --gpu env PYTHONUNBUFFERED=1 \
+    qgan-v2 run \
+    --battery-path qgan/configs/batteries/train/train_conv_extra_noisy_psr_q4_seed1.yaml \
+    --overwrite

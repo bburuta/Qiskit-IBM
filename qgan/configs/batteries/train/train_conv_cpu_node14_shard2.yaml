@@ -77,19 +77,15 @@ default_config_values:
 
 variable_config_values_list:
 
-  # Minimum simulated implementation comparison for the thesis.
-  # runtime_packed is CPU-parameter backed and supports noisy/fake_real/real
-  # execution with PSR or SPSA. Use the matched qml_torch noisy base/q4/SPSA
-  # seed-0 run as the comparison baseline.
-  runtime_packed_noisy_base_q4_spsa_separate:
+  # Reserved shard. This shard is not submitted by the reduced thesis plan.
+  # It keeps one already-covered run so the YAML remains valid if audited.
+  reserved_already_covered:
     implementation.name:
-      - runtime_packed
-    implementation.discriminator_packing:
-      - separate
+      - qml_torch
     experiment.implementation:
-      - base
+      - ang
     experiment.execution_type:
-      - noisy
+      - noiseless
     experiment.gradient_method:
       - SPSA
     experiment.n_qubits:

@@ -150,27 +150,8 @@ default_config_values:
 
 variable_config_values_list:
 
-  # Reduced CPU node15 convergence battery.
-  # Covers the real-hardware simulator reference gap and the joined-packing
-  # runtime_packed counterpart for the implementation/packing comparison.
-  noisy_base_q4_psr_hardware_ref_topup:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - base
-    experiment.execution_type:
-      - noisy
-    experiment.gradient_method:
-      - PSR
-    experiment.n_qubits:
-      - 4
-    backend.simulator.device:
-      - CPU
-    run.seed:
-      - 2
-    encoding.randomness:
-      - 0
-
+  # Minimum thesis run: joined runtime_packed counterpart for the base/q4/noisy
+  # SPSA seed-0 packing comparison.
   runtime_packed_noisy_base_q4_spsa_joined:
     implementation.name:
       - runtime_packed
