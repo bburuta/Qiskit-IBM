@@ -1,7 +1,8 @@
 # qGAN CPU-4 timing shard 19.
 #
-# Contains 17 timing run(s), balanced by previous timing estimates.
+# Contains 11 timing run(s), balanced by previous timing estimates.
 # Uses run label cpu4 to avoid overwriting one-core CPU timing results.
+
 default_config_values:
 
   implementation:
@@ -172,6 +173,25 @@ variable_config_values_list:
     encoding.randomness:
       - 1
 
+  # Single run: cpu4_times_base_q8_noisy_psr_rand1.
+  cpu4_times_base_q8_noisy_psr_rand1:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - PSR
+    experiment.n_qubits:
+      - 8
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 1
+
   # Single run: cpu4_times_base_q4_noisy_psr_rand0.
   cpu4_times_base_q4_noisy_psr_rand0:
     implementation.name:
@@ -248,27 +268,8 @@ variable_config_values_list:
     encoding.randomness:
       - 1
 
-  # Single run: cpu4_times_ang_q4_noisy_spsa_rand0.
-  cpu4_times_ang_q4_noisy_spsa_rand0:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - ang
-    experiment.execution_type:
-      - noisy
-    experiment.gradient_method:
-      - SPSA
-    experiment.n_qubits:
-      - 4
-    backend.simulator.device:
-      - CPU
-    run.seed:
-      - 0
-    encoding.randomness:
-      - 0
-
-  # Single run: cpu4_times_base_q4_noisy_spsa_rand0.
-  cpu4_times_base_q4_noisy_spsa_rand0:
+  # Single run: cpu4_times_base_q8_noisy_spsa_rand1.
+  cpu4_times_base_q8_noisy_spsa_rand1:
     implementation.name:
       - qml_torch
     experiment.implementation:
@@ -278,83 +279,7 @@ variable_config_values_list:
     experiment.gradient_method:
       - SPSA
     experiment.n_qubits:
-      - 4
-    backend.simulator.device:
-      - CPU
-    run.seed:
-      - 0
-    encoding.randomness:
-      - 0
-
-  # Single run: cpu4_times_ang_q8_noiseless_psr_rand0.
-  cpu4_times_ang_q8_noiseless_psr_rand0:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - ang
-    experiment.execution_type:
-      - noiseless
-    experiment.gradient_method:
-      - PSR
-    experiment.n_qubits:
       - 8
-    backend.simulator.device:
-      - CPU
-    run.seed:
-      - 0
-    encoding.randomness:
-      - 0
-
-  # Single run: cpu4_times_ang_q8_noiseless_reg_rand0.
-  cpu4_times_ang_q8_noiseless_reg_rand0:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - ang
-    experiment.execution_type:
-      - noiseless
-    experiment.gradient_method:
-      - REG
-    experiment.n_qubits:
-      - 8
-    backend.simulator.device:
-      - CPU
-    run.seed:
-      - 0
-    encoding.randomness:
-      - 0
-
-  # Single run: cpu4_times_amp_q8_noiseless_psr_rand0.
-  cpu4_times_amp_q8_noiseless_psr_rand0:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - amp
-    experiment.execution_type:
-      - noiseless
-    experiment.gradient_method:
-      - PSR
-    experiment.n_qubits:
-      - 8
-    backend.simulator.device:
-      - CPU
-    run.seed:
-      - 0
-    encoding.randomness:
-      - 0
-
-  # Single run: cpu4_times_ang_q4_noiseless_spsa_rand1.
-  cpu4_times_ang_q4_noiseless_spsa_rand1:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - ang
-    experiment.execution_type:
-      - noiseless
-    experiment.gradient_method:
-      - SPSA
-    experiment.n_qubits:
-      - 4
     backend.simulator.device:
       - CPU
     run.seed:
@@ -362,16 +287,35 @@ variable_config_values_list:
     encoding.randomness:
       - 1
 
-  # Single run: cpu4_times_base_q8_noiseless_psr_rand1.
-  cpu4_times_base_q8_noiseless_psr_rand1:
+  # Single run: cpu4_times_ang_q8_noiseless_psr_rand1.
+  cpu4_times_ang_q8_noiseless_psr_rand1:
     implementation.name:
       - qml_torch
     experiment.implementation:
-      - base
+      - ang
     experiment.execution_type:
       - noiseless
     experiment.gradient_method:
       - PSR
+    experiment.n_qubits:
+      - 8
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 1
+
+  # Single run: cpu4_times_ang_q8_noiseless_spsa_rand1.
+  cpu4_times_ang_q8_noiseless_spsa_rand1:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - ang
+    experiment.execution_type:
+      - noiseless
+    experiment.gradient_method:
+      - SPSA
     experiment.n_qubits:
       - 8
     backend.simulator.device:
@@ -400,27 +344,8 @@ variable_config_values_list:
     encoding.randomness:
       - 0
 
-  # Single run: cpu4_times_amp_q4_noiseless_reg_rand1.
-  cpu4_times_amp_q4_noiseless_reg_rand1:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - amp
-    experiment.execution_type:
-      - noiseless
-    experiment.gradient_method:
-      - REG
-    experiment.n_qubits:
-      - 4
-    backend.simulator.device:
-      - CPU
-    run.seed:
-      - 0
-    encoding.randomness:
-      - 1
-
-  # Single run: cpu4_times_base_q8_noiseless_spsa_rand1.
-  cpu4_times_base_q8_noiseless_spsa_rand1:
+  # Single run: cpu4_times_base_q8_noiseless_spsa_rand0.
+  cpu4_times_base_q8_noiseless_spsa_rand0:
     implementation.name:
       - qml_torch
     experiment.implementation:
@@ -431,44 +356,6 @@ variable_config_values_list:
       - SPSA
     experiment.n_qubits:
       - 8
-    backend.simulator.device:
-      - CPU
-    run.seed:
-      - 0
-    encoding.randomness:
-      - 1
-
-  # Single run: cpu4_times_amp_q4_noiseless_spsa_rand1.
-  cpu4_times_amp_q4_noiseless_spsa_rand1:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - amp
-    experiment.execution_type:
-      - noiseless
-    experiment.gradient_method:
-      - SPSA
-    experiment.n_qubits:
-      - 4
-    backend.simulator.device:
-      - CPU
-    run.seed:
-      - 0
-    encoding.randomness:
-      - 1
-
-  # Single run: cpu4_times_base_q4_noiseless_spsa_rand0.
-  cpu4_times_base_q4_noiseless_spsa_rand0:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - base
-    experiment.execution_type:
-      - noiseless
-    experiment.gradient_method:
-      - SPSA
-    experiment.n_qubits:
-      - 4
     backend.simulator.device:
       - CPU
     run.seed:

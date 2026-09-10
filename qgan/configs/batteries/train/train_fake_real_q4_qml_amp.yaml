@@ -1,13 +1,8 @@
-# qGAN GPU qml_torch fake-real one-run battery.
+# qGAN CPU qml_torch fake-real one-run battery.
 #
-# Runs one q4 fake-real configuration for implementation and packing
-# validation under hardware-style primitive execution:
-# - qml_torch amp preset
-# - seed 0 and randomness 0
-#
-# These runs are intended as integration/packing evidence, not as
-# statistical quality evidence. The simulator device name is kept as CPU
-# for GPU jobs so convergence analysis does not duplicate logical runs by device.
+# Runs qml_torch amp q4 fake-real on CPU.
+# Intended as implementation-validation evidence.
+
 default_config_values:
 
   implementation:
@@ -27,7 +22,8 @@ default_config_values:
     # Random seed for Python, NumPy, Torch, and simulator options. Values: [int].
     seed: 0
     # Torch device. Values: CPU, GPU. runtime_packed requires CPU.
-    device: GPU
+    # Keep fixed because run.device is not encoded in generated run ids.
+    device: CPU
 
   experiment:
     # Experiment preset. Values: base, ang, amp.
@@ -51,9 +47,9 @@ default_config_values:
     # Adam optimizer learning rate for generator and discriminator optimizers. Values: [number >= 0].
     learning_rate: 0.005
     # Epoch interval for progress prints. Values: [int >= 0], 0 disables printing.
-    print_every: 10
+    print_every: 100
     # Epoch interval for checkpoint saves. Values: [int >= 0], 0 saves only at the end.
-    checkpoint_every: 10
+    checkpoint_every: 100
 
   dataset:
     # Dataset id. Values: null, [string].
@@ -94,9 +90,7 @@ default_config_values:
 
     simulator:
       # Aer simulator device. Values: CPU, GPU.
-      device: GPU
-      # Device label used in generated run ids. CPU shares convergence checkpoints with CPU runs.
-      device_name: CPU
+      device: CPU
       # Floating point precision for simulator/Torch tensors. Values: double, single.
       data_type: double
       # Aer method for noiseless simulation. Values: statevector, density_matrix.
@@ -106,7 +100,7 @@ default_config_values:
       # Noisy simulator mapping. Values: hardware, noise_model. hardware uses the full backend coupling map/target; noise_model uses backend-derived noise only.
       noisy_backend_mapping: hardware
       # Maximum CPU threads used by Aer. Values: [int >= 0]. 0 lets Aer choose.
-      max_parallel_threads: 0
+      max_parallel_threads: 12
       # Maximum experiments/circuits Aer runs in parallel. Values: [int >= 0].
       max_parallel_experiments: 1
       # Maximum shot batches Aer runs in parallel. Values: [int >= 0].
@@ -153,7 +147,7 @@ default_config_values:
     # Evaluation batch size. Values: [int >= 1].
     eval_batch_size: 8
     # Maximum parallel threads for model execution. Values: [int >= 1].
-    max_parallel_threads: 1
+    max_parallel_threads: 12
     # Evaluation metric. Values: gradient, kl.
     eval_method: gradient
 
@@ -173,7 +167,7 @@ variable_config_values_list:
     experiment.n_qubits:
       - 4
     backend.simulator.device:
-      - GPU
+      - CPU
     run.seed:
       - 0
     encoding.randomness:

@@ -1,14 +1,8 @@
 # qGAN CPU runtime_packed fake-real one-run battery.
 #
-# Runs one q4 fake-real configuration for implementation and packing
-# validation under hardware-style primitive execution:
-# - runtime_packed joined packing
-# - base preset
-# - seed 0 and randomness 0
-#
-# These runs are intended as integration/packing evidence, not as
-# statistical quality evidence. The simulator device name is kept as CPU
-# for GPU jobs so convergence analysis does not duplicate logical runs by device.
+# Runs runtime_packed joined base q4 fake-real on CPU.
+# Intended as implementation/packing-validation evidence.
+
 default_config_values:
 
   implementation:
@@ -53,9 +47,9 @@ default_config_values:
     # Adam optimizer learning rate for generator and discriminator optimizers. Values: [number >= 0].
     learning_rate: 0.005
     # Epoch interval for progress prints. Values: [int >= 0], 0 disables printing.
-    print_every: 10
+    print_every: 100
     # Epoch interval for checkpoint saves. Values: [int >= 0], 0 saves only at the end.
-    checkpoint_every: 10
+    checkpoint_every: 100
 
   dataset:
     # Dataset id. Values: null, [string].
@@ -106,7 +100,7 @@ default_config_values:
       # Noisy simulator mapping. Values: hardware, noise_model. hardware uses the full backend coupling map/target; noise_model uses backend-derived noise only.
       noisy_backend_mapping: hardware
       # Maximum CPU threads used by Aer. Values: [int >= 0]. 0 lets Aer choose.
-      max_parallel_threads: 0
+      max_parallel_threads: 12
       # Maximum experiments/circuits Aer runs in parallel. Values: [int >= 0].
       max_parallel_experiments: 1
       # Maximum shot batches Aer runs in parallel. Values: [int >= 0].
@@ -153,7 +147,7 @@ default_config_values:
     # Evaluation batch size. Values: [int >= 1].
     eval_batch_size: 8
     # Maximum parallel threads for model execution. Values: [int >= 1].
-    max_parallel_threads: 1
+    max_parallel_threads: 12
     # Evaluation metric. Values: gradient, kl.
     eval_method: gradient
 

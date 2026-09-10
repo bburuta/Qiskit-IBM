@@ -1,15 +1,7 @@
 # qGAN CPU noisy PSR one-run convergence battery.
 #
-# Runs one qml_torch CPU convergence experiment for the optional noisy PSR
-# viability check:
-# - base preset
-# - noisy execution with PSR gradients
-# - 4-qubit circuit
-# - seed 2
-# - randomness 0
-#
-# These runs are separated into one-run batteries so Slurm can assign one
-# allocation per execution.
+# Runs q4 base noisy PSR seed 2 on node14.
+# One run per Slurm allocation for viability testing.
 
 default_config_values:
 
@@ -108,7 +100,7 @@ default_config_values:
       # Noisy simulator mapping. Values: hardware, noise_model. hardware uses the full backend coupling map/target; noise_model uses backend-derived noise only.
       noisy_backend_mapping: hardware
       # Maximum CPU threads used by Aer. Values: [int >= 0]. 0 lets Aer choose.
-      max_parallel_threads: 0
+      max_parallel_threads: 11
       # Maximum experiments/circuits Aer runs in parallel. Values: [int >= 0].
       max_parallel_experiments: 1
       # Maximum shot batches Aer runs in parallel. Values: [int >= 0].
@@ -155,14 +147,14 @@ default_config_values:
     # Evaluation batch size. Values: [int >= 1].
     eval_batch_size: 8
     # Maximum parallel threads for model execution. Values: [int >= 1].
-    max_parallel_threads: 1
+    max_parallel_threads: 11
     # Evaluation metric. Values: gradient, kl.
     eval_method: gradient
 
 
 variable_config_values_list:
 
-  # Single run: noisy PSR q4 base seed 2.
+  # Single run: qml_torch_noisy_psr_q4_base_seed2_cpu.
   qml_torch_noisy_psr_q4_base_seed2_cpu:
     implementation.name:
       - qml_torch

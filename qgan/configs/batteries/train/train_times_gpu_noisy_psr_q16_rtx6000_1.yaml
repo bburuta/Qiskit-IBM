@@ -1,7 +1,8 @@
-# qGAN GPU timing incomplete shard 1.
+# qGAN GPU timing q16 noisy PSR shard 1.
 #
-# Resumes selected incomplete GPU timing runs on one RTX6000 allocation.
-# Keeps original run IDs so partial checkpoints can resume.
+# Runs only q16 noisy PSR timing configs on one RTX6000.
+# Original run IDs are kept so existing partial checkpoints can resume.
+
 default_config_values:
 
   implementation:
@@ -152,8 +153,8 @@ default_config_values:
 
 variable_config_values_list:
 
-  # Single run: gpu_times_incomplete_ang_q16_noisy_psr_rand0.
-  gpu_times_incomplete_ang_q16_noisy_psr_rand0:
+  # Single run: gpu_times_q16_noisy_psr_ang_rand0.
+  gpu_times_q16_noisy_psr_ang_rand0:
     implementation.name:
       - qml_torch
     experiment.implementation:
@@ -162,44 +163,6 @@ variable_config_values_list:
       - noisy
     experiment.gradient_method:
       - PSR
-    experiment.n_qubits:
-      - 16
-    backend.simulator.device:
-      - GPU
-    run.seed:
-      - 0
-    encoding.randomness:
-      - 0
-
-  # Single run: gpu_times_incomplete_base_q16_noisy_psr_rand1.
-  gpu_times_incomplete_base_q16_noisy_psr_rand1:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - base
-    experiment.execution_type:
-      - noisy
-    experiment.gradient_method:
-      - PSR
-    experiment.n_qubits:
-      - 16
-    backend.simulator.device:
-      - GPU
-    run.seed:
-      - 0
-    encoding.randomness:
-      - 1
-
-  # Single run: gpu_times_incomplete_ang_q16_noisy_spsa_rand0.
-  gpu_times_incomplete_ang_q16_noisy_spsa_rand0:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - ang
-    experiment.execution_type:
-      - noisy
-    experiment.gradient_method:
-      - SPSA
     experiment.n_qubits:
       - 16
     backend.simulator.device:

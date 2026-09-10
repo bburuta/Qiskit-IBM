@@ -1,11 +1,10 @@
 #!/bin/bash
 
-sbatch slurm/slurm.sbatch_fake_real_qml_base_gpu_node03
-sbatch slurm/slurm.sbatch_fake_real_qml_ang_gpu_node03
-sbatch slurm/slurm.sbatch_fake_real_qml_amp_gpu_node03
-
+sbatch slurm/slurm.sbatch_fake_real_qml_base_cpu_node14
+sbatch slurm/slurm.sbatch_fake_real_qml_ang_cpu_node14
+sbatch slurm/slurm.sbatch_fake_real_qml_amp_cpu_node14
 sbatch slurm/slurm.sbatch_fake_real_runtime_separate_base_node14
-sbatch slurm/slurm.sbatch_fake_real_runtime_separate_ang_node14
+sbatch slurm/slurm.sbatch_fake_real_runtime_separate_ang_node15
 sbatch slurm/slurm.sbatch_fake_real_runtime_separate_amp_node15
 sbatch slurm/slurm.sbatch_fake_real_runtime_joined_base_node15
 sbatch slurm/slurm.sbatch_fake_real_runtime_joined_ang_node15

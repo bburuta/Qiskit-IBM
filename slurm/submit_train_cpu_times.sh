@@ -21,4 +21,3 @@ sbatch slurm/slurm.sbatch_cpu_times_cpu4_shard17_node03
 sbatch slurm/slurm.sbatch_cpu_times_cpu4_shard18_node03
 sbatch slurm/slurm.sbatch_cpu_times_cpu4_shard19_node03
 sbatch slurm/slurm.sbatch_cpu_times_cpu4_shard20_node03
-sbatch slurm/slurm.sbatch_cpu_times_cpu4_shard21_node03
