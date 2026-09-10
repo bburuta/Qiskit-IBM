@@ -170,7 +170,6 @@ variable_config_values_list:
     experiment.implementation:
       - base
       - ang
-    #  - amp
     experiment.execution_type:
       - noiseless
     experiment.gradient_method:
@@ -189,14 +188,12 @@ variable_config_values_list:
       - 0
       - 1
 
-  # Amplitude encoding CPU gradient-method, randomness, and qubit-scaling timing analysis.
-  # Amplitude encoding with 16 qubits requires too many resources.
+  # Amplitude preset CPU timing analysis.
+  # Amplitude q16 state preparation cannot be transpiled.
   qml_torch_noiseless_amp:
     implementation.name:
       - qml_torch
     experiment.implementation:
-    #  - base
-    #  - ang
       - amp
     experiment.execution_type:
       - noiseless
@@ -207,7 +204,6 @@ variable_config_values_list:
     experiment.n_qubits:
       - 4
       - 8
-    #  - 16
     backend.simulator.device:
       - CPU
     run.seed:
@@ -217,23 +213,100 @@ variable_config_values_list:
       - 1
 
   # Main CPU noise-impact timing analysis.
-  # Noisy execution with 16 qubits requires too many resources.
+  # Keep the q4/q8 scope matched with the CPU timing battery.
   qml_torch_noisy:
     implementation.name:
       - qml_torch
     experiment.implementation:
       - base
       - ang
+      # - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+      # - PSR
+    experiment.n_qubits:
+      - 4
+      - 8
+      - 16
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+      - 1
+
+  # Amplitude preset CPU noise-impact timing analysis.
+  # Amplitude q16 state preparation cannot be transpiled.
+  qml_torch_noisy_amp:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      # - base
+      # - ang
       - amp
     experiment.execution_type:
       - noisy
     experiment.gradient_method:
       - SPSA
+      # - PSR
+    experiment.n_qubits:
+      - 4
+      - 8
+      # - 16
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+      - 1
+
+  # PSR
+  qml_torch_noisy_psr:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      # - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      # - SPSA
       - PSR
     experiment.n_qubits:
       - 4
       - 8
-    #  - 16
+      - 16
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+      - 1
+
+  # Amplitude preset CPU noise-impact timing analysis.
+  # Amplitude q16 state preparation cannot be transpiled.
+  qml_torch_noisy_amp_psr:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      # - base
+      # - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      # - SPSA
+      - PSR
+    experiment.n_qubits:
+      - 4
+      - 8
+      # - 16
     backend.simulator.device:
       - CPU
     run.seed:

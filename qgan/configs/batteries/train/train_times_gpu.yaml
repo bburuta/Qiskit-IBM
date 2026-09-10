@@ -223,11 +223,11 @@ variable_config_values_list:
       - noisy
     experiment.gradient_method:
       - SPSA
-      - PSR
+      # - PSR
     experiment.n_qubits:
       - 4
       - 8
-      # - 16
+      - 16
     backend.simulator.device:
       - GPU
     run.seed:
@@ -249,6 +249,57 @@ variable_config_values_list:
       - noisy
     experiment.gradient_method:
       - SPSA
+      # - PSR
+    experiment.n_qubits:
+      - 4
+      - 8
+      # - 16
+    backend.simulator.device:
+      - GPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+      - 1
+
+  # PSR
+  qml_torch_noisy_psr:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      # - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      # - SPSA
+      - PSR
+    experiment.n_qubits:
+      - 4
+      - 8
+      - 16
+    backend.simulator.device:
+      - GPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+      - 1
+
+  # Amplitude preset GPU noise-impact timing analysis.
+  # Amplitude q16 state preparation cannot be transpiled.
+  qml_torch_noisy_amp_psr:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      # - base
+      # - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      # - SPSA
       - PSR
     experiment.n_qubits:
       - 4

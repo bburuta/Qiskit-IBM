@@ -8,8 +8,9 @@
 ##SBATCH --gres=gpu:1
 ##SBATCH --gres=gpu:1:h100
 ##SBATCH --gres=gpu:1:rtx6000
-# #SBATCH --nodes=1
+#SBATCH --nodes=1
 #SBATCH --ntasks=1
+#SBATCH --nodelist=node15
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=16GB
 #SBATCH --time=150:00:00
