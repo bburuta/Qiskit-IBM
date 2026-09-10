@@ -13,5 +13,5 @@
 
 bnd run --cpu env PYTHONUNBUFFERED=1 \
     qgan-v2 run \
-    --battery-path qgan/configs/batteries/train/train_conv_cpu_node14.yaml \
+    --battery-path qgan/configs/batteries/train/train_conv_cpu.yaml \
     --overwrite

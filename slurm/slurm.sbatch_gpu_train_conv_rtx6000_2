@@ -13,5 +13,5 @@
 
 bnd run --gpu env PYTHONUNBUFFERED=1 \
     qgan-v2 run \
-    --battery-path qgan/configs/batteries/train/train_conv_gpu_rtx6000_2.yaml \
+    --battery-path qgan/configs/batteries/train/train_conv_gpu.yaml \
     --overwrite

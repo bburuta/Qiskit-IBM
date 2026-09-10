@@ -95,7 +95,7 @@ default_config_values:
     simulator:
       # Aer simulator device. Values: CPU, GPU.
       device: GPU
-      # Device label used in generated run ids. Convergence analysis collapses CPU/GPU simulator device.
+      # Device label used in generated run ids. CPU shares convergence checkpoints with CPU runs.
       device_name: CPU
       # Floating point precision for simulator/Torch tensors. Values: double, single.
       data_type: double
@@ -157,21 +157,27 @@ default_config_values:
     # Evaluation metric. Values: gradient, kl.
     eval_method: gradient
 
+
 variable_config_values_list:
 
-  # Minimum GPU convergence battery for the thesis q-scaling analysis.
-  # These are the only missing q16 angle/noiseless/SPSA seeds in the minimum
-  # convergence plan. CPU/GPU are collapsed when analyzing convergence quality.
-  noiseless_ang_q16_spsa_scaling_topup:
+  # Main GPU gradient-method, randomness, and qubit-scaling analysis.
+  # Noiseless qml_torch supports REG.
+  qml_torch_noiseless_main:
     implementation.name:
       - qml_torch
     experiment.implementation:
+      - base
       - ang
+      # - amp
     experiment.execution_type:
       - noiseless
     experiment.gradient_method:
+      - PSR
       - SPSA
+      - REG
     experiment.n_qubits:
+      - 4
+      - 8
       - 16
     backend.simulator.device:
       - GPU
@@ -181,3 +187,69 @@ variable_config_values_list:
       - 2
     encoding.randomness:
       - 0
+      - 0.1
+      - 0.25
+      - 0.5
+      - 1
+
+  # Main GPU gradient-method, randomness, and qubit-scaling analysis.
+  # Unable to transpile amplitude encoding with 16 qubits
+  qml_torch_noiseless_amp:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      # - base
+      # - ang
+      - amp
+    experiment.execution_type:
+      - noiseless
+    experiment.gradient_method:
+      - PSR
+      - SPSA
+      - REG
+    experiment.n_qubits:
+      - 4
+      - 8
+      # - 16
+    backend.simulator.device:
+      - GPU
+    run.seed:
+      - 0
+      - 1
+      - 2
+    encoding.randomness:
+      - 0
+      - 0.1
+      - 0.25
+      - 0.5
+      - 1
+
+  # Main GPU noise-impact analysis.
+  qml_torch_noisy:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+      # - PSR # TODO ?
+    experiment.n_qubits:
+      - 4
+      - 8
+      # - 16
+    backend.simulator.device:
+      - GPU
+    run.seed:
+      - 0
+      - 1
+      - 2
+    encoding.randomness:
+      - 0
+      - 0.1
+      - 0.25
+      - 0.5
+      - 1

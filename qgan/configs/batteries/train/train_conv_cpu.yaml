@@ -159,47 +159,99 @@ default_config_values:
     # Evaluation metric. Values: gradient, kl.
     eval_method: gradient
 
+
 variable_config_values_list:
 
-  # Minimum CPU convergence battery for the thesis implementation/packing
-  # comparison. qml_torch base/q4/noisy/SPSA seed 0 is already complete, so the
-  # missing runtime_packed runs are the only ones submitted.
-  runtime_packed_noisy_base_q4_spsa_separate:
+  # Main GPU gradient-method, randomness, and qubit-scaling analysis.
+  # Noiseless qml_torch supports REG.
+  qml_torch_noiseless_main:
     implementation.name:
-      - runtime_packed
-    implementation.discriminator_packing:
-      - separate
+      - qml_torch
     experiment.implementation:
       - base
+      - ang
+      # - amp
     experiment.execution_type:
-      - noisy
+      - noiseless
     experiment.gradient_method:
+      - PSR
       - SPSA
+      - REG
     experiment.n_qubits:
       - 4
+      - 8
+      - 16
     backend.simulator.device:
-      - CPU
+      - GPU
     run.seed:
       - 0
+      - 1
+      - 2
     encoding.randomness:
       - 0
+      - 0.1
+      - 0.25
+      - 0.5
+      - 1
 
-  runtime_packed_noisy_base_q4_spsa_joined:
+  # Main GPU gradient-method, randomness, and qubit-scaling analysis.
+  # Unable to transpile amplitude encoding with 16 qubits
+  qml_torch_noiseless_amp:
     implementation.name:
-      - runtime_packed
-    implementation.discriminator_packing:
-      - joined
+      - qml_torch
+    experiment.implementation:
+      # - base
+      # - ang
+      - amp
+    experiment.execution_type:
+      - noiseless
+    experiment.gradient_method:
+      - PSR
+      - SPSA
+      - REG
+    experiment.n_qubits:
+      - 4
+      - 8
+      # - 16
+    backend.simulator.device:
+      - GPU
+    run.seed:
+      - 0
+      - 1
+      - 2
+    encoding.randomness:
+      - 0
+      - 0.1
+      - 0.25
+      - 0.5
+      - 1
+
+  # Main GPU noise-impact analysis.
+  qml_torch_noisy:
+    implementation.name:
+      - qml_torch
     experiment.implementation:
       - base
+      - ang
+      - amp
     experiment.execution_type:
       - noisy
     experiment.gradient_method:
       - SPSA
+      # - PSR # TODO ?
     experiment.n_qubits:
       - 4
+      - 8
+      # - 16
     backend.simulator.device:
-      - CPU
+      - GPU
     run.seed:
       - 0
+      - 1
+      - 2
     encoding.randomness:
       - 0
+      - 0.1
+      - 0.25
+      - 0.5
+      - 1

@@ -1,13 +1,13 @@
-# qGAN GPU convergence training battery.
+# qGAN GPU qml_torch fake-real one-run battery.
 #
-# Runs long qml_torch GPU convergence experiments:
-# - base, angle, and amplitude presets
-# - noiseless execution with PSR, SPSA, and REG gradients
-# - noisy execution with SPSA and PSR gradients
-# - 4-, 8-, and 16-qubit circuits
-# - seeds 0, 1, and 2
-# - randomness levels 0, 0.1, 0.25, 0.5, and 1
-
+# Runs one q4 fake-real configuration for implementation and packing
+# validation under hardware-style primitive execution:
+# - qml_torch base preset
+# - seed 0 and randomness 0
+#
+# These runs are intended as integration/packing evidence, not as
+# statistical quality evidence. The simulator device name is kept as CPU
+# for GPU jobs so convergence analysis does not duplicate logical runs by device.
 default_config_values:
 
   implementation:
@@ -41,7 +41,7 @@ default_config_values:
 
   training:
     # Number of training epochs. Values: [int >= 0].
-    max_iterations: 1000
+    max_iterations: 150
     # Generator updates per epoch. Values: [int >= 0].
     gen_iterations: 1
     # Discriminator updates per epoch. Values: [int >= 0].
@@ -51,9 +51,9 @@ default_config_values:
     # Adam optimizer learning rate for generator and discriminator optimizers. Values: [number >= 0].
     learning_rate: 0.005
     # Epoch interval for progress prints. Values: [int >= 0], 0 disables printing.
-    print_every: 100
+    print_every: 10
     # Epoch interval for checkpoint saves. Values: [int >= 0], 0 saves only at the end.
-    checkpoint_every: 100
+    checkpoint_every: 10
 
   dataset:
     # Dataset id. Values: null, [string].
@@ -95,7 +95,7 @@ default_config_values:
     simulator:
       # Aer simulator device. Values: CPU, GPU.
       device: GPU
-      # Device label used in generated run ids. Convergence analysis collapses CPU/GPU simulator device.
+      # Device label used in generated run ids. CPU shares convergence checkpoints with CPU runs.
       device_name: CPU
       # Floating point precision for simulator/Torch tensors. Values: double, single.
       data_type: double
@@ -157,24 +157,24 @@ default_config_values:
     # Evaluation metric. Values: gradient, kl.
     eval_method: gradient
 
+
 variable_config_values_list:
 
-  # Extra noisy PSR run for gradient analysis. This is intentionally separate
-  # from the minimum plan because noisy PSR is expensive.
-  noisy_ang_q4_psr_seed2:
+  # Single run: qml_torch_fake_real_q4_base.
+  qml_torch_fake_real_q4_base:
     implementation.name:
       - qml_torch
     experiment.implementation:
-      - ang
+      - base
     experiment.execution_type:
-      - noisy
+      - fake_real
     experiment.gradient_method:
-      - PSR
+      - SPSA
     experiment.n_qubits:
       - 4
     backend.simulator.device:
       - GPU
     run.seed:
-      - 2
+      - 0
     encoding.randomness:
       - 0

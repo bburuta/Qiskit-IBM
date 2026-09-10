@@ -12,7 +12,7 @@
 #SBATCH --output=logs/QGAN_cpu_conv_node14_%A_%a.out
 #SBATCH --error=logs/QGAN_cpu_conv_node14_%A_%a.err
 
-battery_path="qgan/configs/batteries/train/train_conv_cpu_node14_shard${SLURM_ARRAY_TASK_ID}.yaml"
+battery_path="qgan/configs/batteries/train/train_conv_cpu.yaml"
 
 bnd run --cpu env PYTHONUNBUFFERED=1 \
     qgan-v2 run \
