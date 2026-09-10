@@ -255,9 +255,9 @@ variable_config_values_list:
       - 1
 
   # SPSA 16 qubits noise-impact analysis.
-  # Unable to transpile amplitude encoding with 16 qubits. 
+  # Unable to transpile amplitude encoding with 16 qubits.
   # Noisy PSR 16 qubits raised Out of Memory error.
-  qml_torch_noisy:
+  qml_torch_noisy_q16:
     implementation.name:
       - qml_torch
     experiment.implementation:

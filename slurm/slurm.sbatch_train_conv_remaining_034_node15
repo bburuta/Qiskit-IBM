@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#SBATCH --job-name=QGAN_conv_remaining_034_node15
+#SBATCH --partition=QPU
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --nodelist=node15
+#SBATCH --cpus-per-task=12
+#SBATCH --mem=24GB
+#SBATCH --time=150:00:00
+#SBATCH --output=logs/QGAN_conv_remaining_034_node15_%A.out
+#SBATCH --error=logs/QGAN_conv_remaining_034_node15_%A.err
+bnd run --cpu env OMP_NUM_THREADS=12 MKL_NUM_THREADS=12 PYTHONUNBUFFERED=1 \
+    qgan-v2 run \
+    --battery-path qgan/configs/batteries/train/train_conv_remaining_034.yaml \
+    --overwrite

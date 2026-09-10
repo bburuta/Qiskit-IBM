@@ -1,23 +1,9 @@
 #!/bin/bash
 
-sbatch slurm/slurm.sbatch_cpu_times_cpu4_shard00_node03
-sbatch slurm/slurm.sbatch_cpu_times_cpu4_shard01_node03
-sbatch slurm/slurm.sbatch_cpu_times_cpu4_shard02_node03
-sbatch slurm/slurm.sbatch_cpu_times_cpu4_shard03_node03
-sbatch slurm/slurm.sbatch_cpu_times_cpu4_shard04_node03
-sbatch slurm/slurm.sbatch_cpu_times_cpu4_shard05_node03
-sbatch slurm/slurm.sbatch_cpu_times_cpu4_shard06_node03
-sbatch slurm/slurm.sbatch_cpu_times_cpu4_shard07_node03
-sbatch slurm/slurm.sbatch_cpu_times_cpu4_shard08_node03
-sbatch slurm/slurm.sbatch_cpu_times_cpu4_shard09_node03
-sbatch slurm/slurm.sbatch_cpu_times_cpu4_shard10_node03
-sbatch slurm/slurm.sbatch_cpu_times_cpu4_shard11_node03
-sbatch slurm/slurm.sbatch_cpu_times_cpu4_shard12_node03
-sbatch slurm/slurm.sbatch_cpu_times_cpu4_shard13_node03
-sbatch slurm/slurm.sbatch_cpu_times_cpu4_shard14_node03
-sbatch slurm/slurm.sbatch_cpu_times_cpu4_shard15_node03
-sbatch slurm/slurm.sbatch_cpu_times_cpu4_shard16_node03
-sbatch slurm/slurm.sbatch_cpu_times_cpu4_shard17_node03
-sbatch slurm/slurm.sbatch_cpu_times_cpu4_shard18_node03
-sbatch slurm/slurm.sbatch_cpu_times_cpu4_shard19_node03
-sbatch slurm/slurm.sbatch_cpu_times_cpu4_shard20_node03
+# Generated for unfinished CPU timing runs from train_times_cpu.yaml.
+# Uses node03 CPUs with 4 CPUs per task, matching the GPU timing CPU allocation.
+# q16 noisy CPU timing may OOM here; keep 16GB to match the GPU timing memory request.
+sbatch slurm/slurm.sbatch_train_times_cpu_remaining_001_node03
+sbatch slurm/slurm.sbatch_train_times_cpu_remaining_002_node03
+sbatch slurm/slurm.sbatch_train_times_cpu_remaining_003_node03
+sbatch slurm/slurm.sbatch_train_times_cpu_remaining_004_node03

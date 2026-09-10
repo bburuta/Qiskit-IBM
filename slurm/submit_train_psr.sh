@@ -1,20 +1,22 @@
 #!/bin/bash
 
-sbatch slurm/slurm.sbatch_psr_noisy_q4_base_seed0_node14
-sbatch slurm/slurm.sbatch_psr_noisy_q4_base_seed1_node14
-sbatch slurm/slurm.sbatch_psr_noisy_q4_base_seed2_node14
-sbatch slurm/slurm.sbatch_psr_noisy_q4_ang_seed0_node14
-sbatch slurm/slurm.sbatch_psr_noisy_q4_ang_seed1_node14
-sbatch slurm/slurm.sbatch_psr_noisy_q4_ang_seed2_node14
-sbatch slurm/slurm.sbatch_psr_noisy_q4_amp_seed0_node14
-sbatch slurm/slurm.sbatch_psr_noisy_q4_amp_seed1_node14
-sbatch slurm/slurm.sbatch_psr_noisy_q4_amp_seed2_node14
-sbatch slurm/slurm.sbatch_psr_noisy_q8_base_seed0_node15
-sbatch slurm/slurm.sbatch_psr_noisy_q8_base_seed1_node15
-sbatch slurm/slurm.sbatch_psr_noisy_q8_base_seed2_node15
-sbatch slurm/slurm.sbatch_psr_noisy_q8_ang_seed0_node15
-sbatch slurm/slurm.sbatch_psr_noisy_q8_ang_seed1_node15
-sbatch slurm/slurm.sbatch_psr_noisy_q8_ang_seed2_node15
-sbatch slurm/slurm.sbatch_psr_noisy_q8_amp_seed0_node15
-sbatch slurm/slurm.sbatch_psr_noisy_q8_amp_seed1_node15
-sbatch slurm/slurm.sbatch_psr_noisy_q8_amp_seed2_node15
+# Generated for unfinished q4/q8 noisy PSR convergence one-run batteries.
+# Uses node14/node15 CPUs; submit after fake-real jobs if you want to avoid sharing node15.
+sbatch slurm/slurm.sbatch_psr_remaining_amp_q4_seed0_node14
+sbatch slurm/slurm.sbatch_psr_remaining_amp_q4_seed1_node14
+sbatch slurm/slurm.sbatch_psr_remaining_amp_q4_seed2_node14
+sbatch slurm/slurm.sbatch_psr_remaining_ang_q4_seed0_node14
+sbatch slurm/slurm.sbatch_psr_remaining_ang_q4_seed1_node15
+sbatch slurm/slurm.sbatch_psr_remaining_ang_q4_seed2_node15
+sbatch slurm/slurm.sbatch_psr_remaining_base_q4_seed0_node15
+sbatch slurm/slurm.sbatch_psr_remaining_base_q4_seed1_node14
+sbatch slurm/slurm.sbatch_psr_remaining_base_q4_seed2_node14
+sbatch slurm/slurm.sbatch_psr_remaining_amp_q8_seed0_node14
+sbatch slurm/slurm.sbatch_psr_remaining_amp_q8_seed1_node14
+sbatch slurm/slurm.sbatch_psr_remaining_amp_q8_seed2_node15
+sbatch slurm/slurm.sbatch_psr_remaining_ang_q8_seed0_node15
+sbatch slurm/slurm.sbatch_psr_remaining_ang_q8_seed1_node15
+sbatch slurm/slurm.sbatch_psr_remaining_ang_q8_seed2_node14
+sbatch slurm/slurm.sbatch_psr_remaining_base_q8_seed0_node14
+sbatch slurm/slurm.sbatch_psr_remaining_base_q8_seed1_node14
+sbatch slurm/slurm.sbatch_psr_remaining_base_q8_seed2_node14
