@@ -18,7 +18,7 @@
 #SBATCH --error=logs/QGAN_cpu_train_times_%A_%a.err
 
 
-bnd run --gpu env PYTHONUNBUFFERED=1 \
+bnd run --cpu env PYTHONUNBUFFERED=1 \
     qgan-v2 run \
     --battery-path qgan/configs/batteries/train/train_times_cpu.yaml \
     --overwrite

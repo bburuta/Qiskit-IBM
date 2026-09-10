@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#SBATCH --job-name=QGAN_cpu_times_cpu4_shard19_node03
+#SBATCH --partition=QPU
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --nodelist=node03
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=16GB
+#SBATCH --time=150:00:00
+#SBATCH --output=logs/QGAN_cpu_times_cpu4_shard19_node03_%A.out
+#SBATCH --error=logs/QGAN_cpu_times_cpu4_shard19_node03_%A.err
+
+bnd run --cpu env OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 PYTHONUNBUFFERED=1 \
+    qgan-v2 run \
+    --battery-path qgan/configs/batteries/train/train_times_cpu4_shard19.yaml \
+    --overwrite
