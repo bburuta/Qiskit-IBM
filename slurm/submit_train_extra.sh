@@ -1,10 +1,6 @@
 #!/bin/bash
 
-sbatch slurm/slurm.sbatch_cpu_train_conv_extra_impl_ang
-sbatch slurm/slurm.sbatch_cpu_train_conv_extra_impl_amp
-sbatch slurm/slurm.sbatch_gpu_train_conv_extra_noisy_psr_q4
-sbatch slurm/slurm.sbatch_gpu_train_conv_extra_noisy_psr_q4_seed1
-sbatch slurm/slurm.sbatch_gpu_train_conv_extra_noisy_psr_q4_seed2
-sbatch slurm/slurm.sbatch_gpu_train_conv_extra_noisy_psr_q8
-sbatch slurm/slurm.sbatch_gpu_train_conv_extra_noisy_psr_q8_seed1
-sbatch slurm/slurm.sbatch_gpu_train_conv_extra_noisy_psr_q8_seed2
+echo "submit_train_extra.sh is deprecated for the current thesis plan." >&2
+echo "Use slurm/submit_train.sh for fake_real and q16 noisy SPSA runs." >&2
+echo "Use slurm/submit_train_psr.sh only for the CPU noisy PSR viability test." >&2
+exit 1

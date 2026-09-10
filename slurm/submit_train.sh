@@ -1,7 +1,5 @@
 #!/bin/bash
 
-sbatch slurm/slurm.sbatch_cpu_train_conv_node14_shards
-sbatch slurm/slurm.sbatch_cpu_train_conv_node15_shards
-sbatch slurm/slurm.sbatch_gpu_train_conv_h100
-sbatch slurm/slurm.sbatch_gpu_train_conv_rtx6000_1
-sbatch slurm/slurm.sbatch_gpu_train_conv_rtx6000_2
+sbatch slurm/slurm.sbatch_cpu_train_conv_fake_real_q4
+sbatch slurm/slurm.sbatch_gpu_train_conv_noisy_q16_base_h100
+sbatch slurm/slurm.sbatch_gpu_train_conv_noisy_q16_ang_h100
