@@ -1,0 +1,10 @@
+Creating config files for cpu4_times_amp_q8_noisy_psr_rand1:
+Configuration file written. Path: /work/qgan/data/train/times/amp-qml_torch-q8-noisy-PSR-aerCPU-rand1-seed0:cpu4/config.yaml
+
+1 battery configuration files ready.
+
+Running: /work/qgan/data/train/times/amp-qml_torch-q8-noisy-PSR-aerCPU-rand1-seed0:cpu4/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+
+Interrupter: will stop after the current epoch. Press Ctrl+C again to force quit.

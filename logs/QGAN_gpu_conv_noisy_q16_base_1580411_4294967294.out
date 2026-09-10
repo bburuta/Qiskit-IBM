@@ -1,0 +1,44 @@
+Creating config files for noisy_base_q16_spsa:
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q16-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q16-noisy-SPSA-aerCPU-rand0-seed1/config.yaml
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q16-noisy-SPSA-aerCPU-rand0-seed2/config.yaml
+
+3 battery configuration files ready.
+
+Running: /work/qgan/data/train/base-qml_torch-q16-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/base-qml_torch-q16-noisy-SPSA-aerCPU-rand0-seed0 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan/data/train/base-qml_torch-q16-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+   Error: QiskitError: 'ERROR:  [Experiment 0] std::bad_alloc ,  ERROR: std::bad_alloc'
+   Traceback saved: /work/qgan/data/train/base-qml_torch-q16-noisy-SPSA-aerCPU-rand0-seed0/error_traceback.txt
+
+Running: /work/qgan/data/train/base-qml_torch-q16-noisy-SPSA-aerCPU-rand0-seed1/config.yaml
+GPUs available to PyTorch: 1
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/base-qml_torch-q16-noisy-SPSA-aerCPU-rand0-seed1 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan/data/train/base-qml_torch-q16-noisy-SPSA-aerCPU-rand0-seed1/config.yaml
+   Error: QiskitError: 'ERROR:  [Experiment 0] std::bad_alloc ,  ERROR: std::bad_alloc'
+   Traceback saved: /work/qgan/data/train/base-qml_torch-q16-noisy-SPSA-aerCPU-rand0-seed1/error_traceback.txt
+
+Running: /work/qgan/data/train/base-qml_torch-q16-noisy-SPSA-aerCPU-rand0-seed2/config.yaml
+GPUs available to PyTorch: 1
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/base-qml_torch-q16-noisy-SPSA-aerCPU-rand0-seed2 
+   Best eval: inf 
+   Total time: 0
+Run failed: /work/qgan/data/train/base-qml_torch-q16-noisy-SPSA-aerCPU-rand0-seed2/config.yaml
+   Error: QiskitError: 'ERROR:  [Experiment 0] std::bad_alloc ,  ERROR: std::bad_alloc'
+   Traceback saved: /work/qgan/data/train/base-qml_torch-q16-noisy-SPSA-aerCPU-rand0-seed2/error_traceback.txt
+0 battery run(s) succeeded.
+3 battery run(s) failed.

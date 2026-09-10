@@ -1,0 +1,19 @@
+Creating config files for qml_torch_fake_real_q4_amp:
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+
+1 battery configuration files ready.
+
+Running: /work/qgan/data/train/amp-qml_torch-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                150 |             -0.907 |             -0.292 |             0.0764 |             0.0763 |               28.2 |
+                160 |             -0.909 |              -0.29 |             0.0767 |             0.0763 |                280 |
+                170 |             -0.907 |             -0.297 |             0.0766 |             0.0763 |                278 |
+
+Interrupter: will stop after the current epoch. Press Ctrl+C again to force quit.
+Interrupter: Graceful exit triggered. Breaking loop.
+Training complete: 
+   Data path: /work/qgan/data/train/amp-qml_torch-q4-fake_real-SPSA-aerCPU-rand0-seed0 
+   Best eval: 0.07630281056892763 
+   Total time: 4850.007561445236
+1 battery run(s) succeeded.

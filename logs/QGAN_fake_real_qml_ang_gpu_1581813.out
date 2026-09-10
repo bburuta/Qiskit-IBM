@@ -1,0 +1,45 @@
+Creating config files for qml_torch_fake_real_q4_ang:
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+
+1 battery configuration files ready.
+
+Running: /work/qgan/data/train/ang-qml_torch-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                200 |             -0.876 |             -0.303 |              0.002 |                 -0 |                139 |
+                210 |             -0.873 |              -0.31 |            0.00322 |                 -0 |                173 |
+                220 |             -0.877 |             -0.306 |            0.00178 |                 -0 |                173 |
+                230 |             -0.877 |             -0.309 |            0.00136 |                 -0 |                173 |
+                240 |             -0.876 |             -0.305 |                 -0 |                 -0 |                173 |
+                250 |             -0.877 |             -0.306 |            0.00145 |                 -0 |                173 |
+                260 |             -0.881 |             -0.308 |                 -0 |                 -0 |                174 |
+                270 |              -0.88 |             -0.305 |                 -0 |                 -0 |                173 |
+                280 |             -0.875 |             -0.308 |           0.000602 |                 -0 |                173 |
+                290 |             -0.874 |             -0.304 |                 -0 |                 -0 |                174 |
+                300 |             -0.874 |             -0.306 |           0.000647 |                 -0 |                174 |
+                310 |             -0.873 |             -0.302 |                 -0 |                 -0 |                173 |
+                320 |             -0.871 |             -0.304 |           0.000392 |                 -0 |                174 |
+                330 |             -0.867 |             -0.308 |           3.39e-05 |                 -0 |                175 |
+                340 |             -0.867 |             -0.311 |                 -0 |                 -0 |                174 |
+                350 |             -0.862 |             -0.314 |                 -0 |                 -0 |                174 |
+                360 |             -0.865 |             -0.316 |                 -0 |                 -0 |                174 |
+                370 |             -0.859 |             -0.314 |                 -0 |                 -0 |                174 |
+                380 |             -0.855 |             -0.316 |                 -0 |                 -0 |                171 |
+                390 |             -0.859 |             -0.316 |           0.000692 |                 -0 |                173 |
+                400 |              -0.85 |              -0.32 |                 -0 |                 -0 |                176 |
+                410 |              -0.85 |             -0.322 |                 -0 |                 -0 |                176 |
+                420 |             -0.845 |             -0.323 |                 -0 |                 -0 |                176 |
+                430 |             -0.838 |             -0.323 |                 -0 |                 -0 |                177 |
+                440 |             -0.837 |             -0.325 |                 -0 |                 -0 |                176 |
+                450 |             -0.836 |             -0.327 |                 -0 |                 -0 |                175 |
+                460 |             -0.831 |              -0.33 |                 -0 |                 -0 |                175 |
+                470 |             -0.832 |             -0.327 |                 -0 |                 -0 |                174 |
+
+Interrupter: will stop after the current epoch. Press Ctrl+C again to force quit.
+                480 |             -0.833 |              -0.33 |                 -0 |                 -0 |                174 |
+Interrupter: Graceful exit triggered. Breaking loop.
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q4-fake_real-SPSA-aerCPU-rand0-seed0 
+   Best eval: -0.0 
+   Total time: 8329.423214197159
+1 battery run(s) succeeded.

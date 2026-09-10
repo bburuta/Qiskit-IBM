@@ -1,0 +1,17 @@
+Creating config files for cpu4_times_amp_q8_noisy_psr_rand0:
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q8-noisy-PSR-aerCPU-rand0-seed0:cpu4/config.yaml
+
+1 battery configuration files ready.
+
+Running: /work/qgan/data/train/times/amp-qml_torch-q8-noisy-PSR-aerCPU-rand0-seed0:cpu4/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.904 |             -0.227 |            0.00396 |            0.00396 |           1.89e+03 |
+                  1 |             -0.918 |             -0.233 |            0.00396 |            0.00396 |           1.89e+03 |
+                  2 |             -0.913 |             -0.219 |            0.00396 |            0.00396 |            1.9e+03 |
+                  3 |             -0.911 |             -0.235 |            0.00396 |            0.00396 |           1.84e+03 |
+                  4 |             -0.915 |              -0.22 |            0.00397 |            0.00396 |           1.76e+03 |
+Training complete: 
+   Data path: /work/qgan/data/train/times/amp-qml_torch-q8-noisy-PSR-aerCPU-rand0-seed0:cpu4 
+   Best eval: 0.003956433652986052 
+   Total time: 9286.626986026764
+1 battery run(s) succeeded.

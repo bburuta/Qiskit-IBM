@@ -1,0 +1,13 @@
+Creating config files for runtime_packed_fake_real_q4_joined_ang:
+Configuration file rewritten. Path: /work/qgan/data/train/ang-runtime_packed-joined-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+
+1 battery configuration files ready.
+
+Running: /work/qgan/data/train/ang-runtime_packed-joined-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                400 |             -0.875 |             -0.505 |             0.0224 |            0.00216 |           2.16e+03 |
+                500 |             -0.872 |              -0.51 |             0.0191 |            0.00216 |           3.59e+03 |
+                600 |             -0.868 |             -0.516 |              0.039 |            0.00216 |           3.48e+03 |
+                700 |             -0.865 |             -0.509 |             0.0327 |            0.00216 |           3.34e+03 |
+                800 |             -0.858 |             -0.509 |             0.0459 |            0.00216 |           3.33e+03 |
+                900 |             -0.871 |             -0.509 |             0.0395 |            0.00216 |           3.34e+03 |

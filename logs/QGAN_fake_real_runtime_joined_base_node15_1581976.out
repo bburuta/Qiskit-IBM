@@ -1,0 +1,13 @@
+Creating config files for runtime_packed_fake_real_q4_joined_base:
+Configuration file rewritten. Path: /work/qgan/data/train/base-runtime_packed-joined-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+
+1 battery configuration files ready.
+
+Running: /work/qgan/data/train/base-runtime_packed-joined-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                900 |             -0.896 |              -0.52 |               2.62 |               2.62 |                636 |
+Training complete: 
+   Data path: /work/qgan/data/train/base-runtime_packed-joined-q4-fake_real-SPSA-aerCPU-rand0-seed0 
+   Best eval: 2.2775297860067187 
+   Total time: 9012.30755329132
+1 battery run(s) succeeded.

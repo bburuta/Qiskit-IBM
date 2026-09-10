@@ -1,0 +1,30 @@
+Creating config files for runtime_packed_fake_real_q4_separate_ang:
+Configuration file rewritten. Path: /work/qgan/data/train/ang-runtime_packed-separate-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+
+1 battery configuration files ready.
+
+Running: /work/qgan/data/train/ang-runtime_packed-separate-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                150 |             -0.828 |             -0.387 |             0.0262 |             0.0124 |               42.2 |
+                160 |             -0.828 |             -0.386 |             0.0256 |             0.0124 |                421 |
+                170 |             -0.838 |             -0.389 |             0.0227 |             0.0124 |                423 |
+                180 |             -0.838 |             -0.389 |             0.0287 |             0.0124 |                423 |
+                190 |              -0.84 |             -0.395 |             0.0226 |             0.0124 |                424 |
+                200 |              -0.85 |             -0.392 |             0.0238 |            0.00927 |                424 |
+                210 |              -0.85 |             -0.395 |             0.0212 |            0.00688 |                424 |
+                220 |             -0.852 |             -0.398 |             0.0168 |            0.00393 |                424 |
+                230 |             -0.853 |             -0.394 |            0.00773 |            0.00345 |                424 |
+                240 |             -0.857 |             -0.392 |            0.00555 |            0.00165 |                423 |
+                250 |              -0.86 |             -0.398 |            0.00924 |            0.00165 |                424 |
+                260 |              -0.86 |             -0.396 |            0.00931 |            0.00165 |                424 |
+                270 |             -0.861 |             -0.393 |            0.00207 |            0.00165 |                422 |
+                280 |             -0.864 |             -0.396 |            0.00748 |            0.00165 |                425 |
+                290 |             -0.867 |             -0.393 |            0.00497 |            0.00165 |                425 |
+
+Interrupter: will stop after the current epoch. Press Ctrl+C again to force quit.
+Interrupter: Graceful exit triggered. Breaking loop.
+Training complete: 
+   Data path: /work/qgan/data/train/ang-runtime_packed-separate-q4-fake_real-SPSA-aerCPU-rand0-seed0 
+   Best eval: 0.0016492325812578201 
+   Total time: 12417.798934221268
+1 battery run(s) succeeded.

@@ -1,0 +1,28 @@
+Creating config files for runtime_packed_fake_real_q4_separate_base:
+Configuration file rewritten. Path: /work/qgan/data/train/base-runtime_packed-separate-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+
+1 battery configuration files ready.
+
+Running: /work/qgan/data/train/base-runtime_packed-separate-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.934 |             -0.278 |               3.59 |               3.59 |                 13 |
+                 10 |             -0.921 |             -0.283 |               3.96 |               3.58 |                131 |
+                 20 |             -0.922 |             -0.286 |               4.04 |               3.58 |                130 |
+                 30 |             -0.924 |             -0.282 |               4.48 |               3.58 |                131 |
+                 40 |             -0.931 |             -0.281 |               4.02 |               3.58 |                132 |
+                 50 |             -0.925 |             -0.287 |               4.13 |               3.58 |                132 |
+                 60 |              -0.92 |             -0.285 |               4.05 |               3.58 |                129 |
+                 70 |             -0.921 |             -0.278 |               3.94 |               3.58 |                128 |
+                 80 |             -0.917 |             -0.282 |               4.12 |               3.58 |                128 |
+                 90 |             -0.922 |             -0.282 |               4.07 |               3.58 |                129 |
+                100 |             -0.925 |              -0.28 |               4.06 |               3.58 |                129 |
+                110 |              -0.91 |             -0.281 |               3.87 |               3.58 |                129 |
+                120 |             -0.929 |             -0.299 |               3.66 |               3.58 |                129 |
+                130 |             -0.923 |             -0.277 |               3.71 |               3.58 |                129 |
+                140 |             -0.927 |             -0.284 |               3.77 |               3.58 |                128 |
+Training complete: 
+   Data path: /work/qgan/data/train/base-runtime_packed-separate-q4-fake_real-SPSA-aerCPU-rand0-seed0 
+   Best eval: 3.5833390169318173 
+   Total time: 1946.7520480155945
+1 battery run(s) succeeded.

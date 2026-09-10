@@ -1,0 +1,8 @@
+Creating config files for gpu_times_q16_noisy_psr_ang_rand1:
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q16-noisy-PSR-aerGPU-rand1-seed0/config.yaml
+
+1 battery configuration files ready.
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q16-noisy-PSR-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |

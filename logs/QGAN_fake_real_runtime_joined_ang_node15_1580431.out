@@ -1,0 +1,28 @@
+Creating config files for runtime_packed_fake_real_q4_joined_ang:
+Configuration file rewritten. Path: /work/qgan/data/train/ang-runtime_packed-joined-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+
+1 battery configuration files ready.
+
+Running: /work/qgan/data/train/ang-runtime_packed-joined-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.867 |             -0.435 |             0.0206 |             0.0206 |               32.6 |
+                 10 |              -0.87 |             -0.433 |             0.0231 |             0.0186 |                326 |
+                 20 |             -0.868 |             -0.437 |             0.0261 |             0.0173 |                327 |
+                 30 |              -0.87 |              -0.44 |             0.0272 |             0.0173 |                327 |
+                 40 |             -0.867 |              -0.44 |             0.0294 |             0.0173 |                326 |
+                 50 |              -0.87 |             -0.443 |             0.0254 |             0.0168 |                324 |
+                 60 |             -0.872 |             -0.436 |             0.0381 |             0.0167 |                325 |
+                 70 |             -0.868 |             -0.436 |             0.0404 |             0.0167 |                325 |
+                 80 |             -0.874 |             -0.437 |             0.0414 |             0.0167 |                325 |
+                 90 |             -0.869 |             -0.437 |             0.0357 |             0.0167 |                324 |
+                100 |             -0.864 |              -0.44 |             0.0261 |             0.0167 |                326 |
+                110 |             -0.869 |             -0.439 |             0.0373 |             0.0167 |                324 |
+                120 |             -0.871 |             -0.442 |             0.0312 |             0.0167 |                325 |
+                130 |             -0.867 |             -0.439 |             0.0325 |             0.0167 |                326 |
+                140 |             -0.868 |              -0.43 |             0.0455 |             0.0167 |                325 |
+Training complete: 
+   Data path: /work/qgan/data/train/ang-runtime_packed-joined-q4-fake_real-SPSA-aerCPU-rand0-seed0 
+   Best eval: 0.016730759292840958 
+   Total time: 4880.132084131241
+1 battery run(s) succeeded.

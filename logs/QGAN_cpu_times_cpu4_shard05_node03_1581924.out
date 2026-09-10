@@ -1,0 +1,8 @@
+Creating config files for cpu4_times_ang_q16_noisy_spsa_rand1:
+Configuration file written. Path: /work/qgan/data/train/times/ang-qml_torch-q16-noisy-SPSA-aerCPU-rand1-seed0:cpu4/config.yaml
+
+1 battery configuration files ready.
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q16-noisy-SPSA-aerCPU-rand1-seed0:cpu4/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |

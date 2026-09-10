@@ -1,0 +1,55 @@
+Creating config files for qml_torch_fake_real_q4:
+Configuration file written. Path: /work/qgan/data/train/base-qml_torch-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file written. Path: /work/qgan/data/train/ang-qml_torch-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file written. Path: /work/qgan/data/train/amp-qml_torch-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+
+Creating config files for runtime_packed_fake_real_q4_separate:
+Configuration file written. Path: /work/qgan/data/train/base-runtime_packed-separate-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file written. Path: /work/qgan/data/train/ang-runtime_packed-separate-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file written. Path: /work/qgan/data/train/amp-runtime_packed-separate-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+
+Creating config files for runtime_packed_fake_real_q4_joined:
+Configuration file written. Path: /work/qgan/data/train/base-runtime_packed-joined-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file written. Path: /work/qgan/data/train/ang-runtime_packed-joined-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+
+8 battery configuration files ready.
+
+Running: /work/qgan/data/train/base-qml_torch-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.849 |             -0.327 |               3.59 |               3.59 |               12.9 |
+                 10 |             -0.836 |             -0.312 |               3.96 |               3.48 |                128 |
+                 20 |             -0.846 |             -0.329 |                3.8 |               3.48 |                127 |
+                 30 |             -0.847 |              -0.31 |               4.75 |               3.48 |                127 |
+                 40 |             -0.878 |             -0.312 |               3.47 |               3.47 |                127 |
+                 50 |             -0.873 |             -0.311 |               3.68 |               3.47 |                128 |
+                 60 |             -0.864 |             -0.311 |               4.14 |               3.47 |                127 |
+                 70 |             -0.877 |             -0.315 |               3.89 |               3.47 |                127 |
+                 80 |             -0.869 |             -0.308 |               3.99 |               3.47 |                128 |
+                 90 |             -0.876 |             -0.299 |               3.54 |               3.47 |                128 |
+                100 |             -0.875 |             -0.305 |               3.29 |               3.29 |                128 |
+                110 |             -0.887 |             -0.307 |               3.35 |               3.25 |                128 |
+                120 |             -0.881 |             -0.303 |               3.46 |               3.25 |                128 |
+                130 |             -0.892 |             -0.305 |               3.37 |               3.25 |                128 |
+                140 |             -0.879 |             -0.307 |               3.22 |               3.22 |                128 |
+Training complete: 
+   Data path: /work/qgan/data/train/base-qml_torch-q4-fake_real-SPSA-aerCPU-rand0-seed0 
+   Best eval: 3.1219893513464685 
+   Total time: 1914.3708398342133
+
+Running: /work/qgan/data/train/ang-qml_torch-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.845 |             -0.318 |             0.0264 |             0.0264 |               13.6 |
+                 10 |             -0.855 |             -0.325 |             0.0316 |             0.0155 |                137 |
+                 20 |             -0.864 |             -0.309 |             0.0288 |             0.0137 |                137 |
+                 30 |             -0.877 |             -0.306 |             0.0163 |             0.0131 |                138 |
+
+Interrupter: will stop after the current epoch. Press Ctrl+C again to force quit.
+Interrupter: Graceful exit triggered. Breaking loop.
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q4-fake_real-SPSA-aerCPU-rand0-seed0 
+   Best eval: 0.007016735151410103 
+   Total time: 467.4039583206177
+Interrupter: battery execution stopped.
+2 battery run(s) succeeded.

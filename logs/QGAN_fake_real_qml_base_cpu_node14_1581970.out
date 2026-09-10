@@ -1,0 +1,16 @@
+Creating config files for qml_torch_fake_real_q4_base:
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+
+1 battery configuration files ready.
+
+Running: /work/qgan/data/train/base-qml_torch-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                600 |             -0.851 |             -0.326 |               2.95 |               2.79 |               78.6 |
+                700 |             -0.826 |             -0.337 |               4.61 |               2.79 |           1.28e+03 |
+                800 |             -0.828 |             -0.332 |               2.37 |               2.13 |           1.28e+03 |
+                900 |             -0.754 |             -0.373 |               2.55 |               2.13 |           1.32e+03 |
+Training complete: 
+   Data path: /work/qgan/data/train/base-qml_torch-q4-fake_real-SPSA-aerCPU-rand0-seed0 
+   Best eval: 2.1128306153099734 
+   Total time: 13405.835950136185
+1 battery run(s) succeeded.

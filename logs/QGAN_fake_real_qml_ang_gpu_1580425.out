@@ -1,0 +1,24 @@
+Creating config files for qml_torch_fake_real_q4_ang:
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+
+1 battery configuration files ready.
+
+Running: /work/qgan/data/train/ang-qml_torch-q4-fake_real-SPSA-aerCPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                 40 |             -0.878 |             -0.302 |            0.00731 |            0.00182 |                126 |
+                 50 |             -0.884 |             -0.306 |            0.00719 |            0.00182 |                179 |
+                 60 |             -0.887 |             -0.297 |            0.00104 |            0.00104 |                179 |
+                 70 |             -0.895 |             -0.298 |            0.00483 |                 -0 |                179 |
+                 80 |             -0.893 |             -0.298 |            0.00257 |                 -0 |                178 |
+                 90 |             -0.893 |             -0.301 |            0.00302 |                 -0 |                179 |
+                100 |             -0.883 |               -0.3 |            0.00345 |                 -0 |                179 |
+                110 |             -0.882 |             -0.305 |            0.00765 |                 -0 |                179 |
+                120 |             -0.889 |             -0.305 |            0.00548 |                 -0 |                178 |
+                130 |             -0.875 |             -0.304 |            0.00132 |                 -0 |                177 |
+                140 |             -0.878 |             -0.306 |            0.00812 |                 -0 |                176 |
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q4-fake_real-SPSA-aerCPU-rand0-seed0 
+   Best eval: -0.0 
+   Total time: 2532.1032662391663
+1 battery run(s) succeeded.

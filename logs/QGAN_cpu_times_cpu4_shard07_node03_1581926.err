@@ -1,0 +1,4 @@
+/work/qgan/src/qgan_v2/execution/backend.py:262: RuntimeWarning: The quantum state for the training density_matrix simulation of 16 qubits uses about 64.0 GiB before Aer and process overhead. Check the available CPU or GPU memory before running.
+  warn_simulation_memory(config)
+/home/bburutaran/bin/bnd: line 124: 661458 Killed                  apptainer exec "${extra[@]}" -B "$PWD:/work" -B "$uv_dir:/uvbin:ro" --pwd /work "$sif" bash -lc "$full_script" bash "$@"
+slurmstepd-node03: error: Detected 1 oom_kill event in StepId=1581926.batch. Some of the step tasks have been OOM Killed.

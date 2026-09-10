@@ -1,0 +1,126 @@
+Creating config files for cpu4_times_ang_q4_noisy_psr_rand0:
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed0:cpu4/config.yaml
+
+Creating config files for cpu4_times_amp_q4_noisy_psr_rand1:
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q4-noisy-PSR-aerCPU-rand1-seed0:cpu4/config.yaml
+
+Creating config files for cpu4_times_base_q4_noisy_spsa_rand1:
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q4-noisy-SPSA-aerCPU-rand1-seed0:cpu4/config.yaml
+
+Creating config files for cpu4_times_amp_q8_noiseless_reg_rand0:
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed0:cpu4/config.yaml
+
+Creating config files for cpu4_times_ang_q8_noiseless_spsa_rand0:
+Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed0:cpu4/config.yaml
+
+Creating config files for cpu4_times_amp_q4_noiseless_psr_rand1:
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q4-noiseless-PSR-aerCPU-rand1-seed0:cpu4/config.yaml
+
+Creating config files for cpu4_times_amp_q8_noiseless_spsa_rand0:
+Configuration file rewritten. Path: /work/qgan/data/train/times/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed0:cpu4/config.yaml
+
+Creating config files for cpu4_times_base_q4_noiseless_spsa_rand0:
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-SPSA-aerCPU-rand0-seed0:cpu4/config.yaml
+
+8 battery configuration files ready.
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed0:cpu4/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  1 |             -0.904 |             -0.334 |             0.0287 |             0.0217 |                923 |
+                  2 |             -0.911 |             -0.329 |             0.0258 |             0.0217 |                927 |
+                  3 |             -0.924 |             -0.331 |             0.0247 |             0.0217 |                928 |
+                  4 |             -0.915 |             -0.334 |             0.0383 |             0.0217 |                949 |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed0:cpu4 
+   Best eval: 0.0216978769749403 
+   Total time: 4634.327921390533
+
+Running: /work/qgan/data/train/times/amp-qml_torch-q4-noisy-PSR-aerCPU-rand1-seed0:cpu4/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  1 |             -0.509 |             -0.394 |             0.0469 |             0.0469 |              1e+03 |
+                  2 |             -0.455 |             -0.414 |             0.0156 |             0.0156 |                995 |
+                  3 |             -0.566 |             -0.372 |             0.0567 |             0.0156 |                962 |
+                  4 |             -0.513 |             -0.462 |             0.0606 |             0.0156 |                965 |
+Training complete: 
+   Data path: /work/qgan/data/train/times/amp-qml_torch-q4-noisy-PSR-aerCPU-rand1-seed0:cpu4 
+   Best eval: 0.015634519283907994 
+   Total time: 4828.298821687698
+
+Running: /work/qgan/data/train/times/base-qml_torch-q4-noisy-SPSA-aerCPU-rand1-seed0:cpu4/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.574 |              -0.46 |               1.54 |               1.54 |               21.2 |
+                  1 |             -0.447 |             -0.461 |               3.15 |               1.54 |               21.3 |
+                  2 |             -0.496 |             -0.526 |               1.58 |               1.54 |               20.6 |
+                  3 |             -0.505 |             -0.498 |               3.05 |               1.54 |               20.9 |
+                  4 |             -0.425 |             -0.521 |               3.18 |               1.54 |               21.4 |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q4-noisy-SPSA-aerCPU-rand1-seed0:cpu4 
+   Best eval: 1.538902035167235 
+   Total time: 105.24388575553894
+
+Running: /work/qgan/data/train/times/amp-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed0:cpu4/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.935 |             -0.204 |            0.00396 |            0.00396 |               16.1 |
+                  1 |             -0.924 |             -0.221 |            0.00396 |            0.00396 |               12.3 |
+                  2 |             -0.927 |             -0.203 |            0.00396 |            0.00396 |               11.1 |
+                  3 |              -0.94 |             -0.224 |            0.00396 |            0.00396 |               9.74 |
+                  4 |             -0.921 |              -0.21 |            0.00397 |            0.00396 |                 10 |
+Training complete: 
+   Data path: /work/qgan/data/train/times/amp-qml_torch-q8-noiseless-REG-aerCPU-rand0-seed0:cpu4 
+   Best eval: 0.0039591341562134445 
+   Total time: 59.19673538208008
+
+Running: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed0:cpu4/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |              -0.94 |             -0.445 |              0.022 |              0.022 |               1.86 |
+                  1 |             -0.935 |             -0.438 |             0.0184 |             0.0184 |               1.86 |
+                  2 |             -0.939 |             -0.442 |             0.0215 |             0.0184 |               1.86 |
+                  3 |              -0.94 |             -0.446 |             0.0198 |             0.0184 |               1.86 |
+                  4 |              -0.94 |             -0.438 |             0.0214 |             0.0184 |               1.86 |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed0:cpu4 
+   Best eval: 0.01835225336253643 
+   Total time: 9.306693315505981
+
+Running: /work/qgan/data/train/times/amp-qml_torch-q4-noiseless-PSR-aerCPU-rand1-seed0:cpu4/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.519 |             -0.415 |             0.0738 |             0.0738 |               1.22 |
+                  1 |             -0.502 |             -0.389 |             0.0469 |             0.0469 |               1.16 |
+                  2 |              -0.46 |             -0.412 |             0.0151 |             0.0151 |               1.15 |
+                  3 |             -0.558 |             -0.363 |             0.0569 |             0.0151 |               1.17 |
+                  4 |             -0.535 |             -0.465 |             0.0608 |             0.0151 |               1.16 |
+Training complete: 
+   Data path: /work/qgan/data/train/times/amp-qml_torch-q4-noiseless-PSR-aerCPU-rand1-seed0:cpu4 
+   Best eval: 0.015077763946373795 
+   Total time: 5.85540771484375
+
+Running: /work/qgan/data/train/times/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed0:cpu4/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.938 |             -0.209 |            0.00395 |            0.00395 |              0.204 |
+                  1 |             -0.925 |             -0.219 |            0.00395 |            0.00395 |              0.195 |
+                  2 |             -0.925 |             -0.203 |            0.00394 |            0.00394 |              0.193 |
+                  3 |             -0.929 |             -0.224 |            0.00394 |            0.00394 |                0.2 |
+                  4 |             -0.927 |             -0.203 |            0.00394 |            0.00394 |              0.194 |
+Training complete: 
+   Data path: /work/qgan/data/train/times/amp-qml_torch-q8-noiseless-SPSA-aerCPU-rand0-seed0:cpu4 
+   Best eval: 0.003937492315603419 
+   Total time: 0.9864373207092285
+
+Running: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-SPSA-aerCPU-rand0-seed0:cpu4/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.893 |             -0.268 |               3.59 |               3.59 |             0.0248 |
+                  1 |              -0.92 |             -0.267 |               3.48 |               3.48 |             0.0235 |
+                  2 |             -0.894 |             -0.275 |               3.39 |               3.39 |             0.0218 |
+                  3 |             -0.902 |             -0.285 |               3.32 |               3.32 |             0.0209 |
+                  4 |             -0.926 |             -0.283 |               3.26 |               3.26 |             0.0211 |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q4-noiseless-SPSA-aerCPU-rand0-seed0:cpu4 
+   Best eval: 3.2621508998729682 
+   Total time: 0.1121211051940918
+8 battery run(s) succeeded.

@@ -1,0 +1,11 @@
+Creating config files for qml_torch_noisy_psr_q8_ang_seed2_cpu:
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noisy-PSR-aerCPU-rand0-seed2/config.yaml
+
+1 battery configuration files ready.
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noisy-PSR-aerCPU-rand0-seed2/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.847 |              -0.49 |             0.0296 |             0.0296 |           2.08e+03 |
+
+Interrupter: will stop after the current epoch. Press Ctrl+C again to force quit.

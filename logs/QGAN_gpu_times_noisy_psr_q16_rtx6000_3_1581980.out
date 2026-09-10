@@ -1,0 +1,20 @@
+Creating config files for gpu_times_q16_noisy_psr_base_rand0:
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q16-noisy-PSR-aerGPU-rand0-seed0/config.yaml
+
+Creating config files for gpu_times_q16_noisy_psr_base_rand1:
+Configuration file rewritten. Path: /work/qgan/data/train/times/base-qml_torch-q16-noisy-PSR-aerGPU-rand1-seed0/config.yaml
+
+2 battery configuration files ready.
+
+Running: /work/qgan/data/train/times/base-qml_torch-q16-noisy-PSR-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q16-noisy-PSR-aerGPU-rand0-seed0 
+   Best eval: 9.35043463378551 
+   Total time: 52456.3475484848
+
+Running: /work/qgan/data/train/times/base-qml_torch-q16-noisy-PSR-aerGPU-rand1-seed0/config.yaml
+GPUs available to PyTorch: 1
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  1 |             -0.704 |              -0.53 |               5.69 |               5.69 |           9.68e+03 |
