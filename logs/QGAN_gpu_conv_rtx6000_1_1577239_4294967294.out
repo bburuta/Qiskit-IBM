@@ -1,0 +1,19 @@
+Creating config files for noisy_ang_q4_psr_seed0:
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noisy-PSR-aerGPU-rand0-seed0/config.yaml
+
+1 battery configuration files ready.
+
+Running: /work/qgan/data/train/ang-qml_torch-q4-noisy-PSR-aerGPU-rand0-seed0/config.yaml
+GPUs available to PyTorch: 1
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.895 |             -0.331 |             0.0297 |             0.0297 |                963 |
+                 10 |             -0.955 |             -0.327 |             0.0191 |             0.0191 |           9.08e+03 |
+
+Interrupter: will stop after the current epoch. Press Ctrl+C again to force quit.
+Interrupter: Graceful exit triggered. Breaking loop.
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q4-noisy-PSR-aerGPU-rand0-seed0 
+   Best eval: 0.019146768376231194 
+   Total time: 16348.37643289566
+1 battery run(s) succeeded.

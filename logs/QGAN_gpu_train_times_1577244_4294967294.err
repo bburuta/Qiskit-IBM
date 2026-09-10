@@ -1,0 +1,9 @@
+/work/qgan/src/qgan_v2/training/data.py:216: UserWarning: Training data config differs from current config:
+- training.checkpoint_every: previous=10, current=1
+  warn_config_changes(training_state.config, config)
+/work/qgan/src/qgan_v2/training/data.py:216: UserWarning: Training data config differs from current config:
+- training.checkpoint_every: previous=10, current=1
+  warn_config_changes(training_state.config, config)
+/work/qgan/src/qgan_v2/execution/backend.py:262: RuntimeWarning: The quantum state for the training density_matrix simulation of 16 qubits uses about 64.0 GiB before Aer and process overhead. Check the available CPU or GPU memory before running.
+  warn_simulation_memory(config)
+/home/bburutaran/bin/bnd: line 124: 552093 Bus error               (core dumped) apptainer exec "${extra[@]}" -B "$PWD:/work" -B "$uv_dir:/uvbin:ro" --pwd /work "$sif" bash -lc "$full_script" bash "$@"

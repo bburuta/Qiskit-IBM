@@ -904,3 +904,14 @@ Training data file created.
                  90 |             -0.879 |             -0.353 |               3.03 |               1.51 |           2.74e+03 |
                 100 |             -0.921 |             -0.368 |               2.82 |               1.51 |           2.73e+03 |
                 110 |             -0.909 |             -0.387 |               2.31 |               1.51 |           2.75e+03 |
+                120 |             -0.851 |             -0.423 |               1.93 |               1.51 |            2.7e+03 |
+                130 |             -0.919 |             -0.453 |               1.98 |               1.51 |            2.7e+03 |
+
+Interrupter: will stop after the current epoch. Press Ctrl+C again to force quit.
+Interrupter: Graceful exit triggered. Breaking loop.
+Training complete: 
+   Data path: /work/qgan/data/train/base-qml_torch-q4-noisy-PSR-aerCPU-rand0.1-seed0 
+   Best eval: 1.5065401582943556 
+   Total time: 37629.07367062569
+Interrupter: battery execution stopped.
+18 battery run(s) succeeded.

@@ -131,3 +131,23 @@ Training data file created.
                 110 |             -0.843 |             -0.514 |             0.0451 |             0.0234 |                616 |
                 120 |             -0.852 |             -0.511 |             0.0575 |             0.0234 |                615 |
                 130 |             -0.838 |             -0.512 |             0.0542 |             0.0234 |                617 |
+                140 |             -0.829 |             -0.521 |             0.0608 |             0.0234 |                618 |
+                150 |             -0.813 |             -0.512 |             0.0683 |             0.0234 |                619 |
+                160 |             -0.795 |             -0.523 |             0.0677 |             0.0234 |                622 |
+                170 |             -0.774 |             -0.534 |             0.0711 |             0.0234 |                623 |
+                180 |              -0.75 |             -0.508 |             0.0683 |             0.0234 |                623 |
+                190 |             -0.728 |             -0.534 |             0.0585 |             0.0234 |                618 |
+                200 |              -0.71 |             -0.515 |             0.0604 |             0.0234 |                615 |
+                210 |             -0.722 |             -0.526 |             0.0591 |             0.0234 |                615 |
+                220 |             -0.734 |             -0.531 |             0.0641 |             0.0234 |                615 |
+                230 |             -0.747 |             -0.525 |             0.0751 |             0.0234 |                615 |
+                240 |             -0.768 |             -0.514 |              0.086 |             0.0234 |                616 |
+
+Interrupter: will stop after the current epoch. Press Ctrl+C again to force quit.
+Interrupter: Graceful exit triggered. Breaking loop.
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q16-noiseless-PSR-aerCPU-rand0-seed1 
+   Best eval: 0.023363741114735603 
+   Total time: 14941.07121706009
+Interrupter: battery execution stopped.
+2 battery run(s) succeeded.

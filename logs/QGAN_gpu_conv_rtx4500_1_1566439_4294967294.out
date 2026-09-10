@@ -132,3 +132,34 @@ Training data file created.
                 870 |             -0.622 |             -0.722 |              0.155 |             0.0953 |                565 |
                 880 |             -0.495 |             -0.709 |              0.119 |             0.0953 |                561 |
                 890 |              -0.58 |             -0.676 |               0.16 |             0.0953 |                560 |
+                900 |             -0.597 |             -0.721 |              0.145 |             0.0953 |                558 |
+                910 |             -0.642 |             -0.711 |              0.126 |             0.0953 |                557 |
+                920 |             -0.636 |             -0.696 |              0.155 |             0.0953 |                558 |
+                930 |             -0.514 |             -0.672 |              0.164 |             0.0953 |                557 |
+                940 |             -0.557 |             -0.693 |              0.176 |             0.0953 |                558 |
+                950 |             -0.504 |             -0.679 |              0.143 |             0.0953 |                557 |
+                960 |             -0.526 |             -0.696 |              0.185 |             0.0953 |                557 |
+                970 |             -0.534 |             -0.689 |              0.157 |             0.0953 |                558 |
+                980 |             -0.548 |               -0.7 |              0.175 |             0.0953 |                557 |
+                990 |             -0.534 |             -0.665 |              0.194 |             0.0953 |                559 |
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q16-noiseless-PSR-aerCPU-rand0.5-seed0 
+   Best eval: 0.09533251076936722 
+   Total time: 55140.308382987976
+
+Running: /work/qgan/data/train/ang-qml_torch-q16-noiseless-PSR-aerCPU-rand0.5-seed1/config.yaml
+GPUs available to PyTorch: 1
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.502 |             -0.601 |               0.16 |               0.16 |               56.4 |
+                 10 |             -0.511 |             -0.645 |              0.177 |              0.108 |                569 |
+
+Interrupter: will stop after the current epoch. Press Ctrl+C again to force quit.
+                 20 |             -0.456 |             -0.613 |              0.135 |              0.108 |                572 |
+Interrupter: Graceful exit triggered. Breaking loop.
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q16-noiseless-PSR-aerCPU-rand0.5-seed1 
+   Best eval: 0.1080188900232315 
+   Total time: 1197.091407775879
+Interrupter: battery execution stopped.
+2 battery run(s) succeeded.

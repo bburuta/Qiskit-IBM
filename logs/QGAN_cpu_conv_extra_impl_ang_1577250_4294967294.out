@@ -1,0 +1,9 @@
+Creating config files for runtime_packed_noisy_ang_q4_spsa:
+Configuration file written. Path: /work/qgan/data/train/ang-runtime_packed-separate-q4-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Configuration file written. Path: /work/qgan/data/train/ang-runtime_packed-joined-q4-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+
+2 battery configuration files ready.
+
+Running: /work/qgan/data/train/ang-runtime_packed-separate-q4-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |

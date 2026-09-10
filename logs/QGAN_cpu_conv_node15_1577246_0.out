@@ -1,0 +1,12 @@
+Creating config files for runtime_packed_noisy_base_q4_spsa_joined:
+Configuration file rewritten. Path: /work/qgan/data/train/base-runtime_packed-joined-q4-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+
+1 battery configuration files ready.
+
+Running: /work/qgan/data/train/base-runtime_packed-joined-q4-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/base-runtime_packed-joined-q4-noisy-SPSA-aerCPU-rand0-seed0 
+   Best eval: 1.9312359933069732 
+   Total time: 18675.932231903076
+1 battery run(s) succeeded.

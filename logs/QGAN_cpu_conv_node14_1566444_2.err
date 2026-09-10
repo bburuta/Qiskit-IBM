@@ -23,3 +23,4 @@
 - training.checkpoint_every: previous=100, current=10
 - training.print_every: previous=100, current=10
   warn_config_changes(training_state.config, config)
+/home/bburutaran/bin/bnd: line 124: 3399448 Bus error               (core dumped) apptainer exec "${extra[@]}" -B "$PWD:/work" -B "$uv_dir:/uvbin:ro" --pwd /work "$sif" bash -lc "$full_script" bash "$@"

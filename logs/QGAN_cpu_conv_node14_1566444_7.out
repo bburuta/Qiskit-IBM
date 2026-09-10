@@ -893,3 +893,14 @@ Running: /work/qgan/data/train/base-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed0/co
                 520 |             -0.298 |             -0.626 |               0.95 |              0.679 |            2.7e+03 |
                 530 |             -0.406 |             -0.581 |               1.07 |              0.679 |           2.71e+03 |
                 540 |             -0.557 |             -0.516 |               1.97 |              0.679 |           2.71e+03 |
+                550 |             -0.668 |             -0.488 |               2.08 |              0.679 |           2.74e+03 |
+                560 |             -0.689 |             -0.506 |               2.52 |              0.679 |           2.72e+03 |
+
+Interrupter: will stop after the current epoch. Press Ctrl+C again to force quit.
+Interrupter: Graceful exit triggered. Breaking loop.
+Training complete: 
+   Data path: /work/qgan/data/train/base-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed0 
+   Best eval: 0.6789071892001295 
+   Total time: 158781.94653654099
+Interrupter: battery execution stopped.
+17 battery run(s) succeeded.

@@ -1,0 +1,12 @@
+Creating config files for runtime_packed_noisy_base_q4_spsa_separate:
+Configuration file rewritten. Path: /work/qgan/data/train/base-runtime_packed-separate-q4-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+
+1 battery configuration files ready.
+
+Running: /work/qgan/data/train/base-runtime_packed-separate-q4-noisy-SPSA-aerCPU-rand0-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+Training complete: 
+   Data path: /work/qgan/data/train/base-runtime_packed-separate-q4-noisy-SPSA-aerCPU-rand0-seed0 
+   Best eval: 2.335098710634208 
+   Total time: 18581.29971385002
+1 battery run(s) succeeded.
