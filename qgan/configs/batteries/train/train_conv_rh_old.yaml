@@ -155,14 +155,14 @@ default_config_values:
 
 variable_config_values_list:
 
-  # Implementation real hardware analysis.
-  qml_torch_rh_imp:
+  # Preset real hardware analysis.
+  qml_torch_rh_preset:
     implementation.name:
       - qml_torch
     experiment.implementation:
       - base
-      # - ang
-      # - amp
+      - ang
+      - amp
     experiment.execution_type:
       - real
     experiment.gradient_method:

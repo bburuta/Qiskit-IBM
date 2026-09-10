@@ -39,7 +39,7 @@ default_config_values:
   training:
     # Number of training epochs. Values: [int >= 0].
     # Real-hardware case study budget: existing runs are around 150-200 epochs.
-    max_iterations: 150
+    max_iterations: 1000
     # Generator updates per epoch. Values: [int >= 0].
     gen_iterations: 1
     # Discriminator updates per epoch. Values: [int >= 0].
@@ -155,10 +155,8 @@ default_config_values:
 
 variable_config_values_list:
 
-  # Real-hardware case study only.
-  # Hardware budget is limited to the two existing base/q4 seed-0 runs. Keep the
-  # battery definition aligned with the available 150-epoch evidence rather than
-  # treating it as a statistical convergence experiment.
+  # Real-hardware case study.
+  # Hardware budget is limited to the two existing base/q4 seed-0 runs and ~200 epoch.
   qml_torch_rh_spsa_base_q4_seed0:
     implementation.name:
       - qml_torch
@@ -166,6 +164,36 @@ variable_config_values_list:
       - base
     experiment.execution_type:
       - real
+    experiment.gradient_method:
+      - SPSA
+      - PSR
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+    backend.real.info_storage:
+      - run
+    backend.real.reset_info:
+      - true
+
+  # Runtime-packed separate analysis.
+  # Hardware budget is limited so fake_real execution-type is used.
+  qml_torch_rh_spsa_base_q4_seed0:
+    implementation.name:
+      - runtime_packed
+    implementation.discriminator_packing:
+      - separate
+      # - joined
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - fake_real
     experiment.gradient_method:
       - SPSA
     experiment.n_qubits:
@@ -181,15 +209,23 @@ variable_config_values_list:
     backend.real.reset_info:
       - true
 
-  qml_torch_rh_psr_base_q4_seed0:
+  # Runtime-packed joined analysis.
+  # Amplitude preset is not supported for joined discriminator-packing.
+  # Hardware budget is limited so fake_real execution-type is used.
+  qml_torch_rh_spsa_base_q4_seed0:
     implementation.name:
-      - qml_torch
+      - runtime_packed
+    implementation.discriminator_packing:
+      # - separate
+      - joined
     experiment.implementation:
       - base
+      - ang
+      # - amp
     experiment.execution_type:
-      - real
+      - fake_real
     experiment.gradient_method:
-      - PSR
+      - SPSA
     experiment.n_qubits:
       - 4
     backend.simulator.device:

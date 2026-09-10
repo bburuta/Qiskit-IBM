@@ -158,6 +158,7 @@ default_config_values:
 variable_config_values_list:
 
   # Implementation real hardware analysis.
+  # Covered by train_rh.
   # qml_torch_rh_imp:
   #   implementation.name:
   #     - qml_torch
@@ -183,7 +184,7 @@ variable_config_values_list:
   #     - true
 
   # Gradient-method real hardware analysis.
-  # The base/SPSA qml_torch run is covered by qml_torch_rh_imp.
+  # Covered by train_rh.
   # qml_torch_rh_grad:
   #   implementation.name:
   #     - qml_torch

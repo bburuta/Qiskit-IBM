@@ -160,9 +160,40 @@ default_config_values:
 
 variable_config_values_list:
 
-  # Main GPU gradient-method, randomness, and qubit-scaling analysis.
-  # Noiseless qml_torch supports REG.
-  qml_torch_noiseless_main:
+  # Noiseless preset, gradient-method, qubit-scaling and randomness analysis.
+  qml_torch_noiseless:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noiseless
+    experiment.gradient_method:
+      - PSR
+      - SPSA
+      - REG
+    experiment.n_qubits:
+      - 4
+      - 8
+      # - 16
+    backend.simulator.device:
+      - GPU
+    run.seed:
+      - 0
+      - 1
+      - 2
+    encoding.randomness:
+      - 0
+      - 0.1
+      - 0.25
+      - 0.5
+      - 1
+
+  # Noiseless 16 qubits preset, gradient-method, and randomness analysis.
+  # Unable to transpile amplitude encoding with 16 qubits.
+  qml_torch_noiseless_q16:
     implementation.name:
       - qml_torch
     experiment.implementation:
@@ -176,8 +207,8 @@ variable_config_values_list:
       - SPSA
       - REG
     experiment.n_qubits:
-      - 4
-      - 8
+      # - 4
+      # - 8
       - 16
     backend.simulator.device:
       - GPU
@@ -192,21 +223,20 @@ variable_config_values_list:
       - 0.5
       - 1
 
-  # Main GPU gradient-method, randomness, and qubit-scaling analysis.
-  # Unable to transpile amplitude encoding with 16 qubits
-  qml_torch_noiseless_amp:
+  # Noisy preset, gradient-method, qubit-scaling and randomness analysis.
+  # Noisy does not support REG.
+  qml_torch_noisy:
     implementation.name:
       - qml_torch
     experiment.implementation:
-      # - base
-      # - ang
+      - base
+      - ang
       - amp
     experiment.execution_type:
-      - noiseless
+      - noisy
     experiment.gradient_method:
-      - PSR
       - SPSA
-      - REG
+      # - PSR TODO not enough time
     experiment.n_qubits:
       - 4
       - 8
@@ -224,23 +254,25 @@ variable_config_values_list:
       - 0.5
       - 1
 
-  # Main GPU noise-impact analysis.
+  # SPSA 16 qubits noise-impact analysis.
+  # Unable to transpile amplitude encoding with 16 qubits. 
+  # Noisy PSR 16 qubits raised Out of Memory error.
   qml_torch_noisy:
     implementation.name:
       - qml_torch
     experiment.implementation:
       - base
       - ang
-      - amp
+      # - amp
     experiment.execution_type:
       - noisy
     experiment.gradient_method:
       - SPSA
-      # - PSR # TODO ?
+      # - PSR
     experiment.n_qubits:
-      - 4
-      - 8
-      # - 16
+      # - 4
+      # - 8
+      - 16
     backend.simulator.device:
       - GPU
     run.seed:
