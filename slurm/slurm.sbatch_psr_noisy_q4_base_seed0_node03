@@ -5,7 +5,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --nodelist=node03
-#SBATCH --cpus-per-task=12
+#SBATCH --cpus-per-task=8
 #SBATCH --mem=24GB
 #SBATCH --time=150:00:00
 #SBATCH --output=logs/QGAN_psr_noisy_q4_base_seed0_node03_%A.out
