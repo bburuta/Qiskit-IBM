@@ -1,0 +1,20 @@
+#!/bin/bash
+
+sbatch slurm/slurm.sbatch_psr_noisy_q4_base_seed0_node03
+sbatch slurm/slurm.sbatch_psr_noisy_q4_base_seed1_node03
+sbatch slurm/slurm.sbatch_psr_noisy_q4_base_seed2_node03
+sbatch slurm/slurm.sbatch_psr_noisy_q4_ang_seed0_node03
+sbatch slurm/slurm.sbatch_psr_noisy_q4_ang_seed1_node03
+sbatch slurm/slurm.sbatch_psr_noisy_q4_ang_seed2_node03
+sbatch slurm/slurm.sbatch_psr_noisy_q4_amp_seed0_node14
+sbatch slurm/slurm.sbatch_psr_noisy_q4_amp_seed1_node14
+sbatch slurm/slurm.sbatch_psr_noisy_q4_amp_seed2_node14
+sbatch slurm/slurm.sbatch_psr_noisy_q8_base_seed0_node14
+sbatch slurm/slurm.sbatch_psr_noisy_q8_base_seed1_node14
+sbatch slurm/slurm.sbatch_psr_noisy_q8_base_seed2_node14
+sbatch slurm/slurm.sbatch_psr_noisy_q8_ang_seed0_node15
+sbatch slurm/slurm.sbatch_psr_noisy_q8_ang_seed1_node15
+sbatch slurm/slurm.sbatch_psr_noisy_q8_ang_seed2_node15
+sbatch slurm/slurm.sbatch_psr_noisy_q8_amp_seed0_node15
+sbatch slurm/slurm.sbatch_psr_noisy_q8_amp_seed1_node15
+sbatch slurm/slurm.sbatch_psr_noisy_q8_amp_seed2_node15

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#SBATCH --job-name=QGAN_psr_noisy_q4_base_seed1_node03
+#SBATCH --partition=QPU
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --nodelist=node03
+#SBATCH --cpus-per-task=12
+#SBATCH --mem=24GB
+#SBATCH --time=150:00:00
+#SBATCH --output=logs/QGAN_psr_noisy_q4_base_seed1_node03_%A.out
+#SBATCH --error=logs/QGAN_psr_noisy_q4_base_seed1_node03_%A.err
+
+bnd run --cpu env PYTHONUNBUFFERED=1 \
+    qgan-v2 run \
+    --battery-path qgan/configs/batteries/train/train_psr_noisy_q4_base_seed1_cpu.yaml \
+    --overwrite
