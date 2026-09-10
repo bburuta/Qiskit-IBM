@@ -1,8 +1,9 @@
 #!/bin/bash
 
-# Generated for unfinished convergence runs with randomness 0 or 1 only.
-# Non-q16-noisy runs execute on CPU nodes node14/node15.
-# q16 noisy and q4/q8 noisy PSR runs are kept in submit_train_extra.sh.
+# Generated for pending convergence runs with randomness 1 only.
+# Includes rand1 jobs from submit_train.sh and submit_train_extra.sh.
+
+# submit_train.sh
 sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_007_node15
 sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_008_node14
 sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_009_node14
@@ -21,14 +22,9 @@ sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_045_node14
 sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_052_node14
 sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_053_node14
 sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_054_node15
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_055_node15
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_056_node15
 sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_064_node14
 sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_065_node14
 sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_066_node14
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_067_node14
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_068_node15
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_069_node15
 sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_079_node14
 sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_080_node14
 sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_081_node14
@@ -44,3 +40,11 @@ sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_109_node14
 sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_116_node14
 sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_117_node15
 sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_118_node15
+
+# submit_train_extra.sh
+sbatch slurm/slurm.sbatch_train_conv_remaining_gpu_q16_noisy_013_rtx6000
+sbatch slurm/slurm.sbatch_train_conv_remaining_gpu_q16_noisy_014_rtx6000
+sbatch slurm/slurm.sbatch_train_conv_remaining_gpu_q16_noisy_015_rtx6000
+sbatch slurm/slurm.sbatch_train_conv_remaining_gpu_q16_noisy_028_rtx6000
+sbatch slurm/slurm.sbatch_train_conv_remaining_gpu_q16_noisy_029_rtx6000
+sbatch slurm/slurm.sbatch_train_conv_remaining_gpu_q16_noisy_030_rtx6000
