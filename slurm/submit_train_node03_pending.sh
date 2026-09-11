@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Submit replacements for pending CPU convergence jobs on free node03 CPUs.
+# Intended after cancelling the old pending node14/node15 jobs.
+# Uses 12 CPUs per task, so 72 free CPUs can run 6 jobs at once.
+sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_045_node03
+sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_052_node03
+sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_053_node03
+sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_064_node03
+sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_065_node03
+sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_066_node03
+sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_092_node03
+sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_093_node03
+sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_098_node03
+sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_099_node03
+sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_100_node03
+sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_116_node03
+sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_117_node03
+sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_118_node03
