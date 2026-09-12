@@ -1,6 +1,6 @@
 # qGAN real-hardware convergence training battery.
 #
-# Runs small CPU-device real-hardware convergence studies:
+# Intended real-hardware convergence studies:
 # - qml_torch implementation comparison across base, angle, and amplitude presets
 # - qml_torch gradient comparison with SPSA and PSR on the base preset
 

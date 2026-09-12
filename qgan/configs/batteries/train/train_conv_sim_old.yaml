@@ -1,10 +1,11 @@
-# qGAN GPU convergence training battery.
+# qGAN original simulated convergence training battery.
 #
-# Runs long qml_torch GPU convergence experiments:
+# Intended qml_torch simulation convergence studies:
 # - base, angle, and amplitude presets
-# - noiseless execution with PSR, SPSA, and REG gradients
-# - noisy execution with SPSA and PSR gradients
+# - noiseless and noisy execution
+# - SPSA, PSR, and REG gradient methods
 # - 4-, 8-, and 16-qubit circuits
+# - Devices: GPU runs share convergence checkpoints with CPU runs.
 # - seeds 0, 1, and 2
 # - randomness levels 0, 0.1, 0.25, 0.5, and 1
 
@@ -95,7 +96,7 @@ default_config_values:
     simulator:
       # Aer simulator device. Values: CPU, GPU.
       device: GPU
-      # Device label used in generated run ids. CPU shares convergence checkpoints with CPU runs.
+      # Device label used in generated run ids. GPU runs share convergence checkpoints with CPU runs.
       device_name: CPU
       # Floating point precision for simulator/Torch tensors. Values: double, single.
       data_type: double
@@ -160,8 +161,8 @@ default_config_values:
 
 variable_config_values_list:
 
-  # qml_torch preset, execution-type, gradient-method, qubit-scaling, device and randomness analysis.
-  qml_torch:
+  # qml_torch simulation preset, execution-type, gradient-method, qubit-scaling, device and randomness analysis.
+  qml_torch_sim:
     implementation.name:
       - qml_torch
     experiment.implementation:

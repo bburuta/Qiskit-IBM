@@ -10,7 +10,7 @@
 #SBATCH --time=150:00:00
 #SBATCH --output=logs/QGAN_psr_remaining_amp_q4_s0_node14_%A.out
 #SBATCH --error=logs/QGAN_psr_remaining_amp_q4_s0_node14_%A.err
-bnd run --cpu env OMP_NUM_THREADS=12 MKL_NUM_THREADS=12 PYTHONUNBUFFERED=1 \
+bnd run --cpu env PYTHONUNBUFFERED=1 \
     qgan-v2 run \
     --battery-path qgan/configs/batteries/train/train_psr_noisy_q4_amp_seed0_cpu.yaml \
     --overwrite

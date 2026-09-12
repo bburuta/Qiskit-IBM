@@ -1,12 +1,18 @@
 # qGAN GPU convergence training battery.
 #
-# Runs long qml_torch GPU convergence experiments:
+# Runs simulated qml_torch convergence experiments. Mirrors the CPU convergence battery (checkpoints are shared between CPU and GPU runs):
 # - base, angle, and amplitude presets
 # - noiseless execution with PSR, SPSA, and REG gradients
-# - noisy execution with SPSA and PSR gradients
+# - noisy execution with SPSA gradients; noisy PSR is kept as an optional extra
 # - 4-, 8-, and 16-qubit circuits
 # - seeds 0, 1, and 2
-# - randomness levels 0, 0.1, 0.25, 0.5, and 1
+# - a main randomness sweep with levels 0, 0.1, 0.25, 0.5, and 1
+# - additional convergence groups with randomness levels 0 and 1
+#
+# Reduced from train_conv_sim_old.yaml:
+# - Keeps full-range randomness only for the completed noiseless q4/q8 sweep.
+# - Uses rand0/rand1 for other convergence comparisons.
+# - Keeps noisy PSR as optional: 1000-epoch convergence was too time-expensive.
 
 default_config_values:
 
@@ -95,7 +101,7 @@ default_config_values:
     simulator:
       # Aer simulator device. Values: CPU, GPU.
       device: GPU
-      # Device label used in generated run ids. CPU shares convergence checkpoints with CPU runs.
+      # Device label used in generated run ids. GPU shares convergence checkpoints with CPU runs.
       device_name: CPU
       # Floating point precision for simulator/Torch tensors. Values: double, single.
       data_type: double
@@ -160,7 +166,7 @@ default_config_values:
 
 variable_config_values_list:
 
-  # Noiseless preset, gradient-method, qubit-scaling and randomness analysis.
+  # Noiseless preset, gradient-method, qubit-scaling and full-range randomness analysis.
   qml_torch_noiseless:
     implementation.name:
       - qml_torch
@@ -218,12 +224,9 @@ variable_config_values_list:
       - 2
     encoding.randomness:
       - 0
-      - 0.1
-      - 0.25
-      - 0.5
       - 1
 
-  # Noisy preset, gradient-method, qubit-scaling and randomness analysis.
+  # Noise-impact preset, gradient-method, qubit-scaling and randomness analysis.
   # Noisy does not support REG.
   qml_torch_noisy:
     implementation.name:
@@ -236,7 +239,7 @@ variable_config_values_list:
       - noisy
     experiment.gradient_method:
       - SPSA
-      # - PSR TODO not enough time
+      # - PSR not included in the minimum convergence plan because of time cost.
     experiment.n_qubits:
       - 4
       - 8
@@ -249,14 +252,10 @@ variable_config_values_list:
       - 2
     encoding.randomness:
       - 0
-      - 0.1
-      - 0.25
-      - 0.5
       - 1
 
-  # SPSA 16 qubits noise-impact analysis.
+  # Noise-impact 16 qubits analysis.
   # Unable to transpile amplitude encoding with 16 qubits.
-  # Noisy PSR 16 qubits raised Out of Memory error.
   qml_torch_noisy_q16:
     implementation.name:
       - qml_torch
@@ -268,7 +267,7 @@ variable_config_values_list:
       - noisy
     experiment.gradient_method:
       - SPSA
-      # - PSR
+      # - PSR not included in the minimum convergence plan because of time cost.
     experiment.n_qubits:
       # - 4
       # - 8
@@ -281,7 +280,4 @@ variable_config_values_list:
       - 2
     encoding.randomness:
       - 0
-      - 0.1
-      - 0.25
-      - 0.5
       - 1

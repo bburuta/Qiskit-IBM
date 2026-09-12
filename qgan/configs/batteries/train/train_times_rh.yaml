@@ -1,10 +1,14 @@
 # qGAN real-hardware timing training battery.
 #
-# Runs small CPU-device real-hardware timing studies:
+# Runs real-hardware timing studies:
 # - qml_torch implementation comparison across base, angle, and amplitude presets
 # - qml_torch gradient comparison with SPSA and PSR on the base preset
 # - runtime_packed separate packing for base, angle, and amplitude presets
 # - runtime_packed joined packing for base and angle presets
+#
+# Real-hardware timing notes:
+# - Documents intended real-hardware timing runs.
+# - Not executed because there was not enough real-hardware execution time.
 
 default_config_values:
 

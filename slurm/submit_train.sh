@@ -1,48 +1,11 @@
 #!/bin/bash
 
-# Generated for unfinished convergence runs with randomness 0 or 1 only.
-# Non-q16-noisy runs execute on CPU nodes node14/node15.
-# q16 noisy and q4/q8 noisy PSR runs are kept in submit_train_extra.sh.
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_007_node15
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_008_node14
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_009_node14
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_016_node14
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_017_node14
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_018_node14
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_025_node14
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_026_node15
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_027_node15
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_034_node15
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_035_node15
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_036_node14
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_043_node14
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_044_node14
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_045_node03
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_052_node03
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_053_node03
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_054_node15
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_055_node15
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_056_node15
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_064_node03
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_065_node03
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_066_node03
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_068_node15
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_069_node15
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_091_node15
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_092_node03
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_093_node03
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_098_node03
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_099_node03
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_100_node03
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_116_node03
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_117_node03
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_118_node03
-
-# Pending q16 noiseless REG jobs moved to free node03 GPUs.
-sbatch slurm/slurm.sbatch_train_conv_gpu_q16_reg_001_rtx4500
-sbatch slurm/slurm.sbatch_train_conv_gpu_q16_reg_002_rtx4500
-sbatch slurm/slurm.sbatch_train_conv_gpu_q16_reg_003_rtx6000
-sbatch slurm/slurm.sbatch_train_conv_gpu_q16_reg_004_h100
-sbatch slurm/slurm.sbatch_train_conv_gpu_q16_reg_005_rtx4500
-sbatch slurm/slurm.sbatch_train_conv_gpu_q16_reg_006_rtx4500
-sbatch slurm/slurm.sbatch_train_conv_gpu_q16_reg_007_rtx6000
+# Resubmit only the jobs moved away from node03 CPU and the H100 GPU.
+# Cancel first:
+# scancel 1582445 1582444 1582438 1582442 1582443 1582434
+sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_045_node14
+sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_065_node15
+sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_066_node14
+sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_092_node15
+sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_093_node14
+sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_081_node15

@@ -10,7 +10,7 @@
 #SBATCH --time=150:00:00
 #SBATCH --output=logs/QGAN_conv_cpu_remaining_117_node03_%A.out
 #SBATCH --error=logs/QGAN_conv_cpu_remaining_117_node03_%A.err
-bnd run --cpu env OMP_NUM_THREADS=12 MKL_NUM_THREADS=12 PYTHONUNBUFFERED=1 \
+bnd run --cpu env PYTHONUNBUFFERED=1 \
     qgan-v2 run \
     --battery-path qgan/configs/batteries/train/train_conv_remaining_cpu_117.yaml \
     --overwrite

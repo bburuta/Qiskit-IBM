@@ -1,6 +1,6 @@
 # qGAN CPU timing training battery.
 #
-# Runs short qml_torch CPU timing experiments:
+# Runs qml_torch CPU timing experiments:
 # - base, angle, and amplitude presets
 # - noiseless execution with PSR, SPSA, and REG gradients
 # - noisy execution with SPSA and PSR gradients
@@ -8,8 +8,11 @@
 # - seed 0
 # - randomness levels 0 and 1
 #
-# This battery contains local Aer CPU simulations only. Real-hardware timing
-# studies are kept in train_times_rh.yaml.
+# Timing reduction notes:
+# - Uses one seed because seed repetitions are unnecessary for runtime analysis.
+# - Uses 5 epochs because per-epoch times were stable enough.
+# - Uses rand0/rand1 only, other randomness values are unnecessary.
+# - Omits CPU q16 noisy because density-matrix jobs raised Out of Memory errors under the 16GB memory limit.
 
 default_config_values:
 
@@ -215,7 +218,7 @@ variable_config_values_list:
       - 0
       - 1
 
-  # Noisy preset, gradient-method, qubit-scaling and randomness analysis.
+  # Noise-impact preset, gradient-method, qubit-scaling and randomness analysis.
   # Noisy does not support REG.
   qml_torch_noisy:
     implementation.name:
@@ -241,29 +244,29 @@ variable_config_values_list:
       - 0
       - 1
 
-  # SPSA 16 qubits noise-impact analysis.
-  # Unable to transpile amplitude encoding with 16 qubits.
-  # Noisy PSR 16 qubits raised Out of Memory error.
-  qml_torch_noisy_q16:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - base
-      - ang
-      # - amp
-    experiment.execution_type:
-      - noisy
-    experiment.gradient_method:
-      - SPSA
-      # - PSR
-    experiment.n_qubits:
-      # - 4
-      # - 8
-      - 16
-    backend.simulator.device:
-      - CPU
-    run.seed:
-      - 0
-    encoding.randomness:
-      - 0
-      - 1
+  # # Noise-impact 16 qubits analysis.
+  # # Unable to transpile amplitude encoding with 16 qubits.
+  # # Noisy 16 qubits raised Out of Memory error in 4 and 1 CPU per task executions.
+  # qml_torch_noisy_q16:
+  #   implementation.name:
+  #     - qml_torch
+  #   experiment.implementation:
+  #     - base
+  #     - ang
+  #     # - amp
+  #   experiment.execution_type:
+  #     - noisy
+  #   experiment.gradient_method:
+  #     - SPSA
+  #     - PSR
+  #   experiment.n_qubits:
+  #     # - 4
+  #     # - 8
+  #     - 16
+  #   backend.simulator.device:
+  #     - CPU
+  #   run.seed:
+  #     - 0
+  #   encoding.randomness:
+  #     - 0
+  #     - 1

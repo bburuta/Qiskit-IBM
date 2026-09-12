@@ -10,7 +10,7 @@
 #SBATCH --time=150:00:00
 #SBATCH --output=logs/QGAN_cpu_times_cpu4_shard17_node03_%A.out
 #SBATCH --error=logs/QGAN_cpu_times_cpu4_shard17_node03_%A.err
-bnd run --cpu env OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 PYTHONUNBUFFERED=1 \
+bnd run --cpu env PYTHONUNBUFFERED=1 \
     qgan-v2 run \
     --battery-path qgan/configs/batteries/train/train_times_cpu4_shard17.yaml \
     --overwrite

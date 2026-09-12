@@ -10,7 +10,7 @@
 #SBATCH --time=150:00:00
 #SBATCH --output=logs/QGAN_fake_real_runtime_separate_base_node14_%A.out
 #SBATCH --error=logs/QGAN_fake_real_runtime_separate_base_node14_%A.err
-bnd run --cpu env OMP_NUM_THREADS=12 MKL_NUM_THREADS=12 PYTHONUNBUFFERED=1 \
+bnd run --cpu env PYTHONUNBUFFERED=1 \
     qgan-v2 run \
     --battery-path qgan/configs/batteries/train/train_fake_real_q4_runtime_separate_base.yaml \
     --overwrite
