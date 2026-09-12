@@ -1,0 +1,10 @@
+/work/qgan/src/qgan_v2/execution/backend.py:262: RuntimeWarning: The quantum state for the training density_matrix simulation of 16 qubits uses about 64.0 GiB before Aer and process overhead. Check the available CPU or GPU memory before running.
+  warn_simulation_memory(config)
+/work/qgan/src/qgan_v2/training/data.py:216: UserWarning: Training data config differs from current config:
+- backend.simulator.device: previous='GPU', current='CPU'
+- run.device: previous='GPU', current='CPU'
+- training.checkpoint_every: previous=10, current=100
+- training.max_iterations: previous=150, current=1000
+- training.print_every: previous=10, current=100
+  warn_config_changes(training_state.config, config)
+slurmstepd-node14: error: *** JOB 1582164 ON node14 CANCELLED AT 2026-09-10T23:01:00 ***

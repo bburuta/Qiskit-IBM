@@ -1,0 +1,15 @@
+Creating config files for remaining_q16_reg_gpu:
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q16-noiseless-REG-aerCPU-rand1-seed1/config.yaml
+
+1 battery configuration files ready.
+
+Running: /work/qgan/data/train/ang-qml_torch-q16-noiseless-REG-aerCPU-rand1-seed1/config.yaml
+GPUs available to PyTorch: 1
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.502 |             -0.671 |              0.112 |              0.112 |                179 |
+                100 |             -0.315 |             -0.685 |              0.136 |             0.0972 |           1.72e+04 |
+                200 |             -0.355 |             -0.686 |              0.163 |             0.0916 |           1.73e+04 |
+                300 |              -0.33 |              -0.66 |              0.141 |             0.0916 |           1.73e+04 |
+                400 |             -0.368 |             -0.739 |              0.143 |             0.0916 |           1.71e+04 |
+                500 |             -0.546 |             -0.729 |              0.134 |             0.0916 |            1.7e+04 |

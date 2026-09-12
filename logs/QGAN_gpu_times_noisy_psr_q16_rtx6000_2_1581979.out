@@ -6,3 +6,7 @@ Configuration file rewritten. Path: /work/qgan/data/train/times/ang-qml_torch-q1
 Running: /work/qgan/data/train/times/ang-qml_torch-q16-noisy-PSR-aerGPU-rand1-seed0/config.yaml
 GPUs available to PyTorch: 1
               Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.438 |             -0.557 |              0.133 |              0.133 |            3.9e+04 |
+                  1 |             -0.547 |             -0.584 |              0.195 |              0.133 |           3.98e+04 |
+                  2 |             -0.523 |              -0.61 |              0.149 |              0.133 |           4.35e+04 |
+                  3 |             -0.628 |             -0.571 |              0.147 |              0.133 |           3.88e+04 |

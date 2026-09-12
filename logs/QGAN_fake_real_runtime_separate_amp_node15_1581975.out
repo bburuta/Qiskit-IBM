@@ -9,3 +9,11 @@ Running: /work/qgan/data/train/amp-runtime_packed-separate-q4-fake_real-SPSA-aer
                 400 |             -0.883 |             -0.458 |             0.0738 |             0.0738 |           5.26e+03 |
                 500 |             -0.861 |             -0.466 |             0.0723 |             0.0723 |           5.02e+03 |
                 600 |             -0.837 |             -0.479 |             0.0681 |             0.0681 |           4.93e+03 |
+                700 |             -0.808 |             -0.488 |             0.0641 |             0.0641 |           4.93e+03 |
+                800 |             -0.713 |             -0.535 |             0.0642 |             0.0641 |           5.01e+03 |
+                900 |             -0.575 |             -0.586 |             0.0627 |             0.0621 |           5.05e+03 |
+Training complete: 
+   Data path: /work/qgan/data/train/amp-runtime_packed-separate-q4-fake_real-SPSA-aerCPU-rand0-seed0 
+   Best eval: 0.05607925661721558 
+   Total time: 49852.68722629547
+1 battery run(s) succeeded.

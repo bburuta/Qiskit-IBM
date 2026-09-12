@@ -1,0 +1,8 @@
+/work/qgan/src/qgan_v2/execution/backend.py:262: RuntimeWarning: The quantum state for the training density_matrix simulation of 16 qubits uses about 64.0 GiB before Aer and process overhead. Check the available CPU or GPU memory before running.
+  warn_simulation_memory(config)
+/work/qgan/src/qgan_v2/training/data.py:216: UserWarning: Training data config differs from current config:
+- backend.simulator.device_name: previous=None, current='CPU'
+- training.checkpoint_every: previous=10, current=1
+  warn_config_changes(training_state.config, config)
+/home/bburutaran/bin/bnd: line 124: 684305 Killed                  apptainer exec "${extra[@]}" -B "$PWD:/work" -B "$uv_dir:/uvbin:ro" --pwd /work "$sif" bash -lc "$full_script" bash "$@"
+slurmstepd-node03: error: Detected 1 oom_kill event in StepId=1582043.batch. Some of the step tasks have been OOM Killed.

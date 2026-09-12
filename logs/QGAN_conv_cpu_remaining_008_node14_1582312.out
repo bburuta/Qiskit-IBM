@@ -1,0 +1,22 @@
+Creating config files for remaining_run:
+Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand1-seed1/config.yaml
+
+1 battery configuration files ready.
+
+Running: /work/qgan/data/train/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand1-seed1/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |              -0.58 |             -0.374 |             0.0511 |             0.0511 |               72.5 |
+                100 |             -0.469 |             -0.507 |             0.0521 |            0.00856 |           7.47e+03 |
+                200 |             -0.669 |             -0.596 |             0.0628 |            0.00856 |           7.42e+03 |
+                300 |             -0.133 |             -0.652 |             0.0421 |            0.00856 |           7.54e+03 |
+                400 |             -0.625 |             -0.796 |               0.06 |            0.00856 |           7.59e+03 |
+                500 |             -0.687 |             -0.774 |             0.0462 |            0.00856 |           7.57e+03 |
+                600 |             -0.423 |             -0.826 |             0.0601 |            0.00856 |           7.65e+03 |
+                700 |             -0.175 |             -0.574 |             0.0439 |            0.00856 |            7.6e+03 |
+                800 |             -0.636 |             -0.658 |             0.0216 |            0.00718 |           7.61e+03 |
+                900 |             -0.676 |             -0.707 |             0.0498 |            0.00718 |           7.59e+03 |
+Training complete: 
+   Data path: /work/qgan/data/train/amp-qml_torch-q4-noisy-SPSA-aerCPU-rand1-seed1 
+   Best eval: 0.007177193754472018 
+   Total time: 75543.56456565857
+1 battery run(s) succeeded.

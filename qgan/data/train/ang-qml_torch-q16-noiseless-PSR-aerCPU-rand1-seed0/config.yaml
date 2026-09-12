@@ -6,7 +6,7 @@ run:
   label: null
   data_path: qgan/data/train
   seed: 0
-  device: GPU
+  device: CPU
 experiment:
   implementation: ang
   execution_type: noiseless
@@ -18,8 +18,8 @@ training:
   disc_iterations: 1
   init_scale: 0.1
   learning_rate: 0.005
-  print_every: 10
-  checkpoint_every: 10
+  print_every: 100
+  checkpoint_every: 100
 dataset:
   id: generated_gradients-total_pixels16
   reset: false
@@ -40,8 +40,7 @@ backend:
     layout_method: sabre
     routing_method: sabre
   simulator:
-    device: GPU
-    device_name: CPU
+    device: CPU
     data_type: double
     noiseless_method: statevector
     noisy_method: density_matrix
@@ -54,6 +53,7 @@ backend:
       batched_shots_gpu: false
       blocking_enable: false
       runtime_parameter_bind_enable: false
+    device_name: CPU
   real:
     id: ibm_basquecountry
     name: ibm_basquecountry

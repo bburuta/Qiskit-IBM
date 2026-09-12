@@ -1,0 +1,26 @@
+Creating config files for remaining_run:
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand1-seed2/config.yaml
+
+1 battery configuration files ready.
+
+Running: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand1-seed2/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.445 |             -0.638 |              0.219 |              0.219 |               57.3 |
+                100 |             -0.538 |             -0.666 |              0.234 |              0.106 |           5.92e+03 |
+                200 |             -0.379 |             -0.641 |              0.156 |             0.0844 |           5.79e+03 |
+                300 |              -0.64 |             -0.747 |              0.198 |             0.0844 |           5.82e+03 |
+                400 |             -0.488 |             -0.873 |               0.22 |             0.0844 |           5.87e+03 |
+                500 |             -0.727 |             -0.723 |              0.179 |             0.0844 |           5.88e+03 |
+                600 |             -0.511 |             -0.703 |              0.226 |             0.0844 |           5.89e+03 |
+                700 |             -0.612 |               -0.7 |              0.171 |             0.0844 |           5.88e+03 |
+                800 |             -0.733 |             -0.727 |              0.188 |             0.0844 |           5.87e+03 |
+                900 |             -0.254 |             -0.882 |              0.204 |             0.0844 |           5.85e+03 |
+
+Interrupter: will stop after the current epoch. Press Ctrl+C again to force quit.
+Interrupter: Graceful exit triggered. Breaking loop.
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q8-noisy-SPSA-aerCPU-rand1-seed2 
+   Best eval: 0.08442793786525726 
+   Total time: 56342.31308841705
+1 battery run(s) succeeded.

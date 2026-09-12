@@ -1,0 +1,23 @@
+Creating config files for remaining_run:
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q16-noiseless-PSR-aerCPU-rand1-seed1/config.yaml
+
+1 battery configuration files ready.
+
+Running: /work/qgan/data/train/base-qml_torch-q16-noiseless-PSR-aerCPU-rand1-seed1/config.yaml
+Training data file created.
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                  0 |             -0.377 |             -0.409 |                3.4 |                3.4 |               5.94 |
+                100 |             -0.595 |             -0.488 |               4.52 |               3.14 |                554 |
+                200 |             -0.583 |             -0.752 |               3.44 |               3.14 |                550 |
+                300 |             -0.595 |             -0.859 |                3.9 |                  3 |                558 |
+                400 |             -0.663 |             -0.667 |               5.25 |               2.76 |                558 |
+                500 |             -0.489 |             -0.721 |               4.03 |               2.67 |                551 |
+                600 |             -0.296 |             -0.748 |               4.81 |               2.67 |                551 |
+                700 |             -0.425 |             -0.879 |               5.11 |               2.42 |                552 |
+                800 |             -0.822 |             -0.754 |               6.13 |               2.42 |                552 |
+                900 |             -0.564 |             -0.798 |               3.68 |               2.42 |                555 |
+Training complete: 
+   Data path: /work/qgan/data/train/base-qml_torch-q16-noiseless-PSR-aerCPU-rand1-seed1 
+   Best eval: 2.364259381521493 
+   Total time: 5533.211578369141
+1 battery run(s) succeeded.

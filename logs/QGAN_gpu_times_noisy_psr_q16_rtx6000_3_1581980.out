@@ -18,3 +18,11 @@ Running: /work/qgan/data/train/times/base-qml_torch-q16-noisy-PSR-aerGPU-rand1-s
 GPUs available to PyTorch: 1
               Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
                   1 |             -0.704 |              -0.53 |               5.69 |               5.69 |           9.68e+03 |
+                  2 |             -0.721 |             -0.421 |               6.17 |               5.69 |           9.67e+03 |
+                  3 |             -0.686 |             -0.405 |               4.85 |               4.85 |           9.67e+03 |
+                  4 |             -0.634 |             -0.572 |               4.81 |               4.81 |           9.67e+03 |
+Training complete: 
+   Data path: /work/qgan/data/train/times/base-qml_torch-q16-noisy-PSR-aerGPU-rand1-seed0 
+   Best eval: 4.813844834057505 
+   Total time: 48385.92443180084
+2 battery run(s) succeeded.

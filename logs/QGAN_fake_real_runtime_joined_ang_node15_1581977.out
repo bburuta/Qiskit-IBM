@@ -11,3 +11,8 @@ Running: /work/qgan/data/train/ang-runtime_packed-joined-q4-fake_real-SPSA-aerCP
                 700 |             -0.865 |             -0.509 |             0.0327 |            0.00216 |           3.34e+03 |
                 800 |             -0.858 |             -0.509 |             0.0459 |            0.00216 |           3.33e+03 |
                 900 |             -0.871 |             -0.509 |             0.0395 |            0.00216 |           3.34e+03 |
+Training complete: 
+   Data path: /work/qgan/data/train/ang-runtime_packed-joined-q4-fake_real-SPSA-aerCPU-rand0-seed0 
+   Best eval: 0.002163238823413849 
+   Total time: 33622.36711978912
+1 battery run(s) succeeded.
