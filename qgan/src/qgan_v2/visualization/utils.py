@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
@@ -80,12 +82,31 @@ def get_gen_params(params):
 
 
 # Compose randomized generator and sample random input parameters
-def get_randomized_generator(run):
+def get_randomized_generator(run, random_seed=None):
     config = run['config']
     generator_circuit = run['generator_circuit']
     ran_gen_circuit = compose_circuits(run['randomizer_circuit'], generator_circuit)
     n_random_params = ran_gen_circuit.num_parameters - generator_circuit.num_parameters
-    random_params = generate_random_input(1, n_random_params, config['encoding']['randomness'], 'cpu', torch.float64)
+    if random_seed is None:
+        random_params = generate_random_input(
+            1,
+            n_random_params,
+            config['encoding']['randomness'],
+            'cpu',
+            torch.float64,
+        )
+    else:
+        # Representative thesis figures must be reproducible and must not alter
+        # the notebook's global Torch random state.
+        with torch.random.fork_rng():
+            torch.manual_seed(int(random_seed))
+            random_params = generate_random_input(
+                1,
+                n_random_params,
+                config['encoding']['randomness'],
+                'cpu',
+                torch.float64,
+            )
     return ran_gen_circuit, random_params.reshape(-1).numpy()
 
 
@@ -491,6 +512,143 @@ def show_result_images(images, titles):
 
     fig.tight_layout()
     plt.show()
+
+
+def plot_generated_output(
+    config_file,
+    *,
+    parameter_set='best',
+    random_seed=0,
+    save_path=None,
+):
+    """Create one reproducible generated-versus-target thesis figure.
+
+    ``parameter_set`` may be ``initial``, ``last``, or ``best``.  The returned
+    manifest links the visual to its run id and, when recorded, its evaluation
+    score. The initial parameters predate the first evaluation measurement.
+    Statevector reconstruction is intentionally used for the qualitative image;
+    the run's noisy/real execution type remains recorded in the title.
+    """
+
+    run = load_visualization_run(config_file)
+    params = run['params']
+    if params is None:
+        raise FileNotFoundError(f"No checkpoint found: {run['training_data_file']}")
+
+    parameter_sets = {
+        name.lower(): values
+        for name, values in get_gen_params(params)
+    }
+    parameter_set = parameter_set.lower()
+    if parameter_set not in parameter_sets:
+        raise ValueError("parameter_set must be 'initial', 'last', or 'best'")
+
+    ran_gen_circuit, random_params = get_randomized_generator(
+        run,
+        random_seed=random_seed,
+    )
+    generated_circuit = assign_gen_params(
+        ran_gen_circuit,
+        parameter_sets[parameter_set],
+        random_params,
+    )
+    encoding = run['config']['encoding']['type']
+    target = None
+
+    if encoding == 'angle':
+        observables = list(get_observables(run['generator_circuit'].num_qubits)[1])
+        ordered_values = np.concatenate((parameter_sets[parameter_set], random_params))
+        pub = (ran_gen_circuit, observables, ordered_values)
+        generated = np.asarray(
+            StatevectorEstimator().run([pub]).result()[0].data.evs,
+            dtype=float,
+        ).reshape(run['X'].shape[1:3])
+        target = np.asarray(run['X'][0], dtype=float)
+    elif encoding == 'amplitude':
+        generated = np.asarray(
+            Statevector(generated_circuit).probabilities(),
+            dtype=float,
+        ).reshape(run['X'].shape[1:3])
+        target = np.asarray(
+            Statevector(run['real_circuits'][0]).probabilities(),
+            dtype=float,
+        ).reshape(run['X'].shape[1:3])
+    else:
+        generated = np.asarray(Statevector(generated_circuit).probabilities(), dtype=float)
+        target = np.asarray(Statevector(run['real_circuits'][0]).probabilities(), dtype=float)
+
+    fig, axes = plt.subplots(1, 2, figsize=(8, 3.2))
+    if generated.ndim == 2:
+        vmin = float(min(np.min(generated), np.min(target)))
+        vmax = float(max(np.max(generated), np.max(target)))
+        axes[0].imshow(generated, cmap='gray', vmin=vmin, vmax=vmax)
+        axes[1].imshow(target, cmap='gray', vmin=vmin, vmax=vmax)
+        for ax in axes:
+            ax.axis('off')
+    else:
+        positions = np.arange(len(generated))
+        width = 0.8
+        axes[0].bar(positions, generated, width=width)
+        axes[1].bar(positions, target, width=width, color='C1')
+        if len(generated) <= 32:
+            n_qubits = run['config']['experiment']['n_qubits']
+            labels = [format(index, f'0{n_qubits}b') for index in positions]
+            for ax in axes:
+                ax.set_xticks(positions, labels, rotation=90)
+        for ax in axes:
+            ax.set_xlabel('basis state')
+            ax.set_ylabel('probability')
+
+    axes[0].set_title(f'Generated ({parameter_set})')
+    axes[1].set_title('Target')
+    config = run['config']
+    eval_items = sorted(
+        (
+            (int(epoch), float(value))
+            for epoch, value in params.metrics.eval.items()
+            if value is not None and np.isfinite(value)
+        ),
+        key=lambda item: item[0],
+    )
+    if parameter_set == 'initial':
+        # The checkpoint stores the pre-training generator parameters, but the
+        # first evaluation metric is recorded after the first training epoch.
+        evaluation_epoch, evaluation_score = None, np.nan
+    elif eval_items:
+        if parameter_set == 'last':
+            evaluation_epoch, evaluation_score = eval_items[-1]
+        else:
+            evaluation_epoch, evaluation_score = min(
+                eval_items,
+                key=lambda item: (item[1], item[0]),
+            )
+    else:
+        evaluation_epoch, evaluation_score = None, np.nan
+    run_id = config['run']['id']
+    if parameter_set == 'initial':
+        evaluation_label = "initial parameters; evaluation not recorded"
+    else:
+        evaluation_label = (
+            f"{parameter_set} evaluation={evaluation_score:.5g} "
+            f"at epoch={evaluation_epoch}"
+        )
+    fig.suptitle(f"{run_id}\n{evaluation_label}")
+    fig.tight_layout()
+
+    if save_path is not None:
+        save_path = Path(save_path)
+        save_path.parent.mkdir(parents=True, exist_ok=True)
+        fig.savefig(save_path, dpi=300, bbox_inches='tight')
+
+    return fig, {
+        'run_id': run_id,
+        'config_file': str(Path(config_file)),
+        'execution_type': config['experiment']['execution_type'],
+        'parameter_set': parameter_set,
+        'random_seed': random_seed,
+        'evaluation_score': evaluation_score,
+        'evaluation_epoch': evaluation_epoch,
+    }
 
 
 # Show angle result images

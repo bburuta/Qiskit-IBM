@@ -1,7 +1,7 @@
-# qGAN generated one-run CPU convergence battery.
+# qGAN generated one-run GPU convergence battery.
 #
-# Auto-generated from train_conv_cpu.yaml for an unfinished non-q16-noisy run.
-# Original run id is preserved so checkpointed training can resume.
+# Resubmits the original CPU-labelled convergence run on a GPU simulator.
+# The run device remains CPU so the original run id/checkpoint is preserved.
 
 default_config_values:
   implementation:
@@ -45,7 +45,8 @@ default_config_values:
       layout_method: sabre
       routing_method: sabre
     simulator:
-      device: CPU
+      device: GPU
+      device_name: CPU
       data_type: double
       noiseless_method: statevector
       noisy_method: density_matrix
@@ -94,7 +95,7 @@ variable_config_values_list:
     experiment.n_qubits:
     - 16
     backend.simulator.device:
-    - CPU
+    - GPU
     run.seed:
     - 2
     encoding.randomness:

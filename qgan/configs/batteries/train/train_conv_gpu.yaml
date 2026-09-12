@@ -254,30 +254,31 @@ variable_config_values_list:
       - 0
       - 1
 
-  # Noise-impact 16 qubits analysis.
-  # Unable to transpile amplitude encoding with 16 qubits.
-  qml_torch_noisy_q16:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - base
-      - ang
-      # - amp
-    experiment.execution_type:
-      - noisy
-    experiment.gradient_method:
-      - SPSA
-      # - PSR not included in the minimum convergence plan because of time cost.
-    experiment.n_qubits:
-      # - 4
-      # - 8
-      - 16
-    backend.simulator.device:
-      - GPU
-    run.seed:
-      - 0
-      - 1
-      - 2
-    encoding.randomness:
-      - 0
-      - 1
+  # # Noise-impact 16 qubits analysis.
+  # # Unable to transpile amplitude encoding with 16 qubits.
+  # # Not included in the minimum convergence plan because of time cost.
+  # qml_torch_noisy_q16:
+  #   implementation.name:
+  #     - qml_torch
+  #   experiment.implementation:
+  #     - base
+  #     - ang
+  #     # - amp
+  #   experiment.execution_type:
+  #     - noisy
+  #   experiment.gradient_method:
+  #     - SPSA
+  #     - PSR
+  #   experiment.n_qubits:
+  #     # - 4
+  #     # - 8
+  #     - 16
+  #   backend.simulator.device:
+  #     - GPU
+  #   run.seed:
+  #     - 0
+  #     - 1
+  #     - 2
+  #   encoding.randomness:
+  #     - 0
+  #     - 1

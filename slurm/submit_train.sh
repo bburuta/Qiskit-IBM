@@ -1,8 +1,7 @@
 #!/bin/bash
 
-# Resubmit only the three pending q16 noiseless REG GPU jobs on node14 CPUs.
-# Cancel first:
-# scancel 1582435 1582436 1582437
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_107_node14
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_108_node14
-sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_109_node14
+# Resubmit the three selected q16 noiseless REG runs on GPUs.
+# The batteries keep run.device=CPU so they resume the original convergence run ids.
+sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_081_rtx6000
+sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_069_rtx6000
+sbatch slurm/slurm.sbatch_train_conv_remaining_cpu_068_rtx4500
