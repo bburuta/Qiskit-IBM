@@ -87,16 +87,16 @@ variable_config_values_list:
     run.device:
     - CPU
     experiment.implementation:
-    - base
+    - ang
     experiment.execution_type:
     - noiseless
     experiment.gradient_method:
-    - REG
+    - SPSA
     experiment.n_qubits:
-    - 4
+    - 16
     backend.simulator.device:
     - GPU
     run.seed:
-    - 0
+    - 1
     encoding.randomness:
     - 1

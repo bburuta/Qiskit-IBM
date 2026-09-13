@@ -93,10 +93,10 @@ variable_config_values_list:
     experiment.gradient_method:
     - PSR
     experiment.n_qubits:
-    - 4
+    - 16
     backend.simulator.device:
     - GPU
     run.seed:
-    - 0
+    - 1
     encoding.randomness:
-    - 0.1
+    - 1
