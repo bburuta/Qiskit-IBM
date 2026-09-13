@@ -1805,6 +1805,7 @@ def plot_feasibility_matrix(
     column_field: str = "execution_type",
     filters: dict[str, Any] | None = None,
     expected_epochs: int | None = None,
+    cmap: str = "viridis",
     ax=None,
 ):
     """Plot completion rate with complete/total annotations for each cell."""
@@ -1843,7 +1844,7 @@ def plot_feasibility_matrix(
                 fontsize=9,
             )
 
-    image = ax.imshow(matrix, vmin=0, vmax=1, cmap="viridis", aspect="auto")
+    image = ax.imshow(matrix, vmin=0, vmax=1, cmap=cmap, aspect="auto")
     ax.set_xticks(range(len(column_values)), [str(value) for value in column_values])
     ax.set_yticks(range(len(row_values)), [str(value) for value in row_values])
     ax.set_xlabel(column_field.replace("_", " "))

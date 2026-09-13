@@ -8,6 +8,7 @@ from qgan_v2.analysis.results import (
     deduplicate_simulator_runs,
     factor_sweep_groups,
     is_completed,
+    plot_training_dynamics_comparison,
     run_summary,
     select_main_convergence_results,
     unique_values,
@@ -137,3 +138,32 @@ def test_numeric_categories_are_ordered_numerically():
         result.metadata["gradient_method"] = method
         gradients.append(result)
     assert unique_values(gradients, "gradient_method") == ["PSR", "REG", "SPSA"]
+
+
+def test_multi_setting_dynamics_plot_keeps_losses_and_evaluation():
+    pytest.importorskip("matplotlib")
+    first = make_result("first", epochs=3)
+    second = make_result("second", epochs=3)
+    first.metadata["gradient_method"] = "PSR"
+    second.metadata["gradient_method"] = "SPSA"
+    first.gloss = second.gloss = {0: 1.0, 1: 0.5, 2: 0.25}
+    first.dloss = second.dloss = {0: 0.2, 1: 0.4, 2: 0.8}
+
+    figure, axes = plot_training_dynamics_comparison(
+        [first, second], compare_by="gradient_method"
+    )
+
+    assert len(axes) == 2
+    assert axes[0].get_ylabel() == "Adversarial loss"
+    assert axes[1].get_ylabel() == "Evaluation score"
+    assert {line.get_label() for line in axes[0].lines if not line.get_label().startswith("_")} == {
+        "PSR — generator",
+        "PSR — discriminator",
+        "SPSA — generator",
+        "SPSA — discriminator",
+    }
+    assert {line.get_label() for line in axes[1].lines if not line.get_label().startswith("_")} == {
+        "PSR",
+        "SPSA",
+    }
+    figure.clear()

@@ -26,10 +26,10 @@ python -m pip install --upgrade pip
 pip install -e qgan
 ```
 
-For notebooks, install the notebook extra:
+For notebooks, visualization, and results analysis, install the results extra:
 
 ```bash
-pip install -e "qgan[notebooks,visualization]"
+pip install -e "qgan[results]"
 python -m ipykernel install --user --name qgan_v2
 ```
 

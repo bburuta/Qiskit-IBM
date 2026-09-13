@@ -24,8 +24,12 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-notebooks = ["ipykernel==7.3.0"]
-visualization = ["matplotlib==3.10.9", "pylatexenc==2.10"]
+results = [
+    "ipykernel==7.3.0",
+    "matplotlib==3.10.9",
+    "pylatexenc==2.10",
+    "pandas",
+]
 gpu = ["qiskit-aer-gpu-cu11"]
 dev = ["pytest"]
 

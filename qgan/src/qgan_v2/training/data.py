@@ -95,7 +95,10 @@ def initialize_model_params(model, init_scale):
     init_params = np.random.uniform(low=-np.pi, high=np.pi, size=(params.numel(),)) * init_scale
     init_tensor = torch.as_tensor(init_params, device=params.device, dtype=params.dtype)
     torch.nn.utils.vector_to_parameters(init_tensor, model.parameters())
-    return init_params
+    # ``torch.as_tensor`` may share memory with the NumPy array on CPU and
+    # ``vector_to_parameters`` may then make model parameters views of it.
+    # Preserve an independent snapshot so training cannot mutate "initial".
+    return init_params.copy()
 
 
 # Save current generator parameters as the best parameters

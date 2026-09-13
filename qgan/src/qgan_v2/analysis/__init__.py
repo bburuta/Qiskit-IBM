@@ -42,6 +42,7 @@ from qgan_v2.analysis.results import (
     truncate_results,
     unique_values,
 )
+from qgan_v2.analysis.report import ThesisReport, ThesisResults
 
 
 __all__ = [
@@ -49,6 +50,8 @@ __all__ = [
     "DEFAULT_PAIR_FIELDS",
     "SCIENTIFIC_PAIR_FIELDS",
     "SCIENTIFIC_RUN_FIELDS",
+    "ThesisReport",
+    "ThesisResults",
     "RunResult",
     "aggregate_metric",
     "classify_run_status",

@@ -72,10 +72,24 @@ def get_latest_gen_params(params):
     return params.model_g_state['weight'].detach().cpu().numpy().reshape(-1)
 
 
+# Reconstruct the immutable pre-training vector for legacy checkpoints whose
+# stored NumPy snapshot shared memory with the trained Torch parameter tensor.
+def get_initial_gen_params(params):
+    stored = np.asarray(params.init_gen_params).reshape(-1)
+    config = getattr(params, 'config', None)
+    try:
+        seed = int(config['run']['seed'])
+        init_scale = float(config['training']['init_scale'])
+    except (KeyError, TypeError, ValueError):
+        return stored.copy()
+    rng = np.random.RandomState(seed)
+    return rng.uniform(-np.pi, np.pi, size=stored.size) * init_scale
+
+
 # Get generator parameter snapshots
 def get_gen_params(params):
     return [
-        ('Initial', params.init_gen_params),
+        ('Initial', get_initial_gen_params(params)),
         ('Last', get_latest_gen_params(params)),
         ('Best', params.best_gen_params),
     ]
@@ -648,6 +662,147 @@ def plot_generated_output(
         'random_seed': random_seed,
         'evaluation_score': evaluation_score,
         'evaluation_epoch': evaluation_epoch,
+    }
+
+
+def plot_generated_output_sequence(
+    config_file,
+    *,
+    parameter_sets=('initial', 'last', 'best'),
+    random_seed=0,
+    save_path=None,
+):
+    """Plot several generator checkpoints and their target in one row.
+
+    The default layout is ``Initial | Last | Best | Target``. A single random
+    input draw is shared by all generator checkpoints so visual differences are
+    attributable to the learned parameters rather than input resampling.
+    """
+
+    run = load_visualization_run(config_file)
+    params = run['params']
+    if params is None:
+        raise FileNotFoundError(f"No checkpoint found: {run['training_data_file']}")
+
+    available_parameter_sets = {
+        name.lower(): values
+        for name, values in get_gen_params(params)
+    }
+    parameter_sets = tuple(str(name).lower() for name in parameter_sets)
+    invalid = [name for name in parameter_sets if name not in available_parameter_sets]
+    if invalid:
+        raise ValueError(
+            "parameter_sets may contain only 'initial', 'last', and 'best'; "
+            f"received {invalid}"
+        )
+
+    ran_gen_circuit, random_params = get_randomized_generator(
+        run,
+        random_seed=random_seed,
+    )
+    encoding = run['config']['encoding']['type']
+
+    def generate(parameter_values):
+        generated_circuit = assign_gen_params(
+            ran_gen_circuit,
+            parameter_values,
+            random_params,
+        )
+        if encoding == 'angle':
+            observables = list(get_observables(run['generator_circuit'].num_qubits)[1])
+            ordered_values = np.concatenate((parameter_values, random_params))
+            pub = (ran_gen_circuit, observables, ordered_values)
+            generated = np.asarray(
+                StatevectorEstimator().run([pub]).result()[0].data.evs,
+                dtype=float,
+            ).reshape(run['X'].shape[1:3])
+            target = np.asarray(run['X'][0], dtype=float)
+        elif encoding == 'amplitude':
+            generated = np.asarray(
+                Statevector(generated_circuit).probabilities(),
+                dtype=float,
+            ).reshape(run['X'].shape[1:3])
+            target = np.asarray(
+                Statevector(run['real_circuits'][0]).probabilities(),
+                dtype=float,
+            ).reshape(run['X'].shape[1:3])
+        else:
+            generated = np.asarray(
+                Statevector(generated_circuit).probabilities(),
+                dtype=float,
+            )
+            target = np.asarray(
+                Statevector(run['real_circuits'][0]).probabilities(),
+                dtype=float,
+            )
+        return generated, target
+
+    generated_outputs = []
+    target = None
+    for parameter_set in parameter_sets:
+        generated, target = generate(available_parameter_sets[parameter_set])
+        generated_outputs.append(generated)
+
+    panels = [*generated_outputs, target]
+    titles = [name.capitalize() for name in parameter_sets] + ['Target']
+    fig, axes = plt.subplots(1, len(panels), figsize=(3.25 * len(panels), 3.2))
+    axes = np.atleast_1d(axes)
+    if target.ndim == 2:
+        vmin = float(min(np.min(values) for values in panels))
+        vmax = float(max(np.max(values) for values in panels))
+        for ax, values, title in zip(axes, panels, titles):
+            ax.imshow(values, cmap='gray', vmin=vmin, vmax=vmax)
+            ax.axis('off')
+            ax.set_title(title)
+    else:
+        positions = np.arange(len(target))
+        n_qubits = run['config']['experiment']['n_qubits']
+        labels = [format(index, f'0{n_qubits}b') for index in positions]
+        for index, (ax, values, title) in enumerate(zip(axes, panels, titles)):
+            color = 'C1' if index == len(panels) - 1 else 'C0'
+            ax.bar(positions, values, width=0.8, color=color)
+            if len(values) <= 32:
+                ax.set_xticks(positions, labels, rotation=90)
+            ax.set_xlabel('basis state')
+            ax.set_ylabel('probability')
+            ax.set_title(title)
+
+    eval_items = sorted(
+        (
+            (int(epoch), float(value))
+            for epoch, value in params.metrics.eval.items()
+            if value is not None and np.isfinite(value)
+        ),
+        key=lambda item: item[0],
+    )
+    evaluations = {'initial': {'score': np.nan, 'epoch': None}}
+    if eval_items:
+        best_epoch, best_score = min(eval_items, key=lambda item: (item[1], item[0]))
+        last_epoch, last_score = eval_items[-1]
+        evaluations.update({
+            'last': {'score': last_score, 'epoch': last_epoch},
+            'best': {'score': best_score, 'epoch': best_epoch},
+        })
+
+    config = run['config']
+    run_id = config['run']['id']
+    fig.suptitle(run_id)
+    fig.tight_layout()
+    if save_path is not None:
+        save_path = Path(save_path)
+        save_path.parent.mkdir(parents=True, exist_ok=True)
+        fig.savefig(save_path, dpi=300, bbox_inches='tight')
+
+    return fig, {
+        'run_id': run_id,
+        'config_file': str(Path(config_file)),
+        'execution_type': config['experiment']['execution_type'],
+        'parameter_sets': parameter_sets,
+        'random_seed': random_seed,
+        'evaluations': {
+            name: evaluations.get(name, {'score': np.nan, 'epoch': None})
+            for name in parameter_sets
+        },
     }
 
 

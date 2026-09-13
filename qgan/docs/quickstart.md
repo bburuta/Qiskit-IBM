@@ -48,7 +48,7 @@ PYTHONPATH=qgan/src python3 -m qgan_v2.main run -p qgan/configs/batteries/test/t
 After training a run, visualize it from Python:
 
 ```bash
-pip install -e "qgan[visualization]"
+pip install -e "qgan[results]"
 ```
 
 ```python
