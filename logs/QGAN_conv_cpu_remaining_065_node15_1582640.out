@@ -6,3 +6,15 @@ Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q16-nois
 Running: /work/qgan/data/train/ang-qml_torch-q16-noiseless-PSR-aerCPU-rand1-seed1/config.yaml
               Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
                 200 |             -0.314 |             -0.725 |              0.138 |             0.0897 |            2.4e+04 |
+                300 |             -0.593 |             -0.806 |              0.155 |             0.0864 |            2.9e+04 |
+                400 |             -0.526 |             -0.805 |              0.135 |             0.0864 |            2.9e+04 |
+                500 |             -0.628 |             -0.747 |              0.145 |             0.0864 |           2.88e+04 |
+                600 |             -0.675 |             -0.768 |              0.143 |             0.0864 |           2.58e+04 |
+
+Interrupter: will stop after the current epoch. Press Ctrl+C again to force quit.
+Interrupter: Graceful exit triggered. Breaking loop.
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q16-noiseless-PSR-aerCPU-rand1-seed1 
+   Best eval: 0.08635109663009644 
+   Total time: 196302.11468577385
+1 battery run(s) succeeded.

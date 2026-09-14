@@ -10,3 +10,12 @@ Training data file created.
                 100 |              -0.79 |             -0.519 |             0.0731 |             0.0256 |           3.64e+04 |
                 200 |             -0.782 |             -0.522 |              0.126 |             0.0256 |           3.63e+04 |
                 300 |             -0.679 |             -0.539 |              0.198 |             0.0256 |           4.13e+04 |
+                400 |             -0.728 |             -0.524 |              0.234 |             0.0256 |           4.17e+04 |
+
+Interrupter: will stop after the current epoch. Press Ctrl+C again to force quit.
+Interrupter: Graceful exit triggered. Breaking loop.
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q16-noiseless-REG-aerCPU-rand0-seed2 
+   Best eval: 0.025582632049918175 
+   Total time: 159295.80050969124
+1 battery run(s) succeeded.

@@ -1,0 +1,4 @@
+/work/qgan/src/qgan_v2/training/data.py:219: UserWarning: Training data config differs from current config:
+- backend.simulator.device: previous='CPU', current='GPU'
+- backend.simulator.device_name: previous=None, current='CPU'
+  warn_config_changes(training_state.config, config)

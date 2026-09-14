@@ -15,3 +15,10 @@ Training data file created.
                 500 |             -0.687 |             -0.501 |              0.181 |              0.014 |           1.38e+04 |
                 600 |              -0.51 |             -0.506 |              0.196 |              0.014 |           1.39e+04 |
                 700 |             -0.601 |             -0.602 |              0.234 |              0.014 |           1.38e+04 |
+                800 |             -0.351 |             -0.622 |              0.296 |              0.014 |           1.38e+04 |
+                900 |             -0.488 |             -0.657 |              0.167 |              0.014 |            1.4e+04 |
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q16-noiseless-REG-aerCPU-rand0-seed0 
+   Best eval: 0.013955982401967049 
+   Total time: 139946.6154472828
+1 battery run(s) succeeded.

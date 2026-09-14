@@ -10,3 +10,9 @@ GPUs available to PyTorch: 1
                   1 |             -0.768 |             -0.448 |             0.0182 |             0.0162 |           3.89e+04 |
                   2 |             -0.776 |             -0.445 |             0.0151 |             0.0151 |           4.02e+04 |
                   3 |             -0.784 |             -0.451 |             0.0157 |             0.0151 |           3.87e+04 |
+                  4 |             -0.783 |             -0.453 |             0.0202 |             0.0151 |           3.86e+04 |
+Training complete: 
+   Data path: /work/qgan/data/train/times/ang-qml_torch-q16-noisy-PSR-aerGPU-rand0-seed0 
+   Best eval: 0.015056987293064594 
+   Total time: 195011.61593532562
+1 battery run(s) succeeded.

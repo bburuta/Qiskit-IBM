@@ -1,0 +1,8 @@
+Creating config files for qml_torch_noisy_psr_q4_ang_seed1_cpu:
+Configuration file rewritten. Path: /work/qgan/data/train/ang-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed1/config.yaml
+
+1 battery configuration files ready.
+
+Running: /work/qgan/data/train/ang-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed1/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                200 |             -0.951 |             -0.503 |             0.0115 |           0.000237 |           1.09e+05 |

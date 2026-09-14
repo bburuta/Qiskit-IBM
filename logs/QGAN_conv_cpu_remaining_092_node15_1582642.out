@@ -7,3 +7,15 @@ Running: /work/qgan/data/train/ang-qml_torch-q16-noiseless-SPSA-aerCPU-rand1-see
               Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
                 100 |             -0.512 |             -0.703 |              0.129 |             0.0889 |           4.81e+03 |
                 200 |             -0.338 |             -0.712 |              0.141 |             0.0889 |           2.69e+04 |
+                300 |             -0.604 |             -0.781 |              0.163 |             0.0841 |           2.69e+04 |
+                400 |             -0.519 |             -0.778 |              0.139 |             0.0841 |           2.69e+04 |
+                500 |             -0.606 |             -0.733 |              0.137 |             0.0841 |           2.69e+04 |
+                600 |             -0.661 |             -0.762 |              0.139 |             0.0841 |           2.38e+04 |
+
+Interrupter: will stop after the current epoch. Press Ctrl+C again to force quit.
+Interrupter: Graceful exit triggered. Breaking loop.
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q16-noiseless-SPSA-aerCPU-rand1-seed1 
+   Best eval: 0.08408987522125244 
+   Total time: 177682.06577897072
+1 battery run(s) succeeded.

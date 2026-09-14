@@ -40,7 +40,8 @@ backend:
     layout_method: sabre
     routing_method: sabre
   simulator:
-    device: CPU
+    device: GPU
+    device_name: CPU
     data_type: double
     noiseless_method: statevector
     noisy_method: density_matrix
@@ -53,7 +54,6 @@ backend:
       batched_shots_gpu: false
       blocking_enable: false
       runtime_parameter_bind_enable: false
-    device_name: CPU
   real:
     id: ibm_basquecountry
     name: ibm_basquecountry

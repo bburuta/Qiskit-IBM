@@ -1,0 +1,9 @@
+Creating config files for qml_torch_noisy_psr_q4_base_seed2_gpu:
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed2/config.yaml
+
+1 battery configuration files ready.
+
+Running: /work/qgan/data/train/base-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed2/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                400 |             -0.942 |             -0.496 |             0.0417 |             0.0417 |           7.97e+03 |
+                500 |             -0.926 |               -0.5 |             0.0213 |             0.0213 |           2.28e+04 |

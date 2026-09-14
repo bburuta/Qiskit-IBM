@@ -7,3 +7,14 @@ Running: /work/qgan/data/train/ang-qml_torch-q16-noiseless-PSR-aerCPU-rand1-seed
               Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
                 200 |             -0.418 |             -0.759 |               0.14 |               0.09 |           1.74e+04 |
                 300 |             -0.612 |             -0.626 |              0.158 |             0.0826 |            2.1e+04 |
+                400 |             -0.836 |             -0.721 |              0.145 |             0.0826 |           2.24e+04 |
+                500 |             -0.465 |             -0.707 |               0.13 |             0.0826 |           2.16e+04 |
+                600 |             -0.478 |             -0.803 |              0.109 |             0.0826 |           2.15e+04 |
+                700 |              -0.46 |             -0.826 |              0.124 |             0.0826 |           2.16e+04 |
+                800 |             -0.312 |             -0.703 |              0.174 |             0.0826 |           2.16e+04 |
+                900 |             -0.472 |             -0.751 |              0.154 |             0.0826 |           2.16e+04 |
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q16-noiseless-PSR-aerCPU-rand1-seed2 
+   Best eval: 0.07953856885433197 
+   Total time: 246069.26040315628
+1 battery run(s) succeeded.

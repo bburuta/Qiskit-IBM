@@ -1,0 +1,13 @@
+Creating config files for qml_torch_noisy_psr_q4_base_seed0_gpu:
+Configuration file rewritten. Path: /work/qgan/data/train/base-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed0/config.yaml
+
+1 battery configuration files ready.
+
+Running: /work/qgan/data/train/base-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed0/config.yaml
+              Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                900 |             -0.926 |             -0.495 |              0.532 |              0.532 |            1.4e+03 |
+Training complete: 
+   Data path: /work/qgan/data/train/base-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed0 
+   Best eval: 0.31140913300797224 
+   Total time: 271431.497872591
+1 battery run(s) succeeded.

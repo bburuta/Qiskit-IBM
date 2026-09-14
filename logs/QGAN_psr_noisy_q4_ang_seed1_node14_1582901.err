@@ -1,0 +1,6 @@
+/work/qgan/src/qgan_v2/training/data.py:216: UserWarning: Training data config differs from current config:
+- backend.simulator.device: previous='GPU', current='CPU'
+- backend.simulator.max_parallel_threads: previous=0, current=11
+- encoding.max_parallel_threads: previous=1, current=11
+- run.device: previous='GPU', current='CPU'
+  warn_config_changes(training_state.config, config)
