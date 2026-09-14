@@ -3,6 +3,7 @@ from qgan_v2.analysis.results import (
     DEFAULT_PAIR_FIELDS,
     SCIENTIFIC_PAIR_FIELDS,
     SCIENTIFIC_RUN_FIELDS,
+    METRIC_TRANSFORMS,
     RunResult,
     aggregate_metric,
     classify_run_status,
@@ -42,9 +43,15 @@ from qgan_v2.analysis.results import (
     select_usable_results,
     truncate_result,
     truncate_results,
+    transform_metric_values,
     unique_values,
 )
-from qgan_v2.analysis.workflow import ResultsAnalysis, ResultsData, display_rows
+from qgan_v2.analysis.workflow import (
+    ResultsAnalysis,
+    ResultsData,
+    display_rows,
+    timing_configuration_key,
+)
 
 
 __all__ = [
@@ -52,6 +59,7 @@ __all__ = [
     "DEFAULT_PAIR_FIELDS",
     "SCIENTIFIC_PAIR_FIELDS",
     "SCIENTIFIC_RUN_FIELDS",
+    "METRIC_TRANSFORMS",
     "ResultsAnalysis",
     "ResultsData",
     "RunResult",
@@ -94,5 +102,7 @@ __all__ = [
     "select_usable_results",
     "truncate_result",
     "truncate_results",
+    "transform_metric_values",
+    "timing_configuration_key",
     "unique_values",
 ]

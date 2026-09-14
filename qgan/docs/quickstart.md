@@ -67,3 +67,8 @@ run_visualization(
 ```
 
 Visualization reads existing configs and checkpoints. It does not train missing runs.
+
+For generated-output helpers, the complete results notebook, figure export,
+score transformations, and analysis assumptions, see
+[Results Analysis and Visualization](results-analysis.md). When running
+experiments on a cluster, see the [SLURM Helpers](../../slurm/README.md).

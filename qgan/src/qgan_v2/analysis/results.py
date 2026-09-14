@@ -110,6 +110,9 @@ _RUN_STATUS_ORDER = (
 )
 
 
+METRIC_TRANSFORMS = ("none", "normalize", "standardize")
+
+
 METADATA_PATHS = {
     "run_id": "run.id",
     "label": "run.label",
@@ -165,6 +168,8 @@ _METRIC_DISPLAY_NAMES = {
     "eval": "Evaluation Score",
     "evaluation_step_volatility": "Evaluation-Step Volatility",
     "gloss": "Generator Loss",
+    "median_time_per_epoch": "Median Time per Epoch (s)",
+    "measured_epochs": "Measured Epochs",
     "times": "Runtime",
 }
 
@@ -790,6 +795,45 @@ def metric_arrays(result: RunResult, metric: str = "eval") -> tuple[np.ndarray, 
     return epochs, values
 
 
+def transform_metric_values(
+    values: Iterable[float],
+    transform: str = "none",
+) -> np.ndarray:
+    """Transform one run's metric values for scale-independent visualization.
+
+    ``normalize`` applies min-max normalization to the finite values of the
+    run. ``standardize`` applies a per-run z-score. Constant finite series are
+    mapped to zero in either mode. Raw checkpoint values are never mutated.
+    """
+
+    if transform not in METRIC_TRANSFORMS:
+        raise ValueError(
+            f"transform must be one of {METRIC_TRANSFORMS}; got {transform!r}"
+        )
+
+    transformed = np.asarray(values, dtype=float).copy()
+    if transform == "none":
+        return transformed
+
+    finite = np.isfinite(transformed)
+    if not finite.any():
+        return transformed
+
+    finite_values = transformed[finite]
+    if transform == "normalize":
+        offset = float(np.min(finite_values))
+        scale = float(np.max(finite_values) - offset)
+    else:
+        offset = float(np.mean(finite_values))
+        scale = float(np.std(finite_values))
+
+    if np.isclose(scale, 0.0):
+        transformed[finite] = 0.0
+    else:
+        transformed[finite] = (finite_values - offset) / scale
+    return transformed
+
+
 def elapsed_arrays(result: RunResult, metric: str = "eval") -> tuple[np.ndarray, np.ndarray]:
     epochs, values = metric_arrays(result, metric)
     if len(epochs) == 0:
@@ -846,6 +890,7 @@ def aggregate_metric(
     center: str = "median",
     spread: str = "iqr",
     elapsed_points: int = 200,
+    transform: str = "none",
 ) -> dict[str, np.ndarray]:
     runs = [run for run in runs if run.metric(metric)]
     if not runs:
@@ -861,10 +906,12 @@ def aggregate_metric(
         for row, run in enumerate(runs):
             for epoch, value in run.metric(metric).items():
                 data[row, x_to_index[int(epoch)]] = value
+            data[row] = transform_metric_values(data[row], transform)
     elif x_axis == "elapsed":
         elapsed_series = []
         for run in runs:
             run_x, run_y = elapsed_arrays(run, metric)
+            run_y = transform_metric_values(run_y, transform)
             valid = np.isfinite(run_x) & np.isfinite(run_y)
             if valid.sum() >= 2:
                 elapsed_series.append((run_x[valid], run_y[valid]))
@@ -983,6 +1030,7 @@ def run_summary(
         "path": str(result.path),
         "status": result.status,
         "completed_epochs": len(eval_values),
+        "measured_epochs": len(time_values),
         "requested_epochs": result.metadata.get("max_iterations"),
         "completed_requested_budget": is_completed(result),
         "best_eval": best_eval,
@@ -1185,6 +1233,7 @@ def plot_convergence(
     linestyle: str = "-",
     show_individual: bool = True,
     zorder: float | None = None,
+    transform: str = "none",
     ax=None,
 ):
     import matplotlib.pyplot as plt
@@ -1196,6 +1245,7 @@ def plot_convergence(
     if show_individual:
         for run in runs:
             x, y = elapsed_arrays(run, metric) if x_axis == "elapsed" else metric_arrays(run, metric)
+            y = transform_metric_values(y, transform)
             ax.plot(
                 x,
                 y,
@@ -1212,6 +1262,7 @@ def plot_convergence(
         x_axis=x_axis,
         center=center,
         spread=spread,
+        transform=transform,
     )
     if len(aggregate["x"]):
         ax.fill_between(
@@ -1236,7 +1287,12 @@ def plot_convergence(
         ax.text(0.5, 0.5, "No metric data", transform=ax.transAxes, ha="center")
 
     ax.set_xlabel("Elapsed time (s)" if x_axis == "elapsed" else "Epoch")
-    ax.set_ylabel(_display_name(metric))
+    ylabel = _display_name(metric)
+    if transform == "normalize":
+        ylabel = f"Normalized {ylabel}"
+    elif transform == "standardize":
+        ylabel = f"Standardized {ylabel}"
+    ax.set_ylabel(ylabel)
     ax.grid(True, alpha=0.25)
     return ax
 
@@ -1250,6 +1306,7 @@ def plot_convergence_comparison(
     x_axis: str = "epoch",
     center: str = "median",
     spread: str = "iqr",
+    transform: str = "none",
     ax=None,
 ):
     import matplotlib.pyplot as plt
@@ -1276,6 +1333,7 @@ def plot_convergence_comparison(
             color=colors[index % len(colors)],
             show_individual=True,
             zorder=len(values) - index + 2,
+            transform=transform,
             ax=ax,
         )
 

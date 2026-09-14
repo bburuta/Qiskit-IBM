@@ -7,6 +7,8 @@ Start here:
 - [Installation](installation.md)
 - [Quick Start](quickstart.md)
 - [Configuration](configuration.md)
+- [Results Analysis and Visualization](results-analysis.md)
+- [SLURM Helpers](../../slurm/README.md)
 - [Project Layout](project-layout.md)
 - [Other Versions](other-versions.md)
 

@@ -11,7 +11,8 @@ Working:
 - Battery config generation.
 - Smoke-test training from generated configs.
 - Checkpoint and metric persistence in `training_data.pth`.
-- Basic visualization helpers for completed runs.
+- Results loading, statistical comparison, figure export, and generated-output
+  visualization for completed runs.
 
 Scaffolded only:
 
@@ -48,6 +49,8 @@ More detailed documentation lives in `qgan/docs/`:
 - [Installation](docs/installation.md)
 - [Quick Start](docs/quickstart.md)
 - [Configuration](docs/configuration.md)
+- [Results Analysis and Visualization](docs/results-analysis.md)
+- [SLURM Helpers](../slurm/README.md)
 - [Project Layout](docs/project-layout.md)
 - [Other Versions](docs/other-versions.md)
 

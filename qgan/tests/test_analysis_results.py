@@ -5,6 +5,7 @@ import pytest
 
 from qgan_v2.analysis.results import (
     RunResult,
+    aggregate_metric,
     classify_run_status,
     comparison_line_colors,
     deduplicate_simulator_runs,
@@ -13,6 +14,7 @@ from qgan_v2.analysis.results import (
     plot_training_dynamics_comparison,
     run_summary,
     select_main_convergence_results,
+    transform_metric_values,
     unique_values,
 )
 
@@ -113,6 +115,35 @@ def test_summary_uses_a_fixed_last_100_window_and_median_epoch_time():
     assert summary["evaluation_step_volatility"] == pytest.approx(1.0)
     assert summary["median_time_per_epoch"] == pytest.approx(2.0)
     assert summary["projected_1000_epoch_time"] == pytest.approx(2000.0)
+    assert summary["measured_epochs"] == 1000
+
+
+def test_metric_value_transforms_are_per_run_and_leave_raw_values_unchanged():
+    values = np.asarray([2.0, 4.0, 6.0])
+
+    assert np.allclose(transform_metric_values(values, "none"), values)
+    assert np.allclose(transform_metric_values(values, "normalize"), [0.0, 0.5, 1.0])
+    assert np.allclose(
+        transform_metric_values(values, "standardize"),
+        (values - values.mean()) / values.std(),
+    )
+    assert np.allclose(values, [2.0, 4.0, 6.0])
+
+
+def test_aggregate_metric_normalizes_each_run_before_seed_aggregation():
+    first = make_result("first", epochs=3)
+    second = make_result("second", epochs=3)
+    first.eval = {0: 10.0, 1: 5.0, 2: 0.0}
+    second.eval = {0: 100.0, 1: 50.0, 2: 0.0}
+
+    aggregate = aggregate_metric([first, second], transform="normalize")
+
+    assert np.allclose(aggregate["center"], [1.0, 0.5, 0.0])
+
+
+def test_metric_value_transform_rejects_unknown_mode():
+    with pytest.raises(ValueError, match="transform must be one of"):
+        transform_metric_values([1.0], "scaled")
 
 
 def test_failure_classification_recognizes_oom():
