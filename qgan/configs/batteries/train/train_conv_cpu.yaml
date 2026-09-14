@@ -239,7 +239,7 @@ variable_config_values_list:
       - noisy
     experiment.gradient_method:
       - SPSA
-      # - PSR not included in the minimum convergence plan because of time cost.
+      - PSR # Not included in the minimum convergence plan because of time cost.
     experiment.n_qubits:
       - 4
       - 8

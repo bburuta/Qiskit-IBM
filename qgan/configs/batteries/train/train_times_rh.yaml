@@ -163,55 +163,56 @@ variable_config_values_list:
 
   # Implementation real hardware analysis.
   # Covered by train_rh.
-  # qml_torch_rh_imp:
-  #   implementation.name:
-  #     - qml_torch
-  #   experiment.implementation:
-  #     - base
-  #     - ang
-  #     - amp
-  #   experiment.execution_type:
-  #     - real
-  #   experiment.gradient_method:
-  #     - SPSA
-  #   experiment.n_qubits:
-  #     - 4
-  #   backend.simulator.device:
-  #     - CPU
-  #   run.seed:
-  #     - 0
-  #   encoding.randomness:
-  #     - 0
-  #   backend.real.info_storage:
-  #     - run
-  #   backend.real.reset_info:
-  #     - true
+  qml_torch_rh_imp:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - real
+    experiment.gradient_method:
+      - SPSA
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+    backend.real.info_storage:
+      - run
+    backend.real.reset_info:
+      - true
 
   # Gradient-method real hardware analysis.
   # Covered by train_rh.
-  # qml_torch_rh_grad:
-  #   implementation.name:
-  #     - qml_torch
-  #   experiment.implementation:
-  #     - base
-  #   experiment.execution_type:
-  #     - real
-  #   experiment.gradient_method:
-  #     - PSR
-  #   experiment.n_qubits:
-  #     - 4
-  #   backend.simulator.device:
-  #     - CPU
-  #   run.seed:
-  #     - 0
-  #   encoding.randomness:
-  #     - 0
-  #   backend.real.info_storage:
-  #     - run
-  #   backend.real.reset_info:
-  #     - true
+  qml_torch_rh_grad:
+    implementation.name:
+      - qml_torch
+    experiment.implementation:
+      - base
+    experiment.execution_type:
+      - real
+    experiment.gradient_method:
+      - PSR
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+    backend.real.info_storage:
+      - run
+    backend.real.reset_info:
+      - true
 
   # Runtime packed real hardware analysis with separate discriminator packing.
+  # Not included in the minimum convergence plan because of limited hardware budget.
   runtime_packed_rh_separate:
     implementation.name:
       - runtime_packed
@@ -240,6 +241,7 @@ variable_config_values_list:
 
   # Runtime packed real hardware analysis with joined discriminator packing.
   # Joined packing does not support amplitude encoding.
+  # Not included in the minimum convergence plan because of limited hardware budget.
   runtime_packed_rh_joined:
     implementation.name:
       - runtime_packed

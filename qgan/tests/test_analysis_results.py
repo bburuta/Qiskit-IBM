@@ -1,10 +1,12 @@
 from pathlib import Path
 
+import numpy as np
 import pytest
 
 from qgan_v2.analysis.results import (
     RunResult,
     classify_run_status,
+    comparison_line_colors,
     deduplicate_simulator_runs,
     factor_sweep_groups,
     is_completed,
@@ -66,6 +68,7 @@ def make_result(
 
 def test_completion_requires_the_full_requested_budget():
     assert is_completed(make_result("complete"))
+    assert is_completed(make_result("continued", epochs=1001))
     assert not is_completed(make_result("partial", epochs=999))
 
 
@@ -138,6 +141,31 @@ def test_numeric_categories_are_ordered_numerically():
         result.metadata["gradient_method"] = method
         gradients.append(result)
     assert unique_values(gradients, "gradient_method") == ["PSR", "REG", "SPSA"]
+
+
+def test_numeric_comparison_colors_follow_value_spacing():
+    colors_module = pytest.importorskip("matplotlib.colors")
+    levels = (0, 0.1, 0.25, 0.5, 1)
+    colors = comparison_line_colors(levels, field="randomness")
+
+    expected = [
+        colors_module.to_rgb(value)
+        for value in ("#E6A400", "#E65100", "#A60026", "#7626B8", "#174EA6")
+    ]
+    assert len(colors) == len(levels)
+    assert np.allclose([color[:3] for color in colors], expected)
+
+
+def test_qubit_comparison_colors_progress_from_yellow_to_red():
+    colors_module = pytest.importorskip("matplotlib.colors")
+    colors = comparison_line_colors((4, 8, 16), field="n_qubits")
+
+    expected = [
+        colors_module.to_rgb(value)
+        for value in ("#E6A400", "#E65100", "#A60026")
+    ]
+    assert np.allclose([color[:3] for color in colors], expected)
+    assert sum(colors[0][:3]) > sum(colors[-1][:3])
 
 
 def test_multi_setting_dynamics_plot_keeps_losses_and_evaluation():

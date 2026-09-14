@@ -6,6 +6,7 @@ from qgan_v2.analysis.results import (
     RunResult,
     aggregate_metric,
     classify_run_status,
+    comparison_line_colors,
     comparable_groups,
     completed_epoch_count,
     deduplicate_simulator_runs,
@@ -17,6 +18,7 @@ from qgan_v2.analysis.results import (
     is_completed,
     load_result_sets,
     load_results,
+    metadata_from_config,
     paired_metric_deltas,
     plot_convergence,
     plot_convergence_comparison,
@@ -42,7 +44,7 @@ from qgan_v2.analysis.results import (
     truncate_results,
     unique_values,
 )
-from qgan_v2.analysis.report import ThesisReport, ThesisResults
+from qgan_v2.analysis.workflow import ResultsAnalysis, ResultsData, display_rows
 
 
 __all__ = [
@@ -50,14 +52,16 @@ __all__ = [
     "DEFAULT_PAIR_FIELDS",
     "SCIENTIFIC_PAIR_FIELDS",
     "SCIENTIFIC_RUN_FIELDS",
-    "ThesisReport",
-    "ThesisResults",
+    "ResultsAnalysis",
+    "ResultsData",
     "RunResult",
     "aggregate_metric",
     "classify_run_status",
+    "comparison_line_colors",
     "comparable_groups",
     "completed_epoch_count",
     "deduplicate_simulator_runs",
+    "display_rows",
     "evaluation_metric_groups",
     "factor_sweep_groups",
     "feasibility_table",
@@ -66,6 +70,7 @@ __all__ = [
     "is_completed",
     "load_result_sets",
     "load_results",
+    "metadata_from_config",
     "paired_metric_deltas",
     "plot_convergence",
     "plot_convergence_comparison",

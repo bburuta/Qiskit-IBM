@@ -98,6 +98,18 @@ SUMMARY_LABEL_FIELDS = (
 )
 
 
+_RUN_STATUS_ORDER = (
+    "complete",
+    "partial",
+    "out_of_memory",
+    "time_limit",
+    "failed",
+    "load_error",
+    "empty_checkpoint",
+    "not_started_or_missing",
+)
+
+
 METADATA_PATHS = {
     "run_id": "run.id",
     "label": "run.label",
@@ -134,6 +146,34 @@ METADATA_PATHS = {
     "resilience_level": "backend.real.estimator.resilience_level",
     "dynamical_decoupling": "backend.real.estimator.dynamical_decoupling.enable",
 }
+
+
+_FIELD_DISPLAY_NAMES = {
+    "execution_type": "Execution Type",
+    "gradient_method": "Gradient Method",
+    "n_qubits": "Number of Qubits",
+    "preset": "Encoding Preset",
+    "randomness": "Input Randomness",
+    "seed": "Training Seed",
+}
+
+
+_METRIC_DISPLAY_NAMES = {
+    "best_eval": "Best Evaluation Score",
+    "dloss": "Discriminator Loss",
+    "epoch_of_best_eval": "Epoch of Best Evaluation",
+    "eval": "Evaluation Score",
+    "evaluation_step_volatility": "Evaluation-Step Volatility",
+    "gloss": "Generator Loss",
+    "times": "Runtime",
+}
+
+
+def _display_name(name: str) -> str:
+    return _FIELD_DISPLAY_NAMES.get(
+        name,
+        _METRIC_DISPLAY_NAMES.get(name, name.replace("_", " ").title()),
+    )
 
 
 @dataclass
@@ -183,6 +223,12 @@ def _metadata_from_config(config: dict[str, Any]) -> dict[str, Any]:
         for name, path in METADATA_PATHS.items()
     }
     return _add_device_metadata(metadata)
+
+
+def metadata_from_config(config: dict[str, Any]) -> dict[str, Any]:
+    """Extract normalized analysis metadata from a run configuration."""
+
+    return _metadata_from_config(config)
 
 
 def _add_device_metadata(metadata: dict[str, Any]) -> dict[str, Any]:
@@ -256,7 +302,7 @@ _PREFERRED_CATEGORY_ORDER = {
 
 
 def _sort_key(value: Any) -> tuple[int, float, str]:
-    """Sort numeric and common thesis categories in their logical order."""
+    """Sort numeric and common experiment categories in their logical order."""
 
     if _is_finite_number(value):
         return (0, float(value), "")
@@ -462,6 +508,72 @@ def unique_values(results: Iterable[RunResult], field: str) -> list[Any]:
     return sorted(values, key=_sort_key)
 
 
+def comparison_line_colors(
+    values: Iterable[Any],
+    *,
+    field: str | None = None,
+    numeric_cmap: str | None = None,
+) -> list[Any]:
+    """Return a continuous, value-ordered palette for comparison lines.
+
+    Randomness uses an intense honey-yellow, red-orange, purple-red, purple,
+    and deep-blue sequence. Qubit count reuses the same first three colors so
+    both figures have a consistent yellow-orange-red visual language.
+    """
+
+    import matplotlib.pyplot as plt
+
+    values = list(values)
+    if not values:
+        return []
+    if all(_is_finite_number(value) for value in values):
+        numeric_values = np.asarray(values, dtype=float)
+        minimum = float(np.min(numeric_values))
+        maximum = float(np.max(numeric_values))
+        palette_name = numeric_cmap or "Blues"
+        lower, upper = {
+            "randomness": (0.00, 1.00),
+            "n_qubits": (0.00, 1.00),
+        }.get(field, (0.30, 0.90))
+        if minimum == maximum:
+            normalized = np.full(len(values), 0.5)
+        else:
+            normalized = (numeric_values - minimum) / (maximum - minimum)
+        positions = lower + (upper - lower) * normalized
+        palette_anchors = {
+            "randomness": (
+                (0, 0.1, 0.25, 0.5, 1),
+                ("#E6A400", "#E65100", "#A60026", "#7626B8", "#174EA6"),
+            ),
+            "n_qubits": (
+                (0, 1 / 3, 1),
+                ("#E6A400", "#E65100", "#A60026"),
+            ),
+        }.get(field)
+        if palette_anchors is not None and numeric_cmap is None:
+            from matplotlib.colors import to_rgb
+
+            anchor_positions = np.asarray(palette_anchors[0], dtype=float)
+            anchor_colors = np.asarray([
+                to_rgb(color) for color in palette_anchors[1]
+            ])
+            return [
+                (
+                    *(
+                        np.interp(position, anchor_positions, anchor_colors[:, channel])
+                        for channel in range(3)
+                    ),
+                    1.0,
+                )
+                for position in positions
+            ]
+        colormap = plt.get_cmap(palette_name)
+        return [colormap(float(position)) for position in positions]
+
+    palette = plt.rcParams["axes.prop_cycle"].by_key()["color"]
+    return [palette[index % len(palette)] for index in range(len(values))]
+
+
 def group_key(result: RunResult, fields: Iterable[str] = DEFAULT_GROUP_FIELDS) -> tuple[Any, ...]:
     return tuple(result.metadata.get(field) for field in fields)
 
@@ -607,7 +719,7 @@ def select_main_convergence_results(
     expected_epochs: int = 1000,
     preferred_device: str = "CPU",
 ) -> list[RunResult]:
-    """Apply the thesis rules for the main simulated convergence population."""
+    """Apply the selection rules for the main simulated convergence population."""
 
     completed = select_completed_results(
         results,
@@ -716,6 +828,16 @@ def truncate_results(results: Iterable[RunResult], max_epoch: int) -> list[RunRe
     return [truncate_result(result, max_epoch) for result in results]
 
 
+def _empty_aggregate() -> dict[str, np.ndarray]:
+    return {
+        "x": np.asarray([]),
+        "center": np.asarray([]),
+        "low": np.asarray([]),
+        "high": np.asarray([]),
+        "count": np.asarray([]),
+    }
+
+
 def aggregate_metric(
     runs: Iterable[RunResult],
     *,
@@ -727,13 +849,7 @@ def aggregate_metric(
 ) -> dict[str, np.ndarray]:
     runs = [run for run in runs if run.metric(metric)]
     if not runs:
-        return {
-            "x": np.asarray([]),
-            "center": np.asarray([]),
-            "low": np.asarray([]),
-            "high": np.asarray([]),
-            "count": np.asarray([]),
-        }
+        return _empty_aggregate()
 
     if x_axis == "epoch":
         x = np.asarray(
@@ -754,23 +870,11 @@ def aggregate_metric(
                 elapsed_series.append((run_x[valid], run_y[valid]))
 
         if not elapsed_series:
-            return {
-                "x": np.asarray([]),
-                "center": np.asarray([]),
-                "low": np.asarray([]),
-                "high": np.asarray([]),
-                "count": np.asarray([]),
-            }
+            return _empty_aggregate()
 
         max_elapsed = min(float(np.max(run_x)) for run_x, _ in elapsed_series)
         if not np.isfinite(max_elapsed):
-            return {
-                "x": np.asarray([]),
-                "center": np.asarray([]),
-                "low": np.asarray([]),
-                "high": np.asarray([]),
-                "count": np.asarray([]),
-            }
+            return _empty_aggregate()
 
         x = np.linspace(0.0, max_elapsed, elapsed_points)
         data = np.full((len(elapsed_series), len(x)), np.nan, dtype=float)
@@ -812,7 +916,7 @@ def run_summary(
     last_window: int = 100,
     last_fraction: float | None = None,
 ) -> dict[str, Any]:
-    """Build a thesis-ready row for one independent run.
+    """Build an analysis-ready row for one independent run.
 
     ``last_window`` is fixed at 100 evaluations by default.  ``last_fraction``
     remains available for old notebooks but should not be used to compare runs
@@ -989,7 +1093,7 @@ def classify_run_status(
     *,
     expected_epochs: int | None = None,
 ) -> str:
-    """Classify completion and common feasibility failures for reporting."""
+    """Classify completion and common feasibility failures for summaries."""
 
     if is_completed(result, expected_epochs=expected_epochs):
         return "complete"
@@ -1027,23 +1131,13 @@ def feasibility_table(
         grouped[tuple(result.metadata.get(field) for field in fields)].append(result)
 
     rows = []
-    statuses = (
-        "complete",
-        "partial",
-        "out_of_memory",
-        "time_limit",
-        "load_error",
-        "failed",
-        "empty_checkpoint",
-        "not_started_or_missing",
-    )
     for key, runs in sorted(grouped.items(), key=lambda item: str(item[0])):
         run_statuses = [
             classify_run_status(run, expected_epochs=expected_epochs)
             for run in runs
         ]
         row = {**dict(zip(fields, key)), "total": len(runs)}
-        row.update({status: run_statuses.count(status) for status in statuses})
+        row.update({status: run_statuses.count(status) for status in _RUN_STATUS_ORDER})
         row["completion_rate"] = row["complete"] / row["total"] if row["total"] else np.nan
         rows.append(row)
     return rows
@@ -1057,7 +1151,7 @@ def save_figure(
     formats: Iterable[str] = ("pdf", "png"),
     dpi: int = 300,
 ) -> list[Path]:
-    """Export a figure in thesis (PDF) and preview (PNG) formats."""
+    """Export a figure in publication (PDF) and preview (PNG) formats."""
 
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -1090,6 +1184,7 @@ def plot_convergence(
     color: str | None = None,
     linestyle: str = "-",
     show_individual: bool = True,
+    zorder: float | None = None,
     ax=None,
 ):
     import matplotlib.pyplot as plt
@@ -1108,6 +1203,7 @@ def plot_convergence(
                 alpha=0.18,
                 linewidth=0.8,
                 linestyle=linestyle,
+                zorder=None if zorder is None else zorder - 0.2,
             )
 
     aggregate = aggregate_metric(
@@ -1125,6 +1221,7 @@ def plot_convergence(
             color=color,
             alpha=0.18,
             linewidth=0,
+            zorder=None if zorder is None else zorder - 0.1,
         )
         ax.plot(
             aggregate["x"],
@@ -1133,12 +1230,13 @@ def plot_convergence(
             linewidth=2.2,
             linestyle=linestyle,
             label=label or f"{center} {metric}",
+            zorder=zorder,
         )
     else:
         ax.text(0.5, 0.5, "No metric data", transform=ax.transAxes, ha="center")
 
     ax.set_xlabel("Elapsed time (s)" if x_axis == "elapsed" else "Epoch")
-    ax.set_ylabel(metric)
+    ax.set_ylabel(_display_name(metric))
     ax.grid(True, alpha=0.25)
     return ax
 
@@ -1165,7 +1263,7 @@ def plot_convergence_comparison(
         ax.text(0.5, 0.5, "No matching runs", transform=ax.transAxes, ha="center")
         return ax
 
-    colors = plt.rcParams["axes.prop_cycle"].by_key()["color"]
+    colors = comparison_line_colors(values, field=compare_by)
     for index, value in enumerate(values):
         group = filter_results(selected, **{compare_by: value})
         plot_convergence(
@@ -1174,9 +1272,10 @@ def plot_convergence_comparison(
             x_axis=x_axis,
             center=center,
             spread=spread,
-            label=f"{compare_by}={value}",
+            label=f"{_display_name(compare_by)} = {value}",
             color=colors[index % len(colors)],
             show_individual=True,
+            zorder=len(values) - index + 2,
             ax=ax,
         )
 
@@ -1275,30 +1374,6 @@ def plot_training_dynamics_comparison(
     return fig, axes
 
 
-def _summary_values(
-    results: Iterable[RunResult],
-    compare_by: str,
-    metric_name: str,
-) -> tuple[list[Any], list[list[float]]]:
-    rows = results_table(results)
-    values = sorted(
-        {row.get(compare_by) for row in rows if row.get(compare_by) is not None},
-        key=_sort_key,
-    )
-    filtered_values = []
-    data = []
-    for value in values:
-        samples = [
-            float(row[metric_name])
-            for row in rows
-            if row.get(compare_by) == value and _is_finite_number(row.get(metric_name))
-        ]
-        if samples:
-            filtered_values.append(value)
-            data.append(samples)
-    return filtered_values, data
-
-
 def plot_final_metric(
     results: Iterable[RunResult],
     *,
@@ -1339,7 +1414,8 @@ def plot_final_metric(
 
     if not values:
         ax.text(0.5, 0.5, "No matching metric values", transform=ax.transAxes, ha="center")
-        ax.set_ylabel(metric_name)
+        ax.set_xlabel(_display_name(compare_by))
+        ax.set_ylabel(_display_name(metric_name))
         return ax
 
     positions = np.arange(1, len(values) + 1)
@@ -1381,14 +1457,15 @@ def plot_final_metric(
                 marker="o",
                 linestyle="",
                 color=color,
-                label=f"{point_color_by}={value}",
+                label=f"{_display_name(point_color_by)} = {value}",
             )
             for value, color in color_map.items()
         ]
-        ax.legend(handles=handles, fontsize=8, title=point_color_by)
+        ax.legend(handles=handles, fontsize=8, title=_display_name(point_color_by))
 
     ax.set_xticks(positions, [str(value) for value in values], rotation=30, ha="right")
-    ax.set_ylabel(metric_name)
+    ax.set_xlabel(_display_name(compare_by))
+    ax.set_ylabel(_display_name(metric_name))
     ax.grid(True, axis="y", alpha=0.25)
     return ax
 
@@ -1409,7 +1486,7 @@ def plot_runtime(
         filters=filters,
         ax=ax,
     )
-    ax.set_ylabel(metric_name.replace("_", " "))
+    ax.set_ylabel(_display_name(metric_name))
     if log_scale:
         ax.set_yscale("log")
     return ax
@@ -1436,6 +1513,72 @@ def _aggregate_samples(samples: list[float], center: str, spread: str) -> tuple[
     return center_value, float(low), float(high)
 
 
+def _metric_plot_context(
+    results: Iterable[RunResult],
+    *,
+    x_field: str,
+    metric_name: str,
+    filters: dict[str, Any] | None,
+    numeric_x: bool,
+    ax,
+):
+    import matplotlib.pyplot as plt
+
+    rows = results_table(filter_results(results, **(filters or {})))
+    rows = [
+        row
+        for row in rows
+        if row.get(x_field) is not None
+        and (not numeric_x or _is_finite_number(row.get(x_field)))
+        and _is_finite_number(row.get(metric_name))
+    ]
+    if ax is None:
+        _, ax = plt.subplots(figsize=(7, 4))
+    if not rows:
+        ax.text(
+            0.5,
+            0.5,
+            "No matching metric values",
+            transform=ax.transAxes,
+            ha="center",
+        )
+        ax.set_xlabel(_display_name(x_field))
+        ax.set_ylabel(_display_name(metric_name))
+    return rows, ax
+
+
+def _metric_line_groups(rows: list[dict[str, Any]], line_by: str | None):
+    line_values = [None]
+    if line_by is not None:
+        line_values = sorted({row.get(line_by) for row in rows}, key=_sort_key)
+    colors = comparison_line_colors(line_values, field=line_by)
+    return [
+        (
+            rows if line_by is None else [
+                row for row in rows if row.get(line_by) == line_value
+            ],
+            None if line_by is None else f"{_display_name(line_by)} = {line_value}",
+            colors[index % len(colors)],
+        )
+        for index, line_value in enumerate(line_values)
+    ]
+
+
+def _finish_metric_plot(
+    ax,
+    x_field: str,
+    metric_name: str,
+    line_by: str | None,
+    grid_axis: str = "both",
+):
+    if line_by is not None:
+        ax.legend()
+    ax.set_xlabel(_display_name(x_field))
+    ax.set_ylabel(_display_name(metric_name))
+    ax.grid(True, axis=grid_axis, alpha=0.25)
+    return ax
+
+
 def plot_metric_by_numeric_field(
     results: Iterable[RunResult],
     *,
@@ -1448,36 +1591,20 @@ def plot_metric_by_numeric_field(
     show_points: bool = True,
     ax=None,
 ):
-    import matplotlib.pyplot as plt
-
-    rows = results_table(filter_results(results, **(filters or {})))
-    rows = [
-        row for row in rows
-        if row.get(x_field) is not None
-        and _is_finite_number(row.get(x_field))
-        and _is_finite_number(row.get(metric_name))
-    ]
-    if ax is None:
-        _, ax = plt.subplots(figsize=(7, 4))
-
+    rows, ax = _metric_plot_context(
+        results,
+        x_field=x_field,
+        metric_name=metric_name,
+        filters=filters,
+        numeric_x=True,
+        ax=ax,
+    )
     if not rows:
-        ax.text(0.5, 0.5, "No matching metric values", transform=ax.transAxes, ha="center")
-        ax.set_xlabel(x_field)
-        ax.set_ylabel(metric_name.replace("_", " "))
         return ax
 
-    line_values = [None]
-    if line_by is not None:
-        line_values = sorted({row.get(line_by) for row in rows}, key=_sort_key)
-
-    colors = plt.rcParams["axes.prop_cycle"].by_key()["color"]
-    for index, line_value in enumerate(line_values):
-        line_rows = rows
-        label = None
-        if line_by is not None:
-            line_rows = [row for row in rows if row.get(line_by) == line_value]
-            label = f"{line_by}={line_value}"
-
+    line_groups = _metric_line_groups(rows, line_by)
+    for group_index, (line_rows, label, color) in enumerate(line_groups):
+        line_zorder = len(line_groups) - group_index + 2
         xs = sorted({float(row[x_field]) for row in line_rows})
         centers = []
         lows = []
@@ -1498,34 +1625,32 @@ def plot_metric_by_numeric_field(
                 ax.scatter(
                     np.full(len(samples), x) + jitter,
                     samples,
-                    color=colors[index % len(colors)],
+                    color=color,
                     alpha=0.35,
                     s=22,
+                    zorder=line_zorder + 0.1,
                 )
 
         ax.fill_between(
             xs,
             lows,
             highs,
-            color=colors[index % len(colors)],
+            color=color,
             alpha=0.15,
             linewidth=0,
+            zorder=line_zorder - 0.1,
         )
         ax.plot(
             xs,
             centers,
-            color=colors[index % len(colors)],
+            color=color,
             marker="o",
             linewidth=2,
             label=label,
+            zorder=line_zorder,
         )
 
-    if line_by is not None:
-        ax.legend()
-    ax.set_xlabel(x_field)
-    ax.set_ylabel(metric_name.replace("_", " "))
-    ax.grid(True, alpha=0.25)
-    return ax
+    return _finish_metric_plot(ax, x_field, metric_name, line_by)
 
 
 def plot_metric_by_category_field(
@@ -1540,37 +1665,22 @@ def plot_metric_by_category_field(
     show_points: bool = True,
     ax=None,
 ):
-    import matplotlib.pyplot as plt
-
-    rows = results_table(filter_results(results, **(filters or {})))
-    rows = [
-        row for row in rows
-        if row.get(x_field) is not None
-        and _is_finite_number(row.get(metric_name))
-    ]
-    if ax is None:
-        _, ax = plt.subplots(figsize=(7, 4))
-
+    rows, ax = _metric_plot_context(
+        results,
+        x_field=x_field,
+        metric_name=metric_name,
+        filters=filters,
+        numeric_x=False,
+        ax=ax,
+    )
     if not rows:
-        ax.text(0.5, 0.5, "No matching metric values", transform=ax.transAxes, ha="center")
-        ax.set_xlabel(x_field)
-        ax.set_ylabel(metric_name.replace("_", " "))
         return ax
 
     x_values = sorted({row.get(x_field) for row in rows}, key=_sort_key)
     x_positions = np.arange(len(x_values), dtype=float)
-    line_values = [None]
-    if line_by is not None:
-        line_values = sorted({row.get(line_by) for row in rows}, key=_sort_key)
-
-    colors = plt.rcParams["axes.prop_cycle"].by_key()["color"]
-    for index, line_value in enumerate(line_values):
-        line_rows = rows
-        label = None
-        if line_by is not None:
-            line_rows = [row for row in rows if row.get(line_by) == line_value]
-            label = f"{line_by}={line_value}"
-
+    line_groups = _metric_line_groups(rows, line_by)
+    for group_index, (line_rows, label, color) in enumerate(line_groups):
+        line_zorder = len(line_groups) - group_index + 2
         positions = []
         centers = []
         lower_errors = []
@@ -1598,9 +1708,10 @@ def plot_metric_by_category_field(
                 ax.scatter(
                     np.full(len(samples), position) + jitter,
                     samples,
-                    color=colors[index % len(colors)],
+                    color=color,
                     alpha=0.3,
                     s=22,
+                    zorder=line_zorder + 0.1,
                 )
 
         if positions:
@@ -1608,20 +1719,16 @@ def plot_metric_by_category_field(
                 positions,
                 centers,
                 yerr=[lower_errors, upper_errors],
-                color=colors[index % len(colors)],
+                color=color,
                 marker="o",
                 linewidth=2,
                 capsize=3,
                 label=label,
+                zorder=line_zorder,
             )
 
-    if line_by is not None:
-        ax.legend()
     ax.set_xticks(x_positions, [str(value) for value in x_values], rotation=30, ha="right")
-    ax.set_xlabel(x_field)
-    ax.set_ylabel(metric_name.replace("_", " "))
-    ax.grid(True, axis="y", alpha=0.25)
-    return ax
+    return _finish_metric_plot(ax, x_field, metric_name, line_by, grid_axis="y")
 
 
 def plot_seed_sensitivity(
@@ -1663,8 +1770,8 @@ def plot_quality_vs_time(
 
     if not rows:
         ax.text(0.5, 0.5, "No matching runs", transform=ax.transAxes, ha="center")
-        ax.set_xlabel(time_metric.replace("_", " "))
-        ax.set_ylabel(quality_metric.replace("_", " "))
+        ax.set_xlabel(_display_name(time_metric))
+        ax.set_ylabel(_display_name(quality_metric))
         return ax
 
     color_values = sorted({row.get(color_by) for row in rows}, key=_sort_key)
@@ -1693,8 +1800,8 @@ def plot_quality_vs_time(
         for value in marker_values
     )
     ax.legend(handles=handles, fontsize=8)
-    ax.set_xlabel(time_metric.replace("_", " "))
-    ax.set_ylabel(quality_metric.replace("_", " "))
+    ax.set_xlabel(_display_name(time_metric))
+    ax.set_ylabel(_display_name(quality_metric))
     ax.grid(True, alpha=0.25)
     return ax
 
@@ -1769,7 +1876,12 @@ def plot_paired_delta(
 
     if not rows:
         ax.text(0.5, 0.5, "No matched pairs", transform=ax.transAxes, ha="center")
-        ax.set_ylabel(value)
+        ax.set_xlabel(_display_name(x_field))
+        ax.set_ylabel(
+            f"Change in {_display_name(metric_name)}"
+            if value == "delta"
+            else _display_name(value)
+        )
         return ax
 
     x_values = sorted({row.get(x_field) for row in rows}, key=lambda item: str(item))
@@ -1792,8 +1904,12 @@ def plot_paired_delta(
 
     ax.axhline(0, color="0.35", linewidth=1, linestyle="--")
     ax.set_xticks(positions, [str(x) for x in x_values], rotation=30, ha="right")
-    ax.set_xlabel(x_field)
-    ax.set_ylabel(f"{value} {metric_name}".strip())
+    ax.set_xlabel(_display_name(x_field))
+    ax.set_ylabel(
+        f"Change in {_display_name(metric_name)}"
+        if value == "delta"
+        else f"{_display_name(value)}: {_display_name(metric_name)}"
+    )
     ax.grid(True, axis="y", alpha=0.25)
     return ax
 
@@ -1847,8 +1963,8 @@ def plot_feasibility_matrix(
     image = ax.imshow(matrix, vmin=0, vmax=1, cmap=cmap, aspect="auto")
     ax.set_xticks(range(len(column_values)), [str(value) for value in column_values])
     ax.set_yticks(range(len(row_values)), [str(value) for value in row_values])
-    ax.set_xlabel(column_field.replace("_", " "))
-    ax.set_ylabel(row_field.replace("_", " "))
+    ax.set_xlabel(_display_name(column_field))
+    ax.set_ylabel(_display_name(row_field))
     ax.figure.colorbar(image, ax=ax, label="completion rate")
     return ax
 
@@ -1876,19 +1992,9 @@ def plot_status_counts(
         ax.text(0.5, 0.5, "No matching runs", transform=ax.transAxes, ha="center")
         return ax
 
-    statuses = (
-        "complete",
-        "partial",
-        "out_of_memory",
-        "time_limit",
-        "failed",
-        "load_error",
-        "empty_checkpoint",
-        "not_started_or_missing",
-    )
     x = np.arange(len(rows))
     bottom = np.zeros(len(rows))
-    for status in statuses:
+    for status in _RUN_STATUS_ORDER:
         values = np.asarray([row[status] for row in rows], dtype=float)
         if not values.any():
             continue
@@ -1896,8 +2002,8 @@ def plot_status_counts(
         bottom += values
 
     ax.set_xticks(x, [str(row[compare_by]) for row in rows], rotation=30, ha="right")
-    ax.set_xlabel(compare_by.replace("_", " "))
-    ax.set_ylabel("run count")
+    ax.set_xlabel(_display_name(compare_by))
+    ax.set_ylabel("Number of Runs")
     ax.legend(fontsize=8)
     ax.grid(True, axis="y", alpha=0.2)
     return ax
