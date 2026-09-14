@@ -11,3 +11,9 @@ Running: /work/qgan/data/train/ang-qml_torch-q16-noiseless-REG-aerCPU-rand1-seed
                 600 |             -0.594 |             -0.724 |              0.141 |              0.084 |           2.18e+04 |
                 700 |             -0.637 |             -0.693 |               0.16 |              0.084 |           2.18e+04 |
                 800 |             -0.802 |             -0.735 |              0.148 |              0.084 |           2.19e+04 |
+                900 |             -0.445 |             -0.836 |              0.136 |              0.084 |           2.19e+04 |
+Training complete: 
+   Data path: /work/qgan/data/train/ang-qml_torch-q16-noiseless-REG-aerCPU-rand1-seed2 
+   Best eval: 0.0839986652135849 
+   Total time: 304455.41312885284
+1 battery run(s) succeeded.

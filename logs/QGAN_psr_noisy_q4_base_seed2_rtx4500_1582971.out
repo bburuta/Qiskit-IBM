@@ -7,3 +7,5 @@ Running: /work/qgan/data/train/base-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed2/co
               Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
                 400 |             -0.942 |             -0.496 |             0.0417 |             0.0417 |           7.97e+03 |
                 500 |             -0.926 |               -0.5 |             0.0213 |             0.0213 |           2.28e+04 |
+                600 |             -0.938 |               -0.5 |             0.0106 |             0.0106 |           2.31e+04 |
+                700 |             -0.955 |             -0.506 |             0.0107 |            0.00687 |           2.31e+04 |

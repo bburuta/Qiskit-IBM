@@ -5,3 +5,4 @@ Configuration file rewritten. Path: /work/qgan/data/train/amp-qml_torch-q4-noisy
 
 Running: /work/qgan/data/train/amp-qml_torch-q4-noisy-PSR-aerCPU-rand0-seed0/config.yaml
               Epoch |     Generator cost | Discriminator cost |               Eval |          Best eval |               Time |
+                200 |             -0.872 |             -0.511 |              0.038 |             0.0377 |            3.9e+04 |
