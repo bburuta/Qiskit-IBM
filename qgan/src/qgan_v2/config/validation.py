@@ -25,7 +25,7 @@ VALID_EVALUATION_METHODS = {"gradient", "kl"}
 CHOICE_RULES = [
     ("implementation.name", VALID_IMPLEMENTATIONS),
     ("implementation.discriminator_packing", VALID_DISCRIMINATOR_PACKING),
-    ("experiment.implementation", VALID_PRESETS),
+    ("experiment.preset", VALID_PRESETS),
     ("experiment.execution_type", VALID_EXECUTION_TYPES),
     ("experiment.gradient_method", VALID_GRADIENT_METHODS),
     ("run.device", VALID_DEVICES),
@@ -106,7 +106,7 @@ PRE_NORMALIZATION_REQUIRED_OPTIONS = [
     "implementation.discriminator_packing",
     "run.id",
     "run.seed",
-    "experiment.implementation",
+    "experiment.preset",
     "experiment.execution_type",
     "experiment.n_qubits",
     "experiment.gradient_method",
@@ -262,7 +262,7 @@ def validate_raw_config(config):
     for path in PRE_NORMALIZATION_REQUIRED_OPTIONS:
         require_path(config, path)
 
-    require_choice(config, "experiment.implementation", VALID_PRESETS)
+    require_choice(config, "experiment.preset", VALID_PRESETS)
 
 
 # Validate normalized option types, choices, and ranges
@@ -289,14 +289,14 @@ def validate_option_values(config):
 
 # Validate the dataset and encoding contract applied by each preset
 def validate_preset_combination(config):
-    preset = config["experiment"]["implementation"]
+    preset = config["experiment"]["preset"]
     encoding = config["encoding"]["type"]
     expected_encoding = PRESET_ENCODINGS[preset]
 
     # Circuit/data builders only implement the encoding assigned to each preset.
     if encoding != expected_encoding:
         raise ConfigValidationError(
-            f"experiment.implementation={preset!r} requires encoding.type={expected_encoding!r}. "
+            f"experiment.preset={preset!r} requires encoding.type={expected_encoding!r}. "
             f"Got: {encoding!r}"
         )
 
@@ -306,7 +306,7 @@ def validate_preset_combination(config):
     # Each preset selects the only dataset representation supported by its encoder.
     if (dataset_type, dataset_source) != (expected_type, expected_source):
         raise ConfigValidationError(
-            f"experiment.implementation={preset!r} requires "
+            f"experiment.preset={preset!r} requires "
             f"dataset.type={expected_type!r} and dataset.source={expected_source!r}."
         )
 

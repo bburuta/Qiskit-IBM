@@ -7,7 +7,7 @@ run:
   seed: 0
   device: CPU
 experiment:
-  implementation: ang
+  preset: ang
   execution_type: fake_real
   n_qubits: 3
   gradient_method: PSR

@@ -30,7 +30,7 @@ default_config_values:
 
   experiment:
     # Experiment preset. Values: base, ang, amp.
-    implementation: ang
+    preset: ang
     # Execution target. Values: noiseless, noisy, fake_real, real.
     execution_type: noiseless
     # Number of qubits. Values: [int >= 1].
@@ -162,7 +162,7 @@ variable_config_values_list:
       - qgan/data/test/noisy_sv_fr
     implementation.name:
       - qml_torch
-    experiment.implementation:
+    experiment.preset:
       - base
     experiment.execution_type:
       - fake_real

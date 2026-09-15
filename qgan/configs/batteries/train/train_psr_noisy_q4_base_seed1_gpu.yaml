@@ -1,4 +1,4 @@
-# qGAN GPU noisy PSR one-run convergence battery.
+# qGAN GPU noisy PSR one-run learning dynamics battery.
 #
 # Runs q4 base noisy PSR seed 1 on a GPU.
 # One run per Slurm allocation for viability testing.
@@ -27,7 +27,7 @@ default_config_values:
 
   experiment:
     # Experiment preset. Values: base, ang, amp.
-    implementation: ang
+    preset: ang
     # Execution target. Values: noiseless, noisy, fake_real, real.
     execution_type: noiseless
     # Number of qubits. Values: [int >= 1].
@@ -160,7 +160,7 @@ variable_config_values_list:
   qml_torch_noisy_psr_q4_base_seed1_gpu:
     implementation.name:
       - qml_torch
-    experiment.implementation:
+    experiment.preset:
       - base
     experiment.execution_type:
       - noisy

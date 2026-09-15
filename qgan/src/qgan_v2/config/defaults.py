@@ -1,10 +1,10 @@
 from copy import deepcopy
 
 
-#- Implementation presets -#
+#- Experiment presets -#
 
 # Dataset and encoding defaults for each experiment preset
-IMPLEMENTATION_PRESETS = {
+EXPERIMENT_PRESETS = {
     "base": {
         "dataset": {
             "type": "quantum",
@@ -55,15 +55,15 @@ def apply_preset_section(config_section, preset_section, n_qubits):
 
 
 # Apply dataset and encoding defaults for the selected qGAN preset
-def apply_implementation_preset(config):
+def apply_experiment_preset(config):
     experiment = config["experiment"]
-    implementation = experiment["implementation"]
+    preset_name = experiment["preset"]
     n_qubits = experiment["n_qubits"]
 
-    if implementation not in IMPLEMENTATION_PRESETS:
-        raise ValueError(f"Unknown implementation preset: {implementation}")
+    if preset_name not in EXPERIMENT_PRESETS:
+        raise ValueError(f"Unknown experiment preset: {preset_name}")
 
-    preset = IMPLEMENTATION_PRESETS[implementation]
+    preset = EXPERIMENT_PRESETS[preset_name]
     apply_preset_section(config["dataset"], preset["dataset"], n_qubits)
     apply_preset_section(config["encoding"], preset["encoding"], n_qubits)
 
@@ -72,7 +72,7 @@ def apply_implementation_preset(config):
 
 # Normalize a raw config dict into the expected format
 def normalize_config(config):
-    apply_implementation_preset(config)
+    apply_experiment_preset(config)
     normalize_simulator_device_name(config)
     create_config_ids(config)
     return config
@@ -98,7 +98,7 @@ def generate_run_id(config):
         packing_id = f"{config['implementation']['discriminator_packing']}-"
 
     return (
-        f"{experiment['implementation']}-"
+        f"{experiment['preset']}-"
         f"{impl_name}-"
         f"{packing_id}"
         f"q{experiment['n_qubits']}-"

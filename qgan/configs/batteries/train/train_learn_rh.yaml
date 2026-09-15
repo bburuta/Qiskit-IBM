@@ -1,18 +1,11 @@
-# qGAN GPU convergence training battery.
+# qGAN real-hardware learning dynamics training battery.
 #
-# Runs simulated qml_torch convergence experiments. Mirrors the CPU convergence battery (checkpoints are shared between CPU and GPU runs):
-# - base, angle, and amplitude presets
-# - noiseless execution with PSR, SPSA, and REG gradients
-# - noisy execution with SPSA gradients; noisy PSR is kept as an optional extra
-# - 4-, 8-, and 16-qubit circuits
-# - seeds 0, 1, and 2
-# - a main randomness sweep with levels 0, 0.1, 0.25, 0.5, and 1
-# - additional convergence groups with randomness levels 0 and 1
+# Runs real-hardware learning dynamics studies:
+# - qml_torch gradient comparison with SPSA and PSR on the base preset
 #
-# Reduced from train_conv_sim_old.yaml:
-# - Keeps full-range randomness only for the completed noiseless q4/q8 sweep.
-# - Uses rand0/rand1 for other convergence comparisons.
-# - Keeps noisy PSR as optional: 1000-epoch convergence was too time-expensive.
+# Reduced from train_learn_rh_old.yaml:
+# - Two learning dynamics runs of roughly 150-200 epochs were obtained.
+# - fake_real learning dynamics runs were used to validate runtime_packed and packing modes, because real-hardware timing could not be executed.
 
 default_config_values:
 
@@ -33,11 +26,12 @@ default_config_values:
     # Random seed for Python, NumPy, Torch, and simulator options. Values: [int].
     seed: 0
     # Torch device. Values: CPU, GPU. runtime_packed requires CPU.
-    device: GPU
+    # Keep fixed because run.device is not encoded in generated run ids.
+    device: CPU
 
   experiment:
     # Experiment preset. Values: base, ang, amp.
-    implementation: ang
+    preset: ang
     # Execution target. Values: noiseless, noisy, fake_real, real.
     execution_type: noiseless
     # Number of qubits. Values: [int >= 1].
@@ -57,9 +51,9 @@ default_config_values:
     # Adam optimizer learning rate for generator and discriminator optimizers. Values: [number >= 0].
     learning_rate: 0.005
     # Epoch interval for progress prints. Values: [int >= 0], 0 disables printing.
-    print_every: 100
+    print_every: 1
     # Epoch interval for checkpoint saves. Values: [int >= 0], 0 saves only at the end.
-    checkpoint_every: 100
+    checkpoint_every: 1
 
   dataset:
     # Dataset id. Values: null, [string].
@@ -100,9 +94,7 @@ default_config_values:
 
     simulator:
       # Aer simulator device. Values: CPU, GPU.
-      device: GPU
-      # Device label used in generated run ids. GPU shares convergence checkpoints with CPU runs.
-      device_name: CPU
+      device: CPU
       # Floating point precision for simulator/Torch tensors. Values: double, single.
       data_type: double
       # Aer method for noiseless simulation. Values: statevector, density_matrix.
@@ -163,122 +155,88 @@ default_config_values:
     # Evaluation metric. Values: gradient, kl.
     eval_method: gradient
 
-
 variable_config_values_list:
 
-  # Noiseless preset, gradient-method, qubit-scaling and full-range randomness analysis.
-  qml_torch_noiseless:
+  # Real-hardware case study.
+  # Hardware budget is limited to the two existing base/q4 seed-0 runs and ~200 epochs.
+  qml_torch_rh_qml:
     implementation.name:
       - qml_torch
-    experiment.implementation:
+    experiment.preset:
+      - base
+    experiment.execution_type:
+      - real
+    experiment.gradient_method:
+      - SPSA
+      - PSR
+    experiment.n_qubits:
+      - 4
+    backend.simulator.device:
+      - CPU
+    run.seed:
+      - 0
+    encoding.randomness:
+      - 0
+    backend.real.info_storage:
+      - run
+    backend.real.reset_info:
+      - true
+
+  # Runtime-packed separate analysis.
+  # Hardware budget is limited so fake_real execution-type is used.
+  qml_torch_rh_rp_sep:
+    implementation.name:
+      - runtime_packed
+    implementation.discriminator_packing:
+      - separate
+      # - joined
+    experiment.preset:
       - base
       - ang
       - amp
     experiment.execution_type:
-      - noiseless
+      - fake_real
     experiment.gradient_method:
-      - PSR
       - SPSA
-      - REG
     experiment.n_qubits:
       - 4
-      - 8
-      # - 16
     backend.simulator.device:
-      - GPU
+      - CPU
     run.seed:
       - 0
-      - 1
-      - 2
     encoding.randomness:
       - 0
-      - 0.1
-      - 0.25
-      - 0.5
-      - 1
+    backend.real.info_storage:
+      - run
+    backend.real.reset_info:
+      - true
 
-  # Noiseless 16 qubits preset, gradient-method, and randomness analysis.
-  # Unable to transpile amplitude encoding with 16 qubits.
-  qml_torch_noiseless_q16:
+  # Runtime-packed joined analysis.
+  # Amplitude preset is not supported for joined discriminator-packing.
+  # Hardware budget is limited so fake_real execution-type is used.
+  qml_torch_rh_rp_join:
     implementation.name:
-      - qml_torch
-    experiment.implementation:
+      - runtime_packed
+    implementation.discriminator_packing:
+      # - separate
+      - joined
+    experiment.preset:
       - base
       - ang
       # - amp
     experiment.execution_type:
-      - noiseless
-    experiment.gradient_method:
-      - PSR
-      - SPSA
-      - REG
-    experiment.n_qubits:
-      # - 4
-      # - 8
-      - 16
-    backend.simulator.device:
-      - GPU
-    run.seed:
-      - 0
-      - 1
-      - 2
-    encoding.randomness:
-      - 0
-      - 1
-
-  # Noise-impact preset, gradient-method, qubit-scaling and randomness analysis.
-  # Noisy does not support REG.
-  qml_torch_noisy:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - base
-      - ang
-      - amp
-    experiment.execution_type:
-      - noisy
+      - fake_real
     experiment.gradient_method:
       - SPSA
-      - PSR # Not included in the minimum convergence plan because of time cost.
     experiment.n_qubits:
       - 4
-      - 8
-      # - 16
     backend.simulator.device:
-      - GPU
+      - CPU
     run.seed:
       - 0
-      - 1
-      - 2
     encoding.randomness:
       - 0
-      - 1
-
-  # Noise-impact 16 qubits analysis.
-  # Unable to transpile amplitude encoding with 16 qubits.
-  # Not included in the minimum convergence plan because of time cost.
-  qml_torch_noisy_q16:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - base
-      - ang
-      # - amp
-    experiment.execution_type:
-      - noisy
-    experiment.gradient_method:
-      - SPSA
-      - PSR
-    experiment.n_qubits:
-      # - 4
-      # - 8
-      - 16
-    backend.simulator.device:
-      - GPU
-    run.seed:
-      - 0
-      - 1
-      - 2
-    encoding.randomness:
-      - 0
-      - 1
+    backend.real.info_storage:
+      - run
+    backend.real.reset_info:
+      - true

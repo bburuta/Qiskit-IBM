@@ -1,4 +1,6 @@
+from copy import deepcopy
 from pathlib import Path
+from types import SimpleNamespace
 
 import numpy as np
 import pytest
@@ -11,12 +13,15 @@ from qgan_v2.analysis.results import (
     deduplicate_simulator_runs,
     factor_sweep_groups,
     is_completed,
+    load_results,
+    metadata_from_config,
     plot_training_dynamics_comparison,
     run_summary,
-    select_main_convergence_results,
+    select_main_learn_results,
     transform_metric_values,
     unique_values,
 )
+from qgan_v2.config.loader import save_config_file
 
 
 def make_result(
@@ -74,13 +79,75 @@ def test_completion_requires_the_full_requested_budget():
     assert not is_completed(make_result("partial", epochs=999))
 
 
-def test_main_convergence_deduplicates_cpu_and_gpu_copies():
+def test_main_learn_deduplicates_cpu_and_gpu_copies():
     cpu = make_result("cpu", device="CPU")
     gpu = make_result("gpu", device="GPU")
     gpu.metadata["random_circuit"] = None  # Older rand0 configs omitted this unused field.
 
     assert deduplicate_simulator_runs([gpu, cpu]) == [cpu]
-    assert select_main_convergence_results([gpu, cpu]) == [cpu]
+    assert select_main_learn_results([gpu, cpu]) == [cpu]
+
+
+@pytest.mark.parametrize(
+    "experiment, expected",
+    [
+        ({"implementation": "base"}, "base"),
+        ({"preset": "ang"}, "ang"),
+        ({"preset": "amp", "implementation": "base"}, "amp"),
+    ],
+)
+def test_metadata_reads_legacy_presets_and_prefers_the_current_field(experiment, expected):
+    assert metadata_from_config({"experiment": experiment})["preset"] == expected
+
+
+def test_legacy_checkpoint_deduplicates_when_adjacent_yaml_fails_validation(
+    monkeypatch, tmp_path,
+):
+    cpu_config = {
+        "run": {"id": "cpu", "seed": 0, "device": "CPU"},
+        "experiment": {
+            "preset": "base",
+            "execution_type": "noiseless",
+            "n_qubits": 4,
+            "gradient_method": "PSR",
+        },
+        "implementation": {"name": "qml_torch", "discriminator_packing": "separate"},
+        "encoding": {"randomness": 0, "random_circuit": 1},
+        "training": {"max_iterations": 1000},
+        "backend": {"simulator": {"device": "CPU"}},
+    }
+    gpu_config = deepcopy(cpu_config)
+    gpu_config["run"].update(id="gpu", device="GPU")
+    gpu_config["backend"]["simulator"]["device"] = "GPU"
+    gpu_config["experiment"]["implementation"] = gpu_config["experiment"].pop("preset")
+    gpu_config["encoding"].pop("random_circuit")
+    states = {}
+    for config in (cpu_config, gpu_config):
+        run_dir = tmp_path / config["run"]["id"]
+        run_dir.mkdir()
+        # These older configs lack fields required by current run validation.
+        save_config_file(config, run_dir / "config.yaml")
+        checkpoint = run_dir / "training_data.pth"
+        checkpoint.touch()
+        states[checkpoint] = SimpleNamespace(
+            config=config,
+            metrics=SimpleNamespace(
+                eval={epoch: 1.0 for epoch in range(1000)},
+                gloss={}, dloss={}, times={},
+            ),
+        )
+    monkeypatch.setattr("qgan_v2.analysis.results._load_training_state", states.__getitem__)
+
+    runs = load_results(tmp_path)
+
+    assert len(runs) == 2
+    assert all(run.status == "ok" and run.metadata["preset"] == "base" for run in runs)
+    selected = select_main_learn_results(runs)
+    assert [run.run_id for run in selected] == ["cpu"]
+    assert gpu_config["experiment"] == {
+        "implementation": "base", "execution_type": "noiseless",
+        "n_qubits": 4, "gradient_method": "PSR",
+    }
 
 
 def test_factor_sweep_requires_every_level_for_every_seed():
@@ -197,6 +264,17 @@ def test_qubit_comparison_colors_progress_from_yellow_to_red():
     ]
     assert np.allclose([color[:3] for color in colors], expected)
     assert sum(colors[0][:3]) > sum(colors[-1][:3])
+
+
+def test_qubit_comparison_colors_do_not_shift_when_q16_is_missing():
+    colors_module = pytest.importorskip("matplotlib.colors")
+    colors = comparison_line_colors((4, 8), field="n_qubits")
+
+    expected = [
+        colors_module.to_rgb(value)
+        for value in ("#E6A400", "#E65100")
+    ]
+    assert np.allclose([color[:3] for color in colors], expected)
 
 
 def test_multi_setting_dynamics_plot_keeps_losses_and_evaluation():

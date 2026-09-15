@@ -6,7 +6,7 @@ run:
   seed: 0
   device: CPU
 experiment:
-  implementation: base
+  preset: base
   execution_type: noisy
   n_qubits: 3
   gradient_method: PSR

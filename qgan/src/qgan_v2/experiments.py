@@ -215,7 +215,7 @@ class BatteryExperiments:
             rows.append({
                 "config_file": str(displayed_path),
                 "implementation": config["implementation"]["name"],
-                "preset": config["experiment"]["implementation"],
+                "preset": config["experiment"]["preset"],
                 "gradient": config["experiment"]["gradient_method"],
             })
         return rows

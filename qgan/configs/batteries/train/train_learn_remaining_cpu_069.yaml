@@ -1,7 +1,7 @@
-# qGAN generated one-run GPU convergence battery.
+# qGAN generated one-run GPU learning dynamics battery.
 #
-# Resubmits the original CPU-labelled convergence run on a GPU simulator.
-# The simulator device_name remains CPU so the original run id/checkpoint is preserved.
+# Resubmits the original CPU-labelled learning dynamics run on a GPU simulator.
+# The run device remains CPU so the original run id/checkpoint is preserved.
 
 default_config_values:
   implementation:
@@ -14,7 +14,7 @@ default_config_values:
     seed: 0
     device: CPU
   experiment:
-    implementation: ang
+    preset: ang
     execution_type: noiseless
     n_qubits: 4
     gradient_method: SPSA
@@ -86,17 +86,17 @@ variable_config_values_list:
     - separate
     run.device:
     - CPU
-    experiment.implementation:
+    experiment.preset:
     - ang
     experiment.execution_type:
     - noiseless
     experiment.gradient_method:
-    - SPSA
+    - REG
     experiment.n_qubits:
     - 16
     backend.simulator.device:
     - GPU
     run.seed:
-    - 1
+    - 2
     encoding.randomness:
-    - 1
+    - 0

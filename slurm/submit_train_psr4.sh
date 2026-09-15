@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Prioritized q4 noisy PSR convergence runs.
+# Prioritized q4 noisy PSR learning dynamics runs.
 # CPU-only jobs on node14; no GPU resources are requested.
 # Each run uses one seed and resumes its existing checkpoint if present.
 sbatch slurm/slurm.sbatch_psr_noisy_q4_base_seed0_node14

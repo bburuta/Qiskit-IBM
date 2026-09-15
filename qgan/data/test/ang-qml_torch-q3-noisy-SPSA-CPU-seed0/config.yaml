@@ -6,7 +6,7 @@ run:
   seed: 0
   device: CPU
 experiment:
-  implementation: ang
+  preset: ang
   execution_type: noisy
   n_qubits: 3
   gradient_method: SPSA

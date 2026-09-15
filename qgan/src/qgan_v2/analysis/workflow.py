@@ -26,8 +26,8 @@ from qgan_v2.analysis.results import (
     is_completed,
     load_results,
     metadata_from_config,
-    plot_convergence,
-    plot_convergence_comparison,
+    plot_learn,
+    plot_learn_comparison,
     plot_feasibility_matrix,
     plot_final_metric,
     plot_metric_by_category_field,
@@ -37,7 +37,7 @@ from qgan_v2.analysis.results import (
     results_table,
     save_figure,
     select_completed_results,
-    select_main_convergence_results,
+    select_main_learn_results,
     select_usable_results,
     truncate_results,
     unique_values,
@@ -67,7 +67,6 @@ LIMITATION_ORDER = (
     "time-expensive",
     "execution time unavailable",
     "out of memory",
-    "other unfinished",
 )
 
 LIMITATION_CASES = (
@@ -75,7 +74,7 @@ LIMITATION_CASES = (
         "experiment": "amplitude q16",
         "limitation": "not transpilable",
         "detail": "The statevector preparation circuit was too large/deep to transpile.",
-        "battery_reference": "train_conv_cpu.yaml / train_conv_gpu.yaml",
+        "battery_reference": "train_learn_cpu.yaml / train_learn_gpu.yaml",
     },
     {
         "experiment": "noisy q16 CPU timing",
@@ -90,16 +89,16 @@ LIMITATION_CASES = (
         "battery_reference": "train_times_rh.yaml",
     },
     {
-        "experiment": "noisy q4/q8 PSR convergence",
+        "experiment": "noisy q4/q8 PSR learning dynamics",
         "limitation": "time-expensive",
-        "detail": "Parameter-shift noisy convergence did not finish.",
-        "battery_reference": "train_conv_cpu.yaml / train_conv_gpu.yaml",
+        "detail": "Parameter-shift noisy learning dynamics did not finish.",
+        "battery_reference": "train_learn_cpu.yaml / train_learn_gpu.yaml",
     },
     {
-        "experiment": "noisy q16 convergence",
+        "experiment": "noisy q16 learning dynamics",
         "limitation": "time-expensive",
         "detail": "Projected execution exceeded the available GPU allocation.",
-        "battery_reference": "train_conv_gpu.yaml",
+        "battery_reference": "train_learn_gpu.yaml",
     },
 )
 
@@ -305,13 +304,14 @@ def incomplete_limitation(row: dict[str, Any]) -> str:
         and row.get("simulator_device") == "CPU"
     ):
         return "out of memory"
-    if source == "convergence" and execution_type == "noisy" and row.get("n_qubits") == 16:
+    if source == "learn" and execution_type == "noisy" and row.get("n_qubits") == 16:
         if row.get("simulator_device") == "CPU":
             return "out of memory"
         return "time-expensive"
-    if source == "convergence" and execution_type == "noisy" and row.get("gradient_method") == "PSR":
+    if source == "learn" and execution_type == "noisy" and row.get("gradient_method") == "PSR":
         return "time-expensive"
-    return "other unfinished"
+    identifier = row.get("run_id") or row.get("path") or "unknown run"
+    raise ValueError(f"No limiting-factor classification for {identifier}.")
 
 
 def known_oom_timing_results(results: Iterable[RunResult]) -> list[RunResult]:
@@ -340,9 +340,9 @@ class ResultsData:
     """The result subsets shared by all analysis figures."""
 
     qgan_dir: Path
-    raw_convergence: list[RunResult]
+    raw_learn: list[RunResult]
     raw_timing: list[RunResult]
-    main_convergence: list[RunResult]
+    main_learn: list[RunResult]
     timing: list[RunResult]
     hardware: list[RunResult]
     validation: list[RunResult]
@@ -350,38 +350,38 @@ class ResultsData:
     @classmethod
     def load(cls, qgan_dir: str | Path) -> "ResultsData":
         qgan_dir = Path(qgan_dir)
-        raw_convergence = load_results(qgan_dir / "data" / "train")
+        raw_learn = load_results(qgan_dir / "data" / "train")
         raw_timing = load_results(qgan_dir / "data" / "train" / "times")
         return cls(
             qgan_dir=qgan_dir,
-            raw_convergence=raw_convergence,
+            raw_learn=raw_learn,
             raw_timing=raw_timing,
-            main_convergence=select_main_convergence_results(
-                raw_convergence,
+            main_learn=select_main_learn_results(
+                raw_learn,
                 expected_epochs=1000,
             ),
             timing=select_completed_results(raw_timing, expected_epochs=5),
             # The results hardware case study is restricted to qml_torch.
             hardware=filter_results(
-                select_usable_results(raw_convergence, execution_types=("real",)),
+                select_usable_results(raw_learn, execution_types=("real",)),
                 implementation="qml_torch",
             ),
             validation=select_usable_results(
-                raw_convergence,
+                raw_learn,
                 execution_types=("fake_real",),
             ),
         )
 
     def summary(self) -> dict[str, Any]:
         return {
-            "raw_convergence/case-study_configs": len(self.raw_convergence),
-            "completed_deduplicated_simulator_runs": len(self.main_convergence),
+            "raw_learn/case-study_configs": len(self.raw_learn),
+            "completed_deduplicated_simulator_runs": len(self.main_learn),
             "completed_five_epoch_timing_runs": len(self.timing),
             "usable_real_hardware_runs": len(self.hardware),
             "usable_implementation_validation_runs": len(self.validation),
             "evaluation_families": {
                 name: len(runs)
-                for name, runs in evaluation_metric_groups(self.main_convergence).items()
+                for name, runs in evaluation_metric_groups(self.main_learn).items()
             },
         }
 
@@ -441,7 +441,7 @@ class ResultsAnalysis:
         import matplotlib.pyplot as plt
 
         fig, ax = plt.subplots(figsize=(8, 4.5))
-        plot_convergence_comparison(
+        plot_learn_comparison(
             runs,
             compare_by=compare_by,
             metric="eval",
@@ -1201,6 +1201,12 @@ class ResultsAnalysis:
                 ax.set_xlabel(FACET_DISPLAY_NAMES[compare_by])
                 ax.set_xlim(0.5, len(available_groups) + 0.5)
 
+            # Keep a fixed physical width per visible category after empty
+            # categories and panels have been removed. Without a box-aspect
+            # constraint, the remaining axes can stretch to consume the
+            # vacated horizontal space in notebook and responsive renderers.
+            ax.set_box_aspect(1.6 / len(group_specs))
+
             positions = []
             samples_by_position = []
             colors = []
@@ -1692,12 +1698,12 @@ class ResultsAnalysis:
     def _feasibility_results(
         self,
         *,
-        convergence_battery: str | Path | None = None,
+        learn_battery: str | Path | None = None,
         timing_batteries: Iterable[str | Path] | None = None,
     ) -> tuple[list[RunResult], Path, list[Path]]:
         battery_dir = self.results.qgan_dir / "configs" / "batteries" / "train"
-        convergence_battery = Path(
-            convergence_battery or battery_dir / "train_conv_gpu.yaml"
+        learn_battery = Path(
+            learn_battery or battery_dir / "train_learn_gpu.yaml"
         )
         timing_batteries = [
             Path(path)
@@ -1712,9 +1718,9 @@ class ResultsAnalysis:
         ]
 
         feasibility = expected_battery_results(
-            battery_configs([convergence_battery]),
-            self.results.raw_convergence,
-            "convergence",
+            battery_configs([learn_battery]),
+            self.results.raw_learn,
+            "learn",
         )
         feasibility.extend(expected_battery_results(
             battery_configs(timing_batteries),
@@ -1727,21 +1733,21 @@ class ResultsAnalysis:
             for run in known_oom_timing_results(self.results.raw_timing)
             if run.path.resolve() not in selected_paths
         )
-        return feasibility, convergence_battery, timing_batteries
+        return feasibility, learn_battery, timing_batteries
 
     def feasibility(
         self,
         *,
-        convergence_battery: str | Path | None = None,
+        learn_battery: str | Path | None = None,
         timing_batteries: Iterable[str | Path] | None = None,
     ) -> list[RunResult]:
         import matplotlib.pyplot as plt
 
-        feasibility, convergence_file, timing_files = self._feasibility_results(
-            convergence_battery=convergence_battery,
+        feasibility, learn_file, timing_files = self._feasibility_results(
+            learn_battery=learn_battery,
             timing_batteries=timing_batteries,
         )
-        print("convergence battery:", convergence_file.name)
+        print("learning dynamics battery:", learn_file.name)
         print("timing batteries:", [path.name for path in timing_files])
         display_rows(
             LIMITATION_CASES,
@@ -1750,7 +1756,7 @@ class ResultsAnalysis:
 
         summary = results_table(feasibility)
         count_rows = []
-        for source in ("convergence", "timing"):
+        for source in ("learn", "timing"):
             for execution_type in ("noiseless", "noisy", "real"):
                 selected = [
                     row
@@ -1760,7 +1766,7 @@ class ResultsAnalysis:
                 ]
                 if selected:
                     count_rows.append({
-                        "source": source,
+                        "source": "learning dynamics" if source == "learn" else source,
                         "execution_type": execution_type,
                         "requested": len(selected),
                         "complete": sum(row["completed_requested_budget"] for row in selected),
@@ -1838,7 +1844,7 @@ class ResultsAnalysis:
         import matplotlib.pyplot as plt
 
         preset_runs = filter_results(
-            self.results.main_convergence,
+            self.results.main_learn,
             **_merged_filters(
                 {
                     "implementation": "qml_torch",
@@ -1880,7 +1886,7 @@ class ResultsAnalysis:
         presets: Sequence[str] = PRESETS,
     ):
         preset_runs = list(runs) if runs is not None else filter_results(
-            self.results.main_convergence,
+            self.results.main_learn,
             implementation="qml_torch",
             execution_type="noiseless",
             gradient_method="PSR",
@@ -1923,7 +1929,7 @@ class ResultsAnalysis:
         gradient_priority: Sequence[str] = GRADIENT_METHODS,
     ) -> list[dict[str, Any]]:
         candidates = filter_results(
-            self.results.main_convergence,
+            self.results.main_learn,
             **_merged_filters(
                 {
                     "implementation": "qml_torch",
@@ -2003,7 +2009,7 @@ class ResultsAnalysis:
             squeeze=False,
         )
         for column, preset in enumerate(presets):
-            plot_convergence_comparison(
+            plot_learn_comparison(
                 filter_results(runs, preset=preset),
                 compare_by="execution_type",
                 metric="eval",
@@ -2012,7 +2018,7 @@ class ResultsAnalysis:
             axes[0, column].set_title(
                 f"Encoding Preset: {preset.replace('_', ' ').title()}"
             )
-        fig.suptitle("Effect of Simulation Noise on Evaluation Convergence")
+        fig.suptitle("Effect of Simulation Noise on Evaluation Learning Dynamics")
         self._finish(fig, "03a_noiseless_noisy_dynamics")
         return runs
 
@@ -2021,7 +2027,7 @@ class ResultsAnalysis:
         filters: dict[str, Any] | None = None,
     ) -> list[RunResult]:
         return filter_results(
-            self.results.main_convergence,
+            self.results.main_learn,
             **_merged_filters(
                 {
                     "implementation": "qml_torch",
@@ -2087,7 +2093,7 @@ class ResultsAnalysis:
                 "eval_method": eval_method,
             })
             simulators = filter_results(
-                self.results.main_convergence,
+                self.results.main_learn,
                 **simulator_focus,
             )
             budget = max(len(run.eval) for run in hardware_group)
@@ -2104,7 +2110,7 @@ class ResultsAnalysis:
                 squeeze=False,
             )
             for column, (method, selected) in enumerate(cases.items()):
-                plot_convergence_comparison(
+                plot_learn_comparison(
                     selected,
                     compare_by="execution_type",
                     metric="eval",
@@ -2112,7 +2118,7 @@ class ResultsAnalysis:
                 )
                 axes[0, column].set_title(f"Gradient Method: {method}")
             fig.suptitle(
-                "Evaluation Convergence on Matched Simulators and Quantum Hardware"
+                "Evaluation Learning Dynamics on Matched Simulators and Quantum Hardware"
             )
             self._finish(fig, "03c_real_hardware_dynamics")
 
@@ -2145,7 +2151,7 @@ class ResultsAnalysis:
         filters: dict[str, Any] | None = None,
     ) -> list[RunResult]:
         runs = filter_results(
-            self.results.main_convergence,
+            self.results.main_learn,
             **_merged_filters(
                 {
                     "preset": "ang",
@@ -2161,7 +2167,7 @@ class ResultsAnalysis:
         self._evaluation_dynamics_figure(
             runs,
             "gradient_method",
-            "Evaluation Convergence Across Gradient Methods",
+            "Evaluation Learning Dynamics Across Gradient Methods",
             "04a_gradient_dynamics",
         )
         self._best_results_figure(
@@ -2184,7 +2190,7 @@ class ResultsAnalysis:
 
         levels = tuple(levels)
         sweeps = factor_sweep_groups(
-            filter_results(self.results.main_convergence, **(filters or {})),
+            filter_results(self.results.main_learn, **(filters or {})),
             factor="randomness",
             required_levels=levels,
             required_seeds=required_seeds,
@@ -2217,7 +2223,7 @@ class ResultsAnalysis:
         )
         level_order = {level: index for index, level in enumerate(levels)}
         for randomness in reversed(levels):
-            plot_convergence(
+            plot_learn(
                 filter_results(runs, randomness=randomness),
                 metric="eval",
                 center="median",
@@ -2230,7 +2236,7 @@ class ResultsAnalysis:
         handles, labels = ax.get_legend_handles_labels()
         ax.legend(handles[::-1], labels[::-1])
         ax.set_ylabel("Evaluation Score")
-        fig.suptitle("Effect of Input Randomness on Evaluation Convergence")
+        fig.suptitle("Effect of Input Randomness on Evaluation Learning Dynamics")
         self._finish(fig, "05a_randomness_complete_dynamics")
 
         fig, axes = plt.subplots(1, 3, figsize=(16, 4.5))
@@ -2272,7 +2278,7 @@ class ResultsAnalysis:
             filters,
         )
         candidates = filter_results(
-            self.results.main_convergence,
+            self.results.main_learn,
             **selected_filters,
         )
         if not candidates:
@@ -2346,7 +2352,7 @@ class ResultsAnalysis:
             ),
         ):
             plot_paired_delta(
-                self.results.main_convergence,
+                self.results.main_learn,
                 baseline_filters={**filters, "randomness": baseline},
                 treatment_filters={**filters, "randomness": treatment},
                 metric_name=metric_name,
@@ -2383,7 +2389,7 @@ class ResultsAnalysis:
             if qubits_by_facet and value in qubits_by_facet:
                 filters["n_qubits"] = qubits_by_facet[value]
             selected = filter_results(runs, **filters)
-            plot_convergence_comparison(
+            plot_learn_comparison(
                 selected,
                 compare_by="n_qubits",
                 metric="eval",
@@ -2443,7 +2449,7 @@ class ResultsAnalysis:
         import matplotlib.pyplot as plt
 
         runs = filter_results(
-            self.results.main_convergence,
+            self.results.main_learn,
             **_merged_filters(
                 {
                     "implementation": "qml_torch",
@@ -2458,7 +2464,7 @@ class ResultsAnalysis:
             runs,
             facet_field="preset",
             facet_values=presets,
-            title="Evaluation Convergence Across Qubit Counts by Encoding Preset",
+            title="Evaluation Learning Dynamics Across Qubit Counts by Encoding Preset",
             stem="06a_preset_scaling_dynamics",
             figsize=(5.3 * len(presets), 4.8),
             qubits_by_facet=qubits_by_preset or {"amp": (4, 8)},
@@ -2503,7 +2509,7 @@ class ResultsAnalysis:
         metric_transform: str = "none",
     ) -> list[RunResult]:
         runs = filter_results(
-            self.results.main_convergence,
+            self.results.main_learn,
             **_merged_filters(
                 {
                     "preset": "ang",
@@ -2519,7 +2525,7 @@ class ResultsAnalysis:
             runs,
             facet_field="execution_type",
             facet_values=execution_types,
-            title="Evaluation Convergence Across Qubit Counts by Execution Type",
+            title="Evaluation Learning Dynamics Across Qubit Counts by Execution Type",
             stem="06c_execution_scaling_dynamics",
             figsize=(7 * len(execution_types), 4.8),
             metric_transform=metric_transform,
@@ -2540,7 +2546,7 @@ class ResultsAnalysis:
         metric_transform: str = "none",
     ) -> list[RunResult]:
         runs = filter_results(
-            self.results.main_convergence,
+            self.results.main_learn,
             **_merged_filters(
                 {
                     "preset": "ang",
@@ -2555,7 +2561,7 @@ class ResultsAnalysis:
             runs,
             facet_field="gradient_method",
             facet_values=gradient_methods,
-            title="Evaluation Convergence Across Qubit Counts by Gradient Method",
+            title="Evaluation Learning Dynamics Across Qubit Counts by Gradient Method",
             stem="06e_gradient_scaling_dynamics",
             figsize=(6 * len(gradient_methods), 4.8),
             metric_transform=metric_transform,
@@ -2578,7 +2584,7 @@ class ResultsAnalysis:
         metric_transform: str = "none",
     ) -> list[RunResult]:
         all_runs = filter_results(
-            self.results.main_convergence,
+            self.results.main_learn,
             **_merged_filters(
                 {
                     "preset": "ang",
@@ -2599,7 +2605,7 @@ class ResultsAnalysis:
             facet_field="randomness",
             facet_values=sweep_levels,
             title=(
-                "Evaluation Convergence for q4 and q8 Across the Complete "
+                "Evaluation Learning Dynamics for q4 and q8 Across the Complete "
                 "Randomness Sweep"
             ),
             stem="06g_randomness_complete_sweep_q4_q8_dynamics",
@@ -2612,7 +2618,7 @@ class ResultsAnalysis:
             runs,
             facet_field="randomness",
             facet_values=randomness_levels,
-            title="Evaluation Convergence Across Qubit Counts by Input Randomness",
+            title="Evaluation Learning Dynamics Across Qubit Counts by Input Randomness",
             stem="06h_randomness_scaling_dynamics",
             figsize=(7 * len(randomness_levels), 4.8),
             metric_transform=metric_transform,
@@ -2654,7 +2660,7 @@ class ResultsAnalysis:
             squeeze=False,
         )
         for column, preset in enumerate(presets):
-            plot_convergence_comparison(
+            plot_learn_comparison(
                 filter_results(runs, preset=preset),
                 compare_by="implementation_packing",
                 metric="eval",

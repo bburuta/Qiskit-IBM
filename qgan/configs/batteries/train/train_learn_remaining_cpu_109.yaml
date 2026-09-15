@@ -1,6 +1,6 @@
-# qGAN generated one-run CPU convergence battery.
+# qGAN generated one-run CPU learning dynamics battery.
 #
-# Auto-generated from train_conv_cpu.yaml for an unfinished non-q16-noisy run.
+# Auto-generated from train_learn_cpu.yaml for an unfinished non-q16-noisy run.
 # Original run id is preserved so checkpointed training can resume.
 
 default_config_values:
@@ -14,7 +14,7 @@ default_config_values:
     seed: 0
     device: CPU
   experiment:
-    implementation: ang
+    preset: ang
     execution_type: noiseless
     n_qubits: 4
     gradient_method: SPSA
@@ -85,7 +85,7 @@ variable_config_values_list:
     - separate
     run.device:
     - CPU
-    experiment.implementation:
+    experiment.preset:
     - base
     experiment.execution_type:
     - noiseless

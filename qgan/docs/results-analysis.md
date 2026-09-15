@@ -18,7 +18,7 @@ cell locates the package source automatically.
 `ResultsAnalysis.load("qgan")` reads these directories:
 
 ```text
-qgan/data/train/        # convergence, hardware, and validation runs
+qgan/data/train/        # learning dynamics, hardware, and validation runs
 qgan/data/train/times/  # five-epoch timing runs
 ```
 
@@ -81,7 +81,7 @@ Filters match normalized run metadata. Common fields are `preset`,
 the supplied values.
 
 The lower-level `qgan_v2.analysis` API also exposes result loading and
-selection, per-run summaries, grouped tables, paired deltas, convergence and
+selection, per-run summaries, grouped tables, paired deltas, learning dynamics and
 final-metric plots, runtime plots, and feasibility plots. Use these functions
 when a comparison is not represented by a `ResultsAnalysis` method.
 
@@ -113,7 +113,7 @@ project short timing runs rather than reporting measured full-training costs.
 
 ## Score transformations
 
-Convergence plots accept `transform="none"`, `"normalize"`, or
+Learning dynamics plots accept `transform="none"`, `"normalize"`, or
 `"standardize"`. The transform is applied independently to each run before
 seed aggregation:
 
@@ -126,7 +126,7 @@ Transformed curves are useful for comparing trajectory shapes across metric
 scales, but they no longer show absolute model quality. For that reason, the
 workflow's best-score summaries continue to use raw evaluation values.
 
-The analysis treats each run/seed as an independent replicate. Convergence
+The analysis treats each run/seed as an independent replicate. Learning dynamics
 curves show the median and interquartile range across runs, with individual
 traces retained faintly. Epochs are not treated as independent samples. See the
 [results analysis plan](results-analysis-plan.md) for the exact comparison

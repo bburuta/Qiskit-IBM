@@ -8,7 +8,7 @@ run:
   seed: 1
   device: CPU
 experiment:
-  implementation: base
+  preset: base
   execution_type: noiseless
   n_qubits: 4
   gradient_method: REG

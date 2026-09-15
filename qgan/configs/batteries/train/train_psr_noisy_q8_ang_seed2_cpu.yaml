@@ -1,4 +1,4 @@
-# qGAN CPU noisy PSR one-run convergence battery.
+# qGAN CPU noisy PSR one-run learning dynamics battery.
 #
 # Runs q8 ang noisy PSR seed 2 on node15.
 # One run per Slurm allocation for viability testing.
@@ -27,7 +27,7 @@ default_config_values:
 
   experiment:
     # Experiment preset. Values: base, ang, amp.
-    implementation: ang
+    preset: ang
     # Execution target. Values: noiseless, noisy, fake_real, real.
     execution_type: noiseless
     # Number of qubits. Values: [int >= 1].
@@ -158,7 +158,7 @@ variable_config_values_list:
   qml_torch_noisy_psr_q8_ang_seed2_cpu:
     implementation.name:
       - qml_torch
-    experiment.implementation:
+    experiment.preset:
       - ang
     experiment.execution_type:
       - noisy

@@ -1,8 +1,18 @@
-# qGAN real-hardware convergence training battery.
+# qGAN GPU learning dynamics training battery.
 #
-# Intended real-hardware convergence studies:
-# - qml_torch implementation comparison across base, angle, and amplitude presets
-# - qml_torch gradient comparison with SPSA and PSR on the base preset
+# Runs simulated qml_torch learning dynamics experiments. Mirrors the CPU learning dynamics battery (checkpoints are shared between CPU and GPU runs):
+# - base, angle, and amplitude presets
+# - noiseless execution with PSR, SPSA, and REG gradients
+# - noisy execution with SPSA gradients; noisy PSR is kept as an optional extra
+# - 4-, 8-, and 16-qubit circuits
+# - seeds 0, 1, and 2
+# - a main randomness sweep with levels 0, 0.1, 0.25, 0.5, and 1
+# - additional learning dynamics groups with randomness levels 0 and 1
+#
+# Reduced from train_learn_sim_old.yaml:
+# - Keeps full-range randomness only for the completed noiseless q4/q8 sweep.
+# - Uses rand0/rand1 for other learning dynamics comparisons.
+# - Keeps noisy PSR as optional: 1000-epoch learning dynamics experiments were too time-expensive.
 
 default_config_values:
 
@@ -23,12 +33,11 @@ default_config_values:
     # Random seed for Python, NumPy, Torch, and simulator options. Values: [int].
     seed: 0
     # Torch device. Values: CPU, GPU. runtime_packed requires CPU.
-    # Keep fixed because run.device is not encoded in generated run ids.
-    device: CPU
+    device: GPU
 
   experiment:
     # Experiment preset. Values: base, ang, amp.
-    implementation: ang
+    preset: ang
     # Execution target. Values: noiseless, noisy, fake_real, real.
     execution_type: noiseless
     # Number of qubits. Values: [int >= 1].
@@ -48,9 +57,9 @@ default_config_values:
     # Adam optimizer learning rate for generator and discriminator optimizers. Values: [number >= 0].
     learning_rate: 0.005
     # Epoch interval for progress prints. Values: [int >= 0], 0 disables printing.
-    print_every: 1
+    print_every: 100
     # Epoch interval for checkpoint saves. Values: [int >= 0], 0 saves only at the end.
-    checkpoint_every: 1
+    checkpoint_every: 100
 
   dataset:
     # Dataset id. Values: null, [string].
@@ -91,7 +100,9 @@ default_config_values:
 
     simulator:
       # Aer simulator device. Values: CPU, GPU.
-      device: CPU
+      device: GPU
+      # Device label used in generated run ids. GPU shares learning dynamics checkpoints with CPU runs.
+      device_name: CPU
       # Floating point precision for simulator/Torch tensors. Values: double, single.
       data_type: double
       # Aer method for noiseless simulation. Values: statevector, density_matrix.
@@ -155,51 +166,119 @@ default_config_values:
 
 variable_config_values_list:
 
-  # Preset real hardware analysis.
-  qml_torch_rh_preset:
+  # Noiseless preset, gradient-method, qubit-scaling and full-range randomness analysis.
+  qml_torch_noiseless:
     implementation.name:
       - qml_torch
-    experiment.implementation:
+    experiment.preset:
       - base
       - ang
       - amp
     experiment.execution_type:
-      - real
-    experiment.gradient_method:
-      - SPSA
-    experiment.n_qubits:
-      - 4
-    backend.simulator.device:
-      - CPU
-    run.seed:
-      - 0
-    encoding.randomness:
-      - 0
-    backend.real.info_storage:
-      - run
-    backend.real.reset_info:
-      - true
-
-  # Gradient-method real hardware analysis.
-  # The base/SPSA qml_torch run is covered by qml_torch_rh_imp.
-  qml_torch_rh_grad:
-    implementation.name:
-      - qml_torch
-    experiment.implementation:
-      - base
-    experiment.execution_type:
-      - real
+      - noiseless
     experiment.gradient_method:
       - PSR
+      - SPSA
+      - REG
     experiment.n_qubits:
       - 4
+      - 8
+      # - 16
     backend.simulator.device:
-      - CPU
+      - GPU
     run.seed:
       - 0
+      - 1
+      - 2
     encoding.randomness:
       - 0
-    backend.real.info_storage:
-      - run
-    backend.real.reset_info:
-      - true
+      - 0.1
+      - 0.25
+      - 0.5
+      - 1
+
+  # Noiseless 16 qubits preset, gradient-method, and randomness analysis.
+  # Unable to transpile amplitude encoding with 16 qubits.
+  qml_torch_noiseless_q16:
+    implementation.name:
+      - qml_torch
+    experiment.preset:
+      - base
+      - ang
+      # - amp
+    experiment.execution_type:
+      - noiseless
+    experiment.gradient_method:
+      - PSR
+      - SPSA
+      - REG
+    experiment.n_qubits:
+      # - 4
+      # - 8
+      - 16
+    backend.simulator.device:
+      - GPU
+    run.seed:
+      - 0
+      - 1
+      - 2
+    encoding.randomness:
+      - 0
+      - 1
+
+  # Noise-impact preset, gradient-method, qubit-scaling and randomness analysis.
+  # Noisy does not support REG.
+  qml_torch_noisy:
+    implementation.name:
+      - qml_torch
+    experiment.preset:
+      - base
+      - ang
+      - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+      - PSR # Not included in the minimum learning dynamics plan because of time cost.
+    experiment.n_qubits:
+      - 4
+      - 8
+      # - 16
+    backend.simulator.device:
+      - GPU
+    run.seed:
+      - 0
+      - 1
+      - 2
+    encoding.randomness:
+      - 0
+      - 1
+
+  # Noise-impact 16 qubits analysis.
+  # Unable to transpile amplitude encoding with 16 qubits.
+  # Not included in the minimum learning dynamics plan because of time cost.
+  qml_torch_noisy_q16:
+    implementation.name:
+      - qml_torch
+    experiment.preset:
+      - base
+      - ang
+      # - amp
+    experiment.execution_type:
+      - noisy
+    experiment.gradient_method:
+      - SPSA
+      - PSR
+    experiment.n_qubits:
+      # - 4
+      # - 8
+      - 16
+    backend.simulator.device:
+      - GPU
+    run.seed:
+      - 0
+      - 1
+      - 2
+    encoding.randomness:
+      - 0
+      - 1

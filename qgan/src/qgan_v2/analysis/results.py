@@ -118,7 +118,7 @@ METADATA_PATHS = {
     "label": "run.label",
     "seed": "run.seed",
     "run_device": "run.device",
-    "preset": "experiment.implementation",
+    "preset": "experiment.preset",
     "implementation": "implementation.name",
     "packing": "implementation.discriminator_packing",
     "execution_type": "experiment.execution_type",
@@ -227,6 +227,10 @@ def _metadata_from_config(config: dict[str, Any]) -> dict[str, Any]:
         name: get_nested(config, path)
         for name, path in METADATA_PATHS.items()
     }
+    # Older checkpoints stored the encoding preset under this legacy name.
+    # They remain the metadata source when their adjacent YAML fails validation.
+    if metadata["preset"] is None:
+        metadata["preset"] = get_nested(config, "experiment.implementation")
     return _add_device_metadata(metadata)
 
 
@@ -522,8 +526,8 @@ def comparison_line_colors(
     """Return a continuous, value-ordered palette for comparison lines.
 
     Randomness uses an intense honey-yellow, red-orange, purple-red, purple,
-    and deep-blue sequence. Qubit count reuses the same first three colors so
-    both figures have a consistent yellow-orange-red visual language.
+    and deep-blue sequence. Qubit counts use fixed q4, q8, and q16 anchors so
+    missing values cannot shift their yellow-orange-red identities.
     """
 
     import matplotlib.pyplot as plt
@@ -533,12 +537,28 @@ def comparison_line_colors(
         return []
     if all(_is_finite_number(value) for value in values):
         numeric_values = np.asarray(values, dtype=float)
+        if field == "n_qubits" and numeric_cmap is None:
+            from matplotlib.colors import to_rgb
+
+            qubit_values = np.asarray((4, 8, 16), dtype=float)
+            qubit_colors = np.asarray([
+                to_rgb(color) for color in ("#E6A400", "#E65100", "#A60026")
+            ])
+            return [
+                (
+                    *(
+                        np.interp(value, qubit_values, qubit_colors[:, channel])
+                        for channel in range(3)
+                    ),
+                    1.0,
+                )
+                for value in numeric_values
+            ]
         minimum = float(np.min(numeric_values))
         maximum = float(np.max(numeric_values))
         palette_name = numeric_cmap or "Blues"
         lower, upper = {
             "randomness": (0.00, 1.00),
-            "n_qubits": (0.00, 1.00),
         }.get(field, (0.30, 0.90))
         if minimum == maximum:
             normalized = np.full(len(values), 0.5)
@@ -549,10 +569,6 @@ def comparison_line_colors(
             "randomness": (
                 (0, 0.1, 0.25, 0.5, 1),
                 ("#E6A400", "#E65100", "#A60026", "#7626B8", "#174EA6"),
-            ),
-            "n_qubits": (
-                (0, 1 / 3, 1),
-                ("#E6A400", "#E65100", "#A60026"),
             ),
         }.get(field)
         if palette_anchors is not None and numeric_cmap is None:
@@ -670,7 +686,7 @@ def deduplicate_simulator_runs(
 ) -> list[RunResult]:
     """Collapse CPU/GPU copies of the same scientific simulator run.
 
-    Device is an execution detail for convergence-quality analysis.  The most
+    Device is an execution detail for analysis of learning dynamics and quality.  The most
     complete checkpoint wins; ties prefer ``preferred_device`` and then the
     lexicographically first run id for deterministic notebook output.  Real and
     fake-real runs are never collapsed with simulator runs.
@@ -718,13 +734,13 @@ def deduplicate_simulator_runs(
     return sorted([*chosen.values(), *passthrough], key=lambda result: result.run_id)
 
 
-def select_main_convergence_results(
+def select_main_learn_results(
     results: Iterable[RunResult],
     *,
     expected_epochs: int = 1000,
     preferred_device: str = "CPU",
 ) -> list[RunResult]:
-    """Apply the selection rules for the main simulated convergence population."""
+    """Apply the selection rules for the main simulated learning dynamics population."""
 
     completed = select_completed_results(
         results,
@@ -1221,7 +1237,7 @@ def _label(result: RunResult, fields: Iterable[str]) -> str:
     return ", ".join(parts) or result.run_id
 
 
-def plot_convergence(
+def plot_learn(
     runs: Iterable[RunResult],
     *,
     metric: str = "eval",
@@ -1297,7 +1313,7 @@ def plot_convergence(
     return ax
 
 
-def plot_convergence_comparison(
+def plot_learn_comparison(
     results: Iterable[RunResult],
     *,
     compare_by: str,
@@ -1323,7 +1339,7 @@ def plot_convergence_comparison(
     colors = comparison_line_colors(values, field=compare_by)
     for index, value in enumerate(values):
         group = filter_results(selected, **{compare_by: value})
-        plot_convergence(
+        plot_learn(
             group,
             metric=metric,
             x_axis=x_axis,
@@ -1392,7 +1408,7 @@ def plot_training_dynamics_comparison(
     evaluation_colors = metric_shades("#ffaf01")
     for index, value in enumerate(values):
         group = filter_results(selected, **{compare_by: value})
-        plot_convergence(
+        plot_learn(
             group,
             metric="gloss",
             x_axis=x_axis,
@@ -1402,7 +1418,7 @@ def plot_training_dynamics_comparison(
             color=generator_colors[index],
             ax=axes[0],
         )
-        plot_convergence(
+        plot_learn(
             group,
             metric="dloss",
             x_axis=x_axis,
@@ -1412,7 +1428,7 @@ def plot_training_dynamics_comparison(
             color=discriminator_colors[index],
             ax=axes[0],
         )
-        plot_convergence(
+        plot_learn(
             group,
             metric="eval",
             x_axis=x_axis,

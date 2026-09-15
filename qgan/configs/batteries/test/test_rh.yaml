@@ -32,7 +32,7 @@ default_config_values:
 
   experiment:
     # Experiment preset. Values: base, ang, amp.
-    implementation: ang
+    preset: ang
     # Execution target. Values: noiseless, noisy, fake_real, real.
     execution_type: real
     # Number of qubits. Values: [int >= 1].
@@ -164,7 +164,7 @@ variable_config_values_list:
       - runtime_packed
     implementation.discriminator_packing:
       - separate
-    experiment.implementation:
+    experiment.preset:
       - base
       - ang
       - amp
@@ -183,7 +183,7 @@ variable_config_values_list:
       - runtime_packed
     implementation.discriminator_packing:
       - joined
-    experiment.implementation:
+    experiment.preset:
       - base
       - ang
     experiment.gradient_method:

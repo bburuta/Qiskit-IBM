@@ -28,6 +28,64 @@ not pending jobs. The script is tailored to the repository's one-node jobs; for
 multi-node jobs it distributes an equal allocation across the expanded node
 list.
 
+## Experimental setup hardware details
+
+Show the configured devices of **every node in the QPU partition** from a
+login node (the default mode):
+
+```bash
+./slurm/show_device_info.sh | tee qpu_devices.txt
+```
+
+This reports node architecture, CPU count and topology, RAM, GPU GRES/type
+labels, features, state, and configured/allocated resources from Slurm. It
+includes busy and unavailable nodes and does not require a running job.
+Slurm usually does not store physical CPU model, GPU VRAM, driver or CUDA
+versions. To collect those details, also probe each QPU node:
+
+```bash
+./slurm/show_device_info.sh --probe-qpu | tee qpu_hardware.txt
+```
+
+Probes request one CPU, 128 MiB RAM, and one GPU on GPU nodes, with a one-minute
+time limit per node. Each request waits at most five seconds for resources;
+unavailable probes retain the metadata report and cause a nonzero exit status.
+GPU probes can only access devices exposed to their allocation. Use an existing
+job ID to inspect a busy node when a fresh allocation cannot start.
+
+To capture CPU model, architecture, sockets/cores/threads, caches, host RAM,
+OS/kernel, NVIDIA GPU model and VRAM, driver, and CUDA toolkit compiler version
+on the current host:
+
+```bash
+./slurm/show_device_info.sh --local | tee device_info.txt
+```
+
+Run this on the compute node used by the experiment, or add it to the batch
+script before the training command so the report appears in the job log.
+From a login node, inspect an existing running job (including an array task),
+or all your running jobs:
+
+```bash
+./slurm/show_device_info.sh 1566450_3
+./slurm/show_device_info.sh all | tee experiment_devices.txt
+```
+
+Each job node is inspected with a one-CPU overlapping `srun` step. The report
+includes job allocation metadata, GPU visibility, and thread environment
+variables. The reporting step's CPU affinity and CPUs-per-task describe that
+step; use the job metadata for the experiment's allocation. Host RAM and CPU
+topology describe physical capacity. GPU enumeration may include unassigned
+devices; correlate it with the Slurm GPU IDs and visibility variables. The
+CUDA version shown by `nvidia-smi` is the driver's maximum supported version;
+`nvcc --version` reports the toolkit compiler available on `PATH`. Run inside
+the experiment's container/environment to capture its OS and toolkit.
+
+Missing GPU tools or unsupported compute-capability queries are reported
+without preventing CPU information from being printed. A cluster may disable
+overlapping steps. Reports describe hardware at capture time; they do not
+recover the devices or software versions used by completed jobs.
+
 ## Live logs
 
 Print the last ten lines of standard output for every running job:

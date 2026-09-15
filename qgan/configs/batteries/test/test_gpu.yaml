@@ -32,7 +32,7 @@ default_config_values:
 
   experiment:
     # Experiment preset. Values: base, ang, amp.
-    implementation: ang
+    preset: ang
     # Execution target. Values: noiseless, noisy, fake_real, real.
     execution_type: noiseless
     # Number of qubits. Values: [int >= 1].
@@ -162,7 +162,7 @@ variable_config_values_list:
   qml_torch_noiseless:
     implementation.name:
       - qml_torch
-    experiment.implementation:
+    experiment.preset:
       - base
       - ang
       - amp
@@ -185,7 +185,7 @@ variable_config_values_list:
   qml_torch_noisy:
     implementation.name:
       - qml_torch
-    experiment.implementation:
+    experiment.preset:
       - base
       - ang
       - amp
@@ -209,7 +209,7 @@ variable_config_values_list:
   #     - runtime_packed
   #   implementation.discriminator_packing:
   #     - separate
-  #   experiment.implementation:
+  #   experiment.preset:
   #     - base
   #     - ang
   #     - amp
@@ -233,7 +233,7 @@ variable_config_values_list:
   #     - runtime_packed
   #   implementation.discriminator_packing:
   #     - joined
-  #   experiment.implementation:
+  #   experiment.preset:
   #     - base
   #     - ang
   #   experiment.execution_type:
@@ -254,7 +254,7 @@ variable_config_values_list:
   # real_options:
   #   implementation.name:
   #     - qml_torch
-  #   experiment.implementation:
+  #   experiment.preset:
   #     - base
   #     - ang
   #     - amp

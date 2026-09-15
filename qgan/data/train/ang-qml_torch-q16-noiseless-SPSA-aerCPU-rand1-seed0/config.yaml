@@ -8,7 +8,7 @@ run:
   seed: 0
   device: CPU
 experiment:
-  implementation: ang
+  preset: ang
   execution_type: noiseless
   n_qubits: 16
   gradient_method: SPSA

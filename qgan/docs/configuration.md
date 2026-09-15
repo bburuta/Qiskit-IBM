@@ -16,7 +16,7 @@ default_config_values:
 
 variable_config_values_list:
   qml_torch_test:
-    experiment.implementation: [base, ang, amp]
+    experiment.preset: [base, ang, amp]
     experiment.gradient_method: [PSR, SPSA]
     run.label: [qml_torch_test]
     run.seed: [0]
@@ -28,7 +28,7 @@ Important fields:
 
 - `implementation.name`: `qml_torch` or `runtime_packed`. The `manual_estimator` scaffold is not executable.
 - `implementation.discriminator_packing`: `separate` executes real and fake discriminator circuits independently; `joined` combines them into one packed circuit.
-- `experiment.implementation`: qGAN preset, usually `base`, `ang`, or `amp`.
+- `experiment.preset`: qGAN preset, usually `base`, `ang`, or `amp`.
 - `experiment.execution_type`: `noiseless`, `noisy`, `fake_real`, or `real`.
 - `experiment.gradient_method`: `PSR`, `SPSA`, or `REG`.
 - `training.init_scale`: initial trainable parameter scale applied to samples from `[-pi, pi]`.
@@ -102,7 +102,7 @@ ang-qml_torch-q3-noisy-PSR-aerCPU-rand0.1-seed0:noisy_dm_hw
 
 ## Presets
 
-`experiment.implementation` controls dataset and encoding defaults:
+`experiment.preset` controls dataset and encoding defaults:
 
 - `base`: direct quantum circuit dataset with `direct_circuit` encoding.
 - `ang`: generated gradient image dataset with angle encoding.

@@ -8,7 +8,7 @@ run:
   seed: 2
   device: GPU
 experiment:
-  implementation: amp
+  preset: amp
   execution_type: noiseless
   n_qubits: 16
   gradient_method: PSR

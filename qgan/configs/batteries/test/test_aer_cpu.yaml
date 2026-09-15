@@ -33,7 +33,7 @@ default_config_values:
 
   experiment:
     # Experiment preset. Values: base, ang, amp.
-    implementation: ang
+    preset: ang
     # Execution target. Values: noiseless, noisy, fake_real, real.
     execution_type: noiseless
     # Number of qubits. Values: [int >= 1].
@@ -183,7 +183,7 @@ variable_config_values_list:
       - aer_baseline
     implementation.name:
       - qml_torch
-    experiment.implementation:
+    experiment.preset:
       - base
       - ang
       - amp
@@ -204,7 +204,7 @@ variable_config_values_list:
       - aer_fast_precision
     implementation.name:
       - qml_torch
-    experiment.implementation:
+    experiment.preset:
       - base
       - ang
       - amp
@@ -228,7 +228,7 @@ variable_config_values_list:
       - aer_medium_precision
     implementation.name:
       - qml_torch
-    experiment.implementation:
+    experiment.preset:
       - base
       - ang
       - amp
@@ -252,7 +252,7 @@ variable_config_values_list:
       - aer_parallel_experiments
     implementation.name:
       - qml_torch
-    experiment.implementation:
+    experiment.preset:
       - base
       - ang
       - amp
@@ -276,7 +276,7 @@ variable_config_values_list:
       - aer_all_serial
     implementation.name:
       - qml_torch
-    experiment.implementation:
+    experiment.preset:
       - base
       - ang
       - amp
@@ -302,7 +302,7 @@ variable_config_values_list:
       - aer_experiments_2
     implementation.name:
       - qml_torch
-    experiment.implementation:
+    experiment.preset:
       - base
       - ang
       - amp
@@ -326,7 +326,7 @@ variable_config_values_list:
       - aer_experiments_4
     implementation.name:
       - qml_torch
-    experiment.implementation:
+    experiment.preset:
       - base
       - ang
       - amp
@@ -350,7 +350,7 @@ variable_config_values_list:
       - aer_shots_1
     implementation.name:
       - qml_torch
-    experiment.implementation:
+    experiment.preset:
       - base
       - ang
       - amp
@@ -374,7 +374,7 @@ variable_config_values_list:
       - aer_shots_4
     implementation.name:
       - qml_torch
-    experiment.implementation:
+    experiment.preset:
       - base
       - ang
       - amp
@@ -398,7 +398,7 @@ variable_config_values_list:
       - aer_shots_8
     implementation.name:
       - qml_torch
-    experiment.implementation:
+    experiment.preset:
       - base
       - ang
       - amp
@@ -422,7 +422,7 @@ variable_config_values_list:
       - aer_threads_1
     implementation.name:
       - qml_torch
-    experiment.implementation:
+    experiment.preset:
       - base
       - ang
       - amp
@@ -446,7 +446,7 @@ variable_config_values_list:
       - aer_threads_8
     implementation.name:
       - qml_torch
-    experiment.implementation:
+    experiment.preset:
       - base
       - ang
       - amp
@@ -470,7 +470,7 @@ variable_config_values_list:
       - aer_threads_4
     implementation.name:
       - qml_torch
-    experiment.implementation:
+    experiment.preset:
       - base
       - ang
       - amp
@@ -494,7 +494,7 @@ variable_config_values_list:
       - aer_single
     implementation.name:
       - qml_torch
-    experiment.implementation:
+    experiment.preset:
       - base
       - ang
       - amp
@@ -518,7 +518,7 @@ variable_config_values_list:
       - aer_nm_mapping
     implementation.name:
       - qml_torch
-    experiment.implementation:
+    experiment.preset:
       - base
       - ang
       - amp

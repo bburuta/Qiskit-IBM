@@ -6,6 +6,7 @@ import pytest
 from qgan_v2.analysis.results import RunResult, is_completed
 from qgan_v2.analysis.workflow import (
     LIMITATION_CASES,
+    LIMITATION_ORDER,
     ResultsAnalysis,
     ResultsData,
     expected_battery_results,
@@ -20,7 +21,7 @@ def make_config(*, device="CPU", randomness=0):
     return {
         "run": {"id": "run", "seed": 2},
         "experiment": {
-            "implementation": "ang",
+            "preset": "ang",
             "execution_type": "noisy",
             "gradient_method": "PSR",
             "n_qubits": 4,
@@ -108,11 +109,11 @@ def test_expected_battery_results_creates_a_missing_result(monkeypatch, tmp_path
         lambda value: run_path / "config.yaml",
     )
 
-    result = expected_battery_results([config], [], "convergence")[0]
+    result = expected_battery_results([config], [], "learn")[0]
 
     assert result.path == run_path
     assert result.status == "missing_training_data"
-    assert result.metadata["analysis_source"] == "convergence"
+    assert result.metadata["analysis_source"] == "learn"
 
 
 def test_expected_result_uses_battery_budget_without_hardware_special_case(
@@ -136,7 +137,7 @@ def test_expected_result_uses_battery_budget_without_hardware_special_case(
         lambda value: run_path / "config.yaml",
     )
 
-    result = expected_battery_results([config], [observed], "convergence")[0]
+    result = expected_battery_results([config], [observed], "learn")[0]
 
     assert result.metadata["max_iterations"] == 1000
     assert not is_completed(result)
@@ -167,7 +168,7 @@ def test_expected_result_is_complete_at_or_above_battery_budget(monkeypatch, tmp
     assert is_completed(result)
 
 
-def test_default_feasibility_sources_use_one_convergence_and_three_timing_batteries(
+def test_default_feasibility_sources_use_one_learn_and_three_timing_batteries(
     monkeypatch,
     tmp_path,
 ):
@@ -181,11 +182,11 @@ def test_default_feasibility_sources_use_one_convergence_and_three_timing_batter
 
     monkeypatch.setattr("qgan_v2.analysis.workflow.battery_configs", record_batteries)
 
-    results, convergence_battery, timing_batteries = analysis._feasibility_results()
+    results, learn_battery, timing_batteries = analysis._feasibility_results()
 
     assert results == []
-    assert convergence_battery.name == "train_conv_gpu.yaml"
-    assert expanded == [["train_conv_gpu.yaml"], [
+    assert learn_battery.name == "train_learn_gpu.yaml"
+    assert expanded == [["train_learn_gpu.yaml"], [
         "train_times_cpu.yaml",
         "train_times_gpu.yaml",
         "train_times_rh.yaml",
@@ -205,19 +206,25 @@ def test_incomplete_limitation_classifies_known_cases():
         "simulator_device": "CPU",
     }) == "out of memory"
     assert incomplete_limitation({
-        "analysis_source": "convergence",
+        "analysis_source": "learn",
         "execution_type": "noisy",
         "gradient_method": "SPSA",
         "n_qubits": 16,
         "simulator_device": "CPU",
     }) == "out of memory"
     assert incomplete_limitation({
-        "analysis_source": "convergence",
+        "analysis_source": "learn",
         "execution_type": "noisy",
         "gradient_method": "SPSA",
         "n_qubits": 16,
         "simulator_device": "GPU",
     }) == "time-expensive"
+    with pytest.raises(ValueError, match="No limiting-factor classification"):
+        incomplete_limitation({
+            "run_id": "unexpected",
+            "analysis_source": "learn",
+            "execution_type": "noiseless",
+        })
 
 
 def test_known_oom_timing_results_selects_incomplete_base_and_angle_q16(tmp_path):
@@ -267,12 +274,17 @@ def test_known_oom_timing_results_selects_incomplete_base_and_angle_q16(tmp_path
 
 
 def test_limitation_cases_join_experiment_and_qubit_scope():
+    assert LIMITATION_ORDER == (
+        "time-expensive",
+        "execution time unavailable",
+        "out of memory",
+    )
     assert [row["experiment"] for row in LIMITATION_CASES] == [
         "amplitude q16",
         "noisy q16 CPU timing",
         "real hardware q4",
-        "noisy q4/q8 PSR convergence",
-        "noisy q16 convergence",
+        "noisy q4/q8 PSR learning dynamics",
+        "noisy q16 learning dynamics",
     ]
     assert all("n_qubits" not in row for row in LIMITATION_CASES)
     assert [row["limitation"] for row in LIMITATION_CASES] == [
@@ -537,6 +549,9 @@ def test_timing_distributions_accepts_scientific_selectors_and_sequences(
         .get_gridspec()
         .get_width_ratios()
     ) == [2, 2, 1]
+    assert pooled_figure.axes[0].get_box_aspect() == pytest.approx(0.8)
+    assert pooled_figure.axes[1].get_box_aspect() == pytest.approx(0.8)
+    assert pooled_figure.axes[2].get_box_aspect() == pytest.approx(1.6)
 
 
 def test_timing_distributions_compare_by_uses_other_arguments_as_filters(

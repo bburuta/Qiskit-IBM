@@ -31,7 +31,7 @@ def base_config():
             "device": "CPU",
         },
         "experiment": {
-            "implementation": "base",
+            "preset": "base",
             "execution_type": "noiseless",
             "n_qubits": 3,
             "gradient_method": "PSR",
@@ -288,7 +288,7 @@ def test_reg_requires_local_noiseless_qml_torch():
 
 def test_amplitude_preset_requires_state_dimension():
     raw_config = base_config()
-    raw_config["experiment"]["implementation"] = "amp"
+    raw_config["experiment"]["preset"] = "amp"
     config = prepare_run_config(raw_config)
     config["dataset"]["parameters"]["total_pixels"] = 7
 
@@ -299,7 +299,7 @@ def test_amplitude_preset_requires_state_dimension():
 def test_loaded_dataset_must_match_encoding_dimension():
     np = pytest.importorskip("numpy")
     raw_config = base_config()
-    raw_config["experiment"]["implementation"] = "amp"
+    raw_config["experiment"]["preset"] = "amp"
     config = prepare_run_config(raw_config)
 
     with pytest.raises(RuntimeValidationError, match="requires 8 values per sample"):
