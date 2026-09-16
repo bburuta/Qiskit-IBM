@@ -18,14 +18,14 @@ def generate_generator(n_qubits, circuit_type):
         qc = real_amplitudes(n_qubits,
                             reps=3, # Number of layers
                             parameter_prefix='θ_g',
-                            name='Generator').decompose()
+                            name='Generator')
     
     elif circuit_type == 'efficient_su2':
         qc = efficient_su2(n_qubits,
                       entanglement="reverse_linear",
                       reps=1, # Number of layers
                       parameter_prefix='θ_g',
-                      name='Generator').decompose()
+                      name='Generator')
     else:
         raise ValueError(f"Unknown generator circuit: {circuit_type}")
     
@@ -39,7 +39,7 @@ def generate_discriminator(n_qubits, circuit_type):
                         entanglement="reverse_linear",
                         reps=1, # Number of layers
                         parameter_prefix='θ_d',
-                        name='Discriminator').decompose()
+                        name='Discriminator')
 
         param_index = qc.num_parameters
         for i in reversed(range(n_qubits - 1)):
@@ -52,7 +52,7 @@ def generate_discriminator(n_qubits, circuit_type):
         qc = real_amplitudes(n_qubits,
                             reps=3, # Number of layers
                             parameter_prefix='θ_d',
-                            name='Discriminator').decompose()
+                            name='Discriminator')
         
         param_index = qc.num_parameters
         for i in reversed(range(n_qubits - 1)):
@@ -87,7 +87,7 @@ def load_train_circuits_file(filename):
 #- Circuits management -#
 
 # Get circuits
-def get_circuits(config, save_file=False):
+def get_circuits(config, save_file=False, *, save_dataset=True):
     n_qubits = config['experiment']['n_qubits']
 
     # Save circuits in file
@@ -99,7 +99,7 @@ def get_circuits(config, save_file=False):
             generator_circuit = generate_generator(n_qubits, config['circuits']['generator'])
             discriminator_circuit = generate_discriminator(n_qubits, config['circuits']['discriminator'])
             randomizer_circuit = create_randomizer_circuit(config)
-            real_circuits = create_real_circuits(config)
+            real_circuits = create_real_circuits(config, save_dataset=save_dataset)
             
             create_circuits_file([generator_circuit, discriminator_circuit, randomizer_circuit, *real_circuits], filename)
 
@@ -114,7 +114,7 @@ def get_circuits(config, save_file=False):
         generator_circuit = generate_generator(n_qubits, config['circuits']['generator'])
         discriminator_circuit = generate_discriminator(n_qubits, config['circuits']['discriminator'])
         randomizer_circuit = create_randomizer_circuit(config)
-        real_circuits = create_real_circuits(config)
+        real_circuits = create_real_circuits(config, save_dataset=save_dataset)
 
     circuit_bundle = [generator_circuit, discriminator_circuit, randomizer_circuit, real_circuits]
     return validate_circuit_bundle(config, circuit_bundle)

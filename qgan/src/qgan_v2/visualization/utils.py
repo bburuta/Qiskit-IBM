@@ -8,6 +8,12 @@ from qiskit.quantum_info import Statevector
 from qiskit.visualization import plot_histogram
 
 from qgan_v2.circuits.factory import get_circuits
+from qgan_v2.visualization.hardware_layout import (
+    get_hardware_positions,
+    get_hardware_edges,
+    get_circuit_edges,
+    plot_hardware_layout,
+)
 from qgan_v2.config.loader import load_run_config
 from qgan_v2.datasets.images import get_images_dataset, show_images_dataset
 from qgan_v2.execution.backend import (
@@ -257,18 +263,29 @@ def _plot_output_panels(run, outputs, target, titles, figsize=None):
             ax.set_title(title)
         return fig, axes
 
-    positions = np.arange(len(target))
     n_qubits = run['config']['experiment']['n_qubits']
-    labels = [format(index, f'0{n_qubits}b') for index in positions]
     for index, (ax, values, title) in enumerate(zip(axes, panels, titles)):
         color = 'C1' if index == len(panels) - 1 else 'C0'
-        ax.bar(positions, values, width=0.8, color=color)
-        if len(values) <= 32:
-            ax.set_xticks(positions, labels, rotation=90)
-        ax.set_xlabel('basis state')
-        ax.set_ylabel('probability')
-        ax.set_title(title)
+        plot_basis_probabilities(ax, values, n_qubits, title=title, color=color)
     return fig, axes
+
+
+def plot_basis_probabilities(ax, values, n_qubits, *, title=None, color='C0'):
+    """Plot every basis state, including states with zero probability."""
+    positions = np.arange(len(values))
+    if len(values) <= 256:
+        ax.bar(positions, values, width=0.8, color=color)
+    else:
+        # A single step artist keeps large distributions practical to render.
+        ax.stairs(values, np.arange(len(values) + 1) - 0.5, fill=True, color=color)
+    ax.set_xlim(-0.5, len(values) - 0.5)
+    if len(values) <= 32:
+        labels = [format(index, f'0{n_qubits}b') for index in positions]
+        ax.set_xticks(positions, labels, rotation=90)
+    ax.set_xlabel('basis state')
+    ax.set_ylabel('probability')
+    if title is not None:
+        ax.set_title(title)
 
 
 def _save_output_figure(fig, save_path):
@@ -438,119 +455,11 @@ def get_hardware_layout_jobs(run, pass_manager):
     return jobs
 
 
-# Get backend qubit coordinates or create a fallback grid
-def get_hardware_positions(hardware_info):
-    configuration = hardware_info['configuration']
-    coords = getattr(configuration, 'coords', None)
-    if coords:
-        return {
-            index: (float(x), -float(y))
-            for index, (x, y) in enumerate(coords)
-        }
-
-    n_qubits = hardware_info['target'].num_qubits
-    width = int(np.ceil(np.sqrt(n_qubits)))
-    return {
-        index: (index % width, -(index // width))
-        for index in range(n_qubits)
-    }
-
-
-# Get the undirected hardware coupling edges
-def get_hardware_edges(hardware_info):
-    coupling_map = hardware_info['target'].build_coupling_map()
-    return sorted({
-        tuple(sorted((int(a), int(b))))
-        for a, b in coupling_map.get_edges()
-        if a != b
-    })
-
-
-# Get the physical two-qubit edges used by a transpiled circuit
-def get_circuit_edges(circuit):
-    return sorted({
-        tuple(sorted(qubit._index for qubit in instruction.qubits))
-        for instruction in circuit.data
-        if len(instruction.qubits) == 2
-    })
-
-
-# Draw packed circuit copies on the physical hardware layout
+# Draw packed circuit copies using the shared, offline placement plotter.
 def draw_hardware_layout(job, hardware_info, title):
-    positions = get_hardware_positions(hardware_info)
-    hardware_edges = get_hardware_edges(hardware_info)
-    circuit_edges = get_circuit_edges(job['circuit'])
-    layout_groups = job['layout_groups']
-    layout_labels = job.get(
-        'layout_labels',
-        [f'copy {copy_index}' for copy_index in range(len(layout_groups))],
-    )
-    selected_qubits = set().union(*(set(group) for group in layout_groups))
-    colors = plt.get_cmap('tab20')(
-        np.linspace(0, 1, max(len(layout_groups), 1))
-    )
-
-    fig, ax = plt.subplots(figsize=(14, 7))
-
-    for a, b in hardware_edges:
-        ax.plot(
-            [positions[a][0], positions[b][0]],
-            [positions[a][1], positions[b][1]],
-            color='0.86',
-            linewidth=0.7,
-            zorder=1,
-        )
-
-    idle_qubits = [qubit for qubit in positions if qubit not in selected_qubits]
-    ax.scatter(
-        [positions[qubit][0] for qubit in idle_qubits],
-        [positions[qubit][1] for qubit in idle_qubits],
-        s=28,
-        color='0.78',
-        edgecolors='white',
-        linewidths=0.4,
-        zorder=2,
-        label='idle',
-    )
-
-    for a, b in circuit_edges:
-        ax.plot(
-            [positions[a][0], positions[b][0]],
-            [positions[a][1], positions[b][1]],
-            color='black',
-            linewidth=2,
-            alpha=0.45,
-            zorder=3,
-        )
-
-    for copy_index, group in enumerate(layout_groups):
-        ax.scatter(
-            [positions[qubit][0] for qubit in group],
-            [positions[qubit][1] for qubit in group],
-            s=120,
-            color=[colors[copy_index]],
-            edgecolors='black',
-            linewidths=0.8,
-            zorder=4,
-            label=layout_labels[copy_index],
-        )
-        for local_index, qubit in enumerate(group):
-            ax.text(
-                positions[qubit][0],
-                positions[qubit][1],
-                f'{qubit}\nq{local_index}',
-                ha='center',
-                va='center',
-                fontsize=7,
-                zorder=5,
-            )
-
-    ax.set_title(title)
-    ax.set_aspect('equal')
-    ax.axis('off')
-    ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), frameon=False)
-    fig.tight_layout()
+    fig = plot_hardware_layout(job, hardware_info, title)
     plt.show()
+    return fig
 
 
 # Show the generator and discriminator hardware layouts

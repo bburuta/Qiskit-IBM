@@ -122,12 +122,15 @@ def load_images_dataset_file(filename):
 #- Dataset management -#
 
 # Get dataset
-def get_images_dataset(config):
+def get_images_dataset(config, *, save_file=True):
     dataset_options = config['dataset']
 
     filename = get_prepared_dataset_filename(config)
 
     if dataset_options['reset'] or not filename.exists():
+        if not save_file:
+            dataset = create_images_dataset(dataset_options['source'], dataset_options['parameters'])
+            return validate_loaded_dataset(config, dataset)
         create_images_dataset_file(dataset_options['source'], 
                             dataset_options['parameters'], 
                             filename

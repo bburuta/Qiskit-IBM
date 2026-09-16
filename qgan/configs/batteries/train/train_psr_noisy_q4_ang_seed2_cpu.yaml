@@ -83,10 +83,10 @@ default_config_values:
     transpilation:
       # Preset pass manager optimization level. Values: 0, 1, 2, 3.
       optimization_level: 3
-      # Initial physical-qubit placement method. Values: trivial, dense, sabre.
-      layout_method: sabre
-      # SWAP routing method. Values: basic, lookahead, sabre, none.
-      routing_method: sabre
+      # Initial physical-qubit placement method. Values: null (Qiskit default), trivial, dense, sabre.
+      layout_method: null
+      # SWAP routing method. Values: null (Qiskit default), basic, lookahead, sabre, none.
+      routing_method: null
 
     simulator:
       # Aer simulator device. Values: CPU, GPU.

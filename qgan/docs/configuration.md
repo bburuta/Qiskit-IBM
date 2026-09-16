@@ -118,9 +118,13 @@ Recommended hardware transpilation settings:
 backend:
   transpilation:
     optimization_level: 3
-    layout_method: sabre
-    routing_method: sabre
+    layout_method: null
+    routing_method: null
 ```
+
+YAML `null` passes Python `None` to Qiskit, selecting its default layout and
+routing pipelines for the chosen optimization level. In particular, the default
+layout can score placements using backend error estimates before using SABRE.
 
 `runtime_packed` supports the `base`, `ang`, and `amp` presets with `noisy`, `fake_real`, or `real` execution and `PSR` or `SPSA` gradients. Joined discriminator packing supports `base` with `batch_size: 1` and `ang` with an even batch size. Use separate packing for `amp`.
 

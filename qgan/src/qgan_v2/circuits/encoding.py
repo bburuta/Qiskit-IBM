@@ -21,6 +21,7 @@ def generate_amp_circuits(n_qubits, X_amplitudes):
         qc.prepare_state(state=amplitudes.detach().cpu().numpy(),
                         qubits=qc.qubits,
                         normalize=False)
+        qc = qc.decompose().decompose().decompose()
         qcs.append(qc)
     return qcs
     
@@ -144,7 +145,7 @@ def images_to_amp(images, intensity_power):
 
 
 # Create real circuits depending on dataset and encoding type
-def create_real_circuits(config):
+def create_real_circuits(config, *, save_dataset=True):
     dataset_type = config['dataset']['type']
     encoding = config['encoding']['type']
     n_qubits = config['experiment']['n_qubits']
@@ -159,7 +160,7 @@ def create_real_circuits(config):
         if encoding == 'angle':
             real_circuits = [generate_ang_circuit(n_qubits)]
         elif encoding == 'amplitude':
-            X = torch.as_tensor(get_images_dataset(config))
+            X = torch.as_tensor(get_images_dataset(config, save_file=save_dataset))
             X_amplitudes = images_to_amp(X, config['encoding']['contrast'])
             real_circuits = generate_amp_circuits(n_qubits, X_amplitudes)
         else:

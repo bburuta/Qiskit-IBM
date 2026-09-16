@@ -1,5 +1,7 @@
 """Visualization helpers for qGAN runs."""
 
+from qgan_v2.visualization.circuit_atlas import CircuitAtlas
+from qgan_v2.visualization.datasets import show_dataset_samples
 from qgan_v2.visualization.utils import (
     draw_hardware_layout,
     get_visual_config,
@@ -12,6 +14,8 @@ from qgan_v2.visualization.utils import (
 )
 
 __all__ = [
+    'CircuitAtlas',
+    'show_dataset_samples',
     'draw_hardware_layout',
     'get_visual_config',
     'load_visualization_run',

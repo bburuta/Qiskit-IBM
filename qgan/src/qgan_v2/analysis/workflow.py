@@ -426,7 +426,7 @@ class ResultsAnalysis:
         if tight_layout:
             fig.tight_layout(rect=layout_rect)
         if self.export_figures:
-            for saved_path in save_figure(fig, self.figure_dir, stem):
+            for saved_path in save_figure(fig, self.figure_dir, stem, formats=("png",)):
                 print("saved:", saved_path)
         plt.show()
         plt.close(fig)
@@ -476,11 +476,11 @@ class ResultsAnalysis:
         plot_final_metric(
             runs,
             compare_by=compare_by,
-            metric_name="epoch_of_best_eval",
+            metric_name="average_best_so_far_eval",
             point_color_by="seed",
             ax=axes[1],
         )
-        axes[1].set_title("Epoch of Best Evaluation")
+        axes[1].set_title("Average Best Evaluation So Far")
         fig.suptitle(title)
         self._finish(fig, stem)
         return fig, axes
@@ -509,7 +509,7 @@ class ResultsAnalysis:
                 display_label = label.replace("_", " ").title()
             for row, metric_name, metric_title in (
                 (0, "best_eval", "Best Evaluation Score"),
-                (1, "epoch_of_best_eval", "Epoch of Best Evaluation"),
+                (1, "average_best_so_far_eval", "Average Best Evaluation So Far"),
             ):
                 plot_final_metric(
                     runs,
@@ -1916,7 +1916,7 @@ class ResultsAnalysis:
                 "median_best_eval",
                 "q25_best_eval",
                 "q75_best_eval",
-                "median_epoch_of_best_eval",
+                "median_average_best_so_far_eval",
             ),
         )
         return table
@@ -1968,6 +1968,7 @@ class ResultsAnalysis:
                 "seed": summary["seed"],
                 "evaluation_metric": summary["eval_method"],
                 "best_eval": summary["best_eval"],
+                "average_best_so_far_eval": summary["average_best_so_far_eval"],
                 "epoch_of_best_eval": summary["epoch_of_best_eval"],
                 "last_eval": summary["final_eval"],
                 "config_file": str(run.path / "config.yaml"),
@@ -2139,7 +2140,7 @@ class ResultsAnalysis:
                 "gradient_method",
                 "completed_epochs",
                 "best_eval",
-                "epoch_of_best_eval",
+                "average_best_so_far_eval",
                 "median_time_per_epoch",
             ),
         )
@@ -2242,7 +2243,7 @@ class ResultsAnalysis:
         fig, axes = plt.subplots(1, 3, figsize=(16, 4.5))
         for ax, metric_name, title in (
             (axes[0], "best_eval", "Best Evaluation Score"),
-            (axes[1], "epoch_of_best_eval", "Epoch of Best Evaluation"),
+            (axes[1], "average_best_so_far_eval", "Average Best Evaluation So Far"),
             (axes[2], "evaluation_step_volatility", "Evaluation-Step Volatility"),
         ):
             plot_final_metric(
@@ -2344,7 +2345,7 @@ class ResultsAnalysis:
         fig, axes = plt.subplots(1, 3, figsize=(16, 4.5))
         for ax, metric_name, title in (
             (axes[0], "best_eval", "Change in Best Evaluation Score"),
-            (axes[1], "epoch_of_best_eval", "Change in Epoch of Best Evaluation"),
+            (axes[1], "average_best_so_far_eval", "Change in Average Best Evaluation So Far"),
             (
                 axes[2],
                 "evaluation_step_volatility",
@@ -2429,11 +2430,11 @@ class ResultsAnalysis:
         plot_metric_by_numeric_field(
             runs,
             x_field="n_qubits",
-            metric_name="epoch_of_best_eval",
+            metric_name="average_best_so_far_eval",
             line_by=line_by,
             ax=axes[1],
         )
-        axes[1].set_title("Epoch of Best Evaluation by Number of Qubits")
+        axes[1].set_title("Average Best Evaluation So Far by Number of Qubits")
         fig.suptitle(title)
         self._finish(fig, stem)
         return fig, axes
@@ -2491,11 +2492,11 @@ class ResultsAnalysis:
             plot_metric_by_numeric_field(
                 selected,
                 x_field="n_qubits",
-                metric_name="epoch_of_best_eval",
+                metric_name="average_best_so_far_eval",
                 ax=axes[1, column],
             )
             axes[1, column].set_title(
-                f"{preset_name}: Epoch of Best Evaluation"
+                f"{preset_name}: Average Best Evaluation So Far"
             )
         fig.suptitle("Performance Scaling Across Qubit Counts by Encoding Preset")
         self._finish(fig, "06b_preset_scaling_best_results")
@@ -2679,7 +2680,7 @@ class ResultsAnalysis:
                 "implementation_packing",
                 "completed_epochs",
                 "best_eval",
-                "epoch_of_best_eval",
+                "average_best_so_far_eval",
             ),
         )
         return runs

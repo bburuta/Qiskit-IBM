@@ -42,8 +42,8 @@ default_config_values:
     precision: 0.015625
     transpilation:
       optimization_level: 3
-      layout_method: sabre
-      routing_method: sabre
+      layout_method: null
+      routing_method: null
     simulator:
       device: GPU
       device_name: CPU

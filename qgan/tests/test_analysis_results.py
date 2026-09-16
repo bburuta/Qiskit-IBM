@@ -12,9 +12,11 @@ from qgan_v2.analysis.results import (
     comparison_line_colors,
     deduplicate_simulator_runs,
     factor_sweep_groups,
+    grouped_performance_table,
     is_completed,
     load_results,
     metadata_from_config,
+    paired_metric_deltas,
     plot_training_dynamics_comparison,
     run_summary,
     select_main_learn_results,
@@ -183,6 +185,61 @@ def test_summary_uses_a_fixed_last_100_window_and_median_epoch_time():
     assert summary["median_time_per_epoch"] == pytest.approx(2.0)
     assert summary["projected_1000_epoch_time"] == pytest.approx(2000.0)
     assert summary["measured_epochs"] == 1000
+
+
+def test_average_best_so_far_rewards_early_achievements_despite_regression():
+    early = make_result("early", epochs=5)
+    early.eval = {0: 1.0, 1: 0.2, 2: 0.8, 3: 0.9, 4: 0.1}
+    late = make_result("late", epochs=5)
+    late.eval = {0: 1.0, 1: 0.8, 2: 0.9, 3: 0.2, 4: 0.1}
+
+    assert run_summary(early)["best_eval"] == run_summary(late)["best_eval"]
+    assert run_summary(early)["average_best_so_far_eval"] == pytest.approx(0.34)
+    assert run_summary(late)["average_best_so_far_eval"] == pytest.approx(0.58)
+
+
+@pytest.mark.parametrize(
+    "evaluations, expected",
+    [
+        ({3: 0.1, 0: 1.0, 2: 0.9, 1: 0.2}, 0.375),
+        ({0: np.nan, 1: 1.0, 2: np.inf, 3: 0.2, 4: 0.9}, 1.4 / 3),
+        ({0: 0.2}, 0.2),
+        ({}, np.nan),
+        ({0: np.nan, 1: np.inf, 2: -np.inf}, np.nan),
+    ],
+)
+def test_average_best_so_far_uses_finite_evaluations_in_epoch_order(
+    evaluations, expected
+):
+    result = make_result("summary")
+    result.eval = evaluations
+    value = run_summary(result)["average_best_so_far_eval"]
+    if np.isnan(expected):
+        assert np.isnan(value)
+    else:
+        assert value == pytest.approx(expected)
+
+
+def test_average_best_so_far_is_aggregated_and_used_in_paired_differences():
+    baseline = make_result("baseline", epochs=3, randomness=0)
+    baseline.eval = {0: 1.0, 1: 0.2, 2: 0.9}
+    treatment = make_result("treatment", epochs=3, randomness=1)
+    treatment.eval = {0: 1.0, 1: 0.8, 2: 0.2}
+    runs = [baseline, treatment]
+
+    grouped = grouped_performance_table(runs, fields=("randomness",))
+    assert grouped[0]["median_average_best_so_far_eval"] == pytest.approx(1.4 / 3)
+    assert grouped[1]["median_average_best_so_far_eval"] == pytest.approx(2.0 / 3)
+    assert "median_epoch_of_best_eval" not in grouped[0]
+    deltas = paired_metric_deltas(
+        runs,
+        baseline_filters={"randomness": 0},
+        treatment_filters={"randomness": 1},
+        metric_name="average_best_so_far_eval",
+        pair_fields=("seed",),
+    )
+    assert len(deltas) == 1
+    assert deltas[0]["delta"] == pytest.approx(0.2)
 
 
 def test_metric_value_transforms_are_per_run_and_leave_raw_values_unchanged():

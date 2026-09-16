@@ -162,6 +162,7 @@ _FIELD_DISPLAY_NAMES = {
 
 
 _METRIC_DISPLAY_NAMES = {
+    "average_best_so_far_eval": "Average Best Evaluation So Far",
     "best_eval": "Best Evaluation Score",
     "dloss": "Discriminator Loss",
     "epoch_of_best_eval": "Epoch of Best Evaluation",
@@ -984,6 +985,12 @@ def run_summary(
     ``last_window`` is fixed at 100 evaluations by default.  ``last_fraction``
     remains available for old notebooks but should not be used to compare runs
     with different training budgets.
+
+    ``average_best_so_far_eval`` averages cumulative minima of finite
+    evaluations in epoch order. It rewards earlier and better achievements
+    without penalizing later regressions, and retains the raw evaluation units.
+    Comparisons require the same evaluation metric, budget, and recording
+    cadence; incomplete or nonfinite histories are only diagnostic summaries.
     """
 
     eval_values = np.asarray(list(result.eval.values()), dtype=float)
@@ -1000,6 +1007,11 @@ def run_summary(
         else:
             window = max(1, min(int(last_window), len(eval_values)))
         best_eval = float(eval_values[best_index])
+        chronological_values = eval_values[np.argsort(eval_epochs)]
+        chronological_values = chronological_values[np.isfinite(chronological_values)]
+        average_best_so_far_eval = float(
+            np.mean(np.minimum.accumulate(chronological_values))
+        )
         best_epoch = int(eval_epochs[best_index])
         final_eval = float(eval_values[finite_indexes[-1]])
         initial_eval = float(eval_values[finite_indexes[0]])
@@ -1013,6 +1025,7 @@ def run_summary(
         )
     else:
         best_eval = np.nan
+        average_best_so_far_eval = np.nan
         best_epoch = None
         final_eval = np.nan
         initial_eval = np.nan
@@ -1050,6 +1063,7 @@ def run_summary(
         "requested_epochs": result.metadata.get("max_iterations"),
         "completed_requested_budget": is_completed(result),
         "best_eval": best_eval,
+        "average_best_so_far_eval": average_best_so_far_eval,
         "final_eval": final_eval,
         "initial_eval": initial_eval,
         "last_window_median_eval": last_window_median_eval,
@@ -1093,7 +1107,7 @@ def grouped_performance_table(
         "best_eval",
         "final_eval",
         "last_window_median_eval",
-        "epoch_of_best_eval",
+        "average_best_so_far_eval",
         "evaluation_step_volatility",
         "median_time_per_epoch",
     )

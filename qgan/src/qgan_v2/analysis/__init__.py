@@ -1,3 +1,6 @@
+from qgan_v2.analysis.backend_workflow import BackendAnalysis, BackendComparison
+from qgan_v2.analysis.backend_transpilation import BackendTranspilation
+from qgan_v2.analysis.backend_placement import BackendPlacementComparison
 from qgan_v2.analysis.results import (
     DEFAULT_GROUP_FIELDS,
     DEFAULT_PAIR_FIELDS,
@@ -55,6 +58,10 @@ from qgan_v2.analysis.workflow import (
 
 
 __all__ = [
+    "BackendAnalysis",
+    "BackendComparison",
+    "BackendTranspilation",
+    "BackendPlacementComparison",
     "DEFAULT_GROUP_FIELDS",
     "DEFAULT_PAIR_FIELDS",
     "SCIENTIFIC_PAIR_FIELDS",
