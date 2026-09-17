@@ -3,6 +3,11 @@ import numpy as np
 from qgan_v2.storage.paths import get_prepared_dataset_filename
 from qgan_v2.config.validation import validate_loaded_dataset
 
+
+def image_to_angles(image):
+    """Map pixel intensities in [0, 1] to RY angles in [0, π]."""
+    return np.pi * image
+
 #- Generated image datasets -#
 
 # Apply curve to normalized gradient

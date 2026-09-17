@@ -1,4 +1,5 @@
 import torch
+from qgan_v2.datasets.images import image_to_angles
 
 
 
@@ -39,7 +40,7 @@ def generate_real_input(X, batch_size, device):
 # Generate real discriminator input
 def generate_real_disc_input(encoding, x_data, model_d, batch_size, device):
     if encoding == "angle":
-        return generate_real_input(x_data, batch_size, device)
+        return image_to_angles(generate_real_input(x_data, batch_size, device))
     if encoding in ["amplitude", "direct_circuit"]:
         return generate_real_input_index(batch_size, model_d.num_real_models, device)
     raise ValueError(f"Unknown encoding method: {encoding}")

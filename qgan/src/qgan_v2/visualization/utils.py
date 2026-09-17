@@ -15,7 +15,7 @@ from qgan_v2.visualization.hardware_layout import (
     plot_hardware_layout,
 )
 from qgan_v2.config.loader import load_run_config
-from qgan_v2.datasets.images import get_images_dataset, show_images_dataset
+from qgan_v2.datasets.images import get_images_dataset, image_to_angles, show_images_dataset
 from qgan_v2.execution.backend import (
     create_fake_real_backend,
     load_or_create_real_backend_info,
@@ -309,7 +309,7 @@ def show_circuits(run, visual_config):
     if encoding == 'angle':
         real_circuit = real_circuits[0]
         real_circuits = [
-            real_circuit.assign_parameters(image.flatten())
+            real_circuit.assign_parameters(image_to_angles(image).flatten())
             for image in X
         ]
 

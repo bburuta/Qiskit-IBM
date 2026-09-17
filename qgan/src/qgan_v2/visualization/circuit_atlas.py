@@ -3,10 +3,22 @@
 from copy import deepcopy
 from pathlib import Path
 
+import numpy as np
+import torch
+from qiskit.quantum_info import Statevector
+
 from qiskit import QuantumCircuit
 from qiskit.circuit import ParameterVector
 
 from qgan_v2.circuits.factory import get_circuits
+from qgan_v2.circuits.encoding import (
+    create_randomizer_circuit,
+    generate_ang_circuit,
+    generate_amp_circuits,
+    images_to_amp,
+)
+from qgan_v2.datasets.images import get_images_dataset, image_to_angles
+from qgan_v2.datasets.quantum import create_quantum_dataset_circuits
 from qgan_v2.config.defaults import apply_experiment_preset, create_config_ids
 from qgan_v2.config.loader import load_run_config
 from qgan_v2.config.validation import validate_config
@@ -15,6 +27,7 @@ from qgan_v2.models.packed_circuits import (
     create_direct_disc_circuit,
 )
 from qgan_v2.models.qnn import compose_circuits
+from qgan_v2.visualization.utils import plot_basis_probabilities
 
 
 class CircuitAtlas:
@@ -28,6 +41,7 @@ class CircuitAtlas:
     IMPLEMENTATIONS = (
         "qml_torch", "runtime-packed-sep", "runtime-packed-join"
     )
+    RANDOM_CIRCUIT_TYPES = (0, 1, 2)
 
     def __init__(
         self,
@@ -89,6 +103,129 @@ class CircuitAtlas:
         config["dataset"]["id"] = None
         create_config_ids(config)
         return validate_config(config)
+
+    def build_data_preparation(self, preset):
+        """Prepare sample 0 using the same dataset and encoding as a training run."""
+        config = self._config(preset, "qml_torch")
+        if preset == "base":
+            circuit = create_quantum_dataset_circuits(config)[0]
+            image = normalized = None
+        else:
+            image = np.asarray(get_images_dataset(config, save_file=False)[0], dtype=float)
+            if preset == "ang":
+                template = generate_ang_circuit(self.n_qubits)
+                circuit = template.assign_parameters(image_to_angles(image).ravel())
+                probabilities = Statevector(circuit).probabilities()
+                basis = np.arange(len(probabilities))
+                normalized = np.array([
+                    np.dot(probabilities, 1 - 2 * ((basis >> qubit) & 1))
+                    for qubit in range(self.n_qubits)
+                ]).reshape(image.shape)
+            else:
+                amplitudes = images_to_amp(
+                    torch.as_tensor(image[None]), config["encoding"]["contrast"]
+                )
+                circuit = generate_amp_circuits(self.n_qubits, amplitudes)[0]
+                normalized = Statevector(circuit).probabilities().reshape(image.shape)
+        return {
+            "config": config,
+            "circuit": circuit,
+            "image": image,
+            "probabilities": Statevector(circuit).probabilities(),
+            "normalized": normalized,
+        }
+
+    def build_random_circuit_types(self, preset):
+        """Return all randomizer circuits accepted by the experiment config."""
+        config = self._config(preset, "qml_torch")
+        config["encoding"]["randomness"] = 1.0
+        circuits = []
+        for circuit_type in self.RANDOM_CIRCUIT_TYPES:
+            config["encoding"]["random_circuit"] = circuit_type
+            circuits.append((circuit_type, create_randomizer_circuit(config)))
+        return circuits
+
+    def show_random_circuit_types(self, preset, *, save_figures=False):
+        """Display the supported randomizer choices for a preset."""
+        from IPython.display import Markdown, display
+
+        descriptions = {
+            0: "Identity",
+            1: "one RY rotation per qubit",
+            2: "EfficientSU2",
+        }
+        display(Markdown(f"### {preset} · {self.n_qubits} qubits"))
+        for circuit_type, circuit in self.build_random_circuit_types(preset):
+            description = descriptions[circuit_type]
+            if preset == "ang" and circuit_type:
+                description = "one RY rotation per qubit (angle preset)"
+            display(Markdown(f"**Type {circuit_type}: {description}**"))
+            fig = circuit.draw(output="mpl")
+            self._display_preparation_figure(
+                fig, preset, f"random_type_{circuit_type}", save_figures
+            )
+
+    def show_data_preparation(self, preset, *, save_figures=False):
+        """Display the input, bound real circuit, probabilities, and measured image."""
+        import matplotlib.pyplot as plt
+        from IPython.display import Markdown, display
+
+        case = self.build_data_preparation(preset)
+        circuit = case["circuit"]
+        display(Markdown(f"### {preset} · {self.n_qubits} qubits"))
+        if case["image"] is not None:
+            fig, axes = plt.subplots(1, 2, figsize=(8, 3.5))
+            input_plot = axes[0].imshow(case["image"], cmap="gray", vmin=0, vmax=1,
+                                        interpolation="nearest")
+            axes[0].set_title("Sample gradient image (sample 0)", pad=16)
+            axes[0].axis("off")
+            fig.colorbar(input_plot, ax=axes[0], label="pixel value")
+
+            if preset == "ang":
+                measured_plot = axes[1].imshow(
+                    case["normalized"], cmap="gray_r", vmin=-1, vmax=1,
+                    interpolation="nearest",
+                )
+                axes[1].set_title("Measured Z expectation: cos(π × pixel)", pad=16)
+                label = "⟨Z⟩ (−1 white, 1 black)"
+            else:
+                measured_plot = axes[1].imshow(
+                    case["normalized"], cmap="gray", vmin=0,
+                    vmax=float(case["normalized"].max()), interpolation="nearest",
+                )
+                axes[1].set_title("Measured image: normalized probabilities", pad=16)
+                label = "probability (sum = 1)"
+            axes[1].axis("off")
+            fig.colorbar(measured_plot, ax=axes[1], label=label)
+            fig.tight_layout(pad=2)
+            self._display_preparation_figure(fig, preset, "images", save_figures)
+
+        display_circuit = circuit.decompose() if preset == "amp" else circuit
+        fig = display_circuit.draw(output="mpl")
+        fig.suptitle("Target circuit" if preset == "base" else "Real circuit for sample 0")
+        fig.subplots_adjust(top=0.82)
+        self._display_preparation_figure(fig, preset, "circuit", save_figures)
+
+        fig, ax = plt.subplots(figsize=(9, 3))
+        plot_basis_probabilities(ax, case["probabilities"], self.n_qubits,
+                                 title="Sample probability distribution", color="C1")
+        fig.tight_layout()
+        self._display_preparation_figure(fig, preset, "probabilities", save_figures)
+
+        return case
+
+    def _display_preparation_figure(self, fig, preset, slug, save_figures):
+        import matplotlib.pyplot as plt
+        from IPython.display import display
+
+        try:
+            if save_figures:
+                self.figure_dir.mkdir(parents=True, exist_ok=True)
+                fig.savefig(self.figure_dir / f"data_preparation_{preset}_{slug}.png",
+                            dpi=300, bbox_inches="tight")
+            display(fig)
+        finally:
+            plt.close(fig)
 
     @staticmethod
     def _boxed_job(blocks, name):
@@ -228,9 +365,13 @@ class CircuitAtlas:
             self.figure_dir.mkdir(parents=True, exist_ok=True)
         for slug, label, circuit in case["diagrams"]:
             display(Markdown(f"#### {label} — {circuit.num_qubits} qubits"))
-            fig = circuit.draw(output="mpl")
+            display_circuit = (
+                circuit.decompose() if preset == "amp" and slug == "real" else circuit
+            )
+            fig = display_circuit.draw(output="mpl")
             try:
                 fig.suptitle(f"{implementation} / {preset}: {label}", fontsize=12)
+                fig.subplots_adjust(top=0.82)
                 if save_figures:
                     path = self.figure_dir / f"{implementation}_{preset}_{slug}.png"
                     fig.savefig(path, dpi=300, bbox_inches="tight")
